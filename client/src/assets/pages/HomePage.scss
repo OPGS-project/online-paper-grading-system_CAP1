@@ -1,0 +1,23 @@
+@import '../GlobalStyles.scss';
+.fontsize30 {
+    font-size: 25px;
+    font-weight: 300;
+}
+.center-content {
+    text-align: center;
+}
+
+.text-color {
+    color: $text-color;
+    font-size: 2rem;
+}
+
+.border-add {
+    width: 50%;
+    margin: 50px auto;
+}
+
+.add-exam {
+    background-color: #fff;
+    box-shadow: $main-shadow;
+}

@@ -1,0 +1,32 @@
+@import './assets/GlobalStyles.scss';
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    color: $blue-color;
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+
+input,
+select {
+    outline-style: none;
+}
+
+.bg-gradient-primary {
+    min-height: 100vh;
+}
+
+.btn-back:hover {
+    color: gray;
+}

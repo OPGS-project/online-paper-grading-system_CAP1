@@ -1,0 +1,56 @@
+@import '../../GlobalStyles.scss';
+.content-bt {
+    min-height: 150px;
+    border-radius: 10px;
+}
+
+.file-bt {
+    border-radius: 15px;
+    color: $text-color;
+}
+.content-table {
+    height: 335px;
+}
+.flex1 {
+    flex: 1;
+}
+
+.space-row {
+    justify-content: space-around;
+}
+
+.criteria {
+    flex-direction: column;
+}
+
+.header-tc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn-add {
+        text-align: center;
+        margin-bottom: 5px;
+        .sub-btn {
+            height: 35px;
+            width: 150px;
+        }
+    }
+}
+
+.table {
+    width: 100%;
+    .icon-check {
+        font-size: 1.2rem;
+        width: 30px;
+        height: 25px;
+        color: $green-color;
+        margin-left: 5px;
+    }
+}
+
+.diemso {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+}

@@ -1,0 +1,31 @@
+@import '../../GlobalStyles.scss';
+
+.input-search {
+    padding-left: 20%;
+}
+
+.icon-search {
+    left: 0;
+    color: $text-color;
+}
+.icon-folder {
+    color: $blue-color;
+}
+.icon-edit {
+    color: $blue-color;
+}
+.icon-delete {
+    color: $red-color;
+}
+.header-bt {
+    align-items: center;
+    height: 100px;
+    .date {
+        margin: 0 12px;
+        width: 20%;
+    }
+}
+
+.height-table {
+    height: 80%;
+}
