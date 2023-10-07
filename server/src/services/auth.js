@@ -82,7 +82,7 @@ export const loginSuccess = (id) =>
           { expiresIn: "5d" } // time hết hạn của token
         ); // mã hóa
       resolve({
-        err: token ? 0 : 1, //0 là true
+        err: token ? 0 : 1,
         mes: token ? "thành công" : "Không tìm thấy người dùng",
         token,
       });
