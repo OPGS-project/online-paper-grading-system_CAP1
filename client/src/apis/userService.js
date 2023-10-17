@@ -3,11 +3,11 @@ import aixos from 'axios';
 export const apiGetOne = (token) =>
     new Promise(async (resolve, reject) => {
         try {
-            let response = await aixos({
+            const response = await aixos({
                 method: 'get',
-                url: 'http://localhost:8081/api/user/get-one',
+                url: 'http://localhost:8081/api/teacher/',
                 headers: {
-                    authentication: token,
+                    authorization: token,
                 },
             });
             resolve(response);

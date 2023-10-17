@@ -4,7 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Teachers", {
       id: {
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
         type: Sequelize.STRING,
       },
@@ -25,6 +25,9 @@ module.exports = {
         type: Sequelize.INTEGER(11),
       },
       avatar: {
+        type: Sequelize.STRING,
+      },
+      refresh_token: {
         type: Sequelize.STRING,
       },
 

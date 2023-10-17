@@ -48,7 +48,7 @@ function Profile() {
                     <div className="col-md-3 update-img mt-5">
                         <img
                             className=" img"
-                            src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+                            src="https://cdn.pixabay.com/photo/2020/07/01/12/s58/icon-5359553_1280.png"
                             alt=""
                         />
                         <button className="btn btn-success p-2">Chọn hình ảnh</button>

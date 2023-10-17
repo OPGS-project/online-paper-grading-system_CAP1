@@ -1,12 +1,13 @@
 import React from 'react';
+import { FaBookReader } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function Sidebar() {
     return (
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <Link className="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
                 <div className="sidebar-brand-icon rotate-n-15">
-                    <i class="fa-solid fa-user-graduate"></i>
+                    <FaBookReader style={{ height: '50px', width: '50px' }} />
                 </div>
                 <div className="sidebar-brand-text mx-3">OPGS</div>
             </Link>
@@ -14,20 +15,20 @@ function Sidebar() {
             <hr className="sidebar-divider my-0" />
 
             <li className="nav-item">
-                <Link to="/" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
-                    <Link className="nav-link" href="/">
+                <Link to="/home" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
+                    <div className="nav-link">
                         <i className="fas fa-fw fa-tachometer-alt"></i>
                         <span>Trang chủ</span>
-                    </Link>
+                    </div>
                 </Link>
             </li>
 
             <li className="nav-item">
                 <Link to="/Thongke" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
-                    <Link className="nav-link" href="/thongke">
+                    <div className="nav-link" href="/thongke">
                         <i className="fas fa-solid fa-chart-pie"></i>
                         <span>Thống kê</span>
-                    </Link>
+                    </div>
                 </Link>
             </li>
 
@@ -36,7 +37,7 @@ function Sidebar() {
             <li className="nav-item">
                 <a
                     className="nav-link collapsed"
-                    href="#"
+                    href="/#"
                     data-toggle="collapse"
                     data-target="#collapseTwo"
                     aria-expanded="true"
@@ -47,10 +48,10 @@ function Sidebar() {
                 </a>
                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
-                        <Link className="collapse-item" to="/thongtinlophoc">
+                        <Link className="collapse-item" to="/class">
                             Thông tin lớp học
                         </Link>
-                        <Link className="collapse-item" to="/add-className">
+                        <Link className="collapse-item" to="/createClass">
                             Thêm lớp học
                         </Link>
                     </div>
@@ -58,7 +59,8 @@ function Sidebar() {
             </li>
 
             <li className="nav-item">
-                <a
+                <Link
+                    to="#"
                     className="nav-link collapsed"
                     href="/#"
                     data-toggle="collapse"
@@ -68,7 +70,7 @@ function Sidebar() {
                 >
                     <i className="fas fa-solid fa-book"></i>
                     <span>Quản lý bài tập</span>
-                </a>
+                </Link>
                 <div
                     id="collapseUtilities"
                     className="collapse"

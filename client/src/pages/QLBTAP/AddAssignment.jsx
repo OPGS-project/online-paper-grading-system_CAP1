@@ -10,7 +10,7 @@ export default function AddAssignment() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/add-assignment');
+                    navigate('/');
                 }}
             >
                 <i class="fa-solid fa-arrow-left"></i>
@@ -35,12 +35,7 @@ export default function AddAssignment() {
                                     <label htmlFor="from" className="text-capitalize font-weight-bold pl-2">
                                         Từ
                                     </label>
-                                    <input
-                                        type="date"
-                                        className="form-control form-control-user"
-                                        id="from"
-                                        placeholder="Password"
-                                    />
+                                    <input type="date" className="form-control form-control-user" id="from" />
                                 </div>
                                 <div className="col-sm-6">
                                     <label htmlFor="to" className="text-capitalize font-weight-bold pl-3">
@@ -64,7 +59,7 @@ export default function AddAssignment() {
                             </div>
                             <div className="form-group d-flex justify-content-between row">
                                 <div className="col-5">
-                                    <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
+                                    <label htmlFor="name-bt" className="text-capitalize font-weight-bold ">
                                         Cho xem kết Quả
                                     </label>
                                 </div>
@@ -99,7 +94,7 @@ export default function AddAssignment() {
                     {/* tiêu chí */}
                     <Criteria />
                 </div>
-                <button className="btn btn-outline-success float-right ">Tạo Bài Tập</button>
+                <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>
             </form>
         </div>
     );

@@ -65,7 +65,7 @@ export default function UpdatePass() {
                                 </div>
                             </div>
 
-                            <Link to="/" className="btn btn-outline-success float-right ">
+                            <Link to="/home" className="btn btn-outline-success float-right ">
                                 Lưu<t></t>
                             </Link>
                         </form>

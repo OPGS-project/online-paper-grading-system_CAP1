@@ -66,35 +66,42 @@ const Assignment = () => {
                             <th></th>
                         </thead>
                         <tbody className="text-center">
-                            {values.map((assignment, i) => (
-                                <tr key={i}>
-                                    <td>
-                                        <i class="fa-solid fa-folder icon-folder"></i>
-                                    </td>
-                                    <td>{assignment.assignment_name}</td>
-                                    <td>{assignment.start_date}</td>
-                                    <td>{assignment.deadline}</td>
-                                    <td>{assignment.class_id}</td>
-                                    <td>20</td>
-                                    <td>30</td>
-                                    <td>aa</td>
-                                    <td>
-                                        <button
-                                            className="btn"
-                                            onClick={() => {
-                                                navigate('/edit-assignment');
-                                            }}
-                                        >
-                                            <i class="fa-solid fa-pen-to-square icon-edit"></i>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button className="btn">
-                                            <i class="fa-solid fa-trash icon-delete"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {/* {values.map((assignment, i) => ( key={i} */}
+                            <tr>
+                                <td>
+                                    <i class="fa-solid fa-folder icon-folder"></i>
+                                </td>
+                                {/* <td>{assignment.assignment_name}</td>
+                                <td>{assignment.start_date}</td>
+                                <td>{assignment.deadline}</td>
+                                <td>{assignment.class_id}</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>aa</td> */}
+                                <td>Bài Tập Giữa Kỳ</td>
+                                <td>10/10/2023</td>
+                                <td>13/10/2023</td>
+                                <td>A2</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>aa</td>
+                                <td>
+                                    <button
+                                        className="btn"
+                                        onClick={() => {
+                                            navigate('/edit-assignment');
+                                        }}
+                                    >
+                                        <i class="fa-solid fa-pen-to-square icon-edit"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button className="btn">
+                                        <i class="fa-solid fa-trash icon-delete"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {/* ))} */}
                         </tbody>
                     </table>
                 </div>

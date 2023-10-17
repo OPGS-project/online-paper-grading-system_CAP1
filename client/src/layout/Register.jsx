@@ -78,82 +78,84 @@ export default function Register() {
     };
 
     return (
-        <div className="container pt-5">
-            <div className="card o-hidden border-0 shadow-lg ">
-                <div className="card-body p-0 ">
-                    <div className="p-5 m-center ">
-                        <div className="text-center">
-                            <h1 className="h3 text-gray-900 mb-4 text-uppercase">Tạo tài khoản</h1>
-
-                            <form className="user" onSubmit={handleSubmit}>
-                                <div className="form-group has-validation">
-                                    <input
-                                        type="text"
-                                        className="form-control form-control-user"
-                                        id="validationCustom02"
-                                        placeholder="Họ & Tên "
-                                        onChange={handleChange}
-                                        name="name"
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group has-validation">
-                                    <input
-                                        type="email"
-                                        className="form-control form-control-user"
-                                        id="validationCustomUsername"
-                                        aria-describedby="inputGroupPrepend"
-                                        placeholder="Địa chỉ Email"
-                                        onChange={handleChange}
-                                        name="email"
-                                    />
-                                    {errors.email && <span className="text-danger">{errors.email}</span>}
-                                </div>
-                                <div className="form-group row">
-                                    <div className="col-sm-6 mb-3 mb-sm-0">
-                                        <input
-                                            type={show ? 'text' : 'password'}
-                                            className="form-control form-control-user"
-                                            placeholder="Mật khẩu"
-                                            onChange={handleChange}
-                                            name="password"
-                                        />
-                                        <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
-                                            {show ? <FaEyeSlash /> : <FaEye />}
-                                        </div>
-                                        {errors.password && <span className="text-danger">{errors.password}</span>}
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <input
-                                            type={show ? 'text' : 'password'}
-                                            className="form-control form-control-user"
-                                            placeholder="Nhập lại mật khẩu"
-                                            onChange={handleChange}
-                                            name="confirm_password"
-                                        />
-                                        <div className="position-absolute eye  " onClick={handleShow2}>
-                                            {show2 ? <FaEyeSlash /> : <FaEye />}
-                                        </div>
-                                        {errors.confirm_password && (
-                                            <span className="text-danger">{errors.confirm_password}</span>
-                                        )}
-                                    </div>
-                                </div>
-                                <button className="btn btn-primary btn-user btn-block" type="submit">
-                                    Đăng Ký
-                                </button>
-                                <hr />
-                                <Link to="/" className="btn btn-google btn-user btn-block">
-                                    <i className="fab fa-google fa-fw"></i> Đăng ký bằng Google
-                                </Link>
-                            </form>
-                            <ToastContainer />
-
-                            <hr />
+        <div className="bg-gradient-primary">
+            <div className="container pt-5">
+                <div className="card o-hidden border-0 shadow-lg ">
+                    <div className="card-body p-0 ">
+                        <div className="p-5 m-center ">
                             <div className="text-center">
-                                <Link className="small" to="/login">
-                                    Bạn đã có tài khoản ? Đăng Nhập
-                                </Link>
+                                <h1 className="h3 text-gray-900 mb-4 text-uppercase">Tạo tài khoản</h1>
+
+                                <form className="user" onSubmit={handleSubmit}>
+                                    <div className="form-group has-validation">
+                                        <input
+                                            type="text"
+                                            className="form-control form-control-user"
+                                            id="validationCustom02"
+                                            placeholder="Họ & Tên "
+                                            onChange={handleChange}
+                                            name="name"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group has-validation">
+                                        <input
+                                            type="email"
+                                            className="form-control form-control-user"
+                                            id="validationCustomUsername"
+                                            aria-describedby="inputGroupPrepend"
+                                            placeholder="Địa chỉ Email"
+                                            onChange={handleChange}
+                                            name="email"
+                                        />
+                                        {errors.email && <span className="text-danger">{errors.email}</span>}
+                                    </div>
+                                    <div className="form-group row">
+                                        <div className="col-sm-6 mb-3 mb-sm-0">
+                                            <input
+                                                type={show ? 'text' : 'password'}
+                                                className="form-control form-control-user"
+                                                placeholder="Mật khẩu"
+                                                onChange={handleChange}
+                                                name="password"
+                                            />
+                                            <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
+                                                {show ? <FaEyeSlash /> : <FaEye />}
+                                            </div>
+                                            {errors.password && <span className="text-danger">{errors.password}</span>}
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <input
+                                                type={show ? 'text' : 'password'}
+                                                className="form-control form-control-user"
+                                                placeholder="Nhập lại mật khẩu"
+                                                onChange={handleChange}
+                                                name="confirm_password"
+                                            />
+                                            <div className="position-absolute eye  " onClick={handleShow2}>
+                                                {show2 ? <FaEyeSlash /> : <FaEye />}
+                                            </div>
+                                            {errors.confirm_password && (
+                                                <span className="text-danger">{errors.confirm_password}</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <button className="btn btn-primary btn-user btn-block" type="submit">
+                                        Đăng Ký
+                                    </button>
+                                    <hr />
+                                    <Link to="/" className="btn btn-google btn-user btn-block">
+                                        <i className="fab fa-google fa-fw"></i> Đăng ký bằng Google
+                                    </Link>
+                                </form>
+                                <ToastContainer />
+
+                                <hr />
+                                <div className="text-center">
+                                    <Link className="small" to="/login">
+                                        Bạn đã có tài khoản ? Đăng Nhập
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

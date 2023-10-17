@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Assignment.hasMany(models.Events, {
+        foreignKey: "of_assignment",
+        as: "criteriaData",
+      });
     }
   }
   Assignment.init(
@@ -16,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       assignment_name: DataTypes.STRING,
       start_date: DataTypes.DATE,
       deadline: DataTypes.DATE,
+      of_class: DataTypes.STRING,
       content_type: DataTypes.ENUM("text", "file"),
       content_text: DataTypes.TEXT,
       file_path: DataTypes.STRING,

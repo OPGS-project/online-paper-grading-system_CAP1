@@ -18,6 +18,9 @@ module.exports = {
       deadline: {
         type: Sequelize.DATE,
       },
+      of_class: {
+        type: Sequelize.STRING,
+      },
       content_type: {
         type: Sequelize.ENUM("text", "file"),
       },

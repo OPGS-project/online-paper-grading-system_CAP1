@@ -70,75 +70,77 @@ export default function Login() {
     };
 
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-xl-10 col-lg-12 col-md-9">
-                    <div className="card o-hidden border-0 shadow-lg my-5">
-                        <div className="card-body p-0">
-                            <div className="row">
-                                <div className="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                                <div className="col-lg-6">
-                                    <div className="p-5">
-                                        <div className="text-center">
-                                            <h1 className="h3 text-gray-900 mb-4">Đăng Nhập</h1>
-                                        </div>
-                                        <form className="user" method="post" onSubmit={handleSubmit}>
-                                            <div className="form-group">
-                                                <input
-                                                    type="email"
-                                                    className="form-control form-control-user"
-                                                    placeholder="example@gmai.com"
-                                                    onChange={handleChange}
-                                                    name="email"
-                                                />
+        <div className="bg-gradient-primary">
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-xl-10 col-lg-12 col-md-9">
+                        <div className="card o-hidden border-0 shadow-lg my-5">
+                            <div className="card-body p-0">
+                                <div className="row">
+                                    <div className="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                    <div className="col-lg-6">
+                                        <div className="p-5">
+                                            <div className="text-center">
+                                                <h1 className="h3 text-gray-900 mb-4">Đăng Nhập</h1>
                                             </div>
-                                            <div className="form-group">
-                                                <input
-                                                    type={show ? 'text' : 'password'}
-                                                    className="form-control form-control-user"
-                                                    placeholder="***************"
-                                                    onChange={handleChange}
-                                                    name="password"
-                                                />
-                                                <div className="position-absolute eye-login" onClick={handleShow}>
-                                                    {show ? <FaEyeSlash /> : <FaEye />}
-                                                </div>
-                                            </div>
-                                            <div className="form-group d-flex justify-content-between">
-                                                <div className="custom-control custom-checkbox small">
+                                            <form className="user" method="post" onSubmit={handleSubmit}>
+                                                <div className="form-group">
                                                     <input
-                                                        type="checkbox"
-                                                        className="custom-control-input"
-                                                        id="customCheck"
+                                                        type="email"
+                                                        className="form-control form-control-user"
+                                                        placeholder="example@gmai.com"
+                                                        onChange={handleChange}
+                                                        name="email"
                                                     />
-                                                    <label className="custom-control-label " htmlFor="customCheck">
-                                                        Nhớ mật khẩu
-                                                    </label>
                                                 </div>
-                                                <div className="text-center">
-                                                    <Link className="small" to="/forgot-password">
-                                                        Quên mật khẩu?
-                                                    </Link>
+                                                <div className="form-group">
+                                                    <input
+                                                        type={show ? 'text' : 'password'}
+                                                        className="form-control form-control-user"
+                                                        placeholder="***************"
+                                                        onChange={handleChange}
+                                                        name="password"
+                                                    />
+                                                    <div className="position-absolute eye-login" onClick={handleShow}>
+                                                        {show ? <FaEyeSlash /> : <FaEye />}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <button className="btn btn-primary btn-user btn-block" type="submit">
-                                                Đăng Nhập
-                                            </button>
+                                                <div className="form-group d-flex justify-content-between">
+                                                    <div className="custom-control custom-checkbox small">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="custom-control-input"
+                                                            id="customCheck"
+                                                        />
+                                                        <label className="custom-control-label " htmlFor="customCheck">
+                                                            Nhớ mật khẩu
+                                                        </label>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <Link className="small" to="/forgot-password">
+                                                            Quên mật khẩu?
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <button className="btn btn-primary btn-user btn-block" type="submit">
+                                                    Đăng Nhập
+                                                </button>
+                                                <hr />
+                                                <button
+                                                    className="btn btn-google btn-google-color btn-user btn-block"
+                                                    onClick={handleLogin}
+                                                >
+                                                    <i className="fab fa-google fa-fw"></i> Đăng nhập với Google
+                                                </button>
+                                            </form>
+                                            <ToastContainer />
                                             <hr />
-                                            <button
-                                                className="btn btn-google btn-google-color btn-user btn-block"
-                                                onClick={handleLogin}
-                                            >
-                                                <i className="fab fa-google fa-fw"></i> Đăng nhập với Google
-                                            </button>
-                                        </form>
-                                        <ToastContainer />
-                                        <hr />
 
-                                        <div className="text-center">
-                                            <Link className="small" to="/register">
-                                                Tạo tài khoản
-                                            </Link>
+                                            <div className="text-center">
+                                                <Link className="small" to="/register">
+                                                    Tạo tài khoản
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { BsFillPencilFill } from 'react-icons/bs';
+import { BsFillTrashFill } from 'react-icons/bs';
+
 function Criteria() {
     const navigate = useNavigate();
 
@@ -49,30 +53,79 @@ function Criteria() {
                     </thead>
                     {/* nội dung tiêu chí */}
                     <tbody>
-                        {newCriteria.map((grading_criteria, i) => (
-                            <tr key={i}>
+                        {/* {newCriteria.map((grading_criteria, i) => ( key={i} */}
+                        {/* <tr >
                                 <td className="d-flex justify-content-between">
                                     <i className="fa-solid fa-check icon-check"></i>
                                     {grading_criteria.correct_answer}
                                     <button
                                         type="button"
-                                        className="btn fa-solid fa-ellipsis-vertical btn-dots"
+                                        className="btn btn-dots"
                                         data-toggle="dropdown"
                                         aria-haspopup="true"
                                         aria-expanded="false"
-                                    ></button>
+                                    ><BsThreeDotsVertical/></button>
                                     <div className="dropdown-menu">
                                         <button className="dropdown-item" href="#">
-                                            Xóa
+                                            Xóa <BsFillTrashFill  className="ml-2"/>
                                         </button>
                                         <button className="dropdown-item" href="#">
-                                            Sửa
+                                            Sửa <BsFillPencilFill  className="ml-2" />
                                         </button>
                                     </div>
                                 </td>
                                 <td className="text-center ">{grading_criteria.max_score}</td>
-                            </tr>
-                        ))}
+                            </tr> */}
+                        {/* ))} */}
+                        <tr>
+                            <td className="d-flex justify-content-between">
+                                <i className="fa-solid fa-check icon-check"></i>
+                                Rõ ràng , đúng ý
+                                <button
+                                    type="button"
+                                    className="btn btn-dots"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                >
+                                    {' '}
+                                    <BsThreeDotsVertical />
+                                </button>
+                                <div className="dropdown-menu">
+                                    <button className="dropdown-item" href="#">
+                                        Xóa <BsFillTrashFill className="ml-2" />
+                                    </button>
+                                    <button className="dropdown-item" href="#">
+                                        Sửa <BsFillPencilFill className="ml-2" />
+                                    </button>
+                                </div>
+                            </td>
+                            <td className="text-center ">2</td>
+                        </tr>
+                        <tr>
+                            <td className="d-flex justify-content-between">
+                                <i className="fa-solid fa-check icon-check"></i>
+                                Bài làm sạch sẽ
+                                <button
+                                    type="button"
+                                    className="btn btn-dots"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                >
+                                    <BsThreeDotsVertical />
+                                </button>
+                                <div className="dropdown-menu " style={{ minWidth: 50 }}>
+                                    <button className="dropdown-item" href="#">
+                                        Xóa
+                                    </button>
+                                    <button className="dropdown-item" href="#">
+                                        Sửa
+                                    </button>
+                                </div>
+                            </td>
+                            <td className="text-center ">2</td>
+                        </tr>
                     </tbody>
                 </table>
             </form>

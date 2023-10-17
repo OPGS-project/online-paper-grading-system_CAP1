@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Teacher.belongsTo(models.Role, {
+        foreignKey: "role",
+        targetKey: "code",
+        as: "roleData",
+      });
     }
   }
   Teacher.init(
@@ -19,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       phone: DataTypes.INTEGER(11),
       avatar: DataTypes.STRING,
+      refresh_token: DataTypes.STRING,
     },
     {
       sequelize,
