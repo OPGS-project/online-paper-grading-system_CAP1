@@ -87,31 +87,30 @@ export default function Register() {
                                 <h1 className="h3 text-gray-900 mb-4 text-uppercase">Tạo tài khoản</h1>
 
                                 <form className="user" onSubmit={handleSubmit}>
-                                    <div className="form-group has-validation">
+                                    <div className="form-group ">
+                                        <label className="float-left ml-3 label-regis ">Họ & Tên</label>
                                         <input
                                             type="text"
                                             className="form-control form-control-user"
-                                            id="validationCustom02"
-                                            placeholder="Họ & Tên "
+                                            placeholder="Họ tên"
                                             onChange={handleChange}
                                             name="name"
                                             required
                                         />
                                     </div>
-                                    <div className="form-group has-validation">
+                                    <div className="form-group">
+                                        <label className="float-left ml-3 label-regis ">Email</label>
                                         <input
                                             type="email"
                                             className="form-control form-control-user"
-                                            id="validationCustomUsername"
-                                            aria-describedby="inputGroupPrepend"
-                                            placeholder="Địa chỉ Email"
+                                            placeholder="example@gmail.com"
                                             onChange={handleChange}
                                             name="email"
                                         />
-                                        {errors.email && <span className="text-danger">{errors.email}</span>}
                                     </div>
                                     <div className="form-group row">
                                         <div className="col-sm-6 mb-3 mb-sm-0">
+                                            <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
                                             <input
                                                 type={show ? 'text' : 'password'}
                                                 className="form-control form-control-user"
@@ -122,9 +121,10 @@ export default function Register() {
                                             <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
                                                 {show ? <FaEyeSlash /> : <FaEye />}
                                             </div>
-                                            {errors.password && <span className="text-danger">{errors.password}</span>}
                                         </div>
                                         <div className="col-sm-6">
+                                            <label className="float-left ml-3 label-regis ">Nhập Lại Mật Khẩu</label>
+
                                             <input
                                                 type={show ? 'text' : 'password'}
                                                 className="form-control form-control-user"
@@ -135,18 +135,13 @@ export default function Register() {
                                             <div className="position-absolute eye  " onClick={handleShow2}>
                                                 {show2 ? <FaEyeSlash /> : <FaEye />}
                                             </div>
-                                            {errors.confirm_password && (
-                                                <span className="text-danger">{errors.confirm_password}</span>
-                                            )}
                                         </div>
                                     </div>
-                                    <button className="btn btn-primary btn-user btn-block" type="submit">
-                                        Đăng Ký
-                                    </button>
-                                    <hr />
-                                    <Link to="/" className="btn btn-google btn-user btn-block">
-                                        <i className="fab fa-google fa-fw"></i> Đăng ký bằng Google
-                                    </Link>
+                                    <div className="mx-5">
+                                        <button className="btn btn-primary btn-user px-5" type="submit">
+                                            Đăng Ký
+                                        </button>
+                                    </div>
                                 </form>
                                 <ToastContainer />
 

@@ -23,7 +23,7 @@ const publicRoutes = [
     { path: '/', component: Introduction, layout: null },
     //
     { path: '/login', component: Login, layout: null },
-    { path: '/login-success/:userId', component: LoginSuccess, layout: null },
+    { path: '/login-success/:userId/:refresh_token', component: LoginSuccess, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/forgot-password', component: ForgotPassword, layout: null },
     { path: '/home', component: Home },

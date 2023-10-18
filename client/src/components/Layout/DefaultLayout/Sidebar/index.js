@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Sidebar() {
     return (
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
+            <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="#">
                 <div className="sidebar-brand-icon rotate-n-15">
                     <FaBookReader style={{ height: '50px', width: '50px' }} />
                 </div>

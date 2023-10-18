@@ -1,5 +1,6 @@
 import aixos from 'axios';
 
+//login w gg
 export const apiLoginSuccess = (id, refresh_token) =>
     new Promise(async (resolve, reject) => {
         try {

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendMail from "../utils/email";
 import { generateRandomString } from "../helpers/idRandom";
+const { v4: uuidv4 } = require("uuid");
 
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -117,6 +118,7 @@ export const login = ({ email, password }) =>
 export const loginSuccess = (id, refresh_token) =>
   new Promise(async (resolve, reject) => {
     try {
+      const newToken = uuidv4();
       let response = await db.Teacher.findOne({
         where: { id, refresh_token },
         raw: true,
@@ -128,30 +130,19 @@ export const loginSuccess = (id, refresh_token) =>
           process.env.JWT_SECRET,
           { expiresIn: "5d" }
         );
-      //Refresh_token
-      const refreshToken = response[1]
-        ? jwt.sign(
-            {
-              id: response[0].id,
-            },
-            process.env.JWT_SECRET_REFRESH_TOKEN,
-            { expiresIn: "10d" }
-          )
-        : null;
+      console.log(token);
       resolve({
         err: token ? 0 : 3,
         msg: token ? "OK" : "User not found or fail to login !",
         token,
-        refresh_token: refreshToken,
       });
-
-      if (refreshToken) {
+      if (response) {
         await db.Teacher.update(
           {
-            refresh_token: refreshToken,
+            refresh_token: newToken,
           },
           {
-            where: { id: response[0].id },
+            where: { id },
           }
         );
       }
@@ -234,8 +225,8 @@ export const resetPassword = (email) =>
         });
       }
 
-      const html = `Mật khẩu mới của bạn ở đây <h1> ${newPassword} </h1>`;
-      const title = `123`;
+      const html = ` Xin chào ${response.name}, <br> Đã có yêu cầu đặt lại mật khẩu của bạn! <br> Mật khẩu mới của bạn là : <strong>${newPassword} </strong>`;
+      const title = `Đặt Lại Mật Khẩu`;
       await sendMail({ email, html, title });
     } catch (e) {
       reject(e);

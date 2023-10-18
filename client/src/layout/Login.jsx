@@ -43,29 +43,26 @@ export default function Login() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (values.email === '' && values.password === '') {
-        }
-        axios
-            .post('http://localhost:8081/api/v1/auth/login', values)
-            .then((res) => {
-                if (res.data === 'Success') {
-                    console.log(res);
-                    notifySuccess('Đăng nhập thành công !');
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 3000); // chuyển trang sau 3s
-                } else {
-                    notifyWarning('Email hoặc Mật khẩu không đúng');
-                }
-            })
 
-            .catch((err) => {
-                console.log(err);
-            });
+        axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
+            if (res.data === 'Success') {
+                console.log(res);
+                notifySuccess('Đăng nhập thành công !');
+                setTimeout(() => {
+                    navigate('/');
+                }, 3000); // chuyển trang sau 3s
+            } else {
+                notifyWarning('Email hoặc Mật khẩu không đúng');
+            }
+        });
+        //     .catch(error);
+        // {
+        //     console.log(error);
+        // }
     };
     console.log(values);
 
-    const handleLogin = () => {
+    const handleLoginGG = () => {
         window.open('http://localhost:8081/api/auth/google', '_self'); // self load  đè lên trang hiện tại
     };
 
@@ -83,7 +80,7 @@ export default function Login() {
                                             <div className="text-center">
                                                 <h1 className="h3 text-gray-900 mb-4">Đăng Nhập</h1>
                                             </div>
-                                            <form className="user" method="post" onSubmit={handleSubmit}>
+                                            <form className="user" method="post">
                                                 <div className="form-group">
                                                     <input
                                                         type="email"
@@ -122,17 +119,22 @@ export default function Login() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-primary btn-user btn-block" type="submit">
+                                                <button
+                                                    className="btn btn-primary btn-user btn-block"
+                                                    type="submit"
+                                                    onSubmit={handleSubmit}
+                                                >
                                                     Đăng Nhập
                                                 </button>
                                                 <hr />
-                                                <button
-                                                    className="btn btn-google btn-google-color btn-user btn-block"
-                                                    onClick={handleLogin}
-                                                >
-                                                    <i className="fab fa-google fa-fw"></i> Đăng nhập với Google
-                                                </button>
                                             </form>
+                                            <button
+                                                className="btn btn-google btn-google-color btn-user btn-block"
+                                                style={{ borderRadius: 50, padding: 10 }}
+                                                onClick={handleLoginGG}
+                                            >
+                                                <i className="fab fa-google fa-fw"></i> Đăng nhập với Google
+                                            </button>
                                             <ToastContainer />
                                             <hr />
 
