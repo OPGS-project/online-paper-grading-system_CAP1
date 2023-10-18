@@ -15,7 +15,7 @@ export const getAssignment = ({
     try {
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_ASSIGNMENT;
+      const fLimit = +limit || +process.env.LIMIT_NUMBER;
       queries.offset = offset * fLimit;
       queries.limit = fLimit;
       if (order) queries.order = [order];

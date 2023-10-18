@@ -15,3 +15,8 @@ export const content_text = joi.string().required();
 export const grading_criteria_file = joi.number().required();
 export const assignmentId = joi.string().required();
 export const assignmentIds = joi.array().required();
+//class
+export const class_name = joi.string().required();
+export const state = joi.string();
+export const total_students = joi.number().required();
+export const teacher_name = joi.string().required();

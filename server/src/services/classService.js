@@ -1,39 +1,46 @@
+import { id } from "../helpers/joi_schema";
 import db from "../models";
 import { Op } from "sequelize";
 
 //READ
-export const getClasses = ({ page, limit, order, name, available, ...query }) =>
+export const getClasses = ({
+  page,
+  limit,
+  order,
+  name,
+
+  ...query
+}) =>
   new Promise(async (resolve, reject) => {
     try {
-      const queries = { raw: true, nest: true };
+      const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_CLASS;
+      const fLimit = +limit || +process.env.LIMIT_NUMBER;
       queries.offset = offset * fLimit;
       queries.limit = fLimit;
       if (order) queries.order = [order];
-      if (name) query.title = { [Op.substring]: name };
-      if (available) query.available = { [Op.between]: available };
+      if (name) query.class_name = { [Op.substring]: name };
       const response = await db.Class.findAndCountAll({
         where: query,
         ...queries,
-        attributes: {
-          exclude: ["teacher_name"],
-        },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
         include: [
           {
             model: db.Teacher,
-            attributes: { exclude: ["createdAt", "updatedAt"] },
             as: "teacherData",
+            attributes: ["name"],
           },
         ],
       });
+
       resolve({
         err: response ? 0 : 1,
-        mes: response ? "Got" : "Cannot found class",
+        message: response ? "Got" : "Can not found!!!",
         classData: response,
       });
-    } catch (error) {
-      reject(error);
+    } catch (e) {
+      console.log(e);
+      reject(e);
     }
   });
 
@@ -43,7 +50,7 @@ export const createNewClass = (body) =>
     try {
       const response = await db.Class.findOrCreate({
         where: { class_name: body?.class_name },
-        defaults: { ...body },
+        defaults: body,
       });
       resolve({
         err: response[1] ? 0 : 1,

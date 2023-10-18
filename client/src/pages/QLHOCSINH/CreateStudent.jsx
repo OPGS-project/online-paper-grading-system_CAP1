@@ -107,7 +107,7 @@ export default function CreateStudent() {
                         <div>
                             <DatePicker
                                 placeholderText="Chọn ngày sinh"
-                                dateFormat="yyyy-MM-dd"
+                                dateFormat="dd-mm-yyyy"
                                 className="form-control form-control-user"
                                 wrapperClassName="custom-datepicker-wrapper form-control form-control-l" // loại bỏ class mặc định của input DatePicker
                             />

@@ -5,7 +5,6 @@ import LoginSuccess from '../layout/LoginSuccess';
 import Register from '../layout/Register';
 import ForgotPassword from '~/layout/ForgotPassword';
 import AddAssignment from '~/pages/QLBTAP/AddAssignment';
-import AddCriteria from '~/pages/QLBTAP/AddCriteria';
 import Assignment from '~/pages/QLBTAP/Assignment';
 import EditAssignment from '~/pages/QLBTAP/EditAssignment';
 import Profile from '~/pages/USER/Profile';
@@ -29,7 +28,6 @@ const publicRoutes = [
     { path: '/home', component: Home },
     // QLBAITAP
     { path: '/add-assignment', component: AddAssignment },
-    { path: '/add-criteria', component: AddCriteria },
     { path: '/edit-assignment', component: EditAssignment },
     { path: '/assignment', component: Assignment },
     //QLHSINH

@@ -12,12 +12,15 @@ module.exports = {
       class_name: {
         type: Sequelize.STRING,
       },
-      status: {
+      state: {
         type: Sequelize.STRING,
         defaultValue: "Mở",
       },
       total_students: {
         type: Sequelize.INTEGER,
+      },
+      teacher_name: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

@@ -21,6 +21,9 @@ module.exports = {
       bithday: {
         type: Sequelize.DATEONLY,
       },
+      address: {
+        type: Sequelize.STRING,
+      },
       email: {
         type: Sequelize.STRING,
       },

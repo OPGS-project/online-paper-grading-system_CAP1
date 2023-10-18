@@ -40,6 +40,7 @@ export const createAssignment = async (req, res) => {
     return internalServerError(res);
   }
 };
+
 export const updateAssignment = async (req, res) => {
   try {
     const { error } = joi
