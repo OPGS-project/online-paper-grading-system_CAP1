@@ -232,3 +232,28 @@ export const resetPassword = (email) =>
       reject(e);
     }
   });
+//change-password
+export const changePassword = (body, userId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Teacher.findOne({
+        where: { id: userId },
+      });
+      const isChecked =
+        response && bcrypt.compareSync(body.password, response.password);
+      const response1 = isChecked
+        ? body.newPassword == body.password
+          ? "Must not match the old password"
+          : await db.Teacher.update(
+              { password: hashPassword(body.newPassword) },
+              { where: { id: userId } }
+            )
+        : "Password is wrong";
+      resolve({
+        success: response1[0] > 0 ? true : false,
+        mess: response1[0] > 0 ? "Changed password successfully" : response1,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });

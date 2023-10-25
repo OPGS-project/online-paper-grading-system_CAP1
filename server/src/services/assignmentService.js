@@ -66,7 +66,7 @@ export const createAssignment = (body) =>
     }
   });
 //UPDATE
-export const updateAssignment = ({ assignmentId, ...body }) =>
+export const updateAssignment = (assignmentId, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Assignment.update(body, {
@@ -86,11 +86,11 @@ export const updateAssignment = ({ assignmentId, ...body }) =>
     }
   });
 //DELETE
-export const deleteAssignment = (assignmentIds) =>
+export const deleteAssignment = (assignmentId) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Assignment.destroy({
-        where: { id: assignmentIds },
+        where: { id: assignmentId },
       });
 
       resolve({

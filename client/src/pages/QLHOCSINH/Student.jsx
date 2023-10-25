@@ -1,65 +1,84 @@
-import 'bootstrap-icons/font/bootstrap-icons.css'; 
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'; // Thêm import useState và useEffect từ react
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import moment from 'moment/moment';
 
 export default function Student() {
-    
-    return(
-        <div className="container-fluid">
-                <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh</h1>
-        
-                <div className="card shadow mb-4">
-                    <div className="card-header py-3">
-                        
-                        <Link className='btn btn-success' to={'/createStudent'}
-                        >+ Thêm học sinh</Link>
-                        <p className='float-right' >Sỉ số: 10 học sinh</p>
-                    </div>
-                    <div className="card-body">
-                        <div className="table-responsive">
-                            <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
-                                <thead>
-                                    <tr className='text-center'>
-                                        <th>Mã số</th>
-                                        <th>Lớp</th>
-                                        <th>Họ và tên</th>
-                                        <th>Giới tính</th>
-                                        <th>Ngày sinh</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Quê quán</th>
-                                        <th>Tùy chỉnh</th>
-                                    </tr>
-                                </thead>
+    const [student, setStudent] = useState([]);
+    const params = useParams();
+    console.log(params);
 
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8081/api/class/${params.classID}`)
+            .then((res) => {
+                // console.log(res.data.response[0].studentData);
+                setStudent(res.data.response[0].studentData);
+            })
+            .catch((err) => console.error(err));
+    }, [params]);
+    const studentCount = student.count;
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete('http://localhost:8081/api/student/delete-student/' + id);
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    console.log(student);
+    return (
+        <div className="container-fluid">
+            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh</h1>
+
+            <div className="card shadow mb-4">
+                <div className="card-header py-3">
+                    <Link className="btn btn-success" to={'/student/createStudent'}>
+                        + Thêm học sinh
+                    </Link>
+                    <p className="float-right">( {studentCount}lớp)</p>
+                </div>
+                <div className="card-body">
+                    <div className="table-responsive">
+                        <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
+                            <thead>
+                                <tr className="text-center">
+                                    <th>Họ và tên</th>
+                                    <th>Giới tính</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Quê quán</th>
+                                    <th>Tùy chỉnh</th>
+                                </tr>
+                            </thead>
+                            {
                                 <tbody>
-                                    {
-                                       
-                                            <tr className='text-center'>
-                                                <td>1</td>
-                                                <td>TPM1</td>
-                                                <td>Nguyễn Hữu Lĩnh</td>
-                                                <td>Nam</td>
-                                                <td>25/07/2002</td>
-                                                <td>023456789</td>
-                                                <td>Đà Nẵng</td>
-                                                <td>
-                                                <Link to={"/student/updateStudent"}>
+                                    {student?.map((data, i) => (
+                                        <tr key={i} className="text-center">
+                                            <td>{data.student_name}</td>
+                                            <td>{data.gender}</td>
+                                            <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
+                                            <td>{data.phone}</td>
+                                            <td>{data.address}</td>
+                                            <td>
+                                                <Link to={`/student/updateStudent${data.id}`}>
                                                     <i className="bi bi-pencil-square mr-3"></i>
                                                 </Link>
-                                                    <i
-                                                        className="bi bi-trash-fill text-danger"
-                                                        // onClick={e => handleDelete(data.id)}
-                                                        style={{ cursor: 'pointer' }} 
-                                                    ></i>
-                                                </td>
-                                            </tr>
-                                        
-                                    }  
+                                                <i
+                                                    className="bi bi-trash-fill text-danger"
+                                                    onClick={() => handleDelete(data.id)}
+                                                    style={{ cursor: 'pointer' }}
+                                                ></i>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
-                            </table>
-                        </div>
+                            }
+                        </table>
                     </div>
                 </div>
-
             </div>
-    );        
+        </div>
+    );
 }

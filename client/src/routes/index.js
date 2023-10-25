@@ -9,42 +9,52 @@ import Assignment from '~/pages/QLBTAP/Assignment';
 import EditAssignment from '~/pages/QLBTAP/EditAssignment';
 import Profile from '~/pages/USER/Profile';
 import UpdatePass from '~/pages/USER/UpdatePass';
-import Marking from '~/pages/Marking';
+import Grading from '~/pages/Grading';
 import Student from '~/pages/QLHOCSINH/Student';
 import CreateStudent from '~/pages/QLHOCSINH/CreateStudent';
 import UpdateStudent from '~/pages/QLHOCSINH/UpdateStudent';
 import Class from '~/pages/QLLOPHOC/Class';
 import CreateClass from '~/pages/QLLOPHOC/CreateClass';
 import UpdateClass from '~/pages/QLLOPHOC/UpdateClass';
+import ChooseRole from '~/pages/ChooseRole';
+import Statis from '~/pages/THONGKE/Statis';
+import Submitted from '~/pages/QLBTAP/Submitted';
+import Criteria from '~/pages/QLBTAP/Criteria';
 
 //Public routes
 const publicRoutes = [
     { path: '/', component: Introduction, layout: null },
+    { path: '/choose-role', component: ChooseRole, layout: null },
+
     //
     { path: '/login', component: Login, layout: null },
     { path: '/login-success/:userId/:refresh_token', component: LoginSuccess, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/forgot-password', component: ForgotPassword, layout: null },
     { path: '/home', component: Home },
+    { path: '/statis', component: Statis },
     // QLBAITAP
-    { path: '/add-assignment', component: AddAssignment },
-    { path: '/edit-assignment', component: EditAssignment },
     { path: '/assignment', component: Assignment },
+    { path: '/criteria', component: Criteria },
+    { path: '/submitted', component: Submitted },
+    { path: '/assignment/add-assignment', component: AddAssignment },
+    { path: '/assignment/edit-assignment/:assignmentId', component: EditAssignment },
     //QLHSINH
-    { path: '/student', component: Student },
-    { path: '/createStudent', component: CreateStudent },
-    { path: '/student/updateStudent', component: UpdateStudent },
+    { path: '/class/:classID', component: Student },
+    { path: '/student/createStudent', component: CreateStudent },
+    { path: '/student/updateStudent/:studentId', component: UpdateStudent },
     // { path: '/student/updateStudent/:id', component: UpdateStudent },
     //QLLOPHOC
     { path: '/class', component: Class },
-    { path: '/createClass', component: CreateClass },
-    { path: '/class/updateClass', component: UpdateClass },
+
+    { path: '/class/createClass', component: CreateClass },
+    { path: '/class/update-class/:classID', component: UpdateClass },
 
     //USER
     { path: '/user-profile', component: Profile },
     { path: '/update-password', component: UpdatePass },
     //Chấm bài
-    { path: '/marking', component: Marking },
+    { path: '/grading', component: Grading },
 ];
 
 const privateRoutes = [];

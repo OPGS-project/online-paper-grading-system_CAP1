@@ -1,7 +1,6 @@
 import DatePicker from 'react-datepicker';
+import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-// import {ToastContainer, toast} from 'react-toastify';
-// import "react-toastify/dist/ReactToastify.css";
 import { FcHighPriority } from 'react-icons/fc';
 import { FcList } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
@@ -9,36 +8,12 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateStudent() {
     const navigate = useNavigate();
 
-    // const notifyError = (errorMessage) => {
-    //     toast.error(errorMessage, {
-    //       position: 'top-right',
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: 'light',
-    //     });
-    //   };
-    //   const notifySuccess = (errorMessage) => {
-    //     toast.success(errorMessage, {
-    //       position: "top-right",
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: "light",
-    //       });
-    //   };
     return (
         <div className="container-fluid">
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/home');
+                    navigate('/student');
                 }}
             >
                 <i class="fa-solid fa-arrow-left"></i>
@@ -65,7 +40,13 @@ export default function CreateStudent() {
                         <label className="text-capitalize font-weight-bold pl-2">
                             Lớp <FcHighPriority />
                         </label>
-                        <input type="text" placeholder="Nhập ID lớp" className="form-control form-control-user" />
+                        <input
+                            type="text"
+                            placeholder="Nhập ID lớp"
+                            className="form-control form-control-user"
+                            name="class_name"
+                            // onChange={handleChange}
+                        />
                     </div>
                     <div className="col-6">
                         <label className="text-capitalize font-weight-bold pl-2">Email</label>
@@ -73,6 +54,7 @@ export default function CreateStudent() {
                             type="text"
                             placeholder="Nhập email học sinh"
                             className="form-control form-control-user"
+                            // onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -118,9 +100,7 @@ export default function CreateStudent() {
                     <button type="submit" className="btn btn-success px-5 py-2">
                         Lưu
                     </button>
-                    <button type="submit" className="btn btn-light px-5 py-2 ml-3">
-                        Hủy
-                    </button>
+                    <button className="btn btn-light px-5 py-2 ml-3">Hủy</button>
                 </div>
             </form>
             {/* <ToastContainer/> */}

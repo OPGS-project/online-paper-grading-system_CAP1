@@ -19,7 +19,7 @@ module.exports = {
       total_students: {
         type: Sequelize.INTEGER,
       },
-      teacher_name: {
+      content: {
         type: Sequelize.STRING,
       },
       createdAt: {

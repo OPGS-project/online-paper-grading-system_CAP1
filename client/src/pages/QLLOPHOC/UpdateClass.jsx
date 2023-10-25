@@ -1,6 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function UpdateClass() {
+    const navigate = useNavigate();
     return (
         <div className="container-fluid">
+            <button
+                className="btn btn-back"
+                onClick={() => {
+                    navigate('/class');
+                }}
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
                 <i className="fa-regular fa-pen-to-square"></i> Chỉnh sửa lớp
             </h1>

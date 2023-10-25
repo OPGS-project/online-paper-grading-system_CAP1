@@ -19,7 +19,7 @@ function Introduce() {
                         <button className="btn  btn-primary p-3 my-3 btn-intro" onClick={() => navigate('/login')}>
                             Đăng Nhập
                         </button>
-                        <button className="btn  btn-google p-3 my-3 btn-intro" onClick={() => navigate('/register')}>
+                        <button className="btn  btn-google p-3 my-3 btn-intro" onClick={() => navigate('/choose-role')}>
                             Đăng Ký
                         </button>
                     </div>

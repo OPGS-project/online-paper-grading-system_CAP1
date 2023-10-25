@@ -33,5 +33,6 @@ router.post("/login", controllers.login);
 router.post("/login-success", controllers.loginSuccess);
 router.post("/reset-password", controllers.resetPassword);
 router.post("/refresh-token", controllers.refreshTokenController);
+router.post("/change-password", controllers.changePassword);
 
 module.exports = router;

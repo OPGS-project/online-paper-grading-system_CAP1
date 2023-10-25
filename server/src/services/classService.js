@@ -1,4 +1,4 @@
-import { id } from "../helpers/joi_schema";
+import { classID, id } from "../helpers/joi_schema";
 import db from "../models";
 import { Op } from "sequelize";
 
@@ -26,9 +26,9 @@ export const getClasses = ({
         attributes: { exclude: ["createdAt", "updatedAt"] },
         include: [
           {
-            model: db.Teacher,
-            as: "teacherData",
-            attributes: ["name"],
+            model: db.Student,
+            as: "studentData",
+            attributes: ["student_name"],
           },
         ],
       });
@@ -44,10 +44,45 @@ export const getClasses = ({
     }
   });
 
+//getStudentbyIdClass
+
+export const getStudentByClassId = (classID) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Class.findAndCountAll({
+        where: { id: classID },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        include: [
+          {
+            model: db.Student,
+            as: "studentData",
+            attributes: [
+              "student_name",
+              "gender",
+              "birthday",
+              "phone",
+              "address",
+            ],
+          },
+        ],
+      });
+      resolve({
+        success: response ? true : false,
+        mess: response ? "Get data success" : "Get data failure",
+        response: response.rows,
+        count: response.count,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 //CREATE
 export const createNewClass = (body) =>
   new Promise(async (resolve, reject) => {
     try {
+      console.log(body);
       const response = await db.Class.findOrCreate({
         where: { class_name: body?.class_name },
         defaults: body,
@@ -61,36 +96,37 @@ export const createNewClass = (body) =>
     }
   });
 
-// //UPDATE
-// export const updateBook = ({bookID, ...body}, fileData) => new Promise( async(resolve, reject) =>{
-//     try{
-//         if (fileData) body.image = fileData?.path
-//         const response= await db.Book.update(body,{
-//             where : { id : bookID }
-//         })
-//         resolve({
-//             err: response[0] > 0 ? 0 : 1,
-//             mes: response[0] > 0 ? `${response[0]} book updated` : 'Cannot update book/ BookID not found',
-//         })
-//         if (fileData && !response[0] === 0) cloudinary.uploader.destroy(fileData.filename)
-//     }catch (error){
-//         reject(error)
-//         if (fileData) cloudinary.uploader.destroy(fileData.filename)
-//     }
-// })
+//UPDATE
+export const updateClass = (classID, body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Class.update(body, {
+        where: { id: classID },
+      });
+      resolve({
+        err: response[0] > 0 ? 0 : 1,
+        mes:
+          response[0] > 0
+            ? `${response[0]} class updated`
+            : "Cannot update class/ ClassID not found",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
 
-// //DELETE
-// export const deleteBook = ( bookIDs, filename ) => new Promise( async(resolve, reject) =>{
-//     try{
-//         const response= await db.Book.destroy({
-//             where : { id : bookIDs }
-//         })
-//         resolve({
-//             err: response > 0 ? 0 : 1,
-//             mes: `${response} book(s) deleted`
-//         })
-//         cloudinary.api.delete_resources( filename )
-//     }catch (error){
-//         reject(error)
-//     }
-// })
+//DELETE
+export const deleteClass = (classID) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Class.destroy({
+        where: { id: classID },
+      });
+      resolve({
+        err: response > 0 ? 0 : 1,
+        mes: `${response} class deleted`,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });

@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 function Sidebar() {
     return (
-        <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul
+            className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            id="accordionSidebar"
+            style={{ minHeight: 900 }}
+        >
             <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="#">
                 <div className="sidebar-brand-icon rotate-n-15">
                     <FaBookReader style={{ height: '50px', width: '50px' }} />
@@ -24,7 +28,7 @@ function Sidebar() {
             </li>
 
             <li className="nav-item">
-                <Link to="/Thongke" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
+                <Link to="/statis" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
                     <div className="nav-link" href="/thongke">
                         <i className="fas fa-solid fa-chart-pie"></i>
                         <span>Thống kê</span>
@@ -51,7 +55,7 @@ function Sidebar() {
                         <Link className="collapse-item" to="/class">
                             Thông tin lớp học
                         </Link>
-                        <Link className="collapse-item" to="/createClass">
+                        <Link className="collapse-item" to="/class/createClass">
                             Thêm lớp học
                         </Link>
                     </div>
@@ -78,11 +82,14 @@ function Sidebar() {
                     data-parent="#accordionSidebar"
                 >
                     <div className="bg-white py-2 collapse-inner rounded">
-                        <Link className="collapse-item" to="/add-assignment">
+                        <Link className="collapse-item" to="/assignment">
+                            Thông tin bài tập
+                        </Link>
+                        <Link className="collapse-item" to="/assignment/add-assignment">
                             Thêm bài tập
                         </Link>
-                        <Link className="collapse-item" to="/assignment">
-                            Bài tập đã giao
+                        <Link className="collapse-item" to="/submitted">
+                            Bài tập đã nộp
                         </Link>
                     </div>
                 </div>

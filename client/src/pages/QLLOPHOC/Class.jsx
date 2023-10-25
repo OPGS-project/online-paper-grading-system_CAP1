@@ -1,42 +1,74 @@
+import React, { useState, useEffect } from 'react'; // Thêm import useState và useEffect từ react
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import moment from 'moment/moment';
+// import { CDBPagination } from 'cdbreact';
 
 export default function Class() {
-    const action_delete = (e) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-            }
-        });
+    const [Class, setClass] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8081/api/class/')
+            .then((res) => setClass(res.data.classData.rows))
+            .catch((err) => console.error(err));
+    }, []);
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete('http://localhost:8081/api/class/delete-class/' + id);
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
     };
 
+    const ClassCount = Class.length;
     return (
         <div className="container-fluid">
             <h1 className="h3 mb-2 text-gray-800">Thông tin lớp học</h1>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <button to="/CreateClass" className="btn btn-success  py-2">
+                    <Link to="/class/createClass" className="btn btn-success  py-2">
                         + Thêm lớp học
-                    </button>
-                    <p className="float-right"> ( Số lớp: 10 lớp)</p>
+                    </Link>
+                    <p className="float-right"> ({ClassCount} lớp)</p>
                 </div>
                 <div className="card-body">
+                    {/* <div class="dataTables_length" id="dataTable_length">
+                        <label>
+                            Show
+                            <select
+                                name="dataTable_length"
+                                aria-controls="dataTable"
+                                class="custom-select custom-select-sm form-control form-control-sm"
+                            >
+                                <option value="3">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            entries
+                        </label>
+                    </div> */}
+                    <div id="dataTable_filter" class="filteredData">
+                        <label>
+                            Tìm Kiếm:
+                            <input
+                                type="search"
+                                class="form-control form-control-sm"
+                                placeholder=""
+                                aria-controls="dataTable"
+                            />
+                        </label>
+                    </div>
                     <div className="table-responsive">
-                        <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
+                        <table className="table table-hover  " id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
                                     <th>Tên lớp</th>
-                                    <th>Tên giáo viên</th>
                                     <th>Sĩ số</th>
                                     <th>Ngày tạo</th>
                                     <th>Ghi chú</th>
@@ -45,28 +77,34 @@ export default function Class() {
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <tr className="text-center align-middle">
-                                    <td>CDIO 2</td>
-                                    <td>Nguyễn Chiến Thắng</td>
-                                    <td>30</td>
-                                    <td>10/07/2023</td>
-                                    <td>TPM1</td>
-                                    <td>
-                                        <div>
-                                            <a href="/student" className="btn btn-primary">
-                                                Xem học sinh
-                                            </a>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <Link to={'/class/updateClass'} className="bi bi-pencil-square mr-3"></Link>
-
-                                        <i className="bi bi-trash-fill text-danger " style={{ cursor: 'pointer' }}></i>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            {
+                                <tbody>
+                                    {Class?.map((data, i) => (
+                                        <tr key={i} className="text-center">
+                                            <td>{data.class_name}</td>
+                                            <td>{data.total_students}</td>
+                                            <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
+                                            <td>{data.status}</td>
+                                            <td>
+                                                <Link to={`/class/${data.id}`} className="btn btn-primary">
+                                                    Xem học sinh
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <Link
+                                                    to={`/class/update-class/${data.id}`}
+                                                    className="bi bi-pencil-square mr-3"
+                                                ></Link>
+                                                <i
+                                                    className="bi bi-trash-fill text-danger"
+                                                    onClick={() => handleDelete(data.id)}
+                                                    style={{ cursor: 'pointer' }}
+                                                ></i>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            }
                         </table>
                     </div>
                 </div>

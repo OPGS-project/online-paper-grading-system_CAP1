@@ -9,7 +9,7 @@ import { BsFillTrashFill } from 'react-icons/bs';
 function Criteria() {
     const navigate = useNavigate();
 
-    // const [newCriteria, setNewCriteria] = useState([]);
+    const [newCriteria, setNewCriteria] = useState([]);
 
     // useEffect(() => {
     //     fetchData();
@@ -25,68 +25,66 @@ function Criteria() {
     // };
 
     return (
-        <div className="col-md-7 flex1">
-            <div className="text-center header-tc ">
-                <h1 className="h5 text-capitalize font-weight-bold pl-2">nội dung tiêu chí</h1>
-                <div className="btn-add">
-                    <button
-                        type="button"
-                        className="sub-btn p-2 btn-outline-success btn bg-gradient"
-                        data-toggle="modal"
-                        data-target="#exampleModal"
-                        data-whatever="@fat"
-                    >
-                        + Thêm tiêu chí
-                    </button>
-                    <div
-                        className="modal fade"
-                        id="exampleModal"
-                        tabindex="-1"
-                        role="dialog"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                    >
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title " id="exampleModalLabel">
-                                        <FcList className="mr-3" /> Thêm tiêu chí mới
-                                    </h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <form className="user">
-                                        <div className="form-group ">
-                                            <label for="recipient-name" className="col-form-label font-weight-bold ">
-                                                Tiêu chí
-                                            </label>
-                                            <textarea
-                                                className="form-control form-control-user"
-                                                id="message-text"
-                                            ></textarea>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="message-text" className="col-form-label font-weight-bold">
-                                                Điểm
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-user"
-                                                id="recipient-name"
-                                            />
-                                        </div>
-                                    </form>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-light" data-dismiss="modal">
-                                        Đóng
-                                    </button>
-                                    <button type="button" className="btn btn-success">
-                                        Lưu
-                                    </button>
-                                </div>
+        <div className="container-fluid ">
+            <div>
+                <h1 className="h3 mb-4 text-gray-800 text-center">Tiêu chí của bài tập ( ) </h1>
+                <button
+                    type="button"
+                    className="sub-btn mb-5  btn-success btn bg-gradient"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    data-whatever="@fat"
+                >
+                    + Thêm tiêu chí
+                </button>
+                <div
+                    className="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                >
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title " id="exampleModalLabel">
+                                    <FcList className="mr-3" /> Thêm tiêu chí mới
+                                </h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <form className="user">
+                                    <div className="form-group ">
+                                        <label for="recipient-name" className="col-form-label font-weight-bold ">
+                                            Tiêu chí
+                                        </label>
+                                        <textarea
+                                            className="form-control form-control-user"
+                                            id="message-text"
+                                        ></textarea>
+                                    </div>
+                                    <div className="form-group">
+                                        <label for="message-text" className="col-form-label font-weight-bold">
+                                            Điểm
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control form-control-user"
+                                            id="recipient-name"
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-light" data-dismiss="modal">
+                                    Đóng
+                                </button>
+                                <button type="button" className="btn btn-success">
+                                    Lưu
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -182,6 +180,7 @@ function Criteria() {
                         </tr>
                     </tbody>
                 </table>
+                <button className="btn btn-success px-5 py-2 float-right">Lưu</button>
             </form>
         </div>
     );

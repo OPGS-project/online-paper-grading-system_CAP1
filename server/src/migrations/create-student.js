@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      class_id: {
+        type: Sequelize.STRING,
+      },
       student_name: {
         type: Sequelize.STRING,
       },

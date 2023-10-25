@@ -8,14 +8,14 @@ export const badRequest = (err, res) => {
   });
 };
 
-export const internalServerError = (req, res) => {
-  const error = createError.InternalServerError();
-  console.log(error);
-  return res.status(error.status).json({
-    err: 1,
-    mess: error.message,
-  });
-};
+// export const internalServerError = (req, res) => {
+//   const error = createError.InternalServerError();
+//   console.log(error);
+//   return res.status(error.status).json({
+//     err: 1,
+//     mess: error.message,
+//   });
+// };
 //
 export const notFound = (req, res) => {
   const error = createError.NotFound("This route is not define");

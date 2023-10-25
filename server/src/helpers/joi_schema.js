@@ -17,6 +17,10 @@ export const assignmentId = joi.string().required();
 export const assignmentIds = joi.array().required();
 //class
 export const class_name = joi.string().required();
-export const state = joi.string();
+export const content = joi.string();
 export const total_students = joi.number().required();
-export const teacher_name = joi.string().required();
+export const classID = joi.string().required();
+//student
+export const student_name = joi.string().required();
+export const gender = joi.string().required();
+export const address = joi.string().required();

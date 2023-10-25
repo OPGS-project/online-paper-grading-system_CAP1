@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '~~/pages/assignment/Assignment.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FiSearch } from '@react-icons/all-files//fi/FiSearch';
+import { FcInspection } from 'react-icons/fc';
+
+import moment from 'moment/moment';
 
 const Assignment = () => {
     const navigate = useNavigate();
-    const [values, setValues] = useState([]);
+    const [assignment, setAssignment] = useState([]);
 
     useEffect(() => {
-        fetchData();
+        axios
+            .get('http://localhost:8081/api/assignment/')
+            .then((res) => setAssignment(res.data.assignmentData.rows))
+            .catch((err) => console.error(err));
     }, []);
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('http://localhost:8081/assignment');
-            setValues(response.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
+    // const ClassCount = Class.length;
+    // const ClassCount = Class.length;
 
     return (
         <div className="container-fluid">
             <div className="row header-bt">
-                <input className="form-control form-control-user date " type="date"></input>
-                <i class="fa-solid fa-arrow-right "></i>
-                <input className="form-control form-control-user date" type="date"></input>
-                <div>
+                <div className="ml-3">
                     <form className="form-inline mr-auto w-100 navbar-search">
                         <div className="input-group position-relative">
                             <input
@@ -59,49 +56,42 @@ const Assignment = () => {
                             <th>Từ Ngày</th>
                             <th>Đến Ngày</th>
                             <th>Giao Cho</th>
-                            <th>Số Bài Đã Nộp</th>
-                            <th>Tổng Số Bài</th>
                             <th>Trạng Thái</th>
+                            <th>Số Bài Đã Nộp</th>
+                            <th>Tiêu chí</th>
                             <th></th>
                             <th></th>
                         </thead>
                         <tbody className="text-center">
-                            {/* {values.map((assignment, i) => ( key={i} */}
-                            <tr>
-                                <td>
-                                    <i class="fa-solid fa-folder icon-folder"></i>
-                                </td>
-                                {/* <td>{assignment.assignment_name}</td>
-                                <td>{assignment.start_date}</td>
-                                <td>{assignment.deadline}</td>
-                                <td>{assignment.class_id}</td>
-                                <td>20</td>
-                                <td>30</td>
-                                <td>aa</td> */}
-                                <td>Bài Tập Giữa Kỳ</td>
-                                <td>10/10/2023</td>
-                                <td>13/10/2023</td>
-                                <td>A2</td>
-                                <td>20</td>
-                                <td>30</td>
-                                <td>aa</td>
-                                <td>
-                                    <button
-                                        className="btn"
-                                        onClick={() => {
-                                            navigate('/edit-assignment');
-                                        }}
-                                    >
-                                        <i class="fa-solid fa-pen-to-square icon-edit"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button className="btn">
-                                        <i class="fa-solid fa-trash icon-delete"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            {/* ))} */}
+                            {assignment.map((data, i) => (
+                                <tr key={i}>
+                                    <td>
+                                        <i class="fa-solid fa-folder icon-folder"></i>
+                                    </td>
+                                    <td>{data.assignment_name}</td>
+                                    <td>{moment(data.start_date).format('DD-MM-YYYY')}</td>
+                                    <td>{moment(data.deadline).format('DD-MM-YYYY')}</td>
+                                    <td>{data.of_class}</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>
+                                        <Link className="btn" to={`/criteria`}>
+                                            <FcInspection />
+                                        </Link>
+                                    </td>
+
+                                    <td>
+                                        <Link className="btn" to={`/assignment/edit-assignment/${data.id}`}>
+                                            <i class="fa-solid fa-pen-to-square icon-edit"></i>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <button className="btn">
+                                            <i class="fa-solid fa-trash icon-delete"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Class.belongsTo(models.Teacher, {
-        foreignKey: "teacher_name",
-        targetKey: "name",
-        as: "teacherData",
+
+      Class.hasMany(models.Student, {
+        foreignKey: "class_id",
+        as: "studentData",
       });
     }
   }
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       class_name: DataTypes.STRING,
       state: DataTypes.STRING,
       total_students: DataTypes.INTEGER,
-      teacher_name: DataTypes.STRING,
+      content: DataTypes.STRING,
     },
     {
       sequelize,

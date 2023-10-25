@@ -29,8 +29,10 @@ export const getStudent = ({
         include: [
           {
             model: db.Assignment,
-            as: "criteriaData",
-            attributes: ["of_assignment", "correct_answer", "max_score"],
+            as: "assignmentData",
+            attributes: {
+              exclude: ["of_class", "createdAt", "updatedAt"],
+            },
           },
         ],
       });
@@ -46,59 +48,58 @@ export const getStudent = ({
     }
   });
 
-// //CREATE
-// export const createAssignment = (body) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       console.log(body);
-//       const response = await db.Assignment.findOrCreate({
-//         where: { assignment_name: body?.assignment_name },
-//         defaults: body,
-//       });
+//CREATE
+export const createStudent = (body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Student.findOrCreate({
+        where: { student_name: body?.student_name },
+        defaults: body,
+      });
 
-//       resolve({
-//         err: response[1] ? 0 : 1,
-//         mes: response[1] ? "OK" : "Can not create Assignment!!!",
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e);
-//     }
-//   });
-// //UPDATE
-// export const updateAssignment = ({ assignmentId, ...body }) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       const response = await db.Assignment.update(body, {
-//         where: { id: assignmentId },
-//       });
+      resolve({
+        err: response[1] ? 0 : 1,
+        mes: response[1] ? "OK" : "Can not create Student!!!",
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+// UPDATE
+export const updateStudent = (studentId, body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Student.update(body, {
+        where: { id: studentId },
+      });
 
-//       resolve({
-//         err: response[0] > 0 ? 0 : 1,
-//         message:
-//           response[0] > 0
-//             ? `${response} assignment updated`
-//             : "Can not update Assignment!!!",
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e);
-//     }
-//   });
-// //DELETE
-// export const deleteAssignment = (assignmentIds) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       const response = await db.Assignment.destroy({
-//         where: { id: assignmentIds },
-//       });
+      resolve({
+        err: response[0] > 0 ? 0 : 1,
+        message:
+          response[0] > 0
+            ? `${response} student updated`
+            : "Can not update student!!!",
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+//DELETE
+export const deleteStudent = (studentId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Student.destroy({
+        where: { id: studentId },
+      });
 
-//       resolve({
-//         err: response > 0 ? 0 : 1,
-//         message: `${response} assignment deleted`,
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e);
-//     }
-//   });
+      resolve({
+        err: response > 0 ? 0 : 1,
+        message: `${response} student deleted`,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
