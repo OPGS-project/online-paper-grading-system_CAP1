@@ -4,11 +4,31 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function EditAssignment() {
     const navigate = useNavigate();
     const params = useParams();
-    const [assignment, setAssignment] = useState({});
+    const notifySuccess = (errorMessage) => {
+        toast.success(errorMessage, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
+
+    const [assignment, setAssignment] = useState({
+        assignment_name: '',
+        of_className: '',
+        start_date: '',
+        deadline: '',
+        content_text: '',
+    });
     const { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
@@ -18,31 +38,35 @@ export default function EditAssignment() {
             .catch((err) => console.error(err));
     }, [params]);
 
+    const handleChange = (e) => {
+        setAssignment({ ...assignment, [e.target.name]: e.target.value });
+    };
+
     // console.log(params);
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-
         for (const i of Object.entries(assignment)) {
             if (i[0] === 'id') continue;
             if (i[1] === null) continue;
             if (i[1] === '') continue;
             if (i[0] === 'createdAt') continue;
             if (i[0] === 'updatedAt') continue;
-            if (i[0] === 'of_class') continue;
-
+            if (i[0] === 'of_className') continue;
+            console.log(i[0]);
             formData.append(i[0], i[1]);
         }
 
-        axios({
-            method: 'put',
-            url: `http://localhost:8081/api/assignment/${assignment.id}`,
-            headers: {
-                // 'Content-Type': 'multipart/form-data',
-                authorization: token,
-            },
-            data: formData,
-        }).then((res) => console.log(res));
+        axios
+            .put(`http://localhost:8081/api/assignment/${assignment.id}`, assignment)
+            .then((res) => {
+                console.log(res);
+                notifySuccess('Sửa bài tập thành công!');
+                setTimeout(() => {
+                    navigate('/home/assignment');
+                }, 2000);
+            })
+            .catch((err) => console.error(err));
     };
 
     return (
@@ -53,14 +77,14 @@ export default function EditAssignment() {
                     navigate('/home/assignment');
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
 
             <h1 className="h3 mb-4 text-gray-800 text-center">
                 <i className="fa-regular fa-pen-to-square"></i>
                 Cập nhật bài tập
             </h1>
-
+            <ToastContainer />
             <form className="user" onSubmit={(e) => handleSubmit(e, token)}>
                 <div className="form-group">
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
@@ -71,7 +95,19 @@ export default function EditAssignment() {
                         className="form-control form-control-user"
                         id="name-bt"
                         value={assignment.assignment_name}
-                        onChange={(text) => setAssignment((prev) => ({ ...prev, assignment_name: text.target.value }))}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
+                        Lớp
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control form-control-user"
+                        id=""
+                        name="of_className"
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="form-group row">
@@ -84,7 +120,7 @@ export default function EditAssignment() {
                             className="form-control form-control-user"
                             id="from"
                             value={moment(assignment.start_date).format('YYYY-MM-DD')}
-                            onChange={(text) => setAssignment((prev) => ({ ...prev, start_date: text.target.value }))}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="col-sm-6">
@@ -96,7 +132,7 @@ export default function EditAssignment() {
                             className="form-control form-control-user"
                             id="to"
                             value={moment(assignment.deadline).format('YYYY-MM-DD')}
-                            onChange={(text) => setAssignment((prev) => ({ ...prev, deadline: text.target.value }))}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -116,7 +152,7 @@ export default function EditAssignment() {
                         className="form-control content-bt"
                         id="name-bt"
                         value={assignment.content_text}
-                        onChange={(text) => setAssignment((prev) => ({ ...prev, content_text: text.target.value }))}
+                        onChange={handleChange}
                     />
                 </div>
                 <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>

@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "of_assignment",
         as: "criteriaData",
       });
+      Assignment.belongsTo(models.Class, {
+        foreignKey: "of_class",
+        targetKey: "class_name",
+        as: "classData",
+      });
     }
   }
   Assignment.init(

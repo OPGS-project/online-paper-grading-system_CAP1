@@ -35,11 +35,11 @@ const publicRoutes = [
     // QLBAITAP
     { path: '/home/assignment', component: Assignment },
     { path: '/home/criteria', component: Criteria },
-    { path: '/home/submitted', component: Submitted },
+    { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
     { path: '/home/assignment/add-assignment', component: AddAssignment },
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
     //QLHSINH
-    { path: '/home/class/:classID', component: Student },
+    { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent', component: CreateStudent },
     { path: '/home/student/updateStudent/', component: UpdateStudent },
     // { path: '/student/updateStudent/:id', component: UpdateStudent },

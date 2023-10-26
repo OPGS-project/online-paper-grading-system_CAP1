@@ -86,13 +86,16 @@ export default function Class() {
                                             <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
                                             <td>{data.status}</td>
                                             <td>
-                                                <Link to={`/class/${data.id}`} className="btn btn-primary">
+                                                <Link
+                                                    to={`/home/class/get-student/${data.id}`}
+                                                    className="btn btn-primary"
+                                                >
                                                     Xem học sinh
                                                 </Link>
                                             </td>
                                             <td>
                                                 <Link
-                                                    to={`/class/update-class/${data.id}`}
+                                                    to={`/home/class/update-class/${data.id}`}
                                                     className="bi bi-pencil-square mr-3"
                                                 ></Link>
                                                 <i

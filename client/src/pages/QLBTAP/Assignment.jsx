@@ -3,7 +3,7 @@ import axios from 'axios';
 import '~~/pages/assignment/Assignment.scss';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { FiSearch } from '@react-icons/all-files//fi/FiSearch';
-import { FcInspection } from 'react-icons/fc';
+import { FcInspection, FcViewDetails } from 'react-icons/fc';
 
 import moment from 'moment/moment';
 import Swal from 'sweetalert2';
@@ -31,20 +31,40 @@ const Assignment = () => {
             .catch((err) => console.error(err));
     }, [updateCheck]);
 
-    // const ClassCount = Class.length;
-    // const ClassCount = Class.length;
-
+    // const classNameCount = className.length;
+    // const classNameCount = className.length;
+    // Swal.fire({
+    //     title: 'Are you sure?',
+    //     text: "You won't be able to revert this!",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Yes, delete it!'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       Swal.fire(
+    //         'Deleted!',
+    //         'Your file has been deleted.',
+    //         'success'
+    //       )
+    //     }
+    //   })
     const handleDelete = (aid, name) => {
         Swal.fire({
-            title: `bạn có muốn xóa bài tập ${name} không?`,
+            title: `Bạn muốn xóa ${name} này?`,
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'có',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed)
                 axios.delete('http://localhost:8081/api/assignment/' + aid).then((res) => {
                     if (+res.data.err === 0) {
-                        toast.success('xóa thành công', {
+                        toast.success('Xóa thành công', {
                             position: 'top-right',
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -54,6 +74,7 @@ const Assignment = () => {
                             progress: undefined,
                             theme: 'light',
                         });
+
                         setUpdateCheck(true);
                     }
                 });
@@ -82,46 +103,52 @@ const Assignment = () => {
                     </form>
                 </div>
             </div>
-            <div class="card shadow mb-4 height-table">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Bài Tập Đã Giao</h6>
+            <div className="card shadow mb-4 height-table">
+                <div className="card-header py-3">
+                    <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Giao</h6>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive"></div>
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <div className="card-body">
+                    <div className="table-responsive"></div>
+                    <table className="table table-hover" id="dataTable">
                         <thead className="text-center">
-                            <th></th>
-                            <th>Tên</th>
-                            <th>Từ Ngày</th>
-                            <th>Đến Ngày</th>
-                            <th>Giao Cho</th>
-                            <th>Trạng Thái</th>
-                            <th>Số Bài Đã Nộp</th>
-                            <th>Tiêu chí</th>
-                            <th></th>
-                            <th></th>
+                            <tr>
+                                <th></th>
+                                <th>Tên</th>
+                                <th>Từ Ngày</th>
+                                <th>Đến Ngày</th>
+                                <th>Giao Cho</th>
+                                <th>Trạng Thái</th>
+                                <th>Chi tiết</th>
+                                {/* <th>Tiêu chí</th> */}
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody className="text-center">
                             {assignment.map((data, i) => (
                                 <tr key={i}>
                                     <td>
-                                        <i class="fa-solid fa-folder icon-folder"></i>
+                                        <i className="fa-solid fa-folder icon-folder"></i>
                                     </td>
                                     <td>{data.assignment_name}</td>
                                     <td>{moment(data.start_date).format('DD-MM-YYYY')}</td>
                                     <td>{moment(data.deadline).format('DD-MM-YYYY')}</td>
                                     <td>{data.of_class}</td>
                                     <td>20</td>
-                                    <td>30</td>
                                     <td>
+                                        <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
+                                            <FcViewDetails />
+                                        </Link>
+                                    </td>
+                                    {/* <td>
                                         <Link className="btn" to={`/home/assignment/criteria`}>
                                             <FcInspection />
                                         </Link>
-                                    </td>
+                                    </td> */}
 
                                     <td>
                                         <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
-                                            <i class="fa-solid fa-pen-to-square icon-edit"></i>
+                                            <i className="fa-solid fa-pen-to-square icon-edit"></i>
                                         </Link>
                                     </td>
                                     <td>
@@ -129,7 +156,7 @@ const Assignment = () => {
                                             className="btn"
                                             onClick={() => handleDelete(data.id, data.assignment_name)}
                                         >
-                                            <i class="fa-solid fa-trash icon-delete"></i>
+                                            <i className="fa-solid fa-trash icon-delete"></i>
                                         </button>
                                     </td>
                                 </tr>

@@ -41,7 +41,7 @@ export const createAssignment = async (req, res) => {
     //   })
     //   .validate(req.body);
     // if (error) return badRequest(error.details[0].message, res);
-    console.log(req.body);
+    // console.log(req.body);
     const response = await authServices.createAssignment(req.body);
     return res.status(200).json(response);
   } catch (error) {
@@ -52,7 +52,7 @@ export const createAssignment = async (req, res) => {
 
 export const updateAssignment = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const assignmentId = req.params;
     const response = await authServices.updateAssignment(
       assignmentId,

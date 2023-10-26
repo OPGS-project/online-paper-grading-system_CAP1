@@ -83,7 +83,7 @@ export const createNewClass = (body) =>
   new Promise(async (resolve, reject) => {
     try {
       console.log(body);
-      const response = await db.Class.findOrCreate({
+      const response = await db.Class.create({
         where: { class_name: body?.class_name },
         defaults: body,
       });

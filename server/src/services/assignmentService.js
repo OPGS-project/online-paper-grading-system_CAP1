@@ -49,8 +49,25 @@ export const getAssignment = ({
 export const getAssignmentById = (assignmentId) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Assignment.findOne({
+      const response = await db.Assignment.findAll({
         where: { id: assignmentId },
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+        include: [
+          {
+            model: db.Class,
+            as: "classData",
+            attributes: ["class_name"],
+            include: [
+              {
+                model: db.Student,
+                as: "studentData",
+                attributes: ["student_name"],
+              },
+            ],
+          },
+        ],
       });
 
       resolve({
@@ -68,7 +85,7 @@ export const getAssignmentById = (assignmentId) =>
 export const createAssignment = (body) =>
   new Promise(async (resolve, reject) => {
     try {
-      console.log(body);
+      // console.log(body);
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
         defaults: body,
@@ -88,7 +105,7 @@ export const updateAssignment = (assignmentId, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Assignment.update(body, {
-        where: { id: assignmentId },
+        where: { id: assignmentId.assignmentId },
       });
 
       resolve({
