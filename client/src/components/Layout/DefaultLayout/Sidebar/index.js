@@ -28,7 +28,7 @@ function Sidebar() {
             </li>
 
             <li className="nav-item">
-                <Link to="/statis" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
+                <Link to="/home/statis" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
                     <div className="nav-link" href="/thongke">
                         <i className="fas fa-solid fa-chart-pie"></i>
                         <span>Thống kê</span>
@@ -52,10 +52,10 @@ function Sidebar() {
                 </a>
                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
-                        <Link className="collapse-item" to="/class">
+                        <Link className="collapse-item" to="/home/class">
                             Thông tin lớp học
                         </Link>
-                        <Link className="collapse-item" to="/class/createClass">
+                        <Link className="collapse-item" to="/home/class/createClass">
                             Thêm lớp học
                         </Link>
                     </div>
@@ -82,13 +82,13 @@ function Sidebar() {
                     data-parent="#accordionSidebar"
                 >
                     <div className="bg-white py-2 collapse-inner rounded">
-                        <Link className="collapse-item" to="/assignment">
+                        <Link className="collapse-item" to="/home/assignment">
                             Thông tin bài tập
                         </Link>
-                        <Link className="collapse-item" to="/assignment/add-assignment">
+                        <Link className="collapse-item" to="/home/assignment/add-assignment">
                             Thêm bài tập
                         </Link>
-                        <Link className="collapse-item" to="/submitted">
+                        <Link className="collapse-item" to="/home/submitted">
                             Bài tập đã nộp
                         </Link>
                     </div>
@@ -97,7 +97,7 @@ function Sidebar() {
 
             <hr className="sidebar-divider d-none d-md-block" />
 
-            <div className="text-center d-none d-md-inline">
+            <div className="text-center d-none d-md-inline mt-5">
                 <button className="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
         </ul>

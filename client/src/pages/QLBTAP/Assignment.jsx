@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '~~/pages/assignment/Assignment.scss';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { FiSearch } from '@react-icons/all-files//fi/FiSearch';
 import { FcInspection } from 'react-icons/fc';
 
 import moment from 'moment/moment';
+import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Assignment = () => {
     const navigate = useNavigate();
     const [assignment, setAssignment] = useState([]);
+    const [updateCheck, setUpdateCheck] = useState(false);
 
     useEffect(() => {
         axios
@@ -18,8 +21,44 @@ const Assignment = () => {
             .catch((err) => console.error(err));
     }, []);
 
+    useEffect(() => {
+        axios
+            .get('http://localhost:8081/api/assignment/')
+            .then((res) => {
+                setAssignment(res.data.assignmentData.rows);
+                setUpdateCheck(false);
+            })
+            .catch((err) => console.error(err));
+    }, [updateCheck]);
+
     // const ClassCount = Class.length;
     // const ClassCount = Class.length;
+
+    const handleDelete = (aid, name) => {
+        Swal.fire({
+            title: `bạn có muốn xóa bài tập ${name} không?`,
+            showCancelButton: true,
+            confirmButtonText: 'có',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed)
+                axios.delete('http://localhost:8081/api/assignment/' + aid).then((res) => {
+                    if (+res.data.err === 0) {
+                        toast.success('xóa thành công', {
+                            position: 'top-right',
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                        });
+                        setUpdateCheck(true);
+                    }
+                });
+        });
+    };
 
     return (
         <div className="container-fluid">
@@ -75,18 +114,21 @@ const Assignment = () => {
                                     <td>20</td>
                                     <td>30</td>
                                     <td>
-                                        <Link className="btn" to={`/criteria`}>
+                                        <Link className="btn" to={`/home/assignment/criteria`}>
                                             <FcInspection />
                                         </Link>
                                     </td>
 
                                     <td>
-                                        <Link className="btn" to={`/assignment/edit-assignment/${data.id}`}>
+                                        <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
                                             <i class="fa-solid fa-pen-to-square icon-edit"></i>
                                         </Link>
                                     </td>
                                     <td>
-                                        <button className="btn">
+                                        <button
+                                            className="btn"
+                                            onClick={() => handleDelete(data.id, data.assignment_name)}
+                                        >
                                             <i class="fa-solid fa-trash icon-delete"></i>
                                         </button>
                                     </td>
@@ -94,6 +136,7 @@ const Assignment = () => {
                             ))}
                         </tbody>
                     </table>
+                    <ToastContainer />
                 </div>
             </div>
         </div>

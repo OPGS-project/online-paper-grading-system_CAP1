@@ -5,7 +5,7 @@ function Grading() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const images = [
         'https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg',
-        'https://scontent.xx.fbcdn.net/v/t1.15752-9/373082863_140608115779501_753902912200915243_n.png?stp=dst-png_p206x206&_nc_cat=108&ccb=1-7&_nc_sid=aee45a&_nc_ohc=gvHowFos4pMAX--ngOG&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQZ-8PX18yQ4ez1YlF7A53bcvw5OeHnPMdMQ2l7IYOllw&oe=651FCFB5',
+        'https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg',
     ];
 
     useEffect(() => {

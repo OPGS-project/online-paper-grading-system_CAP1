@@ -14,7 +14,7 @@ function Header() {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetOne(token);
-            console.log(response);
+            // console.log(response);
             if (response?.data.err === 0) {
                 setUserData(response.data?.response);
             } else {
@@ -68,11 +68,11 @@ function Header() {
                         className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown"
                     >
-                        <Link className="dropdown-item" to="/user-profile">
+                        <Link className="dropdown-item" to="/home/user-profile">
                             <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Hồ sơ
                         </Link>
-                        <Link className="dropdown-item" to="/update-password">
+                        <Link className="dropdown-item" to="/home/update-password">
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Đổi mật khẩu
                         </Link>

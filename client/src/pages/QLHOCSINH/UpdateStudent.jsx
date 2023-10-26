@@ -35,14 +35,6 @@ export default function UpdateStudent() {
     // };
     return (
         <div className="container-fluid">
-            <button
-                className="btn btn-back"
-                onClick={() => {
-                    navigate('/home');
-                }}
-            >
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
                 <i className="fa-regular fa-pen-to-square"></i> Cập nhập học sinh
             </h1>

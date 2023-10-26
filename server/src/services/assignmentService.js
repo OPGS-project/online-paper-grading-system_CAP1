@@ -46,6 +46,24 @@ export const getAssignment = ({
     }
   });
 
+export const getAssignmentById = (assignmentId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Assignment.findOne({
+        where: { id: assignmentId },
+      });
+
+      resolve({
+        err: response ? 0 : 1,
+        message: response ? "Got" : "Can not found!!!",
+        response,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+
 //CREATE
 export const createAssignment = (body) =>
   new Promise(async (resolve, reject) => {
@@ -90,7 +108,7 @@ export const deleteAssignment = (assignmentId) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Assignment.destroy({
-        where: { id: assignmentId },
+        where: { id: assignmentId.assignmentId },
       });
 
       resolve({
