@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '~~/pages/assignment/Assignment.scss';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { FiSearch } from '@react-icons/all-files//fi/FiSearch';
 import moment from 'moment/moment';
 
 const Submitted = () => {
     const navigate = useNavigate();
-    const [Class, setClass] = useState([]);
+    const [values, setValues] = useState([]);
+    const params = useParams();
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/student/')
-            .then((res) => setClass(res.data.student.rows))
+            .get(`http://localhost:8081/api/assignment/${params.assignmentId}`)
+            .then((res) => console.log(res.data.response[0].classData.studentData))
             .catch((err) => console.error(err));
     }, []);
 
@@ -27,21 +28,21 @@ const Submitted = () => {
 
     return (
         <div className="container-fluid">
-            <div class="card shadow mb-4 height-table">
-                <div class="card-header py-3 d-flex justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Bài Tập Đã Nộp</h6>
-                    <h6 class="m-0 font-weight-bold text-primary">Lớp</h6>
+            <div className="card shadow mb-4 height-table">
+                <div className="card-header py-3 d-flex justify-content-between">
+                    <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Nộp</h6>
+                    <h6 className="m-0 font-weight-bold text-primary">Lớp </h6>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive"></div>
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <div className="card-body">
+                    <div className="table-responsive"></div>
+                    <table className="table table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead className="text-center">
                             <th>Tên học sinh</th>
                             <th>Trạng Thái</th>
                             <th></th>
                         </thead>
                         <tbody className="text-center">
-                            {Class?.map((data, i) => (
+                            {values?.map((data, i) => (
                                 <tr key={i}>
                                     <td>{data.student_name}</td>
                                     <td>Đã nộp</td>

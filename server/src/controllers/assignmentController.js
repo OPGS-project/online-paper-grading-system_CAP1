@@ -19,28 +19,40 @@ export const getAssignment = async (req, res) => {
   }
 };
 
+export const getAssignmentById = async (req, res) => {
+  try {
+    const { assignmentId } = req.params;
+    const response = await authServices.getAssignmentById(assignmentId);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createAssignment = async (req, res) => {
   try {
-    const { error } = joi
-      .object({
-        assignment_name,
-        start_date,
-        deadline,
-        of_class,
-        content_text,
-        assignmentIds,
-      })
-      .validate(req.body);
-    if (error) return badRequest(error.details[0].message, res);
+    // const { error } = joi
+    //   .object({
+    //     // assignment_name,
+    //     start_date,
+    //     deadline,
+    //     of_class,
+    //     content_text,
+    //   })
+    //   .validate(req.body);
+    // if (error) return badRequest(error.details[0].message, res);
+    // console.log(req.body);
     const response = await authServices.createAssignment(req.body);
     return res.status(200).json(response);
   } catch (error) {
-    return internalServerError(res);
+    console.log(error);
+    // return internalServerError(res);
   }
 };
 
 export const updateAssignment = async (req, res) => {
   try {
+    // console.log(req.body);
     const assignmentId = req.params;
     const response = await authServices.updateAssignment(
       assignmentId,
@@ -48,7 +60,8 @@ export const updateAssignment = async (req, res) => {
     );
     return res.status(200).json(response);
   } catch (error) {
-    return internalServerError(res);
+    console.log(error);
+    // return internalServerError(res);
   }
 };
 export const deleteAssignment = async (req, res) => {

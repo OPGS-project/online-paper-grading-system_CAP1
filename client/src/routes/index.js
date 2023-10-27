@@ -25,36 +25,35 @@ import Criteria from '~/pages/QLBTAP/Criteria';
 const publicRoutes = [
     { path: '/', component: Introduction, layout: null },
     { path: '/choose-role', component: ChooseRole, layout: null },
-
     //
     { path: '/login', component: Login, layout: null },
     { path: '/login-success/:userId/:refresh_token', component: LoginSuccess, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/forgot-password', component: ForgotPassword, layout: null },
     { path: '/home', component: Home },
-    { path: '/statis', component: Statis },
+    { path: '/home/statis', component: Statis },
     // QLBAITAP
-    { path: '/assignment', component: Assignment },
-    { path: '/criteria', component: Criteria },
-    { path: '/submitted', component: Submitted },
-    { path: '/assignment/add-assignment', component: AddAssignment },
-    { path: '/assignment/edit-assignment/:assignmentId', component: EditAssignment },
+    { path: '/home/assignment', component: Assignment },
+    { path: '/home/criteria', component: Criteria },
+    { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
+    { path: '/home/assignment/add-assignment', component: AddAssignment },
+    { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
     //QLHSINH
-    { path: '/class/:classID', component: Student },
-    { path: '/student/createStudent', component: CreateStudent },
-    { path: '/student/updateStudent/:studentId', component: UpdateStudent },
+    { path: '/home/class/get-student/:classID', component: Student },
+    { path: '/home/student/createStudent', component: CreateStudent },
+    { path: '/home/student/updateStudent/', component: UpdateStudent },
     // { path: '/student/updateStudent/:id', component: UpdateStudent },
     //QLLOPHOC
-    { path: '/class', component: Class },
+    { path: '/home/class', component: Class },
 
-    { path: '/class/createClass', component: CreateClass },
-    { path: '/class/update-class/:classID', component: UpdateClass },
+    { path: '/home/class/createClass', component: CreateClass },
+    { path: '/home/class/update-class/:classID', component: UpdateClass },
 
     //USER
-    { path: '/user-profile', component: Profile },
-    { path: '/update-password', component: UpdatePass },
+    { path: '/home/user-profile', component: Profile },
+    { path: '/home/update-password', component: UpdatePass },
     //Chấm bài
-    { path: '/grading', component: Grading },
+    { path: '/home/grading', component: Grading },
 ];
 
 const privateRoutes = [];

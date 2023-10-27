@@ -6,6 +6,7 @@ import moment from 'moment/moment';
 
 export default function Student() {
     const [student, setStudent] = useState([]);
+
     const params = useParams();
     console.log(params);
 
@@ -18,7 +19,7 @@ export default function Student() {
             })
             .catch((err) => console.error(err));
     }, [params]);
-    const studentCount = student.count;
+
     const handleDelete = async (id) => {
         try {
             await axios.delete('http://localhost:8081/api/student/delete-student/' + id);
@@ -30,14 +31,14 @@ export default function Student() {
     console.log(student);
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh</h1>
+            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh lớp </h1>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
                     <Link className="btn btn-success" to={'/student/createStudent'}>
                         + Thêm học sinh
                     </Link>
-                    <p className="float-right">( {studentCount}lớp)</p>
+                    <p className="float-right">( lớp)</p>
                 </div>
                 <div className="card-body">
                     <div className="table-responsive">
@@ -62,7 +63,7 @@ export default function Student() {
                                             <td>{data.phone}</td>
                                             <td>{data.address}</td>
                                             <td>
-                                                <Link to={`/student/updateStudent${data.id}`}>
+                                                <Link to={`/student/updateStudent/`}>
                                                     <i className="bi bi-pencil-square mr-3"></i>
                                                 </Link>
                                                 <i
