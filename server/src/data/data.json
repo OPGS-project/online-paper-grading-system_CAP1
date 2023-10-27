@@ -1,0 +1,3552 @@
+[
+  {
+    "studentCode": "26211141778",
+    "fullName": "Đoàn Việt Anh",
+    "slug": "djoanvietanh",
+    "birthDate": "19/05/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211126344",
+    "fullName": "Trần Hoàng Đạt",
+    "slug": "tranhoangdjat",
+    "birthDate": "29/01/2001",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26201141758",
+    "fullName": "Nguyễn Thị Xuân Dung",
+    "slug": "nguyenthixuandung",
+    "birthDate": "07/04/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211128717",
+    "fullName": "Trần Phước Duy",
+    "slug": "tranphuocduy",
+    "birthDate": "31/03/2000",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211130319",
+    "fullName": "Mang Nguyễn Trường Giang",
+    "slug": "mangnguyentruonggiang",
+    "birthDate": "06/07/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211131425",
+    "fullName": "Phùng Tiến Huy",
+    "slug": "phungtienhuy",
+    "birthDate": "10/05/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211236257",
+    "fullName": "Võ Văn Quốc Huy",
+    "slug": "vovanquochuy",
+    "birthDate": "06/09/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211236258",
+    "fullName": "Nguyễn Đức Huy",
+    "slug": "nguyendjuchuy",
+    "birthDate": "19/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211121128",
+    "fullName": "Trần Nguyễn Bảo Khanh",
+    "slug": "trannguyenbaokhanh",
+    "birthDate": "19/05/2001",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211135528",
+    "fullName": "Phạm Hoàng Lợi",
+    "slug": "phamhoangloi",
+    "birthDate": "01/05/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211135106",
+    "fullName": "Ngô Hải Long",
+    "slug": "ngohailong",
+    "birthDate": "23/12/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "25211103889",
+    "fullName": "Đỗ Đức Lương",
+    "slug": "djodjucluong",
+    "birthDate": "04/04/2001",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211121331",
+    "fullName": "Vũ Quang Mạnh",
+    "slug": "vuquangmanh",
+    "birthDate": "15/05/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211135922",
+    "fullName": "Trần Văn Mến",
+    "slug": "tranvanmen",
+    "birthDate": "18/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211135043",
+    "fullName": "Đặng Trà Xuân Minh",
+    "slug": "djangtraxuanminh",
+    "birthDate": "08/05/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211135153",
+    "fullName": "Nguyễn Quang Minh",
+    "slug": "nguyenquangminh",
+    "birthDate": "27/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211100755",
+    "fullName": "Nguyễn Đức Phú",
+    "slug": "nguyendjucphu",
+    "birthDate": "16/12/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211941562",
+    "fullName": "Nguyễn Anh Tâm",
+    "slug": "nguyenanhtam",
+    "birthDate": "26/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211133084",
+    "fullName": "Vũ Đình Trung",
+    "slug": "vudjinhtrung",
+    "birthDate": "13/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211100644",
+    "fullName": "Lê Minh Tuấn",
+    "slug": "leminhtuan",
+    "birthDate": "14/05/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211132165",
+    "fullName": "Hà Anh Tuấn",
+    "slug": "haanhtuan",
+    "birthDate": "28/09/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211136259",
+    "fullName": "Nguyễn Văn Tuấn",
+    "slug": "nguyenvantuan",
+    "birthDate": "27/01/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211136227",
+    "fullName": "Nguyễn Hoài Vĩ Vĩ",
+    "slug": "nguyenhoaivivi",
+    "birthDate": "10/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211122151",
+    "fullName": "Lê Hoàng Vũ",
+    "slug": "lehoangvu",
+    "birthDate": "25/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Kỹ Thuật Mạng Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TAM"
+  },
+  {
+    "studentCode": "26211241939",
+    "fullName": "Đỗ Đức Bình",
+    "slug": "djodjucbinh",
+    "birthDate": "08/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211200023",
+    "fullName": "Nguyễn Minh Đức",
+    "slug": "nguyenminhdjuc",
+    "birthDate": "19/05/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211233118",
+    "fullName": "Trần Văn Đức",
+    "slug": "tranvandjuc",
+    "birthDate": "01/10/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211224842",
+    "fullName": "Võ Trường Dũng",
+    "slug": "votruongdung",
+    "birthDate": "30/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211133965",
+    "fullName": "Phạm Lê Nhật Duy",
+    "slug": "phamlenhatduy",
+    "birthDate": "23/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211223803",
+    "fullName": "Từ Nhật Khánh Duy",
+    "slug": "tunhatkhanhduy",
+    "birthDate": "05/02/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211242085",
+    "fullName": "Lê Văn Anh Duy",
+    "slug": "levananhduy",
+    "birthDate": "09/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201235914",
+    "fullName": "Huỳnh Nguyên Bảo Hân",
+    "slug": "huynhnguyenbaohan",
+    "birthDate": "07/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211232145",
+    "fullName": "Nguyễn Trung Hiếu",
+    "slug": "nguyentrunghieu",
+    "birthDate": "11/03/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211235541",
+    "fullName": "Phan Nhật Hoàng",
+    "slug": "phannhathoang",
+    "birthDate": "04/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26217230514",
+    "fullName": "Ngô Công Gia Hy",
+    "slug": "ngoconggiahy",
+    "birthDate": "01/02/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211230513",
+    "fullName": "Trần Gia Khánh",
+    "slug": "trangiakhanh",
+    "birthDate": "26/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211242043",
+    "fullName": "Văn Bá Linh",
+    "slug": "vanbalinh",
+    "birthDate": "08/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211120246",
+    "fullName": "Nguyễn Hữu Lĩnh",
+    "slug": "nguyenhuulinh",
+    "birthDate": "25/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211234609",
+    "fullName": "Lê Hoàng Lộc",
+    "slug": "lehoangloc",
+    "birthDate": "08/10/1997",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211242044",
+    "fullName": "Lê Nguyễn Văn Lộc",
+    "slug": "lenguyenvanloc",
+    "birthDate": "22/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211227130",
+    "fullName": "Nguyễn Duy Lý",
+    "slug": "nguyenduyly",
+    "birthDate": "28/11/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211230805",
+    "fullName": "Võ Hồng Nghĩa",
+    "slug": "vohongnghia",
+    "birthDate": "02/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201236084",
+    "fullName": "Nguyễn Như Ngọc",
+    "slug": "nguyennhungoc",
+    "birthDate": "01/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211227054",
+    "fullName": "Phan Tuấn Phong",
+    "slug": "phantuanphong",
+    "birthDate": "05/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211234241",
+    "fullName": "Lưu Chấn Phong",
+    "slug": "luuchanphong",
+    "birthDate": "18/12/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211235115",
+    "fullName": "Đinh Hoàng Phú",
+    "slug": "djinhhoangphu",
+    "birthDate": "25/06/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201235750",
+    "fullName": "Trần Lâm Huệ Quyên",
+    "slug": "tranlamhuequyen",
+    "birthDate": "04/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211238937",
+    "fullName": "Trịnh Phú Tân",
+    "slug": "trinhphutan",
+    "birthDate": "06/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "25262112314",
+    "fullName": "Lê Văn Thành",
+    "slug": "levanthanh",
+    "birthDate": "30/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26262012426",
+    "fullName": "Thân Thị Thảo",
+    "slug": "thanthithao",
+    "birthDate": "05/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211235012",
+    "fullName": "Trần Anh Thi",
+    "slug": "trananhthi",
+    "birthDate": "25/06/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201235139",
+    "fullName": "Nguyễn Văn Hưng Thịnh",
+    "slug": "nguyenvanhungthinh",
+    "birthDate": "12/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201221434",
+    "fullName": "Nguyễn Minh Thủy Tiên",
+    "slug": "nguyenminhthuytien",
+    "birthDate": "25/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201242531",
+    "fullName": "Hồ Ngọc Huyền Trân",
+    "slug": "hongochuyentran",
+    "birthDate": "01/03/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211221663",
+    "fullName": "Chu Văn Trí",
+    "slug": "chuvantri",
+    "birthDate": "16/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211235133",
+    "fullName": "Lê Đăng Trình",
+    "slug": "ledjangtrinh",
+    "birthDate": "05/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211227200",
+    "fullName": "Phạm Lê Anh Tú",
+    "slug": "phamleanhtu",
+    "birthDate": "21/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26213329983",
+    "fullName": "Nguyễn Quốc Việt",
+    "slug": "nguyenquocviet",
+    "birthDate": "22/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211236271",
+    "fullName": "Nguyễn Trần Triệu Vĩnh",
+    "slug": "nguyentrantrieuvinh",
+    "birthDate": "23/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26201241995",
+    "fullName": "Nguyễn Yến Vy",
+    "slug": "nguyenyenvy",
+    "birthDate": "01/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM1"
+  },
+  {
+    "studentCode": "26211235137",
+    "fullName": "Nguyễn Văn Bảo",
+    "slug": "nguyenvanbao",
+    "birthDate": "24/06/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241703",
+    "fullName": "Phạm Quốc Bảo",
+    "slug": "phamquocbao",
+    "birthDate": "11/01/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241950",
+    "fullName": "Nguyễn Tiến Đạt",
+    "slug": "nguyentiendjat",
+    "birthDate": "02/02/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211242012",
+    "fullName": "Nguyễn Thành Đạt",
+    "slug": "nguyenthanhdjat",
+    "birthDate": "24/01/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26201225650",
+    "fullName": "Nguyễn Xuân Đức",
+    "slug": "nguyenxuandjuc",
+    "birthDate": "21/08/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211227224",
+    "fullName": "Huỳnh Ngọc Duy",
+    "slug": "huynhngocduy",
+    "birthDate": "16/06/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241719",
+    "fullName": "Phạm Tùng Duy",
+    "slug": "phamtungduy",
+    "birthDate": "03/09/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211233669",
+    "fullName": "Phạm Thế Duyệt",
+    "slug": "phamtheduyet",
+    "birthDate": "23/01/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211221739",
+    "fullName": "Phạm Thanh Hậu",
+    "slug": "phamthanhhau",
+    "birthDate": "06/07/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241555",
+    "fullName": "Nguyễn Hữu Hoàng",
+    "slug": "nguyenhuuhoang",
+    "birthDate": "01/10/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241736",
+    "fullName": "Trần Quốc Hưng",
+    "slug": "tranquochung",
+    "birthDate": "28/01/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211230755",
+    "fullName": "Trương Gia Huy",
+    "slug": "truonggiahuy",
+    "birthDate": "06/09/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211123359",
+    "fullName": "Nguyễn Văn Khải",
+    "slug": "nguyenvankhai",
+    "birthDate": "04/08/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26201200759",
+    "fullName": "Huỳnh Thị Bảo Khuyên",
+    "slug": "huynhthibaokhuyen",
+    "birthDate": "27/11/1997",
+    "className": "DTE-IS 102 C",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211229196",
+    "fullName": "Bùi Lê Tùng Lâm",
+    "slug": "builetunglam",
+    "birthDate": "07/03/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241557",
+    "fullName": "Nguyễn Đình Lợi",
+    "slug": "nguyendjinhloi",
+    "birthDate": "04/05/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241568",
+    "fullName": "Trần Quang Luận",
+    "slug": "tranquangluan",
+    "birthDate": "25/06/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211234775",
+    "fullName": "Trương Công Minh",
+    "slug": "truongcongminh",
+    "birthDate": "31/08/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241958",
+    "fullName": "Đặng Nhật Minh",
+    "slug": "djangnhatminh",
+    "birthDate": "09/03/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211230400",
+    "fullName": "Đỗ Minh Nhật",
+    "slug": "djominhnhat",
+    "birthDate": "13/10/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211232079",
+    "fullName": "Trần Lê Phong",
+    "slug": "tranlephong",
+    "birthDate": "03/10/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211234433",
+    "fullName": "Nguyễn Nguyên Phú",
+    "slug": "nguyennguyenphu",
+    "birthDate": "28/11/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211232525",
+    "fullName": "Châu Trần Anh Quốc",
+    "slug": "chautrananhquoc",
+    "birthDate": "06/06/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211234585",
+    "fullName": "Dương Minh Quý",
+    "slug": "duongminhquy",
+    "birthDate": "08/01/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "25262112423",
+    "fullName": "Phạm Anh Quyết",
+    "slug": "phamanhquyet",
+    "birthDate": "24/05/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26262112415",
+    "fullName": "Đặng Trần Công Tấn",
+    "slug": "djangtrancongtan",
+    "birthDate": "28/03/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211630808",
+    "fullName": "Nguyễn Văn Thắng",
+    "slug": "nguyenvanthang",
+    "birthDate": "03/02/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211230041",
+    "fullName": "Ngô Viết Thương",
+    "slug": "ngovietthuong",
+    "birthDate": "30/04/2001",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211229940",
+    "fullName": "Lê Minh Trí",
+    "slug": "leminhtri",
+    "birthDate": "01/02/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26201221107",
+    "fullName": "Nguyễn Thị Ngọc Trinh",
+    "slug": "nguyenthingoctrinh",
+    "birthDate": "10/06/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211200551",
+    "fullName": "Trần Minh Tú",
+    "slug": "tranminhtu",
+    "birthDate": "04/08/1998",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211228251",
+    "fullName": "Phan Nhật Tuấn",
+    "slug": "phannhattuan",
+    "birthDate": "21/08/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211235098",
+    "fullName": "Nguyễn Anh Tuấn",
+    "slug": "nguyenanhtuan",
+    "birthDate": "05/01/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26201241551",
+    "fullName": "Trần Mỹ Uyên",
+    "slug": "tranmyuyen",
+    "birthDate": "06/05/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26214336644",
+    "fullName": "Nguyễn Hữu Viên",
+    "slug": "nguyenhuuvien",
+    "birthDate": "14/04/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211241827",
+    "fullName": "Ngô Văn Vinh",
+    "slug": "ngovanvinh",
+    "birthDate": "24/03/2002",
+    "className": "DTE-IS 102 C",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM2"
+  },
+  {
+    "studentCode": "26211221662",
+    "fullName": "Nguyễn Hồng Anh",
+    "slug": "nguyenhonganh",
+    "birthDate": "11/07/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211200002",
+    "fullName": "Trần Nguyên Bảo",
+    "slug": "trannguyenbao",
+    "birthDate": "16/08/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211241614",
+    "fullName": "Nguyễn Phước Bảo",
+    "slug": "nguyenphuocbao",
+    "birthDate": "30/10/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211229559",
+    "fullName": "Lê Triệu Công",
+    "slug": "letrieucong",
+    "birthDate": "15/01/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211233977",
+    "fullName": "Trương Thành Đạt",
+    "slug": "truongthanhdjat",
+    "birthDate": "12/01/2001",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26201233381",
+    "fullName": "Đinh Thị Kim Diễm",
+    "slug": "djinhthikimdiem",
+    "birthDate": "25/10/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211228457",
+    "fullName": "Trần Phước Định",
+    "slug": "tranphuocdjinh",
+    "birthDate": "27/04/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211200490",
+    "fullName": "Nguyễn Minh Đức",
+    "slug": "nguyenminhdjuc",
+    "birthDate": "17/09/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211200671",
+    "fullName": "Nguyễn Hữu Hiếu",
+    "slug": "nguyenhuuhieu",
+    "birthDate": "20/06/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235418",
+    "fullName": "Thái Trần Duy Hoàng",
+    "slug": "thaitranduyhoang",
+    "birthDate": "07/12/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211200048",
+    "fullName": "Nguyễn Hoàng Hưng",
+    "slug": "nguyenhoanghung",
+    "birthDate": "08/07/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26204500390",
+    "fullName": "Hồ Thanh Hương",
+    "slug": "hothanhhuong",
+    "birthDate": "26/10/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211200612",
+    "fullName": "Bùi Lê Huy",
+    "slug": "builehuy",
+    "birthDate": "29/10/2000",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211228264",
+    "fullName": "Lê Đức Huy",
+    "slug": "ledjuchuy",
+    "birthDate": "09/03/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211241920",
+    "fullName": "Võ Thanh Huy",
+    "slug": "vothanhhuy",
+    "birthDate": "02/08/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211222397",
+    "fullName": "Hồ Minh Khánh",
+    "slug": "hominhkhanh",
+    "birthDate": "02/06/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211220981",
+    "fullName": "Trần Ngọc Khoa",
+    "slug": "tranngockhoa",
+    "birthDate": "07/03/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235562",
+    "fullName": "Nguyễn Công Khôi",
+    "slug": "nguyencongkhoi",
+    "birthDate": "20/05/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211242103",
+    "fullName": "Đặng Bảo Kiếm",
+    "slug": "djangbaokiem",
+    "birthDate": "01/04/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211236188",
+    "fullName": "Võ Đức Minh",
+    "slug": "vodjucminh",
+    "birthDate": "06/11/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211230428",
+    "fullName": "Nguyễn Trần Hoàng Nguyên",
+    "slug": "nguyentranhoangnguyen",
+    "birthDate": "03/05/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211234562",
+    "fullName": "Phạm Công Phát",
+    "slug": "phamcongphat",
+    "birthDate": "06/02/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235710",
+    "fullName": "Nguyễn An Phong",
+    "slug": "nguyenanphong",
+    "birthDate": "08/05/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235868",
+    "fullName": "Hồ Trung Phương",
+    "slug": "hotrungphuong",
+    "birthDate": "07/08/2001",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "25262112312",
+    "fullName": "Trương Huy Quân",
+    "slug": "truonghuyquan",
+    "birthDate": "24/10/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26262112357",
+    "fullName": "Hồ Trần Quốc",
+    "slug": "hotranquoc",
+    "birthDate": "15/06/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235629",
+    "fullName": "Nguyễn Bá Phú Quý",
+    "slug": "nguyenbaphuquy",
+    "birthDate": "29/08/2001",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211236051",
+    "fullName": "Nguyễn Văn Tân",
+    "slug": "nguyenvantan",
+    "birthDate": "18/12/2001",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211230354",
+    "fullName": "Phạm Xuân Thanh",
+    "slug": "phamxuanthanh",
+    "birthDate": "01/09/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235649",
+    "fullName": "Nguyễn Văn Xuân Thành",
+    "slug": "nguyenvanxuanthanh",
+    "birthDate": "24/11/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211238961",
+    "fullName": "Nguyễn Đức Thiện",
+    "slug": "nguyendjucthien",
+    "birthDate": "20/02/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211232477",
+    "fullName": "Phạm Quốc Trung",
+    "slug": "phamquoctrung",
+    "birthDate": "08/06/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211235156",
+    "fullName": "Lương Anh Tú",
+    "slug": "luonganhtu",
+    "birthDate": "03/11/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211232371",
+    "fullName": "Lê Hoàng Vinh",
+    "slug": "lehoangvinh",
+    "birthDate": "11/08/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26211224809",
+    "fullName": "Hà Lâm Hoàng Vũ",
+    "slug": "halamhoangvu",
+    "birthDate": "21/12/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26217128491",
+    "fullName": "Trần Anh Vũ",
+    "slug": "trananhvu",
+    "birthDate": "15/04/2002",
+    "className": "DTE-IS 102 E",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM3"
+  },
+  {
+    "studentCode": "26201242086",
+    "fullName": "Huỳnh Nguyễn Lan Anh",
+    "slug": "huynhnguyenlananh",
+    "birthDate": "09/10/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238684",
+    "fullName": "Bùi Huỳnh Ngọc Anh",
+    "slug": "buihuynhngocanh",
+    "birthDate": "02/02/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211242566",
+    "fullName": "Nguyễn Hoàng Quốc Anh",
+    "slug": "nguyenhoangquocanh",
+    "birthDate": "10/12/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211235932",
+    "fullName": "Nguyễn Ngọc Bách",
+    "slug": "nguyenngocbach",
+    "birthDate": "22/10/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241632",
+    "fullName": "Nguyễn Long Biên",
+    "slug": "nguyenlongbien",
+    "birthDate": "10/11/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241692",
+    "fullName": "Nguyễn Đức Chinh",
+    "slug": "nguyendjucchinh",
+    "birthDate": "12/08/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241641",
+    "fullName": "Nguyễn Phan Tuấn Đạt",
+    "slug": "nguyenphantuandjat",
+    "birthDate": "07/04/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211235004",
+    "fullName": "Lê Nguyễn Ngọc Đông",
+    "slug": "lenguyenngocdjong",
+    "birthDate": "17/01/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26201241603",
+    "fullName": "Hồ Ánh Dương",
+    "slug": "hoanhduong",
+    "birthDate": "16/11/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211124644",
+    "fullName": "Đào Nhật Dương",
+    "slug": "djaonhatduong",
+    "birthDate": "28/10/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211441593",
+    "fullName": "Nguyễn Thanh Hào",
+    "slug": "nguyenthanhhao",
+    "birthDate": "20/04/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238778",
+    "fullName": "Phạm Tiến Hùng",
+    "slug": "phamtienhung",
+    "birthDate": "08/09/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241673",
+    "fullName": "Đặng Đình Huy",
+    "slug": "djangdjinhhuy",
+    "birthDate": "03/06/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241981",
+    "fullName": "Ngô Trần Anh Khoa",
+    "slug": "ngotrananhkhoa",
+    "birthDate": "01/02/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211242069",
+    "fullName": "Đoàn Ngọc Anh Khoa",
+    "slug": "djoanngocanhkhoa",
+    "birthDate": "03/03/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241674",
+    "fullName": "Lương Trọng Linh",
+    "slug": "luongtronglinh",
+    "birthDate": "02/02/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211236334",
+    "fullName": "Dương Nguyễn Công Luận",
+    "slug": "duongnguyencongluan",
+    "birthDate": "10/08/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238838",
+    "fullName": "Lê Văn Lượng",
+    "slug": "levanluong",
+    "birthDate": "26/08/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241693",
+    "fullName": "Phan Thanh Nhàn",
+    "slug": "phanthanhnhan",
+    "birthDate": "01/01/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211236255",
+    "fullName": "Đặng Văn Nhật",
+    "slug": "djangvannhat",
+    "birthDate": "05/04/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238878",
+    "fullName": "Nguyễn Quốc Nhật",
+    "slug": "nguyenquocnhat",
+    "birthDate": "10/05/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238882",
+    "fullName": "Vũ Quang Nhật",
+    "slug": "vuquangnhat",
+    "birthDate": "28/04/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211235372",
+    "fullName": "Trần Mai Anh Phong",
+    "slug": "tranmaianhphong",
+    "birthDate": "06/07/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211242061",
+    "fullName": "Trần Lê Quân",
+    "slug": "tranlequan",
+    "birthDate": "06/01/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "25262112389",
+    "fullName": "Nguyễn Đại Phước Tài",
+    "slug": "nguyendjaiphuoctai",
+    "birthDate": "18/07/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26262113290",
+    "fullName": "Nguyễn Trần Anh Thắng",
+    "slug": "nguyentrananhthang",
+    "birthDate": "21/09/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238959",
+    "fullName": "Huỳnh Văn Thiện",
+    "slug": "huynhvanthien",
+    "birthDate": "08/03/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211238966",
+    "fullName": "Trương Quốc Thuần",
+    "slug": "truongquocthuan",
+    "birthDate": "03/08/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211242267",
+    "fullName": "Nguyễn Lê Thuận",
+    "slug": "nguyenlethuan",
+    "birthDate": "21/03/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211234970",
+    "fullName": "Võ Văn Tiến",
+    "slug": "vovantien",
+    "birthDate": "20/01/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211242010",
+    "fullName": "Trần Hữu Toàn",
+    "slug": "tranhuutoan",
+    "birthDate": "18/04/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211234181",
+    "fullName": "Trần Công Trí",
+    "slug": "trancongtri",
+    "birthDate": "03/11/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211234942",
+    "fullName": "Nguyễn Đức Tú",
+    "slug": "nguyendjuctu",
+    "birthDate": "15/02/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211239001",
+    "fullName": "Nguyễn Hữu Tuấn",
+    "slug": "nguyenhuutuan",
+    "birthDate": "01/03/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241768",
+    "fullName": "Trần Duy Tùng",
+    "slug": "tranduytung",
+    "birthDate": "04/01/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211241611",
+    "fullName": "Nguyễn Xuân Vang",
+    "slug": "nguyenxuanvang",
+    "birthDate": "14/07/2002",
+    "className": "DTE-IS 102 G",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM4"
+  },
+  {
+    "studentCode": "26211226080",
+    "fullName": "Trần Đình Bảo",
+    "slug": "trandjinhbao",
+    "birthDate": "15/07/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235202",
+    "fullName": "Đặng Văn Trần Chinh",
+    "slug": "djangvantranchinh",
+    "birthDate": "07/05/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211242170",
+    "fullName": "Nguyễn Khắc Chỉnh",
+    "slug": "nguyenkhacchinh",
+    "birthDate": "28/05/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235781",
+    "fullName": "Lương Văn Chung",
+    "slug": "luongvanchung",
+    "birthDate": "01/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211139026",
+    "fullName": "Nguyễn Phi Hiền",
+    "slug": "nguyenphihien",
+    "birthDate": "10/11/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211200238",
+    "fullName": "Đỗ Huy Hoàng",
+    "slug": "djohuyhoang",
+    "birthDate": "25/06/2000",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211227980",
+    "fullName": "Vũ Hữu Hoàng",
+    "slug": "vuhuuhoang",
+    "birthDate": "17/02/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211234662",
+    "fullName": "Nguyễn Phi Hoàng",
+    "slug": "nguyenphihoang",
+    "birthDate": "02/02/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235132",
+    "fullName": "Trương Việt Hoàng",
+    "slug": "truongviethoang",
+    "birthDate": "07/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211241654",
+    "fullName": "Võ Trần Hoàng",
+    "slug": "votranhoang",
+    "birthDate": "17/08/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211238779",
+    "fullName": "Cao Quốc Huy",
+    "slug": "caoquochuy",
+    "birthDate": "11/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211242654",
+    "fullName": "Mai Văn Huy",
+    "slug": "maivanhuy",
+    "birthDate": "11/11/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26212133788",
+    "fullName": "Đặng Trung Kiên",
+    "slug": "djangtrungkien",
+    "birthDate": "14/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211227122",
+    "fullName": "Nguyễn Anh Minh",
+    "slug": "nguyenanhminh",
+    "birthDate": "16/08/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211228558",
+    "fullName": "Nguyễn Ngọc Minh",
+    "slug": "nguyenngocminh",
+    "birthDate": "03/12/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235712",
+    "fullName": "Hoàng Dương Minh",
+    "slug": "hoangduongminh",
+    "birthDate": "26/09/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211238860",
+    "fullName": "Đặng Hữu Ngọc",
+    "slug": "djanghuungoc",
+    "birthDate": "15/07/2001",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211227029",
+    "fullName": "Nguyễn Nhật Nguyên",
+    "slug": "nguyennhatnguyen",
+    "birthDate": "24/06/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235467",
+    "fullName": "Huỳnh Kim Nhã",
+    "slug": "huynhkimnha",
+    "birthDate": "01/05/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26202130234",
+    "fullName": "Nguyễn Tuyết Nhung",
+    "slug": "nguyentuyetnhung",
+    "birthDate": "21/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26201135061",
+    "fullName": "Phan Thị Thu Phương",
+    "slug": "phanthithuphuong",
+    "birthDate": "31/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211200285",
+    "fullName": "Liêu Thiện Quang",
+    "slug": "lieuthienquang",
+    "birthDate": "10/06/2001",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211226430",
+    "fullName": "Dương Quang Quốc",
+    "slug": "duongquangquoc",
+    "birthDate": "15/04/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211232795",
+    "fullName": "Nguyễn Hoàng Quyết",
+    "slug": "nguyenhoangquyet",
+    "birthDate": "22/12/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "25262111000",
+    "fullName": "Phạm Hữu Sáng",
+    "slug": "phamhuusang",
+    "birthDate": "15/07/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26262112348",
+    "fullName": "Đỗ Phú Tài",
+    "slug": "djophutai",
+    "birthDate": "21/07/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235168",
+    "fullName": "Lê Xuân Tân",
+    "slug": "lexuantan",
+    "birthDate": "01/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235556",
+    "fullName": "Trương Văn Thắng",
+    "slug": "truongvanthang",
+    "birthDate": "24/05/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235220",
+    "fullName": "Hồ Duy Thành",
+    "slug": "hoduythanh",
+    "birthDate": "21/01/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211233133",
+    "fullName": "Nguyễn Quang Thiệu",
+    "slug": "nguyenquangthieu",
+    "birthDate": "27/10/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211231296",
+    "fullName": "Nguyễn Phan Minh Thịnh",
+    "slug": "nguyenphanminhthinh",
+    "birthDate": "13/02/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211235859",
+    "fullName": "Lê Quang Tú",
+    "slug": "lequangtu",
+    "birthDate": "03/02/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211130993",
+    "fullName": "Dương Quang Tuyến",
+    "slug": "duongquangtuyen",
+    "birthDate": "26/08/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211236049",
+    "fullName": "Nguyễn Văn Tỵ",
+    "slug": "nguyenvanty",
+    "birthDate": "18/12/2001",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211200134",
+    "fullName": "Nguyễn Văn Vĩ",
+    "slug": "nguyenvanvi",
+    "birthDate": "08/12/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26211236261",
+    "fullName": "Huỳnh Nhật Vương",
+    "slug": "huynhnhatvuong",
+    "birthDate": "18/05/2002",
+    "className": "DTE-IS 102 I",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM5"
+  },
+  {
+    "studentCode": "26201233894",
+    "fullName": "Phan Võ Tâm Đan",
+    "slug": "phanvotamdjan",
+    "birthDate": "06/08/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211230748",
+    "fullName": "Trần Văn Đạt",
+    "slug": "tranvandjat",
+    "birthDate": "17/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211233200",
+    "fullName": "Nguyễn Quốc Đạt",
+    "slug": "nguyenquocdjat",
+    "birthDate": "16/01/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211233072",
+    "fullName": "Huỳnh Gia Duy",
+    "slug": "huynhgiaduy",
+    "birthDate": "25/07/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211225104",
+    "fullName": "Trương Trung Hiếu",
+    "slug": "truongtrunghieu",
+    "birthDate": "06/06/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211328772",
+    "fullName": "Trần Văn Hiếu",
+    "slug": "tranvanhieu",
+    "birthDate": "22/07/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211132330",
+    "fullName": "Trần Quốc Hoàng",
+    "slug": "tranquochoang",
+    "birthDate": "25/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211235180",
+    "fullName": "Huỳnh Văn Hưng",
+    "slug": "huynhvanhung",
+    "birthDate": "10/04/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211235303",
+    "fullName": "Hồ Quốc Hưng",
+    "slug": "hoquochung",
+    "birthDate": "02/10/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26212120741",
+    "fullName": "Nguyễn Dương Hưng",
+    "slug": "nguyenduonghung",
+    "birthDate": "24/10/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26217234224",
+    "fullName": "Trương Ngọc Hưng",
+    "slug": "truongngochung",
+    "birthDate": "20/04/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211241619",
+    "fullName": "Nguyễn Công Huy",
+    "slug": "nguyenconghuy",
+    "birthDate": "21/10/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211225263",
+    "fullName": "Phạm Phú Khánh",
+    "slug": "phamphukhanh",
+    "birthDate": "17/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211227220",
+    "fullName": "Lê Huỳnh Anh Khoa",
+    "slug": "lehuynhanhkhoa",
+    "birthDate": "20/10/2001",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211229592",
+    "fullName": "Dương Ngọc Khoa",
+    "slug": "duongngockhoa",
+    "birthDate": "25/09/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211242394",
+    "fullName": "Lê Ngô Bảo Khương",
+    "slug": "lengobaokhuong",
+    "birthDate": "28/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211220340",
+    "fullName": "Nguyễn Hào Kiệt",
+    "slug": "nguyenhaokiet",
+    "birthDate": "05/12/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26201229238",
+    "fullName": "Trần Thị Mỹ Linh",
+    "slug": "tranthimylinh",
+    "birthDate": "08/03/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211224358",
+    "fullName": "Trần Văn Mạnh",
+    "slug": "tranvanmanh",
+    "birthDate": "27/07/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211234641",
+    "fullName": "Lê Công Minh",
+    "slug": "lecongminh",
+    "birthDate": "08/04/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211235872",
+    "fullName": "Nguyễn Quang Minh",
+    "slug": "nguyenquangminh",
+    "birthDate": "11/06/2001",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26201235096",
+    "fullName": "Lê Thị Linh Nhị",
+    "slug": "lethilinhnhi",
+    "birthDate": "06/08/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211932180",
+    "fullName": "Đinh Trần Gia Phong",
+    "slug": "djinhtrangiaphong",
+    "birthDate": "31/05/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211225890",
+    "fullName": "Đào Nguyên Triều Phụng",
+    "slug": "djaonguyentrieuphung",
+    "birthDate": "20/06/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "25262112246",
+    "fullName": "Nguyễn Đức Thiện Phước",
+    "slug": "nguyendjucthienphuoc",
+    "birthDate": "24/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26262112361",
+    "fullName": "Nguyễn Hữu Hoàn Phước",
+    "slug": "nguyenhuuhoanphuoc",
+    "birthDate": "08/12/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211235138",
+    "fullName": "Nguyễn Phước Nhật Tân",
+    "slug": "nguyenphuocnhattan",
+    "birthDate": "03/10/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211235892",
+    "fullName": "Đặng Lê Phước Tân",
+    "slug": "djanglephuoctan",
+    "birthDate": "09/08/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211242397",
+    "fullName": "Nguyễn Quang Thắng",
+    "slug": "nguyenquangthang",
+    "birthDate": "29/07/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26201232457",
+    "fullName": "Lê Thị Thảo",
+    "slug": "lethithao",
+    "birthDate": "20/04/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211231373",
+    "fullName": "Phạm Đắc Thịnh",
+    "slug": "phamdjacthinh",
+    "birthDate": "18/05/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211234519",
+    "fullName": "Lê Viết Thọ",
+    "slug": "leviettho",
+    "birthDate": "06/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211220570",
+    "fullName": "Lê Văn Tiến",
+    "slug": "levantien",
+    "birthDate": "25/03/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211242620",
+    "fullName": "Đỗ Tất Toàn",
+    "slug": "djotattoan",
+    "birthDate": "26/06/2001",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211222152",
+    "fullName": "Nguyễn Duy Trinh",
+    "slug": "nguyenduytrinh",
+    "birthDate": "22/11/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211230058",
+    "fullName": "Nguyễn Phước Tú",
+    "slug": "nguyenphuoctu",
+    "birthDate": "01/02/2002",
+    "className": "DTE-IS 102 K",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM6"
+  },
+  {
+    "studentCode": "26211222199",
+    "fullName": "Trương QuốcÁi",
+    "slug": "truongquocai",
+    "birthDate": "02/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26213128070",
+    "fullName": "Hồ Tấn Đạt",
+    "slug": "hotandjat",
+    "birthDate": "02/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211229929",
+    "fullName": "Đặng Việt Dũng",
+    "slug": "djangvietdung",
+    "birthDate": "06/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211200313",
+    "fullName": "Trần Như Dương",
+    "slug": "trannhuduong",
+    "birthDate": "15/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211235072",
+    "fullName": "Nguyễn Đăng Hải",
+    "slug": "nguyendjanghai",
+    "birthDate": "23/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211235129",
+    "fullName": "Nguyễn Cửu Hoàng Hải",
+    "slug": "nguyencuuhoanghai",
+    "birthDate": "18/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211228370",
+    "fullName": "Võ Văn Hảo",
+    "slug": "vovanhao",
+    "birthDate": "20/03/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211235948",
+    "fullName": "Trần Hoàn",
+    "slug": "tranhoan",
+    "birthDate": "05/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211232265",
+    "fullName": "Nguyễn Thành Hưng",
+    "slug": "nguyenthanhhung",
+    "birthDate": "12/10/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211233228",
+    "fullName": "Bùi Đinh Huy",
+    "slug": "buidjinhhuy",
+    "birthDate": "21/04/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211234091",
+    "fullName": "Đặng Ngoc Quan Huy",
+    "slug": "djangngocquanhuy",
+    "birthDate": "08/06/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211235904",
+    "fullName": "Trần Đình Hoàng Huy",
+    "slug": "trandjinhhoanghuy",
+    "birthDate": "24/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26212826625",
+    "fullName": "Nguyễn Hoàng Phước Huy",
+    "slug": "nguyenhoangphuochuy",
+    "birthDate": "11/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211238818",
+    "fullName": "Lê Vũ Anh Khôi",
+    "slug": "levuanhkhoi",
+    "birthDate": "03/06/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211221452",
+    "fullName": "Phạm Trung Kiên",
+    "slug": "phamtrungkien",
+    "birthDate": "13/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26201226655",
+    "fullName": "Lê Quang Nam",
+    "slug": "lequangnam",
+    "birthDate": "03/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211229727",
+    "fullName": "Trần Quang Phú",
+    "slug": "tranquangphu",
+    "birthDate": "07/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211230749",
+    "fullName": "Trần Hưng Phú",
+    "slug": "tranhungphu",
+    "birthDate": "23/12/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211232555",
+    "fullName": "Nguyễn Anh Quân",
+    "slug": "nguyenanhquan",
+    "birthDate": "21/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211331374",
+    "fullName": "Lê Đức Quốc",
+    "slug": "ledjucquoc",
+    "birthDate": "01/06/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26217200279",
+    "fullName": "Nguyễn Thành Tâm",
+    "slug": "nguyenthanhtam",
+    "birthDate": "01/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211234425",
+    "fullName": "Nguyễn Thanh Tân",
+    "slug": "nguyenthanhtan",
+    "birthDate": "10/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211434910",
+    "fullName": "Võ Tấn Thắng",
+    "slug": "votanthang",
+    "birthDate": "22/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211134409",
+    "fullName": "Lê Văn Thanh",
+    "slug": "levanthanh",
+    "birthDate": "08/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "25262111348",
+    "fullName": "Lê Ngọc Thanh",
+    "slug": "lengocthanh",
+    "birthDate": "09/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26262112349",
+    "fullName": "Đỗ Tiến Thành",
+    "slug": "djotienthanh",
+    "birthDate": "01/01/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211200398",
+    "fullName": "Bùi Vĩ Thịnh",
+    "slug": "buivithinh",
+    "birthDate": "15/02/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26201234738",
+    "fullName": "Huỳnh Nguyễn Kim Thư",
+    "slug": "huynhnguyenkimthu",
+    "birthDate": "29/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211226540",
+    "fullName": "Nguyễn Đức Nhật Tiến",
+    "slug": "nguyendjucnhattien",
+    "birthDate": "08/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211221289",
+    "fullName": "Mai Thanh Toàn",
+    "slug": "maithanhtoan",
+    "birthDate": "18/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211232172",
+    "fullName": "Nguyễn Duy Trí",
+    "slug": "nguyenduytri",
+    "birthDate": "18/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211231695",
+    "fullName": "Nguyễn Văn Tuấn",
+    "slug": "nguyenvantuan",
+    "birthDate": "08/06/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211232122",
+    "fullName": "Lê Trọng Tuấn",
+    "slug": "letrongtuan",
+    "birthDate": "24/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26217126457",
+    "fullName": "Trần Văn Tuấn",
+    "slug": "tranvantuan",
+    "birthDate": "05/02/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211232412",
+    "fullName": "Huỳnh Ngọc Quốc Việt",
+    "slug": "huynhngocquocviet",
+    "birthDate": "22/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7"
+  },
+  {
+    "studentCode": "26211235254",
+    "fullName": "Phạm Xuân Vinh",
+    "slug": "phamxuanvinh",
+    "birthDate": "21/03/1996",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-25 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM7H"
+  },
+  {
+    "studentCode": "26211236134",
+    "fullName": "Nguyễn Thành An",
+    "slug": "nguyenthanhan",
+    "birthDate": "09/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26202134608",
+    "fullName": "Lưu Tuấn Anh",
+    "slug": "luutuananh",
+    "birthDate": "12/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211223629",
+    "fullName": "Vũ Thị Kim Châu",
+    "slug": "vuthikimchau",
+    "birthDate": "27/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211235483",
+    "fullName": "Nguyễn Đình Thanh Đạt",
+    "slug": "nguyendjinhthanhdjat",
+    "birthDate": "01/01/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nữ",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211129341",
+    "fullName": "Ngô Đặng Quang Dũng",
+    "slug": "ngodjangquangdung",
+    "birthDate": "23/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211225630",
+    "fullName": "Nguyễn Đức Duy",
+    "slug": "nguyendjucduy",
+    "birthDate": "19/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211235708",
+    "fullName": "Nguyễn Hoàng Duy",
+    "slug": "nguyenhoangduy",
+    "birthDate": "18/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211228524",
+    "fullName": "Châu Minh Hiếu",
+    "slug": "chauminhhieu",
+    "birthDate": "27/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211234908",
+    "fullName": "Đinh Việt Hoàng",
+    "slug": "djinhviethoang",
+    "birthDate": "13/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211200575",
+    "fullName": "Nguyễn Hồ Hữu Hoàng",
+    "slug": "nguyenhohuuhoang",
+    "birthDate": "21/03/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211232470",
+    "fullName": "Chu Văn Hùng",
+    "slug": "chuvanhung",
+    "birthDate": "05/02/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211235207",
+    "fullName": "Huỳnh Lê Quang Huy",
+    "slug": "huynhlequanghuy",
+    "birthDate": "28/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26212129318",
+    "fullName": "Lê Văn Huy",
+    "slug": "levanhuy",
+    "birthDate": "07/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26213532064",
+    "fullName": "Nguyễn Ngọc Huy",
+    "slug": "nguyenngochuy",
+    "birthDate": "13/03/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211125412",
+    "fullName": "Hoàng Ngọc Anh Huy",
+    "slug": "hoangngocanhhuy",
+    "birthDate": "07/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211230617",
+    "fullName": "Lê Quang Khánh",
+    "slug": "lequangkhanh",
+    "birthDate": "05/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211128423",
+    "fullName": "Đặng Bảo Khánh",
+    "slug": "djangbaokhanh",
+    "birthDate": "30/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211224999",
+    "fullName": "Lê Văn Lộc",
+    "slug": "levanloc",
+    "birthDate": "30/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211228737",
+    "fullName": "Phạm Tiến Lực",
+    "slug": "phamtienluc",
+    "birthDate": "02/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211228294",
+    "fullName": "Võ Hà Minh",
+    "slug": "vohaminh",
+    "birthDate": "27/02/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211234981",
+    "fullName": "Nguyễn Trường Nam",
+    "slug": "nguyentruongnam",
+    "birthDate": "15/12/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211235894",
+    "fullName": "Lê Quang Nhân",
+    "slug": "lequangnhan",
+    "birthDate": "17/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26214332431",
+    "fullName": "Nguyễn Văn Rin",
+    "slug": "nguyenvanrin",
+    "birthDate": "05/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "25262143300",
+    "fullName": "Phan Thảo",
+    "slug": "phanthao",
+    "birthDate": "02/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26262112332",
+    "fullName": "Nguyễn Minh Thông",
+    "slug": "nguyenminhthong",
+    "birthDate": "26/10/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211238976",
+    "fullName": "Huỳnh Văn Thuận",
+    "slug": "huynhvanthuan",
+    "birthDate": "06/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211233413",
+    "fullName": "Huỳnh Ngô Ngọc Toàn",
+    "slug": "huynhngongoctoan",
+    "birthDate": "02/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211228222",
+    "fullName": "Nguyễn Thanh Trí",
+    "slug": "nguyenthanhtri",
+    "birthDate": "19/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211232102",
+    "fullName": "Phạm Thanh Trung",
+    "slug": "phamthanhtrung",
+    "birthDate": "13/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211235361",
+    "fullName": "Nguyễn Anh Tuấn",
+    "slug": "nguyenanhtuan",
+    "birthDate": "04/09/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26201224949",
+    "fullName": "Hồ Hoàng Tuấn",
+    "slug": "hohoangtuan",
+    "birthDate": "16/11/2001",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26214324181",
+    "fullName": "Trịnh Gia Cát Tường",
+    "slug": "trinhgiacattuong",
+    "birthDate": "21/05/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26218620974",
+    "fullName": "Hồ Duy Vũ",
+    "slug": "hoduyvu",
+    "birthDate": "11/11/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Công Nghệ Phần Mềm Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TPM8"
+  },
+  {
+    "studentCode": "26211442571",
+    "fullName": "Huỳnh Nguyễn Việt Anh",
+    "slug": "huynhnguyenvietanh",
+    "birthDate": "05/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211434568",
+    "fullName": "Lương Văn Bằng",
+    "slug": "luongvanbang",
+    "birthDate": "17/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211424865",
+    "fullName": "Nguyễn Phan Thành Đô",
+    "slug": "nguyenphanthanhdjo",
+    "birthDate": "27/07/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201434022",
+    "fullName": "Phạm Đức Giang",
+    "slug": "phamdjucgiang",
+    "birthDate": "02/08/2001",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201441967",
+    "fullName": "Hàn Thị Minh Hiền",
+    "slug": "hanthiminhhien",
+    "birthDate": "16/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211428548",
+    "fullName": "Trương Thị Thu Hiền",
+    "slug": "truongthithuhien",
+    "birthDate": "07/09/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211436349",
+    "fullName": "Trần Đình Hiệp",
+    "slug": "trandjinhhiep",
+    "birthDate": "04/09/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201442135",
+    "fullName": "Lê Nguyễn Trọng Hiếu",
+    "slug": "lenguyentronghieu",
+    "birthDate": "08/12/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26202827686",
+    "fullName": "Nguyễn Thị Nhật Hoa",
+    "slug": "nguyenthinhathoa",
+    "birthDate": "08/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211434616",
+    "fullName": "Nguyễn Thị Lệ Hoa",
+    "slug": "nguyenthilehoa",
+    "birthDate": "07/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201442495",
+    "fullName": "Nguyễn Duy Khánh",
+    "slug": "nguyenduykhanh",
+    "birthDate": "28/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26217239861",
+    "fullName": "Vũ Thị Hoài Linh",
+    "slug": "vuthihoailinh",
+    "birthDate": "25/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211441580",
+    "fullName": "Nguyễn Lê Hoàng Lộc",
+    "slug": "nguyenlehoangloc",
+    "birthDate": "09/10/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211434935",
+    "fullName": "Trần Văn Lợi",
+    "slug": "tranvanloi",
+    "birthDate": "10/01/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201432975",
+    "fullName": "Nguyễn Thanh Hảo Long",
+    "slug": "nguyenthanhhaolong",
+    "birthDate": "27/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26212131660",
+    "fullName": "Nguyễn Thị Đăng Nguyên",
+    "slug": "nguyenthidjangnguyen",
+    "birthDate": "10/02/1998",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211441570",
+    "fullName": "Huỳnh Quốc Khánh Nguyên",
+    "slug": "huynhquockhanhnguyen",
+    "birthDate": "23/10/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201235368",
+    "fullName": "Nguyễn Thiện Nhân",
+    "slug": "nguyenthiennhan",
+    "birthDate": "04/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201228091",
+    "fullName": "Huỳnh Thị Anh Như",
+    "slug": "huynhthianhnhu",
+    "birthDate": "16/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211433907",
+    "fullName": "Nguyễn Thị Quý",
+    "slug": "nguyenthiquy",
+    "birthDate": "04/02/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26211933673",
+    "fullName": "Hà Ngọc Thạch",
+    "slug": "hangocthach",
+    "birthDate": "05/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26201442564",
+    "fullName": "Lê Minh Thắng",
+    "slug": "leminhthang",
+    "birthDate": "09/11/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26203737346",
+    "fullName": "Võ Thạch Thảo",
+    "slug": "vothachthao",
+    "birthDate": "27/12/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "25262114005",
+    "fullName": "Trần Nguyễn Yến Trang",
+    "slug": "trannguyenyentrang",
+    "birthDate": "20/10/2001",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nam",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26262114418",
+    "fullName": "Hà Nguyễn Thành Trung",
+    "slug": "hanguyenthanhtrung",
+    "birthDate": "04/08/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26214132326",
+    "fullName": "Huỳnh Lê Thanh Trường",
+    "slug": "huynhlethanhtruong",
+    "birthDate": "08/07/2002",
+    "className": "DTE-IS 102 Q",
+    "gender": "Nữ",
+    "program": "K-26 - Hệ Thống Thông Tin Quản Lý Chuẩn CMU (Đại Học)",
+    "classCode": "K26CMU-TTT"
+  },
+  {
+    "studentCode": "26214229622",
+    "fullName": "Huỳnh Hoàng Tấn Dương",
+    "slug": "huynhhoangtanduong",
+    "birthDate": "06/02/2002",
+    "className": "DTE-IS 102 O",
+    "gender": "Nam",
+    "program": "K-26 - Kiến Trúc Chuẩn CSU (Đại Học - bậc Kiến Trúc Sư)",
+    "classCode": "K26CSU-KTR"
+  },
+  {
+    "studentCode": "26214134180",
+    "fullName": "Dương Đắc Hoàng",
+    "slug": "duongdjachoang",
+    "birthDate": "25/02/2002",
+    "className": "DTE-IS 102 O",
+    "gender": "Nam",
+    "program": "K-26 - Kiến Trúc Chuẩn CSU (Đại Học - bậc Kiến Trúc Sư)",
+    "classCode": "K26CSU-KTR"
+  },
+  {
+    "studentCode": "26211300572",
+    "fullName": "Nguyễn Đức Huy",
+    "slug": "nguyendjuchuy",
+    "birthDate": "17/11/2002",
+    "className": "DTE-IS 102 O",
+    "gender": "Nam",
+    "program": "K-26 - Kiến Trúc Chuẩn CSU (Đại Học - bậc Kiến Trúc Sư)",
+    "classCode": "K26CSU-KTR"
+  },
+  {
+    "studentCode": "26216124398",
+    "fullName": "Nguyễn Nhật Minh",
+    "slug": "nguyennhatminh",
+    "birthDate": "02/01/2002",
+    "className": "DTE-IS 102 O",
+    "gender": "Nam",
+    "program": "K-26 - Kiến Trúc Chuẩn CSU (Đại Học - bậc Kiến Trúc Sư)",
+    "classCode": "K26CSU-KTR"
+  },
+  {
+    "studentCode": "26216135813",
+    "fullName": "Võ Văn Duy",
+    "slug": "vovanduy",
+    "birthDate": "02/12/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Xây Dựng Dân Dụng & Công Nghiệp Chuẩn CSU (Đại Học - bậc Kỹ Sư)",
+    "classCode": "K26CSU-XDD"
+  },
+  {
+    "studentCode": "26217123077",
+    "fullName": "Lê Bùi Văn Giang",
+    "slug": "lebuivangiang",
+    "birthDate": "17/04/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Xây Dựng Dân Dụng & Công Nghiệp Chuẩn CSU (Đại Học - bậc Kỹ Sư)",
+    "classCode": "K26CSU-XDD"
+  },
+  {
+    "studentCode": "26217223078",
+    "fullName": "Trần Lương Việt Hưng",
+    "slug": "tranluongviethung",
+    "birthDate": "27/08/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Xây Dựng Dân Dụng & Công Nghiệp Chuẩn CSU (Đại Học - bậc Kỹ Sư)",
+    "classCode": "K26CSU-XDD"
+  },
+  {
+    "studentCode": "26216126848",
+    "fullName": "Trần Gia Huy",
+    "slug": "trangiahuy",
+    "birthDate": "01/01/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Xây Dựng Dân Dụng & Công Nghiệp Chuẩn CSU (Đại Học - bậc Kỹ Sư)",
+    "classCode": "K26CSU-XDD"
+  },
+  {
+    "studentCode": "26216135117",
+    "fullName": "Trần Bảo Nguyên",
+    "slug": "tranbaonguyen",
+    "birthDate": "21/03/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Xây Dựng Dân Dụng & Công Nghiệp Chuẩn CSU (Đại Học - bậc Kỹ Sư)",
+    "classCode": "K26CSU-XDD"
+  },
+  {
+    "studentCode": "26202541533",
+    "fullName": "Nguyễn Khắc Vũ",
+    "slug": "nguyenkhacvu",
+    "birthDate": "18/07/2002",
+    "className": "DTE-IS 102 A",
+    "gender": "Nam",
+    "program": "K-26 - Xây Dựng Dân Dụng & Công Nghiệp Chuẩn CSU (Đại Học - bậc Kỹ Sư)",
+    "classCode": "K26CSU-XDD"
+  },
+  {
+    "studentCode": "26204733908",
+    "fullName": "Nguyễn Khoa Thị NgọcÂn",
+    "slug": "nguyenkhoathingocan",
+    "birthDate": "20/08/2000",
+    "className": "DTE-IS 102 M",
+    "gender": "Nam",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26202534968",
+    "fullName": "Nguyễn Nhật Quỳnh Anh",
+    "slug": "nguyennhatquynhanh",
+    "birthDate": "12/12/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nam",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26203529931",
+    "fullName": "Trần Thị Mỹ Dung",
+    "slug": "tranthimydung",
+    "birthDate": "13/12/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26202541998",
+    "fullName": "Dương Thương Hương Giang",
+    "slug": "duongthuonghuonggiang",
+    "birthDate": "27/07/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26202627541",
+    "fullName": "Phan Thị Hồng Hạnh",
+    "slug": "phanthihonghanh",
+    "birthDate": "07/01/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26212541663",
+    "fullName": "Đồng Thị Thanh Hiền",
+    "slug": "djongthithanhhien",
+    "birthDate": "02/07/2001",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26202532498",
+    "fullName": "Trương Hoàng Phi Hùng",
+    "slug": "truonghoangphihung",
+    "birthDate": "06/12/2001",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26212542458",
+    "fullName": "Nguyễn Thị Diễm Hương",
+    "slug": "nguyenthidiemhuong",
+    "birthDate": "13/07/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26207200450",
+    "fullName": "Nguyễn Gia Huy",
+    "slug": "nguyengiahuy",
+    "birthDate": "11/12/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nam",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  },
+  {
+    "studentCode": "26202542430",
+    "fullName": "Hà Thị Thanh Huyền",
+    "slug": "hathithanhhuyen",
+    "birthDate": "10/03/2002",
+    "className": "DTE-IS 102 M",
+    "gender": "Nữ",
+    "program": "K-26 - Kế Toán (& Kiểm Toán) Chuẩn PSU (Đại Học)",
+    "classCode": "K26PSU-KKT"
+  }
+]

@@ -1,0 +1,17 @@
+@import '../GlobalStyles.scss';
+
+.m-center {
+    margin: 0 150px;
+}
+.eye {
+    color: $text-color;
+    top: 55%;
+    right: 10%;
+    cursor: pointer;
+}
+
+.label-regis {
+    background-color: white;
+    color: black;
+    font-weight: 500;
+}

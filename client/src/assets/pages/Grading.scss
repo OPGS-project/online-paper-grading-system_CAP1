@@ -1,0 +1,285 @@
+.content-container {
+    display: flex;
+    position: absolute;
+    top: 90px;
+    margin-left: 40px;
+    padding-bottom: 40px;
+}
+
+.assignment-info-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.assignment-info {
+    display: flex;
+    background-color: rgb(232, 233, 235);
+    border-radius: 2px;
+}
+
+.assignment-info p:first-child {
+    padding-left: 40px;
+}
+
+.assignment-info p {
+    margin: 0;
+    padding: 10px 40px 10px 0px;
+    font-weight: 500;
+}
+
+.image-container {
+    cursor: pointer;
+    z-index: 999;
+}
+
+.assigment-images {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 500;
+    background-color: rgb(252, 252, 252);
+    cursor: pointer;
+}
+
+.assigment-images p {
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.assigment-images i {
+    cursor: pointer;
+}
+
+.assigment-images span {
+    padding: 0 5px;
+}
+
+.img-assigment {
+    width: 800px;
+    height: 600px;
+    border-radius: 2px;
+}
+
+.criteria_result-assignment {
+    display: flex;
+    flex-direction: column;
+}
+
+.grading-criteria-box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgb(210, 210, 210);
+    width: 410px;
+    height: 450px;
+    border-radius: 2px;
+    scrollbar-width: thin; /* Chỉ áp dụng cho Firefox */
+    scrollbar-color: #888 transparent;
+    overflow-y: scroll; /* Cho phép cuộn theo trục Y */
+    border: 1px solid #ccc; /* Viền để tạo độ rõ ràng */
+    scrollbar-width: 6px; /* Điều chỉnh chiều dài của thanh cuộn */
+}
+
+/* Thiết lập kích thước thanh cuộn cho trình duyệt dựa trên Webkit (Safari và Chrome) */
+.grading-criteria-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Màu sắc của thanh cuộn cho trình duyệt dựa trên Webkit (Safari và Chrome) */
+.grading-criteria-box::-webkit-scrollbar-thumb {
+    background-color: #4e73df;
+    border-radius: 6px;
+}
+
+/* Màu sắc của thanh cuộn khi di chuột qua cho trình duyệt dựa trên Webkit (Safari và Chrome) */
+.grading-criteria-box::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.grading-criteria {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.grading-criteria .item-criteria:first-child {
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-criteria {
+    text-align: center;
+}
+
+.item-criteria p {
+    margin: 0;
+}
+
+.start-criteria {
+    display: flex;
+    padding: 10px;
+    width: 112px;
+}
+
+.end-criteria {
+    display: flex;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    width: calc(100% - 112px);
+    justify-content: space-between;
+}
+
+.end-criteria span {
+    color: rgb(15, 63, 153);
+}
+
+.criteria-text {
+    font-weight: 500;
+}
+
+.criterias-score {
+    font-weight: 500;
+    font-size: 18px;
+    color: red;
+}
+
+.grading-criteria .item-criteria:nth-child(2),
+.grading-criteria .item-criteria:nth-child(3),
+.grading-criteria .item-criteria:nth-child(4),
+.grading-criteria .item-criteria:nth-child(5) {
+    background-color: rgb(246, 247, 248);
+    cursor: pointer;
+    border-radius: 2px;
+    margin-bottom: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.question {
+    padding: 20px 0;
+    background-color: rgb(254, 254, 254);
+}
+
+.question .item-criteria {
+    margin-bottom: 0;
+}
+
+.first-item p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.question .first-item i {
+    cursor: pointer;
+    padding: 5px;
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+.first-item {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.end-item {
+    padding: 20px 0;
+    text-align: center;
+    opacity: 0.6;
+    color: #4e73df;
+}
+
+.grading-result {
+    border-radius: 2px;
+    margin-top: 4px;
+    margin-left: 8px;
+    border: 1px solid;
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgb(210, 210, 210);
+}
+
+.grading-result input {
+    border-radius: 2px;
+    border-color: #eff5f0;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.comment-box {
+    padding: 15px;
+}
+
+.comment-box p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 17px;
+    color: red;
+    padding-bottom: 10px;
+}
+
+.input-container {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none; /* Ngăn chặn người dùng thay đổi kích thước */
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.2;
+    height: 120px;
+}
+
+.textarea::placeholder {
+    position: absolute;
+    top: 0;
+    left: 5px; /* Đặt ký tự đầu sát mép trái */
+    color: #aaa;
+    font-size: 14px;
+}
+
+.result-container {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+.result-container button {
+    height: 36px;
+    width: 60px;
+    margin-right: 16px;
+    margin-top: 8px;
+    border-radius: 5px;
+    background-color: #4e73df;
+    color: aliceblue;
+    border-color: #eff5f0;
+    cursor: pointer;
+}
+
+.result-container button:hover {
+    opacity: 0.9;
+}
+
+.result-box {
+    padding: 15px 15px 17px 15px;
+    display: flex;
+    justify-items: center;
+}
+
+.result-box p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 17px;
+    color: red;
+    padding-right: 10px;
+}
+
+.result-box input {
+    width: 50px;
+    border-radius: 5px;
+}
