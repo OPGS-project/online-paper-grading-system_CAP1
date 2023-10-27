@@ -11,6 +11,7 @@
   "author": "BaoHan",
   "license": "ISC",
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "cors": "^2.8.5",

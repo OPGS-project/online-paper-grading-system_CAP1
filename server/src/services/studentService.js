@@ -59,7 +59,7 @@ export const createStudent = (body) =>
 
       resolve({
         err: response[1] ? 0 : 1,
-        mes: response[1] ? "OK" : "Can not create Student!!!",
+        mes: response[1] ? "Created student" : "Can not create Student!!!",
       });
     } catch (e) {
       console.log(e);

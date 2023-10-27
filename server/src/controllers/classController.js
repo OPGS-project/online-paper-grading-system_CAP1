@@ -20,6 +20,21 @@ export const getClasses = async (req, res) => {
   }
   console.log(req.query);
 };
+
+export const getClassById = async (req, res) => {
+  try {
+      const { classID } = req.params;
+      const classData = await services.getClassById(classID); // Call the service to retrieve class data
+      if (classData) {
+          return res.status(200).json(classData);
+      } else {
+          return badRequest("Class not found", res);
+      }
+  } catch (error) {
+      console.log(error); // Log any errors for debugging
+      return internalServerError(res);
+  }
+}
 export const getStudentByClassId = async (req, res) => {
   try {
     const { classID } = req.params;

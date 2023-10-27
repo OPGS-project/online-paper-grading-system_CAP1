@@ -78,6 +78,34 @@ export const getStudentByClassId = (classID) => {
   });
 };
 
+export const getClassById = (classID) => new Promise(async (resolve, reject) => {
+  try {
+      const queries = { raw: true, nest: true };
+
+      const response = await db.Class.findOne({
+          where: { id: classID }, // Sử dụng classID để tìm lớp học theo ID
+          ...queries,
+         
+      });
+
+      if (response) {
+          resolve({
+              err: 0,
+              mes: 'Got',
+              classData: response
+          });
+      } else {
+          resolve({
+              err: 1,
+              mes: 'Cannot find class',
+              classData: null
+          });
+      }
+  } catch (error) {
+      reject(error);
+  }
+});
+
 //CREATE
 export const createNewClass = (body) =>
   new Promise(async (resolve, reject) => {
@@ -89,20 +117,22 @@ export const createNewClass = (body) =>
       });
       resolve({
         err: response[1] ? 0 : 1,
-        mes: response[1] ? "Created" : "Cannot create class",
+        mes: response[1] ? "Created class" : "Cannot create class",
       });
     } catch (error) {
       reject(error);
     }
   });
 
+
 //UPDATE
-export const updateClass = (classID, body) =>
+export const updateClass = ( classID, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Class.update(body, {
         where: { id: classID },
       });
+      
       resolve({
         err: response[0] > 0 ? 0 : 1,
         mes:
