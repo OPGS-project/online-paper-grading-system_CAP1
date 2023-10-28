@@ -14,10 +14,10 @@ export const getStudent = ({
   new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: true, nest: true };
-      const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_NUMBER;
-      queries.offset = offset * fLimit;
-      queries.limit = fLimit;
+      // const offset = !page || +page <= 1 ? 0 : +page - 1;
+      // const fLimit = +limit || +process.env.LIMIT_NUMBER;
+      // queries.offset = offset * fLimit;
+      // queries.limit = fLimit;
       if (order) queries.order = [order];
       if (name) query.student_name = { [Op.substring]: name };
       const response = await db.Student.findAndCountAll({

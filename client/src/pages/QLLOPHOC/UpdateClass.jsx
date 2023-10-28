@@ -46,12 +46,13 @@ export default function UpdateClass() {
   useEffect(() => {
     const fetchData = async (cid) => {
       const response = await axios.get(`http://localhost:8081/api/class/${cid}`);
-
-      if (response.data.err === 0) {
+    
+      if (response.data.success && response.data.response.length > 0) {
+        const classData = response.data.response[0];
         setClassData({
-          class_name: response.data.classData.class_name,
-          total_students: response.data.classData.total_students,
-          content: response.data.classData.content,
+          class_name: classData.class_name,
+          total_students: classData.total_students,
+          content: classData.content,
         });
       }
     };
@@ -65,12 +66,17 @@ export default function UpdateClass() {
       url: `http://localhost:8081/api/class/update-class/${classID}`,
       data: classData,
     });
-
-    // Handle response or any additional logic
+    notifySuccess("Cập nhập thành công");
+      setTimeout(() => {
+        navigate('/home/class'); 
+      }, 5000);
   };
 
   return (
     <div className="container-fluid">
+      <button className="btn btn-primary" onClick={() => navigate('/home/class')}>
+        <i className="bi bi-arrow-left"></i> Quay lại
+      </button>
       <h1 className="h3 mb-4 text-gray-800 text-center">
         Cập nhật lớp
         <small className="d-block mt-2">(Điền thông tin lớp vào biểu mẫu dưới đây)</small>
@@ -126,6 +132,7 @@ export default function UpdateClass() {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }
