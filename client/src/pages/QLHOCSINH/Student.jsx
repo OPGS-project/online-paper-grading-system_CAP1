@@ -31,7 +31,7 @@ export default function Student() {
     console.log(student);
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh lớp </h1>
+            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh</h1>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
