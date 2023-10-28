@@ -1,0 +1,142 @@
+.sidebar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #DDE1CD;
+}
+
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.home-box, .statistic-box{
+    color: #609966;
+    font-weight: 500;
+}
+
+.home-box,  .statistic-box, .first-item, 
+.first-item2, .first-item3, .logout-box
+{
+    display: flex;
+}
+
+.class-management-box, 
+.assignment-management-box.app,
+.setting-box
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.heading{
+    color: #609966;
+    font-weight: 600;
+    font-size: 25px;
+    padding-bottom: 15px;
+}
+
+.home-box, .statistic-box{
+    height: 30px;
+    margin: 15px 0;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.home-box p, .statistic-box p{
+    margin: 0;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.home-box i, .statistic-box i{
+    line-height: 30px;
+    margin-right: 15px;
+    width: 15px;
+}
+
+.class-management-box, .assignment-management-box,
+.setting-box
+{
+    margin: 15px 0;
+}
+
+.class-management-box .first-item, 
+.assignment-management-box .first-item2,
+.setting-box .first-item3
+{
+    font-weight: 500;
+    color: #609966;
+    height: 20px;
+}
+
+.class-management-box .first-item i
+.assignment-management-box .first-item2 i
+.setting-box .first-item3 i
+{
+    line-height: 20px;
+    width: 15px;
+}
+
+.class-management-box .first-item p
+{
+    line-height: 20px;
+    margin: 0;
+    padding: 0 10px 0 12px;
+    cursor: pointer;
+}
+
+.class-management-box .second-item,
+.assignment-management-box .second-item2,
+.setting-box .second-item3
+{
+    margin: 20px 0px 20px 32px;
+}
+
+.class-management-box .three-item,
+.assignment-management-box .three-item2,
+.setting-box .three-item3
+{
+    margin: 0px 0px 0px 32px;
+}
+
+.assignment-management-box .first-item2 p
+{
+    line-height: 20px;
+    margin: 0;
+    padding: 0 10px 0 18px;
+    cursor: pointer;
+}
+
+.setting-box .first-item3 p{
+    line-height: 20px;
+    margin: 0;
+    padding: 0 10px 0 16px;
+    cursor: pointer;
+}
+
+.second-item, .three-item, 
+.second-item2, .three-item2,
+.second-item3, .three-item3
+{
+    cursor: pointer;
+}
+
+.logout-box{
+    margin-top: 115px;
+    cursor: pointer;
+    height: 20px;
+    color: red;
+    font-size: 18px;
+}
+
+.logout-box i{
+    margin-right: 18px;
+    line-height: 20px;
+}
+
+.second-item3{
+    font-size: 17px;
+}
