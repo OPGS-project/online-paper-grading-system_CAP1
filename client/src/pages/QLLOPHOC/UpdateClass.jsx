@@ -1,45 +1,133 @@
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdateClass() {
-    const navigate = useNavigate();
-    return (
-        <div className="container-fluid">
-            <button
-                className="btn btn-back"
-                onClick={() => {
-                    navigate('/class');
-                }}
-            >
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-            <h1 className="h3 mb-4 text-gray-800 text-center">
-                <i className="fa-regular fa-pen-to-square"></i> Chỉnh sửa lớp
-            </h1>
-            <form className="mt-5 user mx-5">
-                <div className="form-row">
-                    <label className="text-capitalize font-weight-bold pl-2">Tên lớp</label>
-                    <input type="text" className="form-control form-control-lg form-control-user" required />
-                </div>
-                <div className="form-row mt-3">
-                    <label className="text-capitalize font-weight-bold pl-2">Sĩ số</label>
-                    <input type="text" className="form-control form-control-lg form-control-user" required />
-                </div>
-                <div className="form-row mt-3">
-                    <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
-                        Ghi chú
-                    </label>
-                    <textarea type="textariea" className="form-control content-bt" id="name-bt" />
-                </div>
+  const { classID } = useParams();
+  const [classData, setClassData] = useState({
+    class_name: '',
+    total_students: '',
+    content: '',
+  });
 
-                <div className="text-center mt-5">
-                    <button type="submit" className="btn btn-success px-5 py-2">
-                        Lưu
-                    </button>
-                    <button type="submit" className="btn btn-light px-5 py-2 ml-3">
-                        Hủy
-                    </button>
-                </div>
-            </form>
+  const navigate = useNavigate();
+
+  const notifyError = (errorMessage) => {
+    toast.error(errorMessage, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
+
+  const notifySuccess = (errorMessage) => {
+    toast.success(errorMessage, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
+
+  // Fetch data to populate input fields for update
+  useEffect(() => {
+    const fetchData = async (cid) => {
+      const response = await axios.get(`http://localhost:8081/api/class/${cid}`);
+
+      if (response.data.err === 0) {
+        setClassData({
+          class_name: response.data.classData.class_name,
+          total_students: response.data.classData.total_students,
+          content: response.data.classData.content,
+        });
+      }
+    };
+    fetchData(classID);
+  }, [classID]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await axios({
+      method: 'put',
+      url: `http://localhost:8081/api/class/update-class/${classID}`,
+      data: classData,
+    });
+
+    // Handle response or any additional logic
+  };
+
+  return (
+    <div className="container-fluid">
+      <h1 className="h3 mb-4 text-gray-800 text-center">
+        Cập nhật lớp
+        <small className="d-block mt-2">(Điền thông tin lớp vào biểu mẫu dưới đây)</small>
+      </h1>
+      <form className="mt-5" onSubmit={handleSubmit}>
+        <h4 className="h4 mb-4 text-gray-800">Biểu mẫu:</h4>
+        <div className="form-row">
+          <div className="col-12">
+            <label htmlFor="className">Tên lớp:</label>
+            <input
+              type="text"
+              placeholder="Nhập tên lớp"
+              className="form-control form-control-lg"
+              onChange={(e) => setClassData({ ...classData, class_name: e.target.value })}
+              value={classData.class_name}
+              id="className"
+              required
+            />
+            <p className="err2"></p>
+          </div>
         </div>
-    );
+        <div className="form-row">
+          <div className="col-6">
+            <label htmlFor="totalStudent">Sĩ số:</label>
+            <input
+              type="text"
+              placeholder="Nhập sĩ số học sinh"
+              className="form-control form-control-lg"
+              onChange={(e) => setClassData({ ...classData, total_students: Number(e.target.value) })}
+              value={classData.total_students}
+              id="totalStudent"
+              required
+            />
+            <p className="err2"></p>
+          </div>
+          <div className="col-6">
+            <label htmlFor="status">Ghi chú:</label>
+            <input
+              type="text"
+              placeholder="Nhập ghi chú"
+              className="form-control form-control-lg"
+              onChange={(e) => setClassData({ ...classData, content: e.target.value })}
+              value={classData.content}
+              id="content"
+              required
+            />
+            <p className="err3"></p>
+          </div>
+        </div>
+        <div className="text-center mt-5">
+          <button type="submit" className="btn-lg btn-primary">
+            Cập nhật lớp
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
+
+

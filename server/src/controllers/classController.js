@@ -45,21 +45,21 @@ export const getStudentByClassId = async (req, res) => {
   }
 };
 //CREATE
-export const createNewClass = async (req, res) => {
-  try {
-    const { error } = joi
-      .object({ class_name, total_students, content })
-      .validate(req.body);
-    if (error) {
-      return badRequest(error.details[0].message, res);
-    }
-    const response = await services.createNewClass(req.body);
-    return res.status(200).json(response);
-  } catch (error) {
-    console.log(error);
-    // return internalServerError(res);
+export const createNewClass= async (req, res) =>{
+  try{      
+      const { class_name, content, total_students,  } = req.body
+      const {error} = joi.object({ class_name, content, total_students  }).validate({class_name, content, total_students})
+      if (error) {
+         
+          return badRequest(error.details[0].message, res)
+      }
+      const response = await services.createNewClass(req.body)
+      return res.status(200).json(response)
+
+  }catch (error){
+      // return internalServerError(res)
   }
-};
+}
 //UPDATE
 export const updateClass = async (req, res) => {
   try {

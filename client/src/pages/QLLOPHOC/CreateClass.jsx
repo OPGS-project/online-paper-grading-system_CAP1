@@ -19,7 +19,7 @@ export default function CreateClass() {
             })
             .then((res) => {
                 console.log(res);
-                navigate('/class'); // thành công sẽ chuyển hướng
+                navigate('/home/class'); // thành công sẽ chuyển hướng
             })
             .catch((err) => console.log(err));
     };
@@ -28,7 +28,7 @@ export default function CreateClass() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/class');
+                    navigate('/home/class');
                 }}
             >
                 <i class="fa-solid fa-arrow-left"></i>
@@ -80,3 +80,5 @@ export default function CreateClass() {
         </div>
     );
 }
+
+

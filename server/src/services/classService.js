@@ -107,22 +107,22 @@ export const getClassById = (classID) => new Promise(async (resolve, reject) => 
 });
 
 //CREATE
-export const createNewClass = (body) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      console.log(body);
-      const response = await db.Class.create({
-        where: { class_name: body?.class_name },
-        defaults: body,
-      });
+export const createNewClass = (body) => new Promise( async(resolve, reject) =>{
+  try{
+      const response= await db.Class.findOrCreate({
+          where: { class_name: body?.class_name  },
+          defaults: { ...body  }
+      })    
+      
       resolve({
-        err: response[1] ? 0 : 1,
-        mes: response[1] ? "Created class" : "Cannot create class",
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
+          err: response[1] ? 0 : 1,
+          mes: response[1] ? 'Created' : 'Cannot create class',
+      })        
+  }catch (error){
+      reject(error)       
+  }
+})
+
 
 
 //UPDATE

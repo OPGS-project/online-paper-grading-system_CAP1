@@ -31,7 +31,7 @@ export default function Class() {
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <Link to="/class/createClass" className="btn btn-success  py-2">
+                    <Link to="/home/class/createClass" className="btn btn-success  py-2">
                         + Thêm lớp học
                     </Link>
                     <p className="float-right"> ({ClassCount} lớp)</p>
@@ -84,7 +84,7 @@ export default function Class() {
                                             <td>{data.class_name}</td>
                                             <td>{data.total_students}</td>
                                             <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
-                                            <td>{data.status}</td>
+                                            <td>{data.content}</td>
                                             <td>
                                                 <Link
                                                     to={`/home/class/get-student/${data.id}`}
