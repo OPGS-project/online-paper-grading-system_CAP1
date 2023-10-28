@@ -70,7 +70,7 @@
 
 .grading-result{
     border-radius: 2px;
-    margin-top: 35px;
+    margin-top: 50px;
     margin-left: 8px;
     margin-right: 8px;
     border: 1px solid ;
@@ -137,7 +137,7 @@ textarea::placeholder {
 
 .result-container button{
     height: 36px;
-    width: 60px;
+    width: 66px;
     margin-right: 16px;
     margin-top: 8px;
     border-radius: 5px;
@@ -147,8 +147,9 @@ textarea::placeholder {
     cursor: pointer;
 }
 
-.result-container button:hover{
-    opacity: 0.9;
+.result-container button:active{
+    transform: scale(0.92);
+    transition: all 0.1 ease-in-out;
 }
 
 .result-box{
@@ -174,6 +175,14 @@ textarea::placeholder {
     width: 120px;
     margin: 15px auto;
     cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 1px 1.5px 1px rgba(0,0,0, 0.3);
+}
+
+.public-btn:active{
+    transform: scale(0.92);
+    transition: all 0.1 ease-in-out;
 }
 
 .public-btn input{
@@ -184,4 +193,32 @@ textarea::placeholder {
 .public-btn p{
    margin: 0;
    padding: 5px 0;
+}
+
+.addText-btn{
+    background-color: #609966;
+}
+
+.toggle-draw-btn{
+    background-color: #c97b28;
+}
+
+.clear-btn{
+    background-color: rgb(238, 104, 104);
+}
+
+.undo-btn{
+    background-color: rgb(101, 180, 226);
+}
+
+.redo-btn{
+    background-color: rgb(101, 180, 226);
+}
+
+.delete-btn{
+    background-color: rgb(238, 104, 104);
+}
+
+.toSVG-btn{
+    background-color: yellow;
 }

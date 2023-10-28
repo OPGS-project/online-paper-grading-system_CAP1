@@ -170,25 +170,25 @@ function Assignment_Grading() {
       </div>
       <div className="tools"> 
       <h1 className="grading-tools">Công cụ chấm bài</h1>
-      <button className="addText-btn public-btn" onClick={addText} disabled={!cropImage}>
+      <button title="Thêm chữ" className="addText-btn public-btn" onClick={addText} disabled={!cropImage}>
         <p>Add Text</p>
       </button>
-      <button className="toggle-draw-btn public-btn" onClick={toggleDraw} disabled={!cropImage}>
-      <p>Toggle draw</p>
+      <button title="Vẽ" className="toggle-draw-btn public-btn" onClick={toggleDraw} disabled={!cropImage}>
+      <p>Draw</p>
       </button>
-      <button className="clear-btn public-btn" onClick={clear} disabled={!cropImage}>
+      <button title="Dọn dẹp" className="clear-btn public-btn" onClick={clear} disabled={!cropImage}>
       <p>Clear</p>
       </button>
-      <button className="undo-btn public-btn" onClick={undo} disabled={!cropImage}>
+      <button title="Hoàn tác" className="undo-btn public-btn" onClick={undo} disabled={!cropImage}>
       <p>Undo</p>
       </button>
-      <button className="redo-btn public-btn" onClick={redo} disabled={!cropImage}>
+      <button title="Quay lại" className="redo-btn public-btn" onClick={redo} disabled={!cropImage}>
       <p>Redo</p>
       </button>
-      <button className="delete-btn public-btn" onClick={removeSelectedObject} disabled={!cropImage}>
+      <button title="Xóa" className="delete-btn public-btn" onClick={removeSelectedObject} disabled={!cropImage}>
       <p>Delete</p>
       </button>
-      <label disabled={!cropImage} className="public-btn">
+      <label title="Chọn màu sắc" disabled={!cropImage} className="public-btn">
         <input
           disabled={!cropImage}
           type="color"
@@ -196,7 +196,7 @@ function Assignment_Grading() {
           onChange={(e) => setColor(e.target.value)}
         />
       </label>
-      <button className="toSVG-btn public-btn" onClick={exportSVG} disabled={!cropImage}>
+      <button title="Xuất hình ảnh" className="toSVG-btn public-btn" onClick={exportSVG} disabled={!cropImage}>
         {" "}
       <p>ToSVG</p>
       </button>
