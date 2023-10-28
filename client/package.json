@@ -8,9 +8,8 @@
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
-        "autoprefixer": "10.4.5",
         "axios": "^1.5.0",
-        "bootstrap": "^5.3.2",
+        "bootstrap": "^5.3.1",
         "bootstrap-icons": "^1.11.1",
         "chart.js": "^4.4.0",
         "cropperjs": "^1.6.1",
@@ -20,8 +19,6 @@
         "moment": "^2.29.4",
         "normalize.css": "^8.0.1",
         "react": "^18.2.0",
-        "react-bootstrap": "^2.9.1",
-        "react-bootstrap-pagination-control": "^1.0.5",
         "react-chartjs-2": "^5.2.0",
         "react-datepicker": "^4.18.0",
         "react-dom": "^18.2.0",
@@ -38,11 +35,7 @@
         "sweetalert2": "^11.7.32",
         "web-vitals": "^2.1.4"
     },
-    "overrides": {
-        "autoprefixer": "10.4.5"
-      },
     "devDependencies": {
-        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "babel-plugin-module-resolver": "^5.0.0",
         "customize-cra": "^1.0.0",
         "react-app-rewired": "^2.2.1",

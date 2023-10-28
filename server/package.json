@@ -11,7 +11,6 @@
   "author": "BaoHan",
   "license": "ISC",
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "cors": "^2.8.5",
@@ -23,7 +22,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "mysql": "^2.18.1",
-    "mysql2": "^3.6.1",
+    "mysql2": "^3.6.2",
     "nodemailer": "^6.9.6",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
@@ -34,7 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@babel/node": "^7.22.19",
-    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-env": "^7.23.2",
     "sequelize-cli": "^6.6.1"
   }
 }
