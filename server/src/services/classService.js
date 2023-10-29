@@ -57,6 +57,7 @@ export const getStudentByClassId = (classID) => {
             model: db.Student,
             as: "studentData",
             attributes: [
+              "id",
               "student_name",
               "gender",
               "birthday",
