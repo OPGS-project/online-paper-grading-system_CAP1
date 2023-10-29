@@ -4,9 +4,9 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
 
+
 export default function Student() {
     const [student, setStudent] = useState([]);
-
     const params = useParams();
     console.log(params);
 
@@ -21,6 +21,7 @@ export default function Student() {
     }, [params]);
 
     const handleDelete = async (id) => {
+        console.log(id);
         try {
             await axios.delete('http://localhost:8081/api/student/delete-student/' + id);
             window.location.reload();
@@ -28,14 +29,15 @@ export default function Student() {
             console.log(err);
         }
     };
+    
     console.log(student);
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh</h1>
+            <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh lớp </h1>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <Link className="btn btn-success" to={'/student/createStudent'}>
+                    <Link className="btn btn-success" to={'/home/student/createStudent/'+ params.classID}>
                         + Thêm học sinh
                     </Link>
                     <p className="float-right">( lớp)</p>
@@ -45,6 +47,7 @@ export default function Student() {
                         <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
+                                    
                                     <th>Họ và tên</th>
                                     <th>Giới tính</th>
                                     <th>Ngày sinh</th>
@@ -57,13 +60,14 @@ export default function Student() {
                                 <tbody>
                                     {student?.map((data, i) => (
                                         <tr key={i} className="text-center">
+                                            
                                             <td>{data.student_name}</td>
                                             <td>{data.gender}</td>
                                             <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
                                             <td>{data.phone}</td>
                                             <td>{data.address}</td>
                                             <td>
-                                                <Link to={`/student/updateStudent/`}>
+                                                <Link to={`/home/class/update-student/${data.id}`}>
                                                     <i className="bi bi-pencil-square mr-3"></i>
                                                 </Link>
                                                 <i

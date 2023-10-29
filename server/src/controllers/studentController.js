@@ -28,7 +28,7 @@ export const createStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   try {
-    const studentId = req.params;
+    const { studentId }= req.params;
     const response = await authServices.updateStudent(studentId, req.body);
     return res.status(200).json(response);
   } catch (error) {
@@ -37,7 +37,7 @@ export const updateStudent = async (req, res) => {
 };
 export const deleteStudent = async (req, res) => {
   try {
-    const studentId = req.params;
+    const { studentId } = req.params;
     const response = await authServices.deleteStudent(studentId);
     return res.status(200).json(response);
   } catch (error) {
