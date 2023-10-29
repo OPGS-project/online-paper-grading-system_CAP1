@@ -1,8 +1,7 @@
 export default function Validation(values) {
     let error = {};
-
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/; //có ít nhất một chữ số, một ký tự viết thường, một ký tự viết hoa và có ít nhất 8 ký tự trong tổng số.
+    const password_pattern = /^(?=.*[a-z]).{8,}$/;
 
     if (values.email === '') {
         error.email = 'Email không được để trống';
@@ -14,7 +13,7 @@ export default function Validation(values) {
     if (values.password === '') {
         error.password = 'Mật khẩu không được để trống';
     } else if (!password_pattern.test(values.password)) {
-        error.password = 'Mật khẩu của bạn phải có ít nhất từ 8 ký tự bao gồm chữ số chữ HOA chữ THƯỜNG và SỐ';
+        error.password = 'Mật khẩu của bạn phải có ít nhất từ 8 ký tự bao gồm chữ THƯỜNG ';
     } else {
         error.password = '';
     }

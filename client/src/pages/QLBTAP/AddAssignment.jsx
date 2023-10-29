@@ -129,6 +129,7 @@ export default function AddAssignment() {
                         id="name-bt"
                         name="content_text"
                         onChange={handleChange}
+                        style={{ height: 300 }}
                     />
                 </div>
                 <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>

@@ -34,7 +34,7 @@ export default function EditAssignment() {
     useEffect(() => {
         axios
             .get(`http://localhost:8081/api/assignment/${params.assignmentId}`)
-            .then((res) => setAssignment({ ...res.data.response }))
+            .then((res) => setAssignment({ ...res.data.response[0] }))
             .catch((err) => console.error(err));
     }, [params]);
 
@@ -153,6 +153,7 @@ export default function EditAssignment() {
                         id="name-bt"
                         value={assignment.content_text}
                         onChange={handleChange}
+                        style={{ height: 300 }}
                     />
                 </div>
                 <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>

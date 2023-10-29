@@ -23,6 +23,7 @@ export const getAssignment = ({
       const response = await db.Assignment.findAndCountAll({
         where: query,
         ...queries,
+        order: [["id", "DESC"]],
         attributes: {
           exclude: ["createdAt	", "updatedAt"],
         },
