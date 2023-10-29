@@ -38,6 +38,8 @@ const publicRoutes = [
     { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
     { path: '/home/assignment/add-assignment', component: AddAssignment },
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
+
+
     //QLHSINH
     { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
@@ -47,7 +49,7 @@ const publicRoutes = [
     //QLLOPHOC
     { path: '/home/class', component: Class },
 
-    { path: '/home/class/createClass', component: CreateClass },
+    { path: '/home/class/createClass/', component: CreateClass },
     { path: '/home/class/update-class/:classID', component: UpdateClass },
 
     //USER
