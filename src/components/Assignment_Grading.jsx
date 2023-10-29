@@ -5,10 +5,19 @@ import "../css/Assignment_Grading.css";
 
 function Assignment_Grading() {
   const { editor, onReady } = useFabricJSEditor();
+  const [downloadLink, setDownloadLink] = useState('');
+  const [downloadName, setDownloadName] = useState('');
+  const [showAssignmentImage, setShowAssignmentImage] = useState(false);
+
+  const [textToAdd, setTextToAdd] = useState("");
 
   const history = [];
   const [color, setColor] = useState("#35363a");
   const [cropImage, setCropImage] = useState(true);
+
+  const toggleAssignmentImage = () => {
+    setShowAssignmentImage(!showAssignmentImage); // Khi nhấn vào nút "Xem đề bài", đảo ngược giá trị của state
+  };
 
   useEffect(() => {
     if (!editor || !fabric) {
@@ -76,15 +85,16 @@ function Assignment_Grading() {
     if (!editor || !fabric) {
       return;
     }
-
+    const url = "https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg";
     fabric.Image.fromURL(
-      "https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg",
+      url,
       (image) => {
         editor.canvas.setBackgroundImage(
           image,
           editor.canvas.renderAll.bind(editor.canvas),
         );
-      }
+      },
+      { crossOrigin: "anonymous" }
     );
   };
 
@@ -97,8 +107,6 @@ function Assignment_Grading() {
     addBackground();
     editor.canvas.renderAll();
   }, [editor?.canvas.backgroundImage]);
-
-  
 
   useEffect(() => {
     if (!editor || !fabric) {
@@ -135,14 +143,48 @@ function Assignment_Grading() {
     editor.canvas.remove(editor.canvas.getActiveObject());
   };
 
-  const addText = () => {
-    editor.addText("inset text");
+  const addText = (e) => {
+    editor.addText("Enter text");
   };
 
-  const exportSVG = () => {
-    const svg = editor.canvas.toSVG();
-    console.info(svg);
-  };
+  // const addText = () => {
+  //   if (!editor) {
+  //     return;
+  //   }
+  
+  //   const text = window.prompt("Enter text (or number to accumulate):");
+  //   if (text) {
+  //     // Check if the input is a number
+  //     const isNumber = !isNaN(parseFloat(text)) && isFinite(text);
+      
+  //     if (isNumber) {
+  //       const numberObject = new fabric.Text(text, {
+  //         left: 100, 
+  //         top: 100, 
+  //       });
+  //       editor.canvas.add(numberObject);
+  //       editor.canvas.renderAll();
+  //     } else {
+  //       const textObject = new fabric.Text(text, {
+  //         left: 100, 
+  //         top: 100, 
+  //       });
+  //       editor.canvas.add(textObject);
+  //       editor.canvas.renderAll();
+  //     }
+  
+  //     console.log("Text entered:", text);
+  //   }
+  // };
+
+  const exportPNG = () => {
+    //   const svg = canvas.current.toSVG();
+    setDownloadLink(editor.canvas.toDataURL({
+        format: "png"
+    }));
+
+    setDownloadName("assignment_graded.png");
+}
 
   return (
     <div className="grading-container">
@@ -154,21 +196,32 @@ function Assignment_Grading() {
           // height: "500px",
         }}
       >
-        <p class="heading-content">Chấm bài tập</p>
-        <div class="assignment-info">
+        <div className="header-info_asg">
+        <p className="heading-content">Chấm bài tập</p>
+        <button onClick={toggleAssignmentImage}><p>Xem đề bài</p></button>
+        </div>
+        <div className="assignment-info">
           <p>Tên: Nguyễn Văn A</p>
           <p>Lớp: CMU TPM1</p>
           <p>Thời gian nộp bài: 2023-08-28 14:30:00</p>
         </div>
-        <div class="assigment-images">
+        <div className="assigment-images">
           <p>Hình ảnh bài tập</p>
-          <i class="fa-solid fa-chevron-left"></i>
+          <i className="fa-solid fa-chevron-left"></i>
           <span>1/2</span>
-          <i class="fa-solid fa-chevron-right"></i>
+          <i className="fa-solid fa-chevron-right"></i>
         </div>
         <FabricJSCanvas className="sample-canvas container" onReady={onReady} />
       </div>
-      <div className="tools"> 
+      <div className="tools">
+      {showAssignmentImage && (
+          // Hiển thị hình ảnh đề bài khi showAssignmentImage là true
+          <img
+            src="https://image.vtc.vn/files/ctv.phianam/2019/11/12/1-6-0927005.jpg"
+            alt="Đề bài"
+            className="assignment-image"
+          />
+        )} 
       <h1 className="grading-tools">Công cụ chấm bài</h1>
       <button title="Thêm chữ" className="addText-btn public-btn" onClick={addText} disabled={!cropImage}>
         <p>Add Text</p>
@@ -196,19 +249,19 @@ function Assignment_Grading() {
           onChange={(e) => setColor(e.target.value)}
         />
       </label>
-      <button title="Xuất hình ảnh" className="toSVG-btn public-btn" onClick={exportSVG} disabled={!cropImage}>
+      <button title="Xuất hình ảnh" className="toPNG-btn public-btn" onClick={exportPNG} disabled={!cropImage}>
         {" "}
-      <p>ToSVG</p>
+      <a href={downloadLink} download={downloadName}><p>Export</p></a>
       </button>
-      <div class="grading-result">
-         <div class="comment-box">
+      <div className="grading-result">
+         <div className="comment-box">
             <p>Nhận xét bài tập</p>
-            <div class="input-container">
+            <div className="input-container">
                 <textarea placeholder="Nhập nội dung ở đây..." rows="4"></textarea>
             </div>
          </div>
-       <div class="result-container">
-         <div class="result-box">
+       <div className="result-container">
+         <div className="result-box">
             <p>Tổng điểm</p>
             <input type="number" value="0"/>
          </div>

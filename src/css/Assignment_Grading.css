@@ -4,6 +4,35 @@
     padding: 10px 0;
 }
 
+.header-info_asg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-info_asg button{
+    width: 120px;
+    height: 36px;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 1px 1.5px 1px rgba(0,0,0, 0.3);
+    background-color: #609966;
+    color: aliceblue;
+    border-color: #eff5f0;
+}
+
+.header-info_asg button:active{
+    transform: scale(0.92);
+    transition: all 0.1 ease-in-out;
+}
+
+.header-info_asg button p{
+    margin: 0;
+    text-decoration: underline;
+    color: #fff;
+}
+
 .tools{
     display: flex;
     flex-direction: column;
@@ -12,6 +41,7 @@
     width: 480px;
     margin-top: 70px;
     text-align: center;
+    border-radius: 2px;
 }
 
 .assignment-grading{
@@ -219,6 +249,11 @@ textarea::placeholder {
     background-color: rgb(238, 104, 104);
 }
 
-.toSVG-btn{
+.toPNG-btn{
     background-color: yellow;
+}
+
+.toPNG-btn a{
+    text-decoration: none;
+    color: black;
 }
