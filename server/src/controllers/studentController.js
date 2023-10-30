@@ -5,6 +5,7 @@ import joi from "joi";
 
 export const getStudent = async (req, res) => {
   try {
+    
     const response = await authServices.getStudent(req.query);
     return res.status(200).json(response);
   } catch (error) {
@@ -12,6 +13,21 @@ export const getStudent = async (req, res) => {
     // return internalServerError(res);
   }
 };
+
+// export const getStudentById = async (req, res) => {
+//   try {
+//       const { studentId } = req.params;
+//       const studentData = await services.getStudentById(studentId); // Call the service to retrieve class data
+//       if (studentData) {
+//           return res.status(200).json(studentData);
+//       } else {
+//           return badRequest("Student not found", res);
+//       }
+//   } catch (error) {
+//       console.log(error); // Log any errors for debugging
+//       // return internalServerError(res);
+//   }
+// }
 
 export const createStudent = async (req, res) => {
   try {
@@ -28,7 +44,11 @@ export const createStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   try {
+<<<<<<< HEAD
     const { studentId }= req.params;
+=======
+    const {studentId, classID} = req.params;
+>>>>>>> 5af27189624d0e5f5c3cd5aeab0edfc2fbed9b3f
     const response = await authServices.updateStudent(studentId, req.body);
     return res.status(200).json(response);
   } catch (error) {
