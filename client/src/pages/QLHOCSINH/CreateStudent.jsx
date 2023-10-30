@@ -4,7 +4,7 @@ import { FcHighPriority } from 'react-icons/fc';
 import { FcList } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
+
 
 export default function CreateStudent({ classID }) {
     const [student_name, setStudentName] = useState('');
@@ -12,22 +12,25 @@ export default function CreateStudent({ classID }) {
     const [address, setAddress] = useState('');
     const navigate = useNavigate();
     const params = useParams();
-    // console.log(student_name)
+    
 
     const handleSubmit = (event) => {
+        console.log(params.classID);
         event.preventDefault();
         axios
             .post('http://localhost:8081/api/student/', {
                 classID: params.classID,
+              
                 student_name,
                 gender,
                 address,
             })
             .then((res) => {
                 console.log(res);
-                navigate('/home/class'); // thành công sẽ chuyển hướng
+                navigate('/home/class/get-student/' + params.classID); // thành công sẽ chuyển hướng
             })
             .catch((err) => console.log(err));
+        
     };
     return (
         <div className="container-fluid">
@@ -43,23 +46,26 @@ export default function CreateStudent({ classID }) {
                 <FcList className="mr-3" />
                 Thêm học sinh
             </h1>
-            <form className="mt-3 user mx-5">
+            <form className="mt-3 user mx-5" onSubmit={handleSubmit}>
                 <div className="form-row">
-                    <label className="text-capitalize font-weight-bold pl-2">Họ và tên: (Bắt buộc)</label>
-                    <input type="text" placeholder='Nhập tên học sinh' className="form-control form-control-user" />
-                    <p className="err2"></p>
+                    <div className="col-6">
+                        <label className="text-capitalize font-weight-bold pl-2">Họ và tên: (Bắt buộc)</label>
+                        <input type="text" placeholder='Nhập tên học sinh' className="form-control form-control-user" 
+                        onChange={text => setStudentName(text.target.value)}/>
+                    </div>
                 </div>
                 <div className="form-row mt-3">
                     <div className="col-6">
                         <label className="text-capitalize font-weight-bold pl-2">Quê quán</label>
-                        <input type="text" placeholder="Nhập quê quán" className="form-control form-control-user" />
+                        <input type="text" placeholder="Nhập quê quán" className="form-control form-control-user" 
+                        onChange={text => setAddress(text.target.value)}/>
                     </div>
                     <div className="col-6">
                         <label className='text-capitalize font-weight-bold pl-2'>Giới tính: (Bắt buộc)</label>
                         <select
                             className="form-control"
                             value={gender}
-                            onChange={(e) => setGender(e.target.value)}
+                            onChange={text => setGender(text.target.value)}
                         >
                             <option value="">Chọn giới tính</option>
                             <option value="Nam">Nam</option>
@@ -72,7 +78,10 @@ export default function CreateStudent({ classID }) {
                     <button type="submit" className="btn btn-success px-5 py-2">
                         Lưu
                     </button>
-                    <button className="btn btn-light px-5 py-2 ml-3">Hủy</button>
+                    <button className="btn btn-light px-5 py-2 ml-3" 
+                    onClick={() => {
+                    navigate(-1); // Quay lại trang trước đó
+                    }} >Hủy</button>
                 </div>
 
             </form>

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'; // Thêm import useState và useEffect từ react
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
 
 
 export default function Student() {
     const [student, setStudent] = useState([]);
     const params = useParams();
-    console.log(params);
+    const navigate =useNavigate();
 
     useEffect(() => {
         axios
@@ -30,7 +30,7 @@ export default function Student() {
         }
     };
     
-    console.log(student);
+    // console.log(student);
     return (
         <div className="container-fluid">
             <h1 className="h3 mb-2 text-gray-800">Danh sách học sinh lớp </h1>
@@ -67,9 +67,11 @@ export default function Student() {
                                             <td>{data.phone}</td>
                                             <td>{data.address}</td>
                                             <td>
-                                                <Link to={`/home/class/update-student/${data.id}`}>
+                                                <div onClick={()=> navigate(`/home/student/updateStudent/${params.classID}/${data.id}`, {state:{studentData: data}})}
+                                                //  to={`/home/student/updateStudent/${params.classID}/${data.id}`}
+                                                 >
                                                     <i className="bi bi-pencil-square mr-3"></i>
-                                                </Link>
+                                                </div>
                                                 <i
                                                     className="bi bi-trash-fill text-danger"
                                                     onClick={() => handleDelete(data.id)}

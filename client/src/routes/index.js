@@ -43,7 +43,7 @@ const publicRoutes = [
     //QLHSINH
     { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
-    { path: '/home/student/updateStudent/', component: UpdateStudent },
+    { path: '/home/student/updateStudent/:classID/:studentID', component: UpdateStudent },
     // { path: '/student/updateStudent/:id', component: UpdateStudent },
     //QLLOPHOC
     { path: '/home/class', component: Class },
