@@ -2,12 +2,39 @@ import { FcList } from 'react-icons/fc';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CreateClass() {
     const [class_name, setClassName] = useState('');
     const [total_students, setTotalStudent] = useState('');
     const [content, setContent] = useState('');
     const navigate = useNavigate();
+
+        const notifyError = (errorMessage) => {
+            toast.error(errorMessage, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+      };
+      const notifySuccess = (errorMessage) => {
+        toast.success(errorMessage, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -19,7 +46,10 @@ export default function CreateClass() {
             })
             .then((res) => {
                 console.log(res);
-                navigate('/home/class'); // thành công sẽ chuyển hướng
+                notifySuccess("Thêm lớp thành công");
+                setTimeout(() => {
+                    navigate('/home/class'); // thành công sẽ chuyển hướng
+                }, 5000);
             })
             .catch((err) => console.log(err));
     };
@@ -77,6 +107,7 @@ export default function CreateClass() {
                     <button className="btn btn-light px-5 py-2 ml-3">Hủy</button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 }

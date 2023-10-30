@@ -55,6 +55,12 @@ export default function UpdateClass() {
           content: classData.content,
         });
       }
+      else{
+        notifyError("Cập nhập thất bại!");
+        setTimeout(() => {
+          navigate('/home/class'); 
+        }, 5000);
+      }
     };
     fetchData(classID);
   }, [classID]);
@@ -95,7 +101,6 @@ export default function UpdateClass() {
               id="className"
               required
             />
-            <p className="err2"></p>
           </div>
         </div>
         <div className="form-row">
@@ -110,7 +115,6 @@ export default function UpdateClass() {
               id="totalStudent"
               required
             />
-            <p className="err2"></p>
           </div>
           <div className="col-6">
             <label htmlFor="status">Ghi chú:</label>
@@ -121,9 +125,7 @@ export default function UpdateClass() {
               onChange={(e) => setClassData({ ...classData, content: e.target.value })}
               value={classData.content}
               id="content"
-              required
             />
-            <p className="err3"></p>
           </div>
         </div>
         <div className="text-center mt-5">

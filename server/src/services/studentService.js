@@ -52,14 +52,19 @@ export const getStudent = ({
 export const createStudent = (body) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Student.findOrCreate({
-        where: { student_name: body?.student_name },
-        defaults: body,
+      const response = await db.Student.create({
+        // where: { student_name: body?.student_name },
+         student_name: body.student_name,
+          gender: body.gender,
+          address: body.address,
+          class_id: body.classID,
+
       });
 
       resolve({
-        err: response[1] ? 0 : 1,
-        mes: response[1] ? "Created student" : "Can not create Student!!!",
+        err: response ? 0 : 1,
+        mes: response ? "Created student" : "Can not create Student!!!",
+        res: response
       });
     } catch (e) {
       console.log(e);

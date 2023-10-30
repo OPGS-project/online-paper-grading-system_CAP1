@@ -3,49 +3,57 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
-import ReactPaginate from 'react-paginate';
 
 export default function Class() {
-    const [Class, setClass] = useState([]);
-    const [offset, setOffset] = useState(0);
-    const [perPage] = useState(5);
-    const [pageCount, setPageCount] = useState(0);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [originalClass, setOriginalClass] = useState([]);
+    const [state, setState] = useState({
+        Class: [],
+        offset: 0,
+        perPage: 5,
+        pageCount: 0,
+        searchTerm: '',
+        originalClass: [],
+    });
 
     useEffect(() => {
         axios
             .get('http://localhost:8081/api/class/')
             .then((res) => {
                 const classData = res.data.classData;
-                setClass(classData.rows);
-                setOriginalClass(classData.rows);
-                setPageCount(Math.ceil(classData.count / perPage));
+                setState((prevState) => ({
+                    ...prevState,
+                    Class: classData.rows,
+                    originalClass: classData.rows,
+                    pageCount: Math.ceil(classData.count / prevState.perPage),
+                }));
             })
             .catch((err) => console.error(err));
     }, []);
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;
-        setOffset(selectedPage * perPage);
+        setState((prevState) => ({
+            ...prevState,
+            offset: selectedPage * prevState.perPage,
+        }));
     };
 
     const handleDelete = async (id) => {
         try {
             await axios.delete('http://localhost:8081/api/class/delete-class/' + id);
             // Remove the deleted item from the state
-            setClass(Class.filter(item => item.id !== id));
-            setOriginalClass(originalClass.filter(item => item.id !== id));
+            setState((prevState) => ({
+                ...prevState,
+                Class: prevState.Class.filter((item) => item.id !== id),
+                originalClass: prevState.originalClass.filter((item) => item.id !== id),
+            }));
         } catch (err) {
             console.log(err);
         }
     };
 
-    const ClassCount = Class.length;
-
     const generateRows = () => {
-        return Class
-            .slice(offset, offset + perPage)
+        return state.Class
+            .slice(state.offset, state.offset + state.perPage)
             .map((data, i) => (
                 <tr key={i} className="text-center">
                     <td>{data.class_name}</td>
@@ -70,31 +78,46 @@ export default function Class() {
     };
 
     const handlePrevious = () => {
-        if (offset - perPage >= 0) {
-            setOffset(offset - perPage);
+        if (state.offset - state.perPage >= 0) {
+            setState((prevState) => ({
+                ...prevState,
+                offset: prevState.offset - prevState.perPage,
+            }));
         }
     };
 
     const handleNext = () => {
-        if (offset + perPage < Class.length) {
-            setOffset(offset + perPage);
+        if (state.offset + state.perPage < state.Class.length) {
+            setState((prevState) => ({
+                ...prevState,
+                offset: prevState.offset + prevState.perPage,
+            }));
         }
     };
 
     const handleSearch = () => {
-        if (searchTerm === '') {
-            setClass(originalClass);
+        if (state.searchTerm === '') {
+            setState((prevState) => ({
+                ...prevState,
+                Class: prevState.originalClass,
+            }));
         } else {
-            const filteredClass = originalClass.filter(data =>
-                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
+            const filteredClass = state.originalClass.filter((data) =>
+                data.class_name.toLowerCase().includes(state.searchTerm.toLowerCase())
             );
-            setClass(filteredClass);
+            setState((prevState) => ({
+                ...prevState,
+                Class: filteredClass,
+            }));
         }
     };
 
     const handleClearSearch = () => {
-        setSearchTerm('');
-        setClass(originalClass);
+        setState((prevState) => ({
+            ...prevState,
+            searchTerm: '',
+            Class: prevState.originalClass,
+        }));
     };
 
     return (
@@ -106,7 +129,7 @@ export default function Class() {
                     <Link to="/home/class/createClass" className="btn btn-success py-2">
                         + Thêm lớp học
                     </Link>
-                    <p className="float-right"> ({ClassCount} lớp)</p>
+                    <p className="float-right"> ({state.Class.length} lớp)</p>
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">
@@ -117,12 +140,22 @@ export default function Class() {
                                 className="form-control form-control-sm"
                                 placeholder=""
                                 aria-controls="dataTable"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                value={state.searchTerm}
+                                onChange={(e) =>
+                                    setState({
+                                        ...state,
+                                        searchTerm: e.target.value,
+                                    })
+                                }
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleSearch();
+                                    }
+                                }}
                             />
                         </label>
                         <button className="btn btn-primary" onClick={handleSearch}>
-                            Tìm
+                            <i className="fas fa-search"></i>
                         </button>
                         <button className="btn btn-danger ml-2" onClick={handleClearSearch}>
                             X
@@ -145,7 +178,7 @@ export default function Class() {
                     </div>
                     <div className="pagination">
                         <button className="btn btn-primary mr-3" onClick={handlePrevious}>
-                            <i className="fa fa-angle-left"></i> PRE 
+                            <i className="fa fa-angle-left"></i> PRE
                         </button>
                         <button className="btn btn-primary" onClick={handleNext}>
                             NEXT <i className="fa fa-angle-right"></i>
