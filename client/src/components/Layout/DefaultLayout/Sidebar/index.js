@@ -39,7 +39,7 @@ function Sidebar() {
             <hr className="sidebar-divider" />
 
             <li className="nav-item">
-                <a
+                <Link
                     className="nav-link collapsed"
                     href="/#"
                     data-toggle="collapse"
@@ -49,7 +49,7 @@ function Sidebar() {
                 >
                     <i className="fas fa-solid fa-school"></i>
                     <span>Quản lý lớp học</span>
-                </a>
+                </Link>
                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
                         <Link className="collapse-item" to="/home/class">

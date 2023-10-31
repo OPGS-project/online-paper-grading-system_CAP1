@@ -28,7 +28,7 @@ export default function CreateClass() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/class');
+                    navigate('/home/class');
                 }}
             >
                 <i class="fa-solid fa-arrow-left"></i>

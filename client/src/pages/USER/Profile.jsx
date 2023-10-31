@@ -24,14 +24,6 @@ function Profile() {
     return (
         <div class="container-fluid">
             <div className="d-flex mb-3">
-                <button
-                    className="btn btn-back"
-                    onClick={() => {
-                        navigate('/add-assignment');
-                    }}
-                >
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
                 <h3 className="text-center ml-5 ">Thông tin cá nhân</h3>
             </div>
             <form className="user">
