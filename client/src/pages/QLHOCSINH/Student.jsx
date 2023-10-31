@@ -35,7 +35,7 @@ export default function Student() {
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <Link className="btn btn-success" to={'/student/createStudent'}>
+                    <Link className="btn btn-success" to={'/home/student/createStudent'}>
                         + Thêm học sinh
                     </Link>
                     <p className="float-right">( lớp)</p>

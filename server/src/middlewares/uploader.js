@@ -1,7 +1,7 @@
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
-require("dotenv").config;
+require("dotenv").config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -16,7 +16,5 @@ const storage = new CloudinaryStorage({
     folder: "cap1_opgs",
   },
 });
-
 const uploadCloud = multer({ storage });
-
 module.exports = uploadCloud;

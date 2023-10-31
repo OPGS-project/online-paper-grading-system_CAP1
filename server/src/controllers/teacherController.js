@@ -14,3 +14,30 @@ export const getTeacher = async (req, res) => {
     // return internalServerError(res);
   }
 };
+
+export const getTeacherById = async (req, res) => {
+  try {
+    const { tid } = req.params;
+    const response = await teacherService.getTeacherById(tid);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};
+
+export const updateTeacher = async (req, res) => {
+  try {
+    const fileData = req.file;
+    const tid = req.params;
+    const response = await teacherService.updateTeacher(
+      tid,
+      fileData,
+      req.body
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};
