@@ -9,15 +9,223 @@ function Assignment_Grading() {
   const [downloadName, setDownloadName] = useState('');
   const [showAssignmentImage, setShowAssignmentImage] = useState(false);
 
-  const [textToAdd, setTextToAdd] = useState("");
+  const [totalScore, setTotalScore] = useState(0);
 
   const history = [];
   const [color, setColor] = useState("#35363a");
   const [cropImage, setCropImage] = useState(true);
 
   const toggleAssignmentImage = () => {
-    setShowAssignmentImage(!showAssignmentImage); // Khi nhấn vào nút "Xem đề bài", đảo ngược giá trị của state
+    if (!showAssignmentImage) {
+      // Mở hình ảnh bài tập trong cửa sổ hoặc tab mới
+      const assignmentImageUrl = "https://image.vtc.vn/files/ctv.phianam/2019/11/12/1-6-0927005.jpg";
+      window.open(assignmentImageUrl, "_blank");
+    }
+    setShowAssignmentImage(!showAssignmentImage);
   };
+
+  // ----------------------------------------------------- Xử lý thao tác chấm nhanh bằng bàn phím -------------------------------------
+
+  //Trừ điểm nếu thực hiện ctrl + x ở ô score
+  const subtractScore = (scoreValue) => {
+    const inputValue = parseFloat(scoreValue);
+    if (!isNaN(inputValue)) {
+      const newTotalScore = totalScore - inputValue;
+      setTotalScore(newTotalScore);
+    }
+  };
+
+  // Hàm sao chép đối tượng đã chọn vào clipboard
+  const copySelectedObject = () => {
+    const activeObject = editor.canvas.getActiveObject();
+    if (activeObject) {
+      clipboard = activeObject.toObject(['left', 'top', 'fontSize', 'width', 'angle', 'fill', 'text']); // Sao chép thuộc tính cần thiết
+    }
+  };
+
+  // Hàm dán đối tượng từ clipboard lên canvas
+  const pasteObject = () => {
+    if (clipboard) {
+      fabric.util.enlivenObjects([clipboard], (objects) => {
+        const pastedObject = objects[0];
+        pastedObject.set({
+          left: 100, // Vị trí xác định
+          top: 100,
+        });
+        editor.canvas.add(pastedObject);
+        editor.canvas.renderAll();
+      });
+    }
+  };
+
+  let clipboard = null; // Lưu dữ liệu đối tượng đã sao chép
+
+  // Hàm in đậm đối tượng đã chọn
+  const setBold = () => {
+    const activeObject = editor.canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.set('fontWeight', activeObject.fontWeight === 'bold' ? 'normal' : 'bold');
+      editor.canvas.renderAll();
+    }
+  };
+
+  // Hàm in nghiêng đối tượng đã chọn
+  const setItalic = () => {
+    const activeObject = editor.canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.set('fontStyle', activeObject.fontStyle === 'italic' ? 'normal' : 'italic');
+      editor.canvas.renderAll();
+    }
+  };
+
+  // Hàm gạch chân đối tượng đã chọn
+  const setUnderline = () => {
+    const activeObject = editor.canvas.getActiveObject();
+    if (activeObject && activeObject.type === 'text') {
+      activeObject.set('textDecoration', activeObject.textDecoration === 'underline' ? 'none' : 'underline');
+      editor.canvas.renderAll();
+    }
+  };
+
+
+  useEffect(() => {
+    if (!editor || !fabric) {
+      return;
+    }
+
+    // Thêm event listener cho sự kiện nhấn phím "X"
+    const handleKeyPress = (event) => {
+      if ((event.key === "x" || event.key === "X") && cropImage && !event.ctrlKey && !event.metaKey) {
+        // Tạo đối tượng chữ "X" 
+        const textX = new fabric.Text("X", {
+          left: 460,
+          top: 100,
+          fill: "red",
+        });
+        editor.canvas.add(textX);
+
+        const commentX = new fabric.Textbox("Nhập đánh giá", {
+          left: 520,
+          top: 110,
+          width: 200,
+          fontSize: 26,
+          fill: "red",
+        });
+
+        editor.canvas.add(commentX);
+        editor.canvas.renderAll();
+      }
+
+      // Thêm event listener cho sự kiện nhấn phím "V"
+      if ((event.key === "v" || event.key === "V") && cropImage && !event.ctrlKey && !event.metaKey) {
+        // Tạo đối tượng chữ "V" 
+        const textV = new fabric.Text("V", {
+          left: 60,
+          top: 100,
+          fill: "green",
+        });
+
+        editor.canvas.add(textV);
+
+        // --------------------------------------------------------------- Xử lý nhập ô điểm
+        const score = new fabric.Textbox("0", {
+          left: 110,
+          top: 106,
+          width: 40,
+          fontSize: 30,
+          fill: "green",
+          textboxType: "score", // Đặt thuộc tính để xác định loại ô
+        });
+
+        //cộng điểm
+        score.on("changed", function () {
+          // Kiểm tra nếu giá trị nhập vào không phải số, thì đặt lại giá trị thành 0
+          const inputValue = parseFloat(score.text);
+          if (isNaN(inputValue) || inputValue > 10 || inputValue < 0) {
+            score.text = "0";
+            editor.canvas.renderAll();
+          } else {
+            // Tính tổng mới bằng cộng giá trị mới với totalScore hiện tại
+            const newTotalScore = totalScore + inputValue;
+
+            if (newTotalScore <= 10) {
+              // Cập nhật totalScore nếu tổng mới không vượt quá 10
+              setTotalScore(newTotalScore);
+            } else {
+              // Nếu tổng mới vượt quá 10, thông báo lỗi và đặt totalScore về 0
+              alert("Tổng điểm không thể vượt quá 10! Vui lòng kiểm tra lại thao tác nhập điểm vừa rồi!");
+              setTotalScore(0);
+            }
+          }
+        });
+
+        //Xóa điểm
+        score.on("cleared", function () {
+          // Xử lý khi người dùng xóa nội dung ô điểm số
+          const inputValue = 0; // Đặt giá trị vào 0
+          // Trừ giá trị được xóa ra khỏi tổng điểm
+          const newTotalScore = totalScore - inputValue;
+          setTotalScore(newTotalScore);
+        });
+
+        editor.canvas.add(score);
+        // --------------------------------------------------------------- Đánh giá
+        const commentV = new fabric.Textbox("Nhập đánh giá", {
+          left: 150,
+          top: 110,
+          width: 200,
+          fontSize: 26,
+          fill: "green",
+        });
+
+        editor.canvas.add(commentV);
+        //-------------------------------------------------------------------------
+
+        editor.canvas.renderAll();
+      }
+
+      // Kiểm tra xem phím "X" và phím Ctrl (hoặc Command trên macOS) đang được nhấn
+      if ((event.key === "x" || event.key === "X") && (event.ctrlKey || event.metaKey) && cropImage) {
+        // Xóa đối tượng được select trên canvas
+        const activeObject = editor.canvas.getActiveObject();
+        if (activeObject && activeObject.textboxType === "score") {
+          // Nếu đối tượng xóa là điểm số, thì gọi hàm subtractScore để trừ điểm
+          subtractScore(activeObject.text);
+        }
+        editor.canvas.remove(activeObject);
+        editor.canvas.renderAll();
+      }
+
+      //Thao tác Ctrl trên window, Command trên Mac
+      if (event.ctrlKey || event.metaKey) {
+        if (event.key === "c" || event.key === "C") {
+          // Ctrl + C (Copy)
+          copySelectedObject();
+        } else if (event.key === "v" || event.key === "V") {
+          // Ctrl + V (Paste)
+          pasteObject();
+        } else if (event.key === "b" || event.key === "B") {
+          // Ctrl + B (Bold)
+          setBold();
+        } else if (event.key === "i" || event.key === "I") {
+          // Ctrl + I (Italic)
+          setItalic();
+        } else if (event.key === "u" || event.key === "U") {
+          // Ctrl + U (Underline)
+          setUnderline();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      // Xóa event listener khi component bị unmount
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [editor, cropImage]);
+
+  // ----------------------------------------------------- Xử lý thao tác chấm nhanh bằng bàn phím -------------------------------------
 
   useEffect(() => {
     if (!editor || !fabric) {
@@ -136,55 +344,40 @@ function Assignment_Grading() {
   const clear = () => {
     editor.canvas._objects.splice(0, editor.canvas._objects.length);
     history.splice(0, history.length);
+    setTotalScore(0);
     editor.canvas.renderAll();
   };
 
   const removeSelectedObject = () => {
-    editor.canvas.remove(editor.canvas.getActiveObject());
+    const activeObject = editor.canvas.getActiveObject();
+    if (activeObject && activeObject.textboxType === "score") {
+      // Nếu đối tượng xóa là điểm số, thì gọi hàm subtractScore để trừ điểm
+      subtractScore(activeObject.text);
+    }
+    editor.canvas.remove(activeObject);
+    editor.canvas.renderAll();
   };
 
   const addText = (e) => {
-    editor.addText("Enter text");
-  };
+    const comment = new fabric.Textbox("Nhập đánh giá", {
+      left: 150,
+      top: 110,
+      width: 160,
+      fontSize: 26,
+      // fill: "green",
+    });
 
-  // const addText = () => {
-  //   if (!editor) {
-  //     return;
-  //   }
-  
-  //   const text = window.prompt("Enter text (or number to accumulate):");
-  //   if (text) {
-  //     // Check if the input is a number
-  //     const isNumber = !isNaN(parseFloat(text)) && isFinite(text);
-      
-  //     if (isNumber) {
-  //       const numberObject = new fabric.Text(text, {
-  //         left: 100, 
-  //         top: 100, 
-  //       });
-  //       editor.canvas.add(numberObject);
-  //       editor.canvas.renderAll();
-  //     } else {
-  //       const textObject = new fabric.Text(text, {
-  //         left: 100, 
-  //         top: 100, 
-  //       });
-  //       editor.canvas.add(textObject);
-  //       editor.canvas.renderAll();
-  //     }
-  
-  //     console.log("Text entered:", text);
-  //   }
-  // };
+    editor.canvas.add(comment);
+  };
 
   const exportPNG = () => {
     //   const svg = canvas.current.toSVG();
     setDownloadLink(editor.canvas.toDataURL({
-        format: "png"
+      format: "png"
     }));
 
     setDownloadName("assignment_graded.png");
-}
+  }
 
   return (
     <div className="grading-container">
@@ -197,8 +390,8 @@ function Assignment_Grading() {
         }}
       >
         <div className="header-info_asg">
-        <p className="heading-content">Chấm bài tập</p>
-        <button onClick={toggleAssignmentImage}><p>Xem đề bài</p></button>
+          <p className="heading-content">Chấm bài tập</p>
+          <button onClick={toggleAssignmentImage}><p>Xem đề bài</p></button>
         </div>
         <div className="assignment-info">
           <p>Tên: Nguyễn Văn A</p>
@@ -214,59 +407,55 @@ function Assignment_Grading() {
         <FabricJSCanvas className="sample-canvas container" onReady={onReady} />
       </div>
       <div className="tools">
-      {showAssignmentImage && (
-          // Hiển thị hình ảnh đề bài khi showAssignmentImage là true
-          <img
-            src="https://image.vtc.vn/files/ctv.phianam/2019/11/12/1-6-0927005.jpg"
-            alt="Đề bài"
-            className="assignment-image"
+        <h1 className="grading-tools">Công cụ chấm bài</h1>
+        <button title="Thêm chữ" className="addText-btn public-btn" onClick={addText} disabled={!cropImage}>
+          <p>Add Text</p>
+        </button>
+        <button title="Vẽ" className="toggle-draw-btn public-btn" onClick={toggleDraw} disabled={!cropImage}>
+          <p>Draw</p>
+        </button>
+        <button title="Dọn dẹp" className="clear-btn public-btn" onClick={clear} disabled={!cropImage}>
+          <p>Clear</p>
+        </button>
+        <button title="Hoàn tác" className="undo-btn public-btn" onClick={undo} disabled={!cropImage}>
+          <p>Undo</p>
+        </button>
+        <button title="Quay lại" className="redo-btn public-btn" onClick={redo} disabled={!cropImage}>
+          <p>Redo</p>
+        </button>
+        <button title="Xóa" className="delete-btn public-btn" onClick={removeSelectedObject} disabled={!cropImage}>
+          <p>Delete</p>
+        </button>
+        <label title="Chọn màu sắc" disabled={!cropImage} className="public-btn">
+          <input
+            disabled={!cropImage}
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
           />
-        )} 
-      <h1 className="grading-tools">Công cụ chấm bài</h1>
-      <button title="Thêm chữ" className="addText-btn public-btn" onClick={addText} disabled={!cropImage}>
-        <p>Add Text</p>
-      </button>
-      <button title="Vẽ" className="toggle-draw-btn public-btn" onClick={toggleDraw} disabled={!cropImage}>
-      <p>Draw</p>
-      </button>
-      <button title="Dọn dẹp" className="clear-btn public-btn" onClick={clear} disabled={!cropImage}>
-      <p>Clear</p>
-      </button>
-      <button title="Hoàn tác" className="undo-btn public-btn" onClick={undo} disabled={!cropImage}>
-      <p>Undo</p>
-      </button>
-      <button title="Quay lại" className="redo-btn public-btn" onClick={redo} disabled={!cropImage}>
-      <p>Redo</p>
-      </button>
-      <button title="Xóa" className="delete-btn public-btn" onClick={removeSelectedObject} disabled={!cropImage}>
-      <p>Delete</p>
-      </button>
-      <label title="Chọn màu sắc" disabled={!cropImage} className="public-btn">
-        <input
-          disabled={!cropImage}
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-        />
-      </label>
-      <button title="Xuất hình ảnh" className="toPNG-btn public-btn" onClick={exportPNG} disabled={!cropImage}>
-        {" "}
-      <a href={downloadLink} download={downloadName}><p>Export</p></a>
-      </button>
-      <div className="grading-result">
-         <div className="comment-box">
+        </label>
+        <button title="Xuất hình ảnh" className="toPNG-btn public-btn" onClick={exportPNG} disabled={!cropImage}>
+          {" "}
+          <a href={downloadLink} download={downloadName}><p>Export</p></a>
+        </button>
+        <div className="grading-result">
+          <div className="comment-box">
             <p>Nhận xét bài tập</p>
             <div className="input-container">
-                <textarea placeholder="Nhập nội dung ở đây..." rows="4"></textarea>
+              <textarea placeholder="Nhập nội dung ở đây..." rows="4"></textarea>
             </div>
-         </div>
-       <div className="result-container">
-         <div className="result-box">
-            <p>Tổng điểm</p>
-            <input type="number" value="0"/>
-         </div>
-         <button>Lưu</button>
-        </div>
+          </div>
+          <div className="result-container">
+            <div className="result-box">
+              <p>Tổng điểm</p>
+              <input
+                type="number"
+                value={totalScore}
+                onChange={(e) => setTotalScore(e.target.value)}
+              />
+            </div>
+            <button>Lưu</button>
+          </div>
         </div>
       </div>
     </div>
