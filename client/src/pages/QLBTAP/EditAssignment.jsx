@@ -29,6 +29,16 @@ export default function EditAssignment() {
         deadline: '',
         content_text: '',
     });
+    //
+    const [classData, setClassData] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8081/api/class/')
+            .then((res) => setClassData([...res.data.classData.rows]))
+            .catch((err) => console.error(err));
+    }, []);
+    //
     const { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
@@ -53,7 +63,7 @@ export default function EditAssignment() {
             if (i[0] === 'createdAt') continue;
             if (i[0] === 'updatedAt') continue;
             if (i[0] === 'of_className') continue;
-            console.log(i[0]);
+
             formData.append(i[0], i[1]);
         }
 
@@ -102,13 +112,22 @@ export default function EditAssignment() {
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
                         Lớp
                     </label>
-                    <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id=""
-                        name="of_className"
-                        onChange={handleChange}
-                    />
+                    <select
+                        className="custom-select "
+                        style={{ height: 50, borderRadius: 100 }}
+                        id="validationTooltip04"
+                        required
+                        onChange={(e) => setAssignment((prev) => ({ ...prev, of_class: e.target.value }))}
+                    >
+                        <option selected disabled value="Chọn lớp">
+                            Chọn lớp
+                        </option>
+                        {classData?.map((data, i) => (
+                            <option key={i} name="of_class">
+                                {data.class_name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-6 mb-3 mb-sm-0">

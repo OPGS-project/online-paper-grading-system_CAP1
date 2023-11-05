@@ -19,7 +19,24 @@ export default function AddAssignment() {
         });
     };
     const [classData, setClassData] = useState([]);
-
+    const navigate = useNavigate();
+    const [values, setValues] = useState({
+        assignment_name: '',
+        of_class: '',
+        start_date: '',
+        deadline: '',
+        content_text: '',
+    });
+    // const [time, setTime] = useState({
+    //     startDate: moment().format("YYYY-MM-DD"),
+    //     startTime: moment().format("hh:mm"),
+    //     finishDate: moment().format("YYYY-MM-DD"),
+    //     finishTime: moment().format("hh:mm"),
+    //   });
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+    //
     useEffect(() => {
         axios
             .get('http://localhost:8081/api/class/')
@@ -29,17 +46,6 @@ export default function AddAssignment() {
     console.log(classData);
     // console.log(Class);
 
-    const navigate = useNavigate();
-    const [values, setValues] = useState({
-        assignment_name: '',
-        of_class: '',
-        start_date: '',
-        deadline: '',
-        content_text: '',
-    });
-    const handleChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
-    };
     // setValues((prev) => ({ ...prev, of_class: e.target.value }))
     console.log(values);
 

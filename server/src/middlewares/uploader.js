@@ -9,12 +9,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+const userStorage = new CloudinaryStorage({
   cloudinary,
   allowedFormats: ["jpg", "png"],
   params: {
-    folder: "cap1_opgs",
+    folder: "users",
   },
 });
-const uploadCloud = multer({ storage });
-module.exports = uploadCloud;
+
+const uploadUser = multer({ storage: userStorage });
+module.exports = { uploadUser };

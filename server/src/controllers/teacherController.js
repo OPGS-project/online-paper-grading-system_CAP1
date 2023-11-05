@@ -1,24 +1,12 @@
-import { internalServerError, badRequest } from "../middlewares/handle_errors";
+import { badRequest } from "../middlewares/handle_errors";
 const teacherService = require("../services/teacherService");
+const cloudinary = require("cloudinary").v2;
+import joi from "joi";
 
 export const getTeacher = async (req, res) => {
-  const { currentUser } = req;
   try {
-    if (!currentUser?.id) {
-      return badRequest(error.details[0]?.message, res);
-    }
-    const response = await teacherService.getTeacher(currentUser?.id);
-    return res.status(200).json(response);
-  } catch (error) {
-    console.log(error);
-    // return internalServerError(res);
-  }
-};
-
-export const getTeacherById = async (req, res) => {
-  try {
-    const { tid } = req.params;
-    const response = await teacherService.getTeacherById(tid);
+    const { id } = req.user;
+    const response = await teacherService.getTeacher(id);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -29,12 +17,14 @@ export const getTeacherById = async (req, res) => {
 export const updateTeacher = async (req, res) => {
   try {
     const fileData = req.file;
-    const tid = req.params;
-    const response = await teacherService.updateTeacher(
-      tid,
-      fileData,
-      req.body
-    );
+    const { id } = req.user;
+
+    const { error } = joi.object().validate({ avatar: fileData?.path });
+    if (error) {
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
+    }
+
+    const response = await teacherService.updateTeacher(id, req.body, fileData);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

@@ -2,9 +2,11 @@
     display: flex;
     width: 100%;
     padding-bottom: 40px;
+    // justify-content: space-between;
     .assignment-info-box {
         display: flex;
         flex-direction: column;
+        flex: 1;
 
         .assignment-info {
             display: flex;

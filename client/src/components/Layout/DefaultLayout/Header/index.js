@@ -4,6 +4,7 @@ import { AiOutlineLogin } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/store/actions/authAction';
 import { apiGetOne } from '~/apis/userService';
+import { Collapse } from 'bootstrap';
 
 function Header() {
     const dispatch = useDispatch();
@@ -23,6 +24,15 @@ function Header() {
         };
         token && fetchUser();
     }, [token]);
+
+    //toggle
+    var [toggle3, setToggle3] = useState(false);
+
+    useEffect(() => {
+        var myCollapse3 = document.getElementById('collapseTarget3');
+        var bsCollapse3 = new Collapse(myCollapse3, { toggle: false });
+        toggle3 ? bsCollapse3.show() : bsCollapse3.hide();
+    });
 
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -51,23 +61,12 @@ function Header() {
                 <div className="topbar-divider d-none d-sm-block"></div>
 
                 <li className="nav-item dropdown no-arrow">
-                    <Link
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        id="userDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
+                    <Link onClick={() => setToggle3((toggl3) => !toggle3)} className="nav-link dropdown-toggle">
                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userData?.name}</span>
                         <img className="img-profile rounded-circle" src={userData.avatar} alt="avatar" />
                     </Link>
 
-                    <div
-                        className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="userDropdown"
-                    >
+                    <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" id="collapseTarget3">
                         <Link className="dropdown-item" to="/home/user-profile">
                             <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Hồ sơ
