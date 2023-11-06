@@ -85,10 +85,7 @@ export const createStudent = (body) =>
           gender: body.gender,
           address: body.address,
           class_id: body.classID,
-<<<<<<< HEAD
-=======
-        
->>>>>>> 5af27189624d0e5f5c3cd5aeab0edfc2fbed9b3f
+          birthday: body.birthday,
 
       });
 

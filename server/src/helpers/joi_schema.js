@@ -20,6 +20,8 @@ export const class_name = joi.string().required();
 export const content = joi.string();
 export const total_students = joi.number().required();
 export const classID = joi.string().required();
+export const birthday = joi.string().required();
+
 
 //student
 export const student_name = joi.string().required();

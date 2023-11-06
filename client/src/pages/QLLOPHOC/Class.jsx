@@ -51,6 +51,30 @@ export default function Class() {
         }
     };
 
+    const handleSearch = () => {
+        const { originalClass, searchTerm, perPage } = state;
+        if (searchTerm === '') {
+            // Nếu không có từ khóa tìm kiếm, hiển thị toàn bộ lớp học từ danh sách gốc
+            setState((prevState) => ({
+                ...prevState,
+                Class: originalClass,
+                pageCount: Math.ceil(originalClass.length / perPage),
+                offset: 0,
+            }));
+        } else {
+            // Nếu có từ khóa tìm kiếm, tạo mảng lớp học mới dựa trên kết quả tìm kiếm
+            const filteredClass = originalClass.filter((data) =>
+                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setState((prevState) => ({
+                ...prevState,
+                Class: filteredClass,
+                pageCount: Math.ceil(filteredClass.length / perPage),
+                offset: 0,
+            }));
+        }
+    };
+
     const generateRows = () => {
         return state.Class
             .slice(state.offset, state.offset + state.perPage)
@@ -95,29 +119,12 @@ export default function Class() {
         }
     };
 
-    const handleSearch = () => {
-        if (state.searchTerm === '') {
-            setState((prevState) => ({
-                ...prevState,
-                Class: prevState.originalClass,
-            }));
-        } else {
-            const filteredClass = state.originalClass.filter((data) =>
-                data.class_name.toLowerCase().includes(state.searchTerm.toLowerCase())
-            );
-            setState((prevState) => ({
-                ...prevState,
-                Class: filteredClass,
-            }));
-        }
-    };
-
     const handleClearSearch = () => {
         setState((prevState) => ({
             ...prevState,
             searchTerm: '',
-            Class: prevState.originalClass,
         }));
+        handleSearch(); // Gọi lại tìm kiếm để hiển thị toàn bộ lớp học
     };
 
     return (

@@ -31,9 +31,11 @@ export const getStudent = async (req, res) => {
 
 export const createStudent = async (req, res) => {
   try {
+    const { student_name, classID, gender, address } = req.body
     const { error } = joi
       .object({ student_name, classID, gender, address })
-      .validate(req.body);
+      .validate({student_name, classID, gender, address});
+
     if (error) return badRequest(error.details[0].message, res);
     const response = await authServices.createStudent(req.body);
     return res.status(200).json(response);
@@ -44,11 +46,7 @@ export const createStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   try {
-<<<<<<< HEAD
-    const { studentId }= req.params;
-=======
     const {studentId, classID} = req.params;
->>>>>>> 5af27189624d0e5f5c3cd5aeab0edfc2fbed9b3f
     const response = await authServices.updateStudent(studentId, req.body);
     return res.status(200).json(response);
   } catch (error) {
