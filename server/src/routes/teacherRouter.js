@@ -1,8 +1,17 @@
-const teacher = require("../controllers/teacherController");
+const controllers = require("../controllers/teacherController");
 const router = require("express").Router();
+import { uploadUser } from "../middlewares/uploader";
 import verifyToken from "../middlewares/verify_token";
-// import { isTeacher } from "../middlewares/verify_role";
+import { isTeacher } from "../middlewares/verify_role";
 
-router.get("/", [verifyToken], teacher.getTeacher);
+router.use(verifyToken);
+router.get("/", controllers.getTeacher);
+
+router.put(
+  "/update-teacher",
+  isTeacher,
+  uploadUser.single("avatar"),
+  controllers.updateTeacher
+);
 
 module.exports = router;

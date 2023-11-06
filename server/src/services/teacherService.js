@@ -1,4 +1,5 @@
 import db from "../models";
+const cloudinary = require("cloudinary").v2;
 
 export const getTeacher = (id) =>
   new Promise(async (resolve, reject) => {
@@ -7,7 +8,7 @@ export const getTeacher = (id) =>
         where: { id },
         raw: true,
         attributes: {
-          exclude: ["password", "phone", "refresh_token"],
+          exclude: ["password", "refresh_token"],
         },
         include: [
           {
@@ -24,5 +25,34 @@ export const getTeacher = (id) =>
       });
     } catch (error) {
       reject(error);
+    }
+  });
+
+export const updateTeacher = (tid, body, fileData) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const fileImage = await db.Teacher.findOne({
+        where: { id: tid },
+      });
+      cloudinary.api.delete_resources(fileImage.dataValues.fileName);
+      if (fileData) {
+        body.avatar = fileData?.path;
+        body.fileName = fileData?.filename;
+      }
+      console.log(fileData);
+      const response = await db.Teacher.update(body, {
+        where: { id: tid },
+      });
+      // console.log(response);
+
+      resolve({
+        err: response[0] > 0 ? 0 : 1,
+        mes: response[0] > 0 ? "Update successfully" : "not",
+      });
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
+    } catch (e) {
+      reject(e);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });

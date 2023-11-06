@@ -4,14 +4,17 @@ import { FaEyeSlash } from '@react-icons/all-files/fa/FaEyeSlash';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '~~/layout/Login.scss';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, useToast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import actionTypes from '~/store/actions/actionTypes';
+import Swal from 'sweetalert2';
 
 export default function Login() {
     const notifyWarning = (errorMessage) => {
         toast.warning(errorMessage, {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -36,31 +39,57 @@ export default function Login() {
     const handleShow = () => {
         setShow(!show);
     };
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [values, setValues] = useState({ email: '', password: '' });
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
+
+    const [error, setError] = useState({
+        emailErr: null,
+        passwordErr: null,
+    });
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (values.email.length < 0 || values.email === '')
+            setError((prev) => ({
+                ...prev,
+                emailErr: 'Email không được để trống',
+            }));
 
-        axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
-            if (res.data === 'Success') {
+        if (values.password.length < 0 || values.password === '')
+            setError((prev) => ({
+                ...prev,
+                passwordErr: 'Mật khẩu không được để trống',
+            }));
+
+        if (error.emailErr === null || error.passwordErr === null)
+            axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
                 console.log(res);
-                notifySuccess('Đăng nhập thành công !');
-                setTimeout(() => {
-                    navigate('/');
-                }, 3000); // chuyển trang sau 3s
-            } else {
-                notifyWarning('Email hoặc Mật khẩu không đúng');
-            }
-        });
+
+                if (res.data.err === 0) {
+                    notifySuccess('Đăng nhập thành công !');
+                    dispatch({
+                        type: actionTypes.LOGIN_SUCCESS,
+                        data: res.data.token,
+                    });
+                    setTimeout(() => {
+                        navigate('/home ');
+                    }, 3000); // chuyển trang sau 3s
+                } else {
+                    Swal.fire('Thông báo', 'Sai mật khẩu', 'error');
+                }
+            });
+
+        // else Swal.fire('Thông báo', 'Có lỗi gì đó', 'error');
+
         //     .catch(error);
         // {
         //     console.log(error);
         // }
     };
-    console.log(values);
 
     const handleLoginGG = () => {
         window.open('http://localhost:8081/api/auth/google', '_self'); // self load  đè lên trang hiện tại
@@ -80,7 +109,7 @@ export default function Login() {
                                             <div className="text-center">
                                                 <h1 className="h3 text-gray-900 mb-4">Đăng Nhập</h1>
                                             </div>
-                                            <form className="user" method="post">
+                                            <form className="user" method="post" onSubmit={handleSubmit}>
                                                 <div className="form-group">
                                                     <input
                                                         type="email"
@@ -89,6 +118,9 @@ export default function Login() {
                                                         onChange={handleChange}
                                                         name="email"
                                                     />
+                                                    {error.emailErr && (
+                                                        <small className="text-danger pl-3">{error.emailErr}</small>
+                                                    )}
                                                 </div>
                                                 <div className="form-group">
                                                     <input
@@ -101,6 +133,9 @@ export default function Login() {
                                                     <div className="position-absolute eye-login" onClick={handleShow}>
                                                         {show ? <FaEyeSlash /> : <FaEye />}
                                                     </div>
+                                                    {error.passwordErr && (
+                                                        <small className="text-danger pl-3">{error.passwordErr}</small>
+                                                    )}
                                                 </div>
                                                 <div className="form-group d-flex justify-content-between">
                                                     <div className="custom-control custom-checkbox small">
@@ -119,11 +154,7 @@ export default function Login() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <button
-                                                    className="btn btn-primary btn-user btn-block"
-                                                    type="submit"
-                                                    onSubmit={handleSubmit}
-                                                >
+                                                <button className="btn btn-primary btn-user btn-block">
                                                     Đăng Nhập
                                                 </button>
                                                 <hr />

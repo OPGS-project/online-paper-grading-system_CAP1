@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
       if (!isChecked) return notAuth(" Token invalid", res, isChecked);
       if (isChecked) return notAuth(" Token expired", res, isChecked);
     }
-    req.currentUser = decode;
+    req.user = decode;
     next();
   });
 };

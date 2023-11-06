@@ -25,8 +25,8 @@ export const login = async (req, res) => {
     const response = await authServices.login(req.body);
     return res.status(200).json(response);
   } catch (error) {
-    // console.log(error);
-    return internalServerError(res);
+    console.log(error);
+    // return internalServerError(res);
   }
 };
 
@@ -59,12 +59,13 @@ export const refreshTokenController = async (req, res) => {
 //resetPassword
 export const resetPassword = async (req, res) => {
   try {
-    const { error } = joi.object({ email }).validate(req.body);
-    if (error) return badRequest(error.details[0]?.message, res);
+    // const { error } = joi.object({ email }).validate(req.body);
+    // if (error) return badRequest(error.details[0]?.message, res);
     const response = await authServices.resetPassword(req.body.email);
     return res.status(200).json(response);
   } catch (error) {
-    return internalServerError(res);
+    console.log(error);
+    // return internalServerError(res);
   }
 };
 //

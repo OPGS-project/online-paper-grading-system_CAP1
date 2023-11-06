@@ -8,16 +8,27 @@ import { FcInspection, FcViewDetails } from 'react-icons/fc';
 import moment from 'moment/moment';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactPaginate from 'react-paginate';
+import { Pagination } from '~/components/Pagination';
 
 const Assignment = () => {
     const navigate = useNavigate();
+    const [count, setCount] = useState(0);
     const [assignment, setAssignment] = useState([]);
     const [updateCheck, setUpdateCheck] = useState(false);
+    const params = useParams();
 
     useEffect(() => {
         axios
             .get('http://localhost:8081/api/assignment/')
-            .then((res) => setAssignment(res.data.assignmentData.rows))
+            .then((res) => {
+                // const  limit = 7,
+                // const page: queries.page,
+                if (res.data.err === 0) {
+                    setAssignment(res.data.assignmentData.rows);
+                    setCount(res.data.assignmentData.count);
+                }
+            })
             .catch((err) => console.error(err));
     }, []);
 
@@ -31,25 +42,6 @@ const Assignment = () => {
             .catch((err) => console.error(err));
     }, [updateCheck]);
 
-    // const classNameCount = className.length;
-    // const classNameCount = className.length;
-    // Swal.fire({
-    //     title: 'Are you sure?',
-    //     text: "You won't be able to revert this!",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes, delete it!'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       Swal.fire(
-    //         'Deleted!',
-    //         'Your file has been deleted.',
-    //         'success'
-    //       )
-    //     }
-    //   })
     const handleDelete = (aid, name) => {
         Swal.fire({
             title: `Bạn muốn xóa ${name} này?`,
@@ -95,7 +87,7 @@ const Assignment = () => {
                                 aria-describedby="basic-addon2"
                             />
                             <div className="input-group-append">
-                                <button className="btn position-absolute icon-search" type="button">
+                                <button className="btn btn-primary" type="button">
                                     <FiSearch />
                                 </button>
                             </div>
@@ -125,12 +117,18 @@ const Assignment = () => {
                             </tr>
                         </thead>
                         <tbody className="text-center">
-                            {assignment.map((data, i) => (
+                            {assignment?.map((data, i) => (
                                 <tr key={i}>
                                     <td>
                                         <i className="fa-solid fa-folder icon-folder"></i>
                                     </td>
-                                    <td>{data.assignment_name}</td>
+                                    <td>
+                                        {/* {(+params.get('page') > 1 ? +params.get('page') - 1 : 0) *
+                                            +import.meta.env.V  TE_REACT_APP_LIMIT +
+                                            i +
+                                            1} */}
+                                        {data.assignment_name}
+                                    </td>
                                     <td>{moment(data.start_date).format('DD-MM-YYYY')}</td>
                                     <td>{moment(data.deadline).format('DD-MM-YYYY')}</td>
                                     <td>{data.of_class}</td>
@@ -164,6 +162,9 @@ const Assignment = () => {
                         </tbody>
                     </table>
                     <ToastContainer />
+                    <div className="w-full mt-1">
+                        <Pagination totalCount={count} />
+                    </div>
                 </div>
             </div>
         </div>
