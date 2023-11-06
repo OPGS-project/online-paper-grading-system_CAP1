@@ -23,7 +23,11 @@ export const register = ({ name, email, password }) =>
       // console.log(response[1]);
       const token = response[1]
         ? jwt.sign(
-            { id: response[0].id, email: response[0].email },
+            {
+              id: response[0].id,
+              email: response[0].email,
+              role: response[0].role,
+            },
             process.env.JWT_SECRET,
             { expiresIn: "2d" } // time hết hạn của token
           )
@@ -72,7 +76,7 @@ export const login = ({ email, password }) =>
         response && bcrypt.compareSync(password, response.password);
       const token = isChecked
         ? jwt.sign(
-            { id: response.id, email: response.email },
+            { id: response.id, email: response.email, role: response.role },
             process.env.JWT_SECRET,
             { expiresIn: "2d" } // time hết hạn của token
           ) // mã hóa

@@ -63,7 +63,7 @@ export default function CreateStudent() {
                         <label className="text-capitalize font-weight-bold pl-2">
                             Giới tính <FcHighPriority />
                         </label>
-                        <select className="form-control form-control-user">
+                        <select className="custom-select " style={{ height: 50, borderRadius: 100 }}>
                             <option value="">Chọn giới tính</option>
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
