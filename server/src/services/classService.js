@@ -57,6 +57,7 @@ export const getStudentByClassId = (classID) => {
             model: db.Student,
             as: "studentData",
             attributes: [
+              "id",
               "student_name",
               "gender",
               "birthday",
@@ -84,10 +85,8 @@ export const getClassById = (classID) => new Promise(async (resolve, reject) => 
 
       const response = await db.Class.findOne({
           where: { id: classID }, // Sử dụng classID để tìm lớp học theo ID
-          ...queries,
-         
+          ...queries,        
       });
-
       if (response) {
           resolve({
               err: 0,

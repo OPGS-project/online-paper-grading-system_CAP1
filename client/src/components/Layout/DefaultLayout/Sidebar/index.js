@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBookReader } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { Collapse } from 'bootstrap';
 
 function Sidebar() {
+    var [toggle, setToggle] = useState(false);
+
+    useEffect(() => {
+        var myCollapse = document.getElementById('collapseTarget');
+        var bsCollapse = new Collapse(myCollapse, { toggle: false });
+        toggle ? bsCollapse.show() : bsCollapse.hide();
+    });
+
+    //
+
+    var [toggle2, setToggle2] = useState(false);
+
+    useEffect(() => {
+        var myCollapse2 = document.getElementById('collapseTarget2');
+        var bsCollapse2 = new Collapse(myCollapse2, { toggle: false });
+        toggle2 ? bsCollapse2.show() : bsCollapse2.hide();
+    });
+
     return (
         <ul
             className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -39,18 +58,16 @@ function Sidebar() {
             <hr className="sidebar-divider" />
 
             <li className="nav-item">
-                <a
-                    className="nav-link collapsed"
-                    href="/#"
-                    data-toggle="collapse"
-                    data-target="#collapseTwo"
-                    aria-expanded="true"
-                    aria-controls="collapseTwo"
-                >
+                <Link onClick={() => setToggle((toggle) => !toggle)} className="nav-link collapsed">
                     <i className="fas fa-solid fa-school"></i>
                     <span>Quản lý lớp học</span>
-                </a>
-                <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                </Link>
+                <div
+                    id="collapseTarget"
+                    className="collapse"
+                    aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar"
+                >
                     <div className="bg-white py-2 collapse-inner rounded">
                         <Link className="collapse-item" to="/home/class">
                             Thông tin lớp học
@@ -63,20 +80,12 @@ function Sidebar() {
             </li>
 
             <li className="nav-item">
-                <Link
-                    to="#"
-                    className="nav-link collapsed"
-                    href="/#"
-                    data-toggle="collapse"
-                    data-target="#collapseUtilities"
-                    aria-expanded="true"
-                    aria-controls="collapseUtilities"
-                >
+                <Link className="nav-link collapsed" onClick={() => setToggle2((toggle2) => !toggle2)}>
                     <i className="fas fa-solid fa-book"></i>
                     <span>Quản lý bài tập</span>
                 </Link>
                 <div
-                    id="collapseUtilities"
+                    id="collapseTarget2"
                     className="collapse"
                     aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar"

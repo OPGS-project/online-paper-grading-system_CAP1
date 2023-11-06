@@ -13,7 +13,7 @@ const Submitted = () => {
     useEffect(() => {
         axios
             .get(`http://localhost:8081/api/assignment/${params.assignmentId}`)
-            .then((res) => console.log(res.data.response[0].classData.studentData))
+            .then((res) => setValues(res.data.response[0].classData.studentData))
             .catch((err) => console.error(err));
     }, []);
 
@@ -47,7 +47,7 @@ const Submitted = () => {
                                     <td>{data.student_name}</td>
                                     <td>Đã nộp</td>
                                     <td>
-                                        <Link to="/grading" className="btn btn-outline-success">
+                                        <Link to="/home/grading" className="btn btn-outline-success">
                                             Chấm bài
                                         </Link>
                                     </td>

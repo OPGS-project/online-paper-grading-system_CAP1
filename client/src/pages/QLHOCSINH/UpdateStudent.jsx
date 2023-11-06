@@ -1,132 +1,141 @@
-import 'react-datepicker/dist/react-datepicker.css';
-// import {ToastContainer, toast} from 'react-toastify';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FcHighPriority } from 'react-icons/fc';
-import { FcList } from 'react-icons/fc';
-import DatePicker from 'react-datepicker';
-import { useNavigate } from 'react-router-dom';
 
 export default function UpdateStudent() {
     const navigate = useNavigate();
+    const { studentID, classID } = useParams();
+    const [studentData, setStudentData] = useState({
+        student_name: '',
+        gender: '',
+        address: '',
+        birthday: '',
+    });
+    const location = useLocation();
+    const initialStudentData = location.state ? location.state.studentData : {};
 
-    // const notifyError = (errorMessage) => {
-    //     toast.error(errorMessage, {
-    //       position: 'top-right',
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: 'light',
-    //     });
-    //   };
-    //   const notifySuccess = (errorMessage) => {
-    //     toast.success(errorMessage, {
-    //       position: "top-right",
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: "light",
-    //       });
-    // };
+    useEffect(() => {
+        setStudentData(initialStudentData);
+    }, [initialStudentData]);
+
+    const notifyError = (errorMessage) => {
+        toast.error(errorMessage, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
+    const notifySuccess = (errorMessage) => {
+        toast.success(errorMessage, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!studentData.student_name || !studentData.birthday || !studentData.gender) {
+            notifyError("Vui lòng điền đầy đủ thông tin tên, ngày sinh và giới tính.");
+            return;
+        }
+
+        try {
+            const response = await axios.put(`http://localhost:8081/api/student/update-student/${classID}/${studentID}`, studentData);
+            if (response.status === 200) {
+
+                notifySuccess("Cập nhập thành công");
+                setTimeout(() => {
+                    navigate('/home/class/get-student/' + classID);
+                }, 5000);
+            } else {
+                notifyError("Lỗi cập nhật dữ liệu: " + response.data);
+            }
+        } catch (err) {
+            notifyError("Lỗi cập nhật dữ liệu: " + err.message);
+        }
+    };
+
     return (
         <div className="container-fluid">
+            <button className="btn btn-primary" onClick={() => navigate('/home/class/get-student/' + classID)}>
+                <i className="bi bi-arrow-left"></i> Quay lại
+            </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
-                <i className="fa-regular fa-pen-to-square"></i> Cập nhập học sinh
+                Cập nhật học sinh
+                <small className="d-block mt-2">(Điền thông tin lớp vào biểu mẫu dưới đây)</small>
             </h1>
-            <form className="mt-3 user mx-5">
-                <div className="form-row ">
+            <form className="mt-3 user mx-5" onSubmit={handleSubmit}>
+                <h4 className="h4 mb-4 text-gray-800 ">Biểu mẫu:</h4>
+                <div className="form-row">
                     <div className="col-6">
-                        <label className="text-capitalize font-weight-bold pl-2">Mã giáo viên</label>
-                        <input type="text" readOnly className="form-control form-control-user" />
-                    </div>
-                    <div className="col-6 ">
-                        <label className="text-capitalize font-weight-bold pl-2">
-                            Họ và tên <FcHighPriority />
-                        </label>
+                        <label htmlFor="" className="text-capitalize font-weight-bold pl-2">Tên học sinh:</label>
                         <input
                             type="text"
                             placeholder="Nhập tên học sinh"
                             className="form-control form-control-user"
-                            required
-                        />
-                    </div>
-                </div>
-                <div className="form-row mt-3">
-                    <div className="col-6 ">
-                        <label className="text-capitalize font-weight-bold pl-2">
-                            Lớp <FcHighPriority />
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Nhập ID lớp"
-                            className="form-control form-control-user"
-                            required
+                            onChange={(e) => setStudentData({ ...studentData, student_name: e.target.value })}
+                            value={studentData.student_name}
                         />
                     </div>
                     <div className="col-6">
-                        <label className="text-capitalize font-weight-bold pl-2">Email</label>
+                        <label htmlFor="">Ngày sinh:</label>
                         <input
-                            type="text"
-                            placeholder="Nhập email học sinh"
+                            type="date"
                             className="form-control form-control-user"
+                            onChange={(e) => setStudentData({ ...studentData, birthday: e.target.value })}
+                            value={studentData.birthday}
                         />
                     </div>
                 </div>
-                <div className="form-row mt-3">
-                    <div className="col-6 ">
-                        <label className="text-capitalize font-weight-bold pl-2">
-                            Giới tính <FcHighPriority />
-                        </label>
-                        <select className="form-control form-control-lg" style={{ borderRadius: 50 }} required>
-                            <option selected value="">
-                                Chọn giới tính
-                            </option>
+                <div className="form-row">
+                    <div className="col-6 mt-3">
+                        <label className='text-capitalize font-weight-bold pl-2'>Giới tính: (Bắt buộc)</label>
+                        <select
+                            type="text"
+                            style={{ height: 50, borderRadius: 100 }}
+                            className="form-control"
+                            onChange={(e) => setStudentData({ ...studentData, gender: e.target.value })}
+                            value={studentData.gender}
+                        >
+                            <option value="">Chọn giới tính</option>
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
                             <option value="Khác">Khác</option>
                         </select>
                     </div>
-                    <div className="col-6">
-                        <label className="text-capitalize font-weight-bold pl-2">Số điện thoại</label>
+                    <div className="col-6 mt-3">
+                        <label htmlFor="status">Quê quán:</label>
                         <input
                             type="text"
-                            placeholder="Nhập số điện thoại"
+                            placeholder="Nhập ghi chú"
                             className="form-control form-control-user"
+                            onChange={(e) => setStudentData({ ...studentData, address: e.target.value })}
+                            value={studentData.address}
                         />
                     </div>
                 </div>
-                <div className="form-row mt-3">
-                    <div className="col-6">
-                        <label className="text-capitalize font-weight-bold pl-2">Quê quán</label>
-                        <input type="text" placeholder="Nhập quê quán" className="form-control form-control-user" />
-                    </div>
-                    <div className="col-6">
-                        <label className="text-capitalize font-weight-bold pl-2">Ngày sinh</label>
-                        <div>
-                            <DatePicker
-                                placeholderText="Chọn ngày sinh"
-                                dateFormat="yyyy-MM-dd"
-                                className="form-control form-control-user"
-                                wrapperClassName="custom-datepicker-wrapper form-control form-control-l" // loại bỏ class mặc định của input DatePicker
-                            />
-                        </div>
-                    </div>
-                </div>
+
                 <div className="text-center mt-5">
-                    <button type="submit" className="btn btn-success px-5 py-2">
-                        Lưu
-                    </button>
-                    <button type="submit" className="btn btn-light px-5 py-2 ml-3">
-                        Hủy
+                    <button type="submit" className="btn-lg btn-primary">
+                        Cập nhật
                     </button>
                 </div>
             </form>
-            {/* <ToastContainer /> */}
+            <ToastContainer />
         </div>
     );
 }

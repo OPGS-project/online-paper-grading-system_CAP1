@@ -1,8 +1,44 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '~~/layout/ForgotPassword.scss';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import { useState } from 'react';
 
 function ForgotPassword() {
     const navigate = useNavigate();
+    const notifySuccess = (errorMessage) => {
+        toast.success(errorMessage, {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
+    const [values, setValues] = useState({
+        email: '',
+    });
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+    const handleResetPass = () => {
+        axios
+            .post('http://localhost:8081/api/auth/reset-password')
+            .then((res) => {
+                console.log(res);
+                notifySuccess('Kiểm tra email của bạn!');
+                setTimeout(() => {
+                    navigate('/login');
+                }, 3000);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    console.log(values);
     return (
         <div className="bg-gradient-primary">
             <div className="container-fluid ">
@@ -26,12 +62,16 @@ function ForgotPassword() {
                                                     <input
                                                         type="email"
                                                         className="form-control form-control-user"
-                                                        id="exampleInputEmail"
+                                                        name="email"
                                                         aria-describedby="emailHelp"
                                                         placeholder="Nhập địa chỉ Email ... "
+                                                        onChange={handleChange}
                                                     />
                                                 </div>
-                                                <btn className="btn btn-primary btn-user btn-block">
+                                                <btn
+                                                    className="btn btn-primary btn-user btn-block"
+                                                    onClick={handleResetPass}
+                                                >
                                                     Đặt lại mật khẩu
                                                 </btn>
                                                 <hr />
@@ -42,6 +82,7 @@ function ForgotPassword() {
                                                     Quay lại
                                                 </btn>
                                             </form>
+                                            <ToastContainer />
                                         </div>
                                     </div>
                                 </div>

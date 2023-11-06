@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye } from '@react-icons/all-files/fa/FaEye';
 import { FaEyeSlash } from '@react-icons/all-files/fa/FaEyeSlash';
-import Validation from './RegisterValidation';
 import axios from 'axios';
 import '~~/layout/Register.scss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import actionTypes from '~/store/actions/actionTypes';
 
 export default function Register() {
+    const dispatch = useDispatch();
     const notifyWarning = (errorMessage) => {
         toast.warning(errorMessage, {
             position: 'top-right',
@@ -46,35 +48,74 @@ export default function Register() {
         name: '',
         email: '',
         password: '',
+        // confirm_password: '',
     });
 
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
+
     const handleChange = (e) => {
         setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
+    const password_pattern = /^(?=.*[a-z]).{8,}$/;
+    const [error, setError] = useState({
+        emailErr: null,
+        passwordErr: null,
+        confirm_passwordErr: null,
+    });
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors(Validation(values));
-        // console.log(errors.email, '===', errors.password, '===', errors.confirm_password);
-        if (Object.is(errors.email, '') && Object.is(errors.password, '') && Object.is(errors.confirm_password, '')) {
+        if (values.email.length < 0 || values.email === '')
+            setError((prev) => ({
+                ...prev,
+                emailErr: 'Email không được để trống',
+            }));
+
+        if (values.password.length < 0 || !password_pattern.test(values.password) || values.password === '')
+            setError((prev) => ({
+                ...prev,
+                passwordErr: 'Mật khẩu không được để trống và có ít nhất 8 ký tự',
+            }));
+
+        if (
+            values.confirm_password.length < 0 ||
+            values.confirm_password === '' ||
+            String(values.confirm_password) !== String(values.password)
+        )
+            setError((prev) => ({
+                ...prev,
+                confirm_passwordErr: 'Mật khẩu không trùng khớp!!',
+            }));
+
+        if (error.emailErr === null || error.passwordErr === null || error.confirm_passwordErr === null)
             axios
-                .post('http://localhost:8081/api/v1/auth/register', values)
+                .post('http://localhost:8081/api/auth/register', {
+                    name: values.name,
+                    email: values.email,
+                    password: values.password,
+                })
                 .then((res) => {
                     console.log(res);
-                    console.log('okkkk');
-                    notifySuccess('Đăng ký thành công !');
-                    setTimeout(() => {
-                        navigate('/login');
-                    }, 3000); // chuyển trang sau 5s
+                    if (res.data.err === 1) {
+                        notifyWarning('Email đã tồn tại');
+                    } else {
+                        notifySuccess('Đăng ký thành công !');
+                        dispatch({
+                            type: actionTypes.LOGIN_SUCCESS,
+                            data: res.data.token,
+                        });
+                        setTimeout(() => {
+                            navigate('/home');
+                        }, 3000);
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-        } else {
-            notifyWarning('Hãy nhập thông tin đầy đủ');
-        }
+        // } else {
+        //     notifyWarning('Hãy nhập thông tin đầy đủ');
+        // }
     };
 
     return (
@@ -107,6 +148,7 @@ export default function Register() {
                                             onChange={handleChange}
                                             name="email"
                                         />
+                                        {error.emailErr && <small className="text-danger pl-3">{error.emailErr}</small>}
                                     </div>
                                     <div className="form-group row">
                                         <div className="col-sm-6 mb-3 mb-sm-0">
@@ -121,12 +163,15 @@ export default function Register() {
                                             <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
                                                 {show ? <FaEyeSlash /> : <FaEye />}
                                             </div>
+                                            {error.passwordErr && (
+                                                <small className="text-danger pl-3">{error.passwordErr}</small>
+                                            )}
                                         </div>
                                         <div className="col-sm-6">
                                             <label className="float-left ml-3 label-regis ">Nhập Lại Mật Khẩu</label>
 
                                             <input
-                                                type={show ? 'text' : 'password'}
+                                                type={show2 ? 'text' : 'password'}
                                                 className="form-control form-control-user"
                                                 placeholder="Nhập lại mật khẩu"
                                                 onChange={handleChange}
@@ -135,6 +180,9 @@ export default function Register() {
                                             <div className="position-absolute eye  " onClick={handleShow2}>
                                                 {show2 ? <FaEyeSlash /> : <FaEye />}
                                             </div>
+                                            {error.confirm_passwordErr && (
+                                                <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="mx-5">

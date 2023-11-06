@@ -7,7 +7,7 @@ export const getAssignment = ({
   page,
   limit,
   order,
-  name,
+  // name,
 
   ...query
 }) =>
@@ -19,10 +19,11 @@ export const getAssignment = ({
       queries.offset = offset * fLimit;
       queries.limit = fLimit;
       if (order) queries.order = [order];
-      if (name) query.assignment_name = { [Op.substring]: name };
+      // if (name) query.assignment_name = { [Op.substring]: name };
       const response = await db.Assignment.findAndCountAll({
         where: query,
         ...queries,
+        order: [["id", "DESC"]],
         attributes: {
           exclude: ["createdAt	", "updatedAt"],
         },
@@ -39,12 +40,15 @@ export const getAssignment = ({
         err: response ? 0 : 1,
         message: response ? "Got" : "Can not found!!!",
         assignmentData: response,
+        count: response.count,
       });
     } catch (e) {
       console.log(e);
       reject(e);
     }
   });
+
+//get ass
 
 export const getAssignmentById = (assignmentId) =>
   new Promise(async (resolve, reject) => {
