@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import actionTypes from '~/store/actions/actionTypes';
 
-export default function Register() {
+export default function RegisterStudent() {
     const dispatch = useDispatch();
     const notifyWarning = (errorMessage) => {
         toast.warning(errorMessage, {
@@ -195,7 +195,7 @@ export default function Register() {
 
                                 <hr />
                                 <div className="text-center">
-                                    <Link className="small" to="/login-teacher">
+                                    <Link className="small" to="/login-student">
                                         Bạn đã có tài khoản ? Đăng Nhập
                                     </Link>
                                 </div>

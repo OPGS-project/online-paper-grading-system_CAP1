@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import actionTypes from '~/store/actions/actionTypes';
 import Swal from 'sweetalert2';
 
-export default function Login() {
+export default function LoginStudent() {
     const notifyWarning = (errorMessage) => {
         toast.warning(errorMessage, {
             position: 'top-right',
@@ -51,49 +51,45 @@ export default function Login() {
         passwordErr: null,
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (values.email.length < 0 || values.email === '')
-            setError((prev) => ({
-                ...prev,
-                emailErr: 'Email không được để trống',
-            }));
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (values.email.length < 0 || values.email === '')
+    //         setError((prev) => ({
+    //             ...prev,
+    //             emailErr: 'Email không được để trống',
+    //         }));
 
-        if (values.password.length < 0 || values.password === '')
-            setError((prev) => ({
-                ...prev,
-                passwordErr: 'Mật khẩu không được để trống',
-            }));
+    //     if (values.password.length < 0 || values.password === '')
+    //         setError((prev) => ({
+    //             ...prev,
+    //             passwordErr: 'Mật khẩu không được để trống',
+    //         }));
 
-        if (error.emailErr === null || error.passwordErr === null)
-            axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
-                console.log(res);
+    //     if (error.emailErr === null || error.passwordErr === null)
+    //         axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
+    //             console.log(res);
 
-                if (res.data.err === 0) {
-                    notifySuccess('Đăng nhập thành công !');
-                    dispatch({
-                        type: actionTypes.LOGIN_SUCCESS,
-                        data: res.data.token,
-                    });
-                    setTimeout(() => {
-                        navigate('/home ');
-                    }, 3000); // chuyển trang sau 3s
-                } else {
-                    Swal.fire('Thông báo', 'Sai mật khẩu', 'error');
-                }
-            });
+    //             if (res.data.err === 0) {
+    //                 notifySuccess('Đăng nhập thành công !');
+    //                 dispatch({
+    //                     type: actionTypes.LOGIN_SUCCESS,
+    //                     data: res.data.token,
+    //                 });
+    //                 setTimeout(() => {
+    //                     navigate('/home ');
+    //                 }, 3000); // chuyển trang sau 3s
+    //             } else {
+    //                 Swal.fire('Thông báo', 'Sai mật khẩu', 'error');
+    //             }
+    //         });
 
-        // else Swal.fire('Thông báo', 'Có lỗi gì đó', 'error');
+    // else Swal.fire('Thông báo', 'Có lỗi gì đó', 'error');
 
-        //     .catch(error);
-        // {
-        //     console.log(error);
-        // }
-    };
-
-    const handleLoginGG = () => {
-        window.open('http://localhost:8081/api/auth/google', '_self'); // self load  đè lên trang hiện tại
-    };
+    //     .catch(error);
+    // {
+    //     console.log(error);
+    // }
+    // };
 
     return (
         <div className="bg-gradient-primary">
@@ -109,7 +105,7 @@ export default function Login() {
                                             <div className="text-center">
                                                 <h1 className="h3 text-gray-900 mb-4">Đăng Nhập</h1>
                                             </div>
-                                            <form className="user" method="post" onSubmit={handleSubmit}>
+                                            <form className="user" method="post">
                                                 <div className="form-group">
                                                     <input
                                                         type="email"
@@ -130,7 +126,11 @@ export default function Login() {
                                                         onChange={handleChange}
                                                         name="password"
                                                     />
-                                                    <div className="position-absolute eye-login" onClick={handleShow}>
+                                                    <div
+                                                        className="position-absolute"
+                                                        style={{ right: 18, bottom: 14 }}
+                                                        onClick={handleShow}
+                                                    >
                                                         {show ? <FaEyeSlash /> : <FaEye />}
                                                     </div>
                                                     {error.passwordErr && (
@@ -154,32 +154,28 @@ export default function Login() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-primary btn-user btn-block">
+                                                <Link
+                                                    to="/student/assignment-of-student"
+                                                    className="btn btn-primary btn-user btn-block"
+                                                >
                                                     Đăng Nhập
-                                                </button>
+                                                </Link>
                                                 <hr />
                                             </form>
-                                            <button
-                                                className="btn btn-google btn-google-color btn-user btn-block"
-                                                style={{ borderRadius: 50, padding: 10 }}
-                                                onClick={handleLoginGG}
-                                            >
-                                                <i className="fab fa-google fa-fw"></i> Đăng nhập với Google
-                                            </button>
+
                                             <ToastContainer />
-                                            <hr />
 
                                             <div className="text-center">
-                                                <Link className="small" to="/register-teacher">
+                                                <Link className="small" to="/register-student">
                                                     Tạo tài khoản
                                                 </Link>
                                                 <hr />
                                                 <div className="row">
-                                                    <Link className="small col-7" to="/login-student">
-                                                        Đăng nhập với tài khoản học sinh
+                                                    <Link className="small col-7" to="/login-teacher">
+                                                        Đăng nhập với tài khoản giáo viên
                                                     </Link>
-                                                    <Link className="small" to="/register-student">
-                                                        Tạo tài khoản học sinh
+                                                    <Link className="small" to="/register-teacher">
+                                                        Tạo tài khoản giáo viên
                                                     </Link>
                                                 </div>
                                             </div>

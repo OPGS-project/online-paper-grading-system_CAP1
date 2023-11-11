@@ -9,10 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Assignment.hasMany(models.Events, {
-        foreignKey: "of_assignment",
-        as: "criteriaData",
-      });
+
       Assignment.belongsTo(models.Class, {
         foreignKey: "of_class",
         targetKey: "class_name",

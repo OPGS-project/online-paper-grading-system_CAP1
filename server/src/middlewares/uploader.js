@@ -17,5 +17,13 @@ const userStorage = new CloudinaryStorage({
   },
 });
 
+const assignmentStorage = new CloudinaryStorage({
+  cloudinary,
+  allowedFormats: ["docx", "pdf"],
+  params: {
+    folder: "assignment",
+  },
+});
 const uploadUser = multer({ storage: userStorage });
-module.exports = { uploadUser };
+const uploadAssignment = multer({ storage: assignmentStorage });
+module.exports = { uploadUser, uploadAssignment };

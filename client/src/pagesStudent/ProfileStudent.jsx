@@ -6,7 +6,7 @@ import { apiGetOne, apiUpdateUser } from '~/apis/userService';
 import { ToastContainer, toast } from 'react-toastify';
 import { getBase64 } from '~/utils/helper';
 
-function Profile() {
+function ProfileStudent() {
     const { token } = useSelector((state) => state.auth);
     const [userData, setUserData] = useState({
         name: '',
@@ -26,10 +26,6 @@ function Profile() {
     });
     const [updateCheck, setUpdateCheck] = useState(false);
 
-    // console.log(preview);
-
-    //
-    // console.log(token);
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetOne(token);
@@ -219,4 +215,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default ProfileStudent;

@@ -78,12 +78,15 @@ function Header() {
 
                         <div className="dropdown-divider"></div>
                         {isLoggedIn ? (
-                            <button className="dropdown-item" onClick={() => dispatch(logout()) && navigate('/login')}>
+                            <button
+                                className="dropdown-item"
+                                onClick={() => dispatch(logout()) && navigate('/login-teacher')}
+                            >
                                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Đăng xuất
                             </button>
                         ) : (
-                            <button className="dropdown-item" onClick={() => navigate('/login')}>
+                            <button className="dropdown-item" onClick={() => navigate('/login-teacher')}>
                                 <AiOutlineLogin className="mr-2 text-gray-400" />
                                 Đăng nhập
                             </button>

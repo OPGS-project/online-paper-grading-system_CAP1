@@ -20,15 +20,23 @@ import ChooseRole from '~/pages/ChooseRole';
 import Statis from '~/pages/THONGKE/Statis';
 import Submitted from '~/pages/QLBTAP/Submitted';
 import Criteria from '~/pages/QLBTAP/Criteria';
+import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
+import LoginStudent from '~/pagesStudent/LoginStudent';
+import RegisterStudent from '~/pagesStudent/RegisterStudent';
+import AssignmentStudent from '~/pagesStudent/AssignmentStudent';
+import ProfileStudent from '~/pagesStudent/ProfileStudent';
+import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
+import ViewAssignment from '~/pagesStudent/ViewAssignment';
+import DropFileInput from '~/pagesStudent/DropFileInput';
 
 //Public routes
 const publicRoutes = [
     { path: '/', component: Introduction, layout: null },
-    { path: '/choose-role', component: ChooseRole, layout: null },
+    { path: '/choose-role-register', component: ChooseRole, layout: null },
     //
-    { path: '/login', component: Login, layout: null },
+    { path: '/login-teacher', component: Login, layout: null },
     { path: '/login-success/:userId/:refresh_token', component: LoginSuccess, layout: null },
-    { path: '/register', component: Register, layout: null },
+    { path: '/register-teacher', component: Register, layout: null },
     { path: '/forgot-password', component: ForgotPassword, layout: null },
     { path: '/home', component: Home },
     { path: '/home/statis', component: Statis },
@@ -39,13 +47,12 @@ const publicRoutes = [
     { path: '/home/assignment/add-assignment', component: AddAssignment },
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
 
-
     //QLHSINH
     { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
     { path: '/home/student/updateStudent/:classID/:studentID', component: UpdateStudent },
     // { path: '/student/updateStudent/:id', component: UpdateStudent },
-    
+
     //QLLOPHOC
     { path: '/home/class', component: Class },
 
@@ -59,6 +66,16 @@ const publicRoutes = [
     { path: '/home/grading', component: Grading },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+    //OF Student
+    { path: '/choose-role-login', component: ChooseRoleLogin, layout: null },
+    { path: '/login-student', component: LoginStudent, layout: null },
+    { path: '/register-student', component: RegisterStudent, layout: null },
+    { path: '/student/assignment-of-student', component: AssignmentStudent },
+    { path: '/student/view-assignment-of-student', component: ViewAssignment },
+    { path: '/student/post-assignment', component: DropFileInput },
+    { path: '/student/student-profile', component: ProfileStudent },
+    { path: '/student/update-password', component: UpdatePassStudent },
+];
 
 export { publicRoutes, privateRoutes };

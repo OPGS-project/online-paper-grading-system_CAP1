@@ -4,7 +4,7 @@ import { FaBookReader } from 'react-icons/fa';
 import { GiTeacher } from 'react-icons/gi';
 import '~~/pages/ChooseRole.scss';
 
-function ChooseRole() {
+function ChooseRoleLogin() {
     const navigate = useNavigate();
     return (
         <div className="container-fluid ">
@@ -23,7 +23,7 @@ function ChooseRole() {
                     <button
                         className="col-md-5 box-role  btn-light my-3 zoom-in"
                         style={{ width: 150, height: 150 }}
-                        onClick={() => navigate('/register-student')}
+                        onClick={() => navigate('/login-student')}
                     >
                         <div className="d-flex  my-1  ">
                             <FaGraduationCap style={{ width: 60, height: 50 }} />
@@ -35,7 +35,7 @@ function ChooseRole() {
                     <button
                         className="col-md-5 box-role   ml-5 btn-light my-3"
                         style={{ width: 150, height: 150 }}
-                        onClick={() => navigate('/register-teacher')}
+                        onClick={() => navigate('/login-teacher')}
                     >
                         <div className="d-flex align-items-center my-1">
                             <GiTeacher style={{ width: 60, height: 50 }} />
@@ -50,4 +50,4 @@ function ChooseRole() {
     );
 }
 
-export default ChooseRole;
+export default ChooseRoleLogin;

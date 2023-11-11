@@ -77,7 +77,7 @@ function ForgotPassword() {
                                                 <hr />
                                                 <btn
                                                     className="btn btn-user btn-block"
-                                                    onClick={() => navigate('/login')}
+                                                    onClick={() => navigate('/login-teacher')}
                                                 >
                                                     Quay lại
                                                 </btn>

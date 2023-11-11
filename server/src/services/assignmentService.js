@@ -1,7 +1,7 @@
 import db from "../models";
 import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
-// const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 
 export const getAssignment = ({
   page,
@@ -27,13 +27,6 @@ export const getAssignment = ({
         attributes: {
           exclude: ["createdAt	", "updatedAt"],
         },
-        include: [
-          {
-            model: db.Events,
-            as: "criteriaData",
-            attributes: ["of_assignment", "correct_answer", "max_score"],
-          },
-        ],
       });
 
       resolve({
@@ -86,22 +79,28 @@ export const getAssignmentById = (assignmentId) =>
   });
 
 //CREATE
-export const createAssignment = (body) =>
+export const createAssignment = (body, fileData) =>
   new Promise(async (resolve, reject) => {
+    // const fileData = fileData ? fileData.path : null;
     try {
-      // console.log(body);
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
-        defaults: body,
+        defaults: {
+          ...body,
+          file_path: fileData?.path,
+        },
       });
 
       resolve({
         err: response[1] ? 0 : 1,
         mes: response[1] ? "OK" : "Can not create Assignment!!!",
       });
+      if (fileData && !response[1])
+        cloudinary.uploader.destroy(fileData.filename);
     } catch (e) {
       console.log(e);
       reject(e);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
 //UPDATE
