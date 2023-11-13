@@ -18,9 +18,3 @@ const connection_db = async () => {
 
 connection_db();
 
-// const db = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "nckh_iess",
-// });

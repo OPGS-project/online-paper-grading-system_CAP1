@@ -48,33 +48,6 @@ export const getStudent = ({
     }
   });
 
-  // export const getStudentById = (studentID) => new Promise(async (resolve, reject) => {
-  //   try {
-  //       const queries = { raw: true, nest: true };
-  
-  //       const response = await db.Student.findOne({
-  //           where: { id: studentID }, // Sử dụng studentID để tìm học sinh theo ID
-  //           ...queries,        
-  //       });
-  //       if (response) {
-  //           resolve({
-  //               err: 0,
-  //               mes: 'Got student',
-  //               classData: response
-  //           });
-  //       } else {
-  //           resolve({
-  //               err: 1,
-  //               mes: 'Cannot find student',
-  //               studentData: null
-  //           });
-  //       }
-  //   } catch (error) {
-  //       reject(error);
-  //   }
-  // });
-
-
 //CREATE
 export const createStudent = (body) =>
   new Promise(async (resolve, reject) => {

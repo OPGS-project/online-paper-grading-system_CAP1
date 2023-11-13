@@ -124,7 +124,7 @@ export default function CreateStudent({ classID }) {
                     <div className="col-6">
                         <label className='text-capitalize font-weight-bold pl-2'>Giới tính: (Bắt buộc)</label>
                         <select
-                            className="form-control"
+                            className="form-control form-user"
                             style={{ height: 50, borderRadius: 100 }}
                             value={gender}
                             onChange={text => setGender(text.target.value)}
