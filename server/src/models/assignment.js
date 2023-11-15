@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       content_type: DataTypes.ENUM("text", "file"),
       content_text: DataTypes.TEXT,
       file_path: DataTypes.STRING,
+      filename: DataTypes.STRING,
       grading_criteria_file: DataTypes.STRING,
     },
     {

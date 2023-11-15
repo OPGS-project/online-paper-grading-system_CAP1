@@ -88,9 +88,9 @@ export default function RegisterStudent() {
                 confirm_passwordErr: 'Mật khẩu không trùng khớp!!',
             }));
 
-        if (error.emailErr === null || error.passwordErr === null || error.confirm_passwordErr === null)
+        if (error.emailErr === null || error.passwordErr === null || error.confirm_passwordErr === null) {
             axios
-                .post('http://localhost:8081/api/auth/register', {
+                .post('http://localhost:8081/api/authStudent/register', {
                     name: values.name,
                     email: values.email,
                     password: values.password,
@@ -113,9 +113,9 @@ export default function RegisterStudent() {
                 .catch((err) => {
                     console.log(err);
                 });
-        // } else {
-        //     notifyWarning('Hãy nhập thông tin đầy đủ');
-        // }
+        } else {
+            notifyWarning('Hãy nhập thông tin đầy đủ');
+        }
     };
 
     return (
@@ -152,21 +152,27 @@ export default function RegisterStudent() {
                                     </div>
                                     <div className="form-group row">
                                         <div className="col-sm-6 mb-3 mb-sm-0">
-                                            <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
-                                            <input
-                                                type={show ? 'text' : 'password'}
-                                                className="form-control form-control-user"
-                                                placeholder="Mật khẩu"
-                                                onChange={handleChange}
-                                                name="password"
-                                            />
-                                            <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
-                                                {show ? <FaEyeSlash /> : <FaEye />}
+                                            <div>
+                                                <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
+                                                <input
+                                                    type={show ? 'text' : 'password'}
+                                                    className="form-control form-control-user"
+                                                    placeholder="Mật khẩu"
+                                                    onChange={handleChange}
+                                                    name="password"
+                                                />
+                                                <div
+                                                    className="position-absolute eye cursor-pointer"
+                                                    onClick={handleShow}
+                                                >
+                                                    {show ? <FaEyeSlash /> : <FaEye />}
+                                                </div>
                                             </div>
                                             {error.passwordErr && (
                                                 <small className="text-danger pl-3">{error.passwordErr}</small>
                                             )}
                                         </div>
+
                                         <div className="col-sm-6">
                                             <label className="float-left ml-3 label-regis ">Nhập Lại Mật Khẩu</label>
 
@@ -180,10 +186,10 @@ export default function RegisterStudent() {
                                             <div className="position-absolute eye  " onClick={handleShow2}>
                                                 {show2 ? <FaEyeSlash /> : <FaEye />}
                                             </div>
-                                            {error.confirm_passwordErr && (
-                                                <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
-                                            )}
                                         </div>
+                                        {error.confirm_passwordErr && (
+                                            <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
+                                        )}
                                     </div>
                                     <div className="mx-5">
                                         <button className="btn btn-primary btn-user px-5" type="submit">

@@ -3,6 +3,8 @@ import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
 const cloudinary = require("cloudinary").v2;
 
+const mime = require("mime-types");
+
 export const getAssignment = ({
   page,
   limit,
@@ -81,22 +83,22 @@ export const getAssignmentById = (assignmentId) =>
 //CREATE
 export const createAssignment = (body, fileData) =>
   new Promise(async (resolve, reject) => {
-    // const fileData = fileData ? fileData.path : null;
+    if (fileData) {
+      body.file_path = fileData?.path;
+      body.filename = fileData?.filename;
+    }
+    // console.log(fileData);
     try {
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
-        defaults: {
-          ...body,
-          file_path: fileData?.path,
-        },
+        defaults: body,
       });
-
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
       resolve({
         err: response[1] ? 0 : 1,
         mes: response[1] ? "OK" : "Can not create Assignment!!!",
       });
-      if (fileData && !response[1])
-        cloudinary.uploader.destroy(fileData.filename);
     } catch (e) {
       console.log(e);
       reject(e);
@@ -104,9 +106,19 @@ export const createAssignment = (body, fileData) =>
     }
   });
 //UPDATE
-export const updateAssignment = (assignmentId, body) =>
+export const updateAssignment = (assignmentId, body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
+      const filePDF = await db.Assignment.findOne({
+        where: { id: assignmentId },
+      });
+      if (filePDF)
+        cloudinary.api.delete_resources(filePDF[0].dataValues.filename);
+      if (fileData) {
+        body.file_path = fileData?.path;
+        body.filename = fileData?.filename;
+      }
+
       const response = await db.Assignment.update(body, {
         where: { id: assignmentId.assignmentId },
       });
@@ -118,9 +130,12 @@ export const updateAssignment = (assignmentId, body) =>
             ? `${response} assignment updated`
             : "Can not update Assignment!!!",
       });
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
     } catch (e) {
       console.log(e);
       reject(e);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
 //DELETE

@@ -27,7 +27,7 @@ function Profile() {
     const [updateCheck, setUpdateCheck] = useState(false);
 
     // console.log(preview);
-
+    // console.log(userData);
     //
     // console.log(token);
     useEffect(() => {
@@ -104,9 +104,12 @@ function Profile() {
             if (i[0] === 'avatar' && typeof i[1] === 'string') continue;
             formData.append(i[0], i[1]);
         }
+        // for (let i of formData) {
+        //     console.log(i[0], i[1]);
+        // }
 
         const response = await apiUpdateUser(token, formData);
-        // console.log(response);
+        console.log(response);
         if (response?.data.err === 0) {
             notifySuccess('Cập nhật thành công !');
         } else {

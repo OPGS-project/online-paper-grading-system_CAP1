@@ -51,45 +51,38 @@ export default function LoginStudent() {
         passwordErr: null,
     });
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (values.email.length < 0 || values.email === '')
-    //         setError((prev) => ({
-    //             ...prev,
-    //             emailErr: 'Email không được để trống',
-    //         }));
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (values.email.length < 0 || values.email === '')
+            setError((prev) => ({
+                ...prev,
+                emailErr: 'Email không được để trống',
+            }));
 
-    //     if (values.password.length < 0 || values.password === '')
-    //         setError((prev) => ({
-    //             ...prev,
-    //             passwordErr: 'Mật khẩu không được để trống',
-    //         }));
+        if (values.password.length < 0 || values.password === '')
+            setError((prev) => ({
+                ...prev,
+                passwordErr: 'Mật khẩu không được để trống',
+            }));
 
-    //     if (error.emailErr === null || error.passwordErr === null)
-    //         axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
-    //             console.log(res);
-
-    //             if (res.data.err === 0) {
-    //                 notifySuccess('Đăng nhập thành công !');
-    //                 dispatch({
-    //                     type: actionTypes.LOGIN_SUCCESS,
-    //                     data: res.data.token,
-    //                 });
-    //                 setTimeout(() => {
-    //                     navigate('/home ');
-    //                 }, 3000); // chuyển trang sau 3s
-    //             } else {
-    //                 Swal.fire('Thông báo', 'Sai mật khẩu', 'error');
-    //             }
-    //         });
-
-    // else Swal.fire('Thông báo', 'Có lỗi gì đó', 'error');
-
-    //     .catch(error);
-    // {
-    //     console.log(error);
-    // }
-    // };
+        if (error.emailErr === null || error.passwordErr === null) {
+            axios.post('http://localhost:8081/api/authStudent/login', values).then((res) => {
+                console.log(res);
+                if (res.data.err === 0) {
+                    notifySuccess('Đăng nhập thành công !');
+                    dispatch({
+                        type: actionTypes.LOGIN_SUCCESS,
+                        data: res.data.token,
+                    });
+                    setTimeout(() => {
+                        navigate('/student/assignment-of-student ');
+                    }, 3000); // chuyển trang sau 3s
+                } else {
+                    Swal.fire('Thông báo', 'Sai mật khẩu', 'error');
+                }
+            });
+        } else notifyWarning('Nhập thông tin đầy đủ');
+    };
 
     return (
         <div className="bg-gradient-primary">
@@ -105,38 +98,51 @@ export default function LoginStudent() {
                                             <div className="text-center">
                                                 <h1 className="h3 text-gray-900 mb-4">Đăng Nhập</h1>
                                             </div>
-                                            <form className="user" method="post">
+                                            <form className="user" method="post" onSubmit={handleSubmit}>
                                                 <div className="form-group">
                                                     <input
                                                         type="email"
                                                         className="form-control form-control-user"
                                                         placeholder="example@gmai.com"
-                                                        onChange={handleChange}
+                                                        onChange={(e) => {
+                                                            setError((prev) => ({
+                                                                ...prev,
+                                                                emailErr: null,
+                                                            }));
+                                                            handleChange(e);
+                                                        }}
                                                         name="email"
                                                     />
                                                     {error.emailErr && (
                                                         <small className="text-danger pl-3">{error.emailErr}</small>
                                                     )}
                                                 </div>
-                                                <div className="form-group position-relative">
+
+                                                <div className="form-group  position-relative">
                                                     <input
                                                         type={show ? 'text' : 'password'}
-                                                        className="form-control form-control-user"
+                                                        className="form-control form-control-user "
                                                         placeholder="***************"
-                                                        onChange={handleChange}
+                                                        onChange={(e) => {
+                                                            setError((prev) => ({
+                                                                ...prev,
+                                                                passwordErr: null,
+                                                            }));
+                                                            handleChange(e);
+                                                        }}
                                                         name="password"
                                                     />
                                                     <div
                                                         className="position-absolute"
-                                                        style={{ right: 18, bottom: 14 }}
+                                                        style={{ right: '6%', bottom: '24%' }}
                                                         onClick={handleShow}
                                                     >
                                                         {show ? <FaEyeSlash /> : <FaEye />}
                                                     </div>
-                                                    {error.passwordErr && (
-                                                        <small className="text-danger pl-3">{error.passwordErr}</small>
-                                                    )}
                                                 </div>
+                                                {error.passwordErr && (
+                                                    <small className="text-danger pl-3">{error.passwordErr}</small>
+                                                )}
                                                 <div className="form-group d-flex justify-content-between">
                                                     <div className="custom-control custom-checkbox small">
                                                         <input
@@ -154,12 +160,9 @@ export default function LoginStudent() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <Link
-                                                    to="/student/assignment-of-student"
-                                                    className="btn btn-primary btn-user btn-block"
-                                                >
+                                                <button to="" className="btn btn-primary btn-user btn-block">
                                                     Đăng Nhập
-                                                </Link>
+                                                </button>
                                                 <hr />
                                             </form>
 

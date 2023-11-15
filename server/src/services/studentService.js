@@ -48,32 +48,26 @@ export const getStudent = ({
     }
   });
 
-  // export const getStudentById = (studentID) => new Promise(async (resolve, reject) => {
-  //   try {
-  //       const queries = { raw: true, nest: true };
-  
-  //       const response = await db.Student.findOne({
-  //           where: { id: studentID }, // Sử dụng studentID để tìm học sinh theo ID
-  //           ...queries,        
-  //       });
-  //       if (response) {
-  //           resolve({
-  //               err: 0,
-  //               mes: 'Got student',
-  //               classData: response
-  //           });
-  //       } else {
-  //           resolve({
-  //               err: 1,
-  //               mes: 'Cannot find student',
-  //               studentData: null
-  //           });
-  //       }
-  //   } catch (error) {
-  //       reject(error);
-  //   }
-  // });
-
+export const getStudentCurrent = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      let response = await db.Student.findOne({
+        where: { id },
+        raw: true,
+        attributes: {
+          exclude: ["password", "refresh_token"],
+        },
+      });
+      resolve({
+        err: response ? 0 : 1,
+        msg: response ? "OK" : "Student not found!",
+        response,
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
 
 //CREATE
 export const createStudent = (body) =>
@@ -81,18 +75,17 @@ export const createStudent = (body) =>
     try {
       const response = await db.Student.create({
         // where: { student_name: body?.student_name },
-         student_name: body.student_name,
-          gender: body.gender,
-          address: body.address,
-          class_id: body.classID,
-          birthday: body.birthday,
-
+        student_name: body.student_name,
+        gender: body.gender,
+        address: body.address,
+        class_id: body.classID,
+        birthday: body.birthday,
       });
 
       resolve({
         err: response ? 0 : 1,
         mes: response ? "Created student" : "Can not create Student!!!",
-        res: response
+        res: response,
       });
     } catch (e) {
       console.log(e);

@@ -65,7 +65,7 @@ export default function Login() {
                 passwordErr: 'Mật khẩu không được để trống',
             }));
 
-        if (error.emailErr === null || error.passwordErr === null)
+        if (error.emailErr === null && error.passwordErr === null) {
             axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
                 console.log(res);
 
@@ -82,13 +82,7 @@ export default function Login() {
                     Swal.fire('Thông báo', 'Sai mật khẩu', 'error');
                 }
             });
-
-        // else Swal.fire('Thông báo', 'Có lỗi gì đó', 'error');
-
-        //     .catch(error);
-        // {
-        //     console.log(error);
-        // }
+        } else notifyWarning('Nhập thông tin đầy đủ');
     };
 
     const handleLoginGG = () => {
@@ -115,28 +109,41 @@ export default function Login() {
                                                         type="email"
                                                         className="form-control form-control-user"
                                                         placeholder="example@gmai.com"
-                                                        onChange={handleChange}
+                                                        onChange={(e) => {
+                                                            setError((prev) => ({
+                                                                ...prev,
+                                                                emailErr: null,
+                                                            }));
+                                                            handleChange(e);
+                                                        }}
                                                         name="email"
                                                     />
                                                     {error.emailErr && (
                                                         <small className="text-danger pl-3">{error.emailErr}</small>
                                                     )}
                                                 </div>
+
                                                 <div className="form-group position-relative">
                                                     <input
                                                         type={show ? 'text' : 'password'}
                                                         className="form-control form-control-user"
                                                         placeholder="***************"
-                                                        onChange={handleChange}
+                                                        onChange={(e) => {
+                                                            setError((prev) => ({
+                                                                ...prev,
+                                                                passwordErr: null,
+                                                            }));
+                                                            handleChange(e);
+                                                        }}
                                                         name="password"
                                                     />
                                                     <div className="position-absolute eye-login" onClick={handleShow}>
                                                         {show ? <FaEyeSlash /> : <FaEye />}
                                                     </div>
-                                                    {error.passwordErr && (
-                                                        <small className="text-danger pl-3">{error.passwordErr}</small>
-                                                    )}
                                                 </div>
+                                                {error.passwordErr && (
+                                                    <small className="text-danger pl-3">{error.passwordErr}</small>
+                                                )}
                                                 <div className="form-group d-flex justify-content-between">
                                                     <div className="custom-control custom-checkbox small">
                                                         <input

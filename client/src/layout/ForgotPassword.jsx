@@ -24,9 +24,10 @@ function ForgotPassword() {
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    const handleResetPass = () => {
+    const handleResetPass = (e) => {
+        e.preventDefault();
         axios
-            .post('http://localhost:8081/api/auth/reset-password')
+            .post('http://localhost:8081/api/auth/reset-password', values)
             .then((res) => {
                 console.log(res);
                 notifySuccess('Kiểm tra email của bạn!');

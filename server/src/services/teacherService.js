@@ -39,7 +39,7 @@ export const updateTeacher = (tid, body, fileData) =>
         body.avatar = fileData?.path;
         body.fileName = fileData?.filename;
       }
-      console.log(fileData);
+
       const response = await db.Teacher.update(body, {
         where: { id: tid },
       });

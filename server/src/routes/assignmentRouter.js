@@ -18,7 +18,11 @@ router.post(
   uploadAssignment.single("file_path"),
   controllers.createAssignment
 );
-router.put("/:assignmentId", controllers.updateAssignment);
+router.put(
+  "/:assignmentId",
+  uploadAssignment.single("file_path"),
+  controllers.updateAssignment
+);
 router.delete("/:assignmentId", controllers.deleteAssignment);
 
 // router.post("/", uploadCloud.single("image"), controllers.createNewBook);

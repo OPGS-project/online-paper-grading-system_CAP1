@@ -51,7 +51,7 @@ export default function EditAssignment() {
     const handleChange = (e) => {
         setAssignment({ ...assignment, [e.target.name]: e.target.value });
     };
-
+    console.log(assignment);
     // console.log(params);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,12 +63,13 @@ export default function EditAssignment() {
             if (i[0] === 'createdAt') continue;
             if (i[0] === 'updatedAt') continue;
             if (i[0] === 'of_className') continue;
+            if (i[0] === 'file_path' && typeof i[1] === 'string') continue;
 
             formData.append(i[0], i[1]);
         }
 
         axios
-            .put(`http://localhost:8081/api/assignment/${assignment.id}`, assignment)
+            .put(`http://localhost:8081/api/assignment/${assignment.id}`, formData)
             .then((res) => {
                 console.log(res);
                 notifySuccess('Sửa bài tập thành công!');
@@ -119,8 +120,8 @@ export default function EditAssignment() {
                         required
                         onChange={(e) => setAssignment((prev) => ({ ...prev, of_class: e.target.value }))}
                     >
-                        <option selected disabled value="Chọn lớp">
-                            Chọn lớp
+                        <option selected disabled>
+                            {assignment.of_class}
                         </option>
                         {classData?.map((data, i) => (
                             <option key={i} name="of_class">
@@ -135,10 +136,10 @@ export default function EditAssignment() {
                             Từ
                         </label>
                         <input
-                            type="date"
+                            type="datetime-local"
                             className="form-control form-control-user"
                             id="from"
-                            value={moment(assignment.start_date).format('YYYY-MM-DD')}
+                            value={moment(assignment.start_date).format('YYYY-MM-DDTHH:mm')}
                             onChange={handleChange}
                         />
                     </div>
@@ -147,10 +148,10 @@ export default function EditAssignment() {
                             Đến
                         </label>
                         <input
-                            type="date"
+                            type="datetime-local"
                             className="form-control form-control-user"
                             id="to"
-                            value={moment(assignment.deadline).format('YYYY-MM-DD')}
+                            value={moment(assignment.deadline).format('YYYY-MM-DDTHH:mm')}
                             onChange={handleChange}
                         />
                     </div>
@@ -160,20 +161,34 @@ export default function EditAssignment() {
                         Nội dung
                     </label>
 
-                    {/* <div className="custom-file mb-2 file-bt ">
-                        <input type="file" className="custom-file-input" id="file" />
-                        <label className="custom-file-label " for="file">
-                            Thêm file bài tập
-                        </label>
-                    </div> */}
                     <textarea
                         type="textariea"
                         className="form-control content-bt"
                         id="name-bt"
                         value={assignment.content_text}
                         onChange={handleChange}
-                        style={{ height: 300 }}
+                        style={{ height: 100 }}
                     />
+                    <div className="custom-file my-2 file-bt ">
+                        <input
+                            id="file"
+                            type="file"
+                            className="custom-file-input "
+                            name="file_path"
+                            // onChange={handleFile}
+
+                            onChange={async (file) => {
+                                setAssignment((prev) => ({
+                                    ...prev,
+                                    file_path: file.target.files[0],
+                                }));
+                            }}
+                        />
+
+                        <label className="custom-file-label " htmlFor="file">
+                            {assignment.file_path?.name}
+                        </label>
+                    </div>
                 </div>
                 <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>
             </form>
