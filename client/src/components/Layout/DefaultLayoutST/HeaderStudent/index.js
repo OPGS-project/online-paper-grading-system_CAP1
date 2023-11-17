@@ -3,16 +3,29 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLogin } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/store/actions/authAction';
-import { apiGetOne } from '~/apis/userService';
+import { apiGetStudent } from '~/apis/userService';
 // import Collapsible from 'react-collapsible';
 import { Collapse } from 'bootstrap';
 
 function HeaderStudent() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const { token } = useSelector((state) => state.auth);
     const [userData, setUserData] = useState({});
+    useEffect(() => {
+        const fetchUser = async () => {
+            const response = await apiGetStudent(token);
+            console.log(response);
+            if (response?.data.err === 0) {
+                setUserData(response.data?.response);
+            } else {
+                setUserData({});
+            }
+        };
+        token && fetchUser();
+    }, [token]);
 
+    console.log(userData);
     //toggle
     var [toggle3, setToggle3] = useState(false);
 
@@ -29,7 +42,7 @@ function HeaderStudent() {
 
                 <li className="nav-item dropdown no-arrow">
                     <Link className="nav-link dropdown-toggle" onClick={() => setToggle3((toggle3) => !toggle3)}>
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userData?.name}</span>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userData?.student_name}</span>
                         <img className="img-profile rounded-circle" src={userData.avatar} alt="avatar" />
                     </Link>
 

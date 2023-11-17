@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { apiGetOne, apiUpdateUser } from '~/apis/userService';
+import { apiGetOne, apiGetStudent, apiUpdateStudent, apiUpdateUser } from '~/apis/userService';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { getBase64 } from '~/utils/helper';
@@ -9,7 +9,7 @@ import { getBase64 } from '~/utils/helper';
 function ProfileStudent() {
     const { token } = useSelector((state) => state.auth);
     const [userData, setUserData] = useState({
-        name: '',
+        student_name: '',
         email: '',
         phone: '',
         address: '',
@@ -28,11 +28,11 @@ function ProfileStudent() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await apiGetOne(token);
+            const response = await apiGetStudent(token);
             // console.log(response);
             if (response?.data.err === 0) {
                 setUserData({
-                    name: response.data.response.name,
+                    student_name: response.data.response.student_name,
                     email: response.data.response.email,
                     phone: response.data.response.phone,
                     address: response.data.response.address,
@@ -46,25 +46,6 @@ function ProfileStudent() {
         token && fetchUser();
     }, [token]);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await apiGetOne(token);
-            // console.log(response);
-            if (response?.data.err === 0) {
-                setUserData({
-                    name: response.data.response.name,
-                    email: response.data.response.email,
-                    phone: response.data.response.phone,
-                    address: response.data.response.address,
-                    avatar: response.data.response.avatar,
-                });
-                setUpdateCheck(false);
-            } else {
-                setUserData({});
-            }
-        };
-        token && fetchUser();
-    }, [updateCheck]);
     //
     const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
@@ -101,7 +82,7 @@ function ProfileStudent() {
             formData.append(i[0], i[1]);
         }
 
-        const response = await apiUpdateUser(token, formData);
+        const response = await apiUpdateStudent(token, formData);
         // console.log(response);
         if (response?.data.err === 0) {
             notifySuccess('Cập nhật thành công !');
@@ -126,7 +107,7 @@ function ProfileStudent() {
                             <input
                                 type="text"
                                 className="form-control form-control-user  "
-                                value={userData.name}
+                                value={userData.student_name}
                                 onChange={(e) => setUserData((prev) => ({ ...prev, name: e.target.value }))}
                             />
                             {error.errName && <small className="text-danger pl-3">{error.errName}</small>}

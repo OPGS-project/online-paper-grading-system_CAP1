@@ -9,9 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Student.hasMany(models.Assignment, {
-        foreignKey: "assignment_name",
-        as: "assignmentData",
+      Student.belongsTo(models.Class, {
+        foreignKey: "class_id",
+        targetKey: "id",
+        as: "classData",
       });
     }
   }
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       birthday: DataTypes.DATEONLY,
       address: DataTypes.STRING,
       email: DataTypes.STRING,
+      avatar: DataTypes.STRING,
       password: DataTypes.STRING,
     },
     {

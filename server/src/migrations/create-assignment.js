@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
       of_class: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       content_type: {
         type: Sequelize.ENUM("text", "file"),
@@ -28,6 +28,9 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       file_path: {
+        type: Sequelize.STRING,
+      },
+      filename: {
         type: Sequelize.STRING,
       },
       grading_criteria_file: {

@@ -120,10 +120,10 @@ export default function Register() {
 
     return (
         <div className="bg-gradient-primary">
-            <div className="container pt-5">
+            <div className="container p-5">
                 <div className="card o-hidden border-0 shadow-lg mb-5">
                     <div className="card-body p-0 ">
-                        <div className="py-5 m-center ">
+                        <div className=" m-center ">
                             <div className="text-center">
                                 <h1 className="h3 text-gray-900 mb-4 text-uppercase">Tạo tài khoản</h1>
 
@@ -151,7 +151,7 @@ export default function Register() {
                                         {error.emailErr && <small className="text-danger pl-3">{error.emailErr}</small>}
                                     </div>
 
-                                    <div className="form-group position-realative ">
+                                    <div className="form-group ">
                                         <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
                                         <input
                                             type={show ? 'text' : 'password'}
@@ -166,13 +166,16 @@ export default function Register() {
                                             }}
                                             name="password"
                                         />
-                                        <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
+                                        <div className="position-absolute eye  cursor-pointer" onClick={handleShow}>
                                             {show ? <FaEyeSlash /> : <FaEye />}
                                         </div>
+                                        {error.passwordErr && (
+                                            <small className="text-danger pl-3">{error.passwordErr}</small>
+                                        )}
                                     </div>
 
-                                    <div className="form-group">
-                                        <label className="float-left ml-3 label-regis ">Nhập Lại Mật Khẩu</label>
+                                    <div className="form-group position-relative">
+                                        <label className="float-left ml-3  label-regis ">Nhập Lại Mật Khẩu</label>
 
                                         <input
                                             type={show2 ? 'text' : 'password'}
@@ -181,7 +184,11 @@ export default function Register() {
                                             onChange={handleChange}
                                             name="confirm_password"
                                         />
-                                        <div className="position-absolute eye  " onClick={handleShow2}>
+                                        <div
+                                            className="position-absolute eye "
+                                            style={{ right: '3%' }}
+                                            onClick={handleShow2}
+                                        >
                                             {show2 ? <FaEyeSlash /> : <FaEye />}
                                         </div>
                                         {error.confirm_passwordErr && (

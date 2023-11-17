@@ -1,7 +1,7 @@
 import db from "../models";
 import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
-// const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 
 export const getStudent = ({
   page,
@@ -26,15 +26,6 @@ export const getStudent = ({
         attributes: {
           exclude: ["createdAt", "updatedAt"],
         },
-        include: [
-          {
-            model: db.Assignment,
-            as: "assignmentData",
-            attributes: {
-              exclude: ["of_class", "createdAt", "updatedAt"],
-            },
-          },
-        ],
       });
 
       resolve({
@@ -47,6 +38,7 @@ export const getStudent = ({
       reject(e);
     }
   });
+//
 
 export const getStudentCurrent = (id) =>
   new Promise(async (resolve, reject) => {
@@ -62,6 +54,43 @@ export const getStudentCurrent = (id) =>
         err: response ? 0 : 1,
         msg: response ? "OK" : "Student not found!",
         response,
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+//getAssignment of Student
+
+export const getAssignmentOfStudent = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      let response = await db.Student.findOne({
+        where: { id },
+        raw: false,
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "password"],
+        },
+        include: [
+          {
+            model: db.Class,
+            as: "classData",
+            attributes: ["class_name"],
+            include: [
+              {
+                model: db.Assignment,
+                as: "assignmentData",
+                attributes: ["assignment_name", "deadline"],
+              },
+            ],
+          },
+        ],
+      });
+      resolve({
+        err: response ? 0 : 1,
+        msg: response ? "OK" : "Student not found!",
+        response,
+        // count: count,
       });
     } catch (error) {
       console.log(error);
@@ -127,5 +156,35 @@ export const deleteStudent = (studentId) =>
     } catch (e) {
       console.log(e);
       reject(e);
+    }
+  });
+
+//update-profile-student
+export const updateStudentProfile = (sid, body, fileData) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const fileImage = await db.Student.findOne({
+        where: { id: sid },
+      });
+      cloudinary.api.delete_resources(fileImage.dataValues.fileName);
+      if (fileData) {
+        body.avatar = fileData?.path;
+        body.fileName = fileData?.filename;
+      }
+      // console.log(fileData);
+      const response = await db.Student.update(body, {
+        where: { id: sid },
+      });
+      // console.log(response);
+
+      resolve({
+        err: response[0] > 0 ? 0 : 1,
+        mes: response[0] > 0 ? "Update successfully" : "not",
+      });
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
+    } catch (e) {
+      reject(e);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });

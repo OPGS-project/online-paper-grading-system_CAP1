@@ -2,6 +2,7 @@ import * as authServices from "../services";
 import { internalServerError, badRequest } from "../middlewares/handle_errors";
 import { student_name, classID, gender, address } from "../helpers/joi_schema";
 import joi from "joi";
+const cloudinary = require("cloudinary").v2;
 
 export const getStudent = async (req, res) => {
   try {
@@ -22,6 +23,18 @@ export const getStudentCurrent = async (req, res) => {
     // return internalServerError(res);
   }
 };
+//
+export const getAssignmentOfStudent = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const response = await authServices.getAssignmentOfStudent(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};
+//
 export const createStudent = async (req, res) => {
   try {
     const { student_name, classID, gender, address } = req.body;
@@ -55,5 +68,28 @@ export const deleteStudent = async (req, res) => {
   } catch (error) {
     console.log(error);
     return internalServerError(res);
+  }
+};
+
+//
+export const updateStudentProfile = async (req, res) => {
+  try {
+    const fileData = req.file;
+    const { id } = req.user;
+
+    const { error } = joi.object().validate({ avatar: fileData?.path });
+    if (error) {
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
+    }
+
+    const response = await authServices.updateStudentProfile(
+      id,
+      req.body,
+      fileData
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
   }
 };

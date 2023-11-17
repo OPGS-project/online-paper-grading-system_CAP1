@@ -32,7 +32,7 @@ function ForgotPassword() {
                 console.log(res);
                 notifySuccess('Kiểm tra email của bạn!');
                 setTimeout(() => {
-                    navigate('/login');
+                    navigate('/login-teacher');
                 }, 3000);
             })
             .catch((err) => {

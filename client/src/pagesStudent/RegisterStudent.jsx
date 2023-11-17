@@ -66,23 +66,19 @@ export default function RegisterStudent() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (values.email.length < 0 || values.email === '')
+        if (values.email === '')
             setError((prev) => ({
                 ...prev,
                 emailErr: 'Email không được để trống',
             }));
 
-        if (values.password.length < 0 || !password_pattern.test(values.password) || values.password === '')
+        if (!password_pattern.test(values.password) || values.password === '')
             setError((prev) => ({
                 ...prev,
                 passwordErr: 'Mật khẩu không được để trống và có ít nhất 8 ký tự',
             }));
 
-        if (
-            values.confirm_password.length < 0 ||
-            values.confirm_password === '' ||
-            String(values.confirm_password) !== String(values.password)
-        )
+        if (values.confirm_password === '' || String(values.confirm_password) !== String(values.password))
             setError((prev) => ({
                 ...prev,
                 confirm_passwordErr: 'Mật khẩu không trùng khớp!!',
@@ -120,10 +116,10 @@ export default function RegisterStudent() {
 
     return (
         <div className="bg-gradient-primary">
-            <div className="container pt-5">
+            <div className="container p-5">
                 <div className="card o-hidden border-0 shadow-lg ">
                     <div className="card-body p-0 ">
-                        <div className="p-5 m-center ">
+                        <div className="m-center">
                             <div className="text-center">
                                 <h1 className="h3 text-gray-900 mb-4 text-uppercase">Tạo tài khoản</h1>
 
@@ -145,20 +141,32 @@ export default function RegisterStudent() {
                                             type="email"
                                             className="form-control form-control-user"
                                             placeholder="example@gmail.com"
-                                            onChange={handleChange}
+                                            onChange={(e) => {
+                                                setError((prev) => ({
+                                                    ...prev,
+                                                    emailErr: null,
+                                                }));
+                                                handleChange(e);
+                                            }}
                                             name="email"
                                         />
                                         {error.emailErr && <small className="text-danger pl-3">{error.emailErr}</small>}
                                     </div>
-                                    <div className="form-group row">
-                                        <div className="col-sm-6 mb-3 mb-sm-0">
+                                    <div className="form-group row position-relative">
+                                        <div className="col-sm-6 mb-3 mb-sm-0 ">
                                             <div>
                                                 <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
                                                 <input
                                                     type={show ? 'text' : 'password'}
                                                     className="form-control form-control-user"
                                                     placeholder="Mật khẩu"
-                                                    onChange={handleChange}
+                                                    onChange={(e) => {
+                                                        setError((prev) => ({
+                                                            ...prev,
+                                                            passwordErr: null,
+                                                        }));
+                                                        handleChange(e);
+                                                    }}
                                                     name="password"
                                                 />
                                                 <div
@@ -173,23 +181,29 @@ export default function RegisterStudent() {
                                             )}
                                         </div>
 
-                                        <div className="col-sm-6">
+                                        <div className="col-sm-6 ">
                                             <label className="float-left ml-3 label-regis ">Nhập Lại Mật Khẩu</label>
 
                                             <input
                                                 type={show2 ? 'text' : 'password'}
                                                 className="form-control form-control-user"
                                                 placeholder="Nhập lại mật khẩu"
-                                                onChange={handleChange}
+                                                onChange={(e) => {
+                                                    setError((prev) => ({
+                                                        ...prev,
+                                                        confirm_passwordErr: null,
+                                                    }));
+                                                    handleChange(e);
+                                                }}
                                                 name="confirm_password"
                                             />
                                             <div className="position-absolute eye  " onClick={handleShow2}>
                                                 {show2 ? <FaEyeSlash /> : <FaEye />}
                                             </div>
+                                            {error.confirm_passwordErr && (
+                                                <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
+                                            )}
                                         </div>
-                                        {error.confirm_passwordErr && (
-                                            <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
-                                        )}
                                     </div>
                                     <div className="mx-5">
                                         <button className="btn btn-primary btn-user px-5" type="submit">

@@ -83,15 +83,22 @@ export const getAssignmentById = (assignmentId) =>
 //CREATE
 export const createAssignment = (body, fileData) =>
   new Promise(async (resolve, reject) => {
-    if (fileData) {
-      body.file_path = fileData?.path;
-      body.filename = fileData?.filename;
-    }
     // console.log(fileData);
     try {
+      if (fileData) {
+        body.file_path = fileData?.path;
+        body.filename = fileData?.filename;
+      }
+      const dataClass = await db.Class.findOne({
+        where: { class_name: body.of_class },
+      });
+      console.log(dataClass.dataValues.id);
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
-        defaults: body,
+        defaults: {
+          ...body,
+          of_class: dataClass.dataValues.id,
+        },
       });
       if (fileData && !response[0] === 0)
         cloudinary.uploader.destroy(fileData.filename);
