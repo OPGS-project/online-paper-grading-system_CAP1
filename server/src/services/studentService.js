@@ -65,7 +65,7 @@ export const getStudentCurrent = (id) =>
 export const getAssignmentOfStudent = (id) =>
   new Promise(async (resolve, reject) => {
     try {
-      let response = await db.Student.findOne({
+      let response = await db.Student.findAndCountAll({
         where: { id },
         raw: false,
         attributes: {
@@ -90,7 +90,7 @@ export const getAssignmentOfStudent = (id) =>
         err: response ? 0 : 1,
         msg: response ? "OK" : "Student not found!",
         response,
-        // count: count,
+        count: response.count,
       });
     } catch (error) {
       console.log(error);

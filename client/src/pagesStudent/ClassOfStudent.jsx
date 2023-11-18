@@ -1,34 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FaAngellist } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { apiGetAssignmentOfStudent } from '~/apis/userService';
-function AssignmentStudent() {
-    // const navigate = useNavigate();
-    // const { token } = useSelector((state) => state.auth);
+import { Link } from 'react-router-dom';
 
-    // const [userData, setUserData] = useState({});
-    // // const [values, setValues]
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         const response = await apiGetAssignmentOfStudent(token);
-    //         // console.log(response);
-    //         if (response?.data.err === 0) {
-    //             setUserData(response.data?.response);
-    //         } else {
-    //             setUserData({});
-    //         }
-    //     };
-    //     token && fetchUser();
-    // }, [token]);
-
+function ClassOfStudent() {
     return (
         <div className="container-fluid">
             <div className="card shadow">
                 <div className="text-left">
                     <h3 className="p-3  d-flex align-items-center" style={{ color: '#F3B664' }}>
                         <FaAngellist />
-                        <span className=" ml-3"> Chào bạn !</span>
+                        <span className=" ml-3"> Chào bạn </span>
                     </h3>
                 </div>
                 <div className="">
@@ -57,4 +38,4 @@ function AssignmentStudent() {
     );
 }
 
-export default AssignmentStudent;
+export default ClassOfStudent;

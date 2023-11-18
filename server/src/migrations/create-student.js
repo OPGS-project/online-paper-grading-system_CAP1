@@ -36,6 +36,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      filename: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

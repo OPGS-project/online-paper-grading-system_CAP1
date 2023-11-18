@@ -28,11 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       start_date: DataTypes.DATE,
       deadline: DataTypes.DATE,
       of_class: DataTypes.INTEGER,
-      content_type: DataTypes.ENUM("text", "file"),
       content_text: DataTypes.TEXT,
       file_path: DataTypes.STRING,
       filename: DataTypes.STRING,
-      grading_criteria_file: DataTypes.STRING,
     },
     {
       sequelize,

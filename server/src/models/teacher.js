@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       avatar: DataTypes.STRING,
       address: DataTypes.STRING,
       refresh_token: DataTypes.STRING,
+      file_name: DataTypes.STRING,
     },
     {
       sequelize,

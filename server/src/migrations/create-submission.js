@@ -9,13 +9,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      assignment_name: {
-        type: Sequelize.BLOB("long"),
+      class_id: {
+        type: Sequelize.INTEGER,
+      },
+      student_id: {
+        type: Sequelize.INTEGER,
+      },
+      student_name: {
+        type: Sequelize.STRING,
+      },
+      assignment_id: {
+        type: Sequelize.INTEGER,
       },
       submission_time: {
         type: Sequelize.DATE,
       },
       submission_status: {
+        type: Sequelize.STRING,
+      },
+      image: {
+        type: Sequelize.STRING,
+      },
+      filename: {
         type: Sequelize.STRING,
       },
       createdAt: {

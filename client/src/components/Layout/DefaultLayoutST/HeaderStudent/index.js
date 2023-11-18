@@ -15,7 +15,7 @@ function HeaderStudent() {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetStudent(token);
-            console.log(response);
+
             if (response?.data.err === 0) {
                 setUserData(response.data?.response);
             } else {
@@ -25,7 +25,6 @@ function HeaderStudent() {
         token && fetchUser();
     }, [token]);
 
-    console.log(userData);
     //toggle
     var [toggle3, setToggle3] = useState(false);
 
