@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       class_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       student_name: {
         type: Sequelize.STRING,
@@ -20,9 +20,6 @@ module.exports = {
       },
       gender: {
         type: Sequelize.STRING,
-      },
-      birthday: {
-        type: Sequelize.DATEONLY,
       },
       address: {
         type: Sequelize.STRING,
