@@ -2,24 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Events", {
+    await queryInterface.createTable("Grades", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      question_number: {
+      submission_id: {
+        type: Sequelize.INTEGER,
+      },
+      criteria_id: {
+        type: Sequelize.INTEGER,
+      },
+      selected_area: {
         type: Sequelize.STRING,
       },
-      correct_answer: {
-        type: Sequelize.TEXT,
-      },
-      max_score: {
+      score_value: {
         type: Sequelize.FLOAT,
       },
-      of_assignment: {
-        type: Sequelize.INTEGER,
+      comments: {
+        type: Sequelize.TEXT,
+      },
+      image: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Events");
+    await queryInterface.dropTable("Grades");
   },
 };

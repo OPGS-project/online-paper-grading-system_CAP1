@@ -1,7 +1,9 @@
 import db from "../models";
 import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
-// const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
+
+const mime = require("mime-types");
 
 export const getAssignment = ({
   page,
@@ -27,13 +29,6 @@ export const getAssignment = ({
         attributes: {
           exclude: ["createdAt	", "updatedAt"],
         },
-        include: [
-          {
-            model: db.Events,
-            as: "criteriaData",
-            attributes: ["of_assignment", "correct_answer", "max_score"],
-          },
-        ],
       });
 
       resolve({
@@ -86,15 +81,27 @@ export const getAssignmentById = (assignmentId) =>
   });
 
 //CREATE
-export const createAssignment = (body) =>
+export const createAssignment = (body, fileData) =>
   new Promise(async (resolve, reject) => {
+    // console.log(fileData);
     try {
-      // console.log(body);
+      if (fileData) {
+        body.file_path = fileData?.path;
+        body.filename = fileData?.filename;
+      }
+      const dataClass = await db.Class.findOne({
+        where: { class_name: body.of_class },
+      });
+      console.log(dataClass.dataValues.id);
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
-        defaults: body,
+        defaults: {
+          ...body,
+          of_class: dataClass.dataValues.id,
+        },
       });
-
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
       resolve({
         err: response[1] ? 0 : 1,
         mes: response[1] ? "OK" : "Can not create Assignment!!!",
@@ -102,12 +109,23 @@ export const createAssignment = (body) =>
     } catch (e) {
       console.log(e);
       reject(e);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
 //UPDATE
-export const updateAssignment = (assignmentId, body) =>
+export const updateAssignment = (assignmentId, body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
+      const filePDF = await db.Assignment.findOne({
+        where: { id: assignmentId },
+      });
+      if (filePDF)
+        cloudinary.api.delete_resources(filePDF[0].dataValues.filename);
+      if (fileData) {
+        body.file_path = fileData?.path;
+        body.filename = fileData?.filename;
+      }
+
       const response = await db.Assignment.update(body, {
         where: { id: assignmentId.assignmentId },
       });
@@ -119,9 +137,12 @@ export const updateAssignment = (assignmentId, body) =>
             ? `${response} assignment updated`
             : "Can not update Assignment!!!",
       });
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
     } catch (e) {
       console.log(e);
       reject(e);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
 //DELETE

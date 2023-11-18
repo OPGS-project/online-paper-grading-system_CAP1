@@ -4,6 +4,7 @@ import fs from 'fs';
 import csvParser from 'csv-parser';
 import { badRequest, internalServerError } from '../middlewares/handle_errors';
 import models from '../models';
+const cloudinary = require("cloudinary").v2;
 
 export const getStudent = async (req, res) => {
   try {
@@ -14,7 +15,28 @@ export const getStudent = async (req, res) => {
     // return internalServerError(res);
   }
 };
-
+export const getStudentCurrent = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const response = await authServices.getStudentCurrent(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};
+//
+export const getAssignmentOfStudent = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const response = await authServices.getAssignmentOfStudent(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};
+//
 export const createStudent = async (req, res) => {
   try {
     const { student_name, classID, gender, address } = req.body;
@@ -109,3 +131,25 @@ export const uploadCSV = async (req, res) => {
   }
 };
 
+//
+export const updateStudentProfile = async (req, res) => {
+  try {
+    const fileData = req.file;
+    const { id } = req.user;
+
+    const { error } = joi.object().validate({ avatar: fileData?.path });
+    if (error) {
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
+    }
+
+    const response = await authServices.updateStudentProfile(
+      id,
+      req.body,
+      fileData
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};

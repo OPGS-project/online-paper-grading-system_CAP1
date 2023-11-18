@@ -1,11 +1,11 @@
 import * as authServices from "../services";
+const cloudinary = require("cloudinary").v2;
 import { internalServerError, badRequest } from "../middlewares/handle_errors";
 import {
   assignment_name,
   start_date,
   deadline,
   of_class,
-  content_text,
 } from "../helpers/joi_schema";
 import joi from "joi";
 //
@@ -32,18 +32,23 @@ export const getAssignmentById = async (req, res) => {
 
 export const createAssignment = async (req, res) => {
   try {
+    const fileData = req.file;
+
     // const { error } = joi
     //   .object({
-    //     // assignment_name,
-    //     start_date,
-    //     deadline,
-    //     of_class,
-    //     content_text,
+    //     assignment_name,
+    //     // start_date,
+    //     // deadline,
+    //     // of_class,
     //   })
-    //   .validate(req.body);
+    //   .validate({ ...req.body, file_path: fileData?.path });
     // if (error) return badRequest(error.details[0].message, res);
     // console.log(req.body);
-    const response = await authServices.createAssignment(req.body);
+    const { error } = joi.object().validate({ file_path: fileData?.path });
+    if (error) {
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
+    }
+    const response = await authServices.createAssignment(req.body, fileData);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -54,10 +59,16 @@ export const createAssignment = async (req, res) => {
 export const updateAssignment = async (req, res) => {
   try {
     // console.log(req.body);
+    const fileData = req.file;
     const assignmentId = req.params;
+    const { error } = joi.object().validate({ avatar: fileData?.path });
+    if (error) {
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
+    }
     const response = await authServices.updateAssignment(
       assignmentId,
-      req.body
+      req.body,
+      fileData
     );
     return res.status(200).json(response);
   } catch (error) {

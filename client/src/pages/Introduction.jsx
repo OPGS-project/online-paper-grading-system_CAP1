@@ -20,12 +20,15 @@ function Introduce() {
                     </div>
                     <div className="col-md-5 form-intro">
                         <div className="d-flex flex-column mt-4 p-3 box-intro ">
-                            <button className="btn  btn-primary p-3 my-3 btn-intro" onClick={() => navigate('/login')}>
+                            <button
+                                className="btn  btn-primary p-3 my-3 btn-intro"
+                                onClick={() => navigate('/choose-role-login')}
+                            >
                                 Đăng Nhập
                             </button>
                             <button
                                 className="btn  btn-google p-3 my-3 btn-intro"
-                                onClick={() => navigate('/choose-role')}
+                                onClick={() => navigate('/choose-role-register')}
                             >
                                 Đăng Ký
                             </button>
