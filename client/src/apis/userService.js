@@ -65,15 +65,16 @@ export const apiUpdateStudent = (token, data) =>
             reject(error);
         }
     });
-export const apiGetAssignmentOfStudent = (token) =>
+export const apiGetAssignmentOfStudent = (token, data) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await aixos({
-                method: 'put',
+                method: 'get',
                 url: 'http://localhost:8081/api/student/get-assignment-of-student',
                 headers: {
                     authorization: token,
                 },
+                data,
             });
             resolve(response);
         } catch (error) {

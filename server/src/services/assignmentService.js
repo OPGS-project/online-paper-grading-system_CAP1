@@ -21,7 +21,9 @@ export const getAssignment = ({
       queries.offset = offset * fLimit;
       queries.limit = fLimit;
       if (order) queries.order = [order];
+
       // if (name) query.assignment_name = { [Op.substring]: name };
+
       const response = await db.Assignment.findAndCountAll({
         where: query,
         ...queries,
@@ -29,6 +31,13 @@ export const getAssignment = ({
         attributes: {
           exclude: ["createdAt	", "updatedAt"],
         },
+        include: [
+          {
+            model: db.Class,
+            as: "classData",
+            attributes: ["class_name"],
+          },
+        ],
       });
 
       resolve({
@@ -92,7 +101,7 @@ export const createAssignment = (body, fileData) =>
       const dataClass = await db.Class.findOne({
         where: { class_name: body.of_class },
       });
-      console.log(dataClass.dataValues.id);
+      // console.log(dataClass.dataValues.id);
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
         defaults: {

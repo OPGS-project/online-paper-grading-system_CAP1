@@ -56,14 +56,7 @@ export const getStudentByClassId = (classID) => {
           {
             model: db.Student,
             as: "studentData",
-            attributes: [
-              "id",
-              "student_name",
-              "gender",
-              "birthday",
-              "phone",
-              "address",
-            ],
+            attributes: ["id", "student_name", "gender", "phone", "address"],
           },
         ],
       });
@@ -114,7 +107,7 @@ export const createNewClass = (body) =>
         where: { class_name: body?.class_name },
         defaults: { ...body },
       });
-      console.log(response);
+      // console.log(response);
       resolve({
         err: response[1] ? 0 : 1,
         mes: response[1] ? "Created" : "Cannot create class",

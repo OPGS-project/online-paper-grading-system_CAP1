@@ -11,8 +11,8 @@ export default function CreateClass() {
     const [content, setContent] = useState('');
     const navigate = useNavigate();
 
-        const notifyError = (errorMessage) => {
-            toast.error(errorMessage, {
+    const notifyError = (errorMessage) => {
+        toast.error(errorMessage, {
             position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
@@ -22,19 +22,19 @@ export default function CreateClass() {
             progress: undefined,
             theme: 'light',
         });
-      };
-      const notifySuccess = (errorMessage) => {
+    };
+    const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
         });
-      };
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -46,10 +46,10 @@ export default function CreateClass() {
             })
             .then((res) => {
                 console.log(res);
-                notifySuccess("Thêm lớp thành công");
+                notifySuccess('Thêm lớp thành công');
                 setTimeout(() => {
                     navigate('/home/class'); // thành công sẽ chuyển hướng
-                }, 5000);
+                }, 2000);
             })
             .catch((err) => console.log(err));
     };
@@ -111,5 +111,3 @@ export default function CreateClass() {
         </div>
     );
 }
-
-

@@ -26,8 +26,7 @@ import RegisterStudent from '~/pagesStudent/RegisterStudent';
 import AssignmentStudent from '~/pagesStudent/AssignmentStudent';
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
-import ViewAssignment from '~/pagesStudent/ViewAssignment';
-import DropFileInput from '~/pagesStudent/DropFileInput';
+import UploadAssignment from '~/pagesStudent/UploadAssignment';
 
 //Public routes
 const publicRoutes = [
@@ -72,8 +71,8 @@ const privateRoutes = [
     { path: '/login-student', component: LoginStudent, layout: null },
     { path: '/register-student', component: RegisterStudent, layout: null },
     { path: '/student/assignment-of-student', component: AssignmentStudent },
-    { path: '/student/view-assignment-of-student', component: ViewAssignment },
-    { path: '/student/post-assignment', component: DropFileInput },
+
+    { path: '/student/upload-assignment/:aid', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },
     { path: '/student/update-password', component: UpdatePassStudent },
 ];

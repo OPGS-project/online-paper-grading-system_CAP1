@@ -80,17 +80,17 @@ export const getAssignmentOfStudent = (id) =>
               {
                 model: db.Assignment,
                 as: "assignmentData",
-                attributes: ["assignment_name", "deadline"],
+                attributes: ["assignment_name", "deadline", "id", "file_path"],
               },
             ],
           },
         ],
       });
+
       resolve({
         err: response ? 0 : 1,
         msg: response ? "OK" : "Student not found!",
         response,
-        count: response.count,
       });
     } catch (error) {
       console.log(error);
@@ -108,7 +108,6 @@ export const createStudent = (body) =>
         gender: body.gender,
         address: body.address,
         class_id: body.classID,
-        birthday: body.birthday,
       });
 
       resolve({

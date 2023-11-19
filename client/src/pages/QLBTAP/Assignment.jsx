@@ -139,7 +139,7 @@ export default function Assignment() {
                 <td className="text-left pl-3">{data.assignment_name}</td>
                 <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm a')}</td>
                 <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm a')}</td>
-                <td>{data.of_class}</td>
+                <td>{data.classData.class_name}</td>
                 <td>1</td>
                 <td>
                     <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
@@ -189,8 +189,16 @@ export default function Assignment() {
 
     return (
         <div className="container-fluid">
-            <div className="row header-bt">
-                <div className="ml-3">
+            <h1 className="h3 mb-2 text-gray-800">Bài tập đã Giao</h1>
+
+            <div className="card shadow mb-4 height-table">
+                <div className="card-header py-3 d-flex justify-content-between">
+                    <Link className="btn btn-success" to="/home/assignment/add-assignment">
+                        + Thêm bài tập
+                    </Link>
+                    <p className="float-right"> ( {state.assignment.length} bài tập )</p>
+                </div>
+                <div className="card-body">
                     <label className="mr-3">
                         Tìm Kiếm:
                         <input
@@ -218,33 +226,25 @@ export default function Assignment() {
                     <button className="btn btn-danger ml-2" onClick={handleClearSearch}>
                         X
                     </button>
-                </div>
-            </div>
-            <div className="card shadow mb-4 height-table">
-                <div className="card-header py-3 d-flex justify-content-between">
-                    <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Giao</h6>
-                    <Link className="btn btn-success" to="/home/assignment/add-assignment">
-                        + Thêm bài tập
-                    </Link>
-                </div>
-                <div className="card-body">
-                    <div className="table-responsive"></div>
-                    <table className="table table-hover" id="dataTable" width={100}>
-                        <thead className="text-center">
-                            <tr>
-                                <th></th>
-                                <th style={{ width: 200 }}>Tên</th>
-                                <th>Từ Ngày</th>
-                                <th>Đến Ngày</th>
-                                <th>Giao Cho</th>
-                                <th>Trạng Thái</th>
-                                <th>Chi tiết</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>{generateRows()}</tbody>
-                    </table>
+
+                    <div className="table-responsive">
+                        <table className="table table-hover" id="dataTable" width={100}>
+                            <thead className="text-center">
+                                <tr>
+                                    <th></th>
+                                    <th style={{ width: 200 }}>Tên</th>
+                                    <th>Từ Ngày</th>
+                                    <th>Đến Ngày</th>
+                                    <th>Giao Cho</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Chi tiết</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>{generateRows()}</tbody>
+                        </table>
+                    </div>
                 </div>
                 <div className="pagination d-flex m-3 justify-content-center">
                     <button className="btn btn-primary mr-3" onClick={handlePrevious}>

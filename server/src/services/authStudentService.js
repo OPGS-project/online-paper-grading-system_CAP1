@@ -3,8 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendMail from "../utils/email";
 import { generateRandomString } from "../helpers/idRandom";
-import { student_name } from "../helpers/joi_schema";
-const { v4: uuidv4 } = require("uuid");
 
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -22,7 +20,6 @@ export const registerStudent = ({ name, email, password }) =>
         },
       });
 
-      console.log(response[1]);
       const token = response[1]
         ? jwt.sign(
             {

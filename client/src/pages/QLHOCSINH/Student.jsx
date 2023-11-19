@@ -3,7 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink, CSVDownload } from 'react-csv';
 
 export default function Student() {
     const [state, setState] = useState({
@@ -66,7 +66,7 @@ export default function Student() {
         } else {
             // Nếu có từ khóa tìm kiếm, tạo mảng học sinh mới dựa trên kết quả tìm kiếm
             const filteredStudent = originalStudent.filter((data) =>
-                data.student_name.toLowerCase().includes(searchTerm.toLowerCase())
+                data.student_name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
             setState((prevState) => ({
                 ...prevState,
@@ -78,26 +78,24 @@ export default function Student() {
     };
 
     const generateRows = () => {
-        return state.student
-            .slice(state.offset, state.offset + state.perPage)
-            .map((data, i) => (
-                <tr key={i} className="text-center">
-                    <td>{data.student_name}</td>
-                    <td>{data.gender}</td>
-                    <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
-                    <td>{data.address}</td>
-                    <td>
-                        <Link to={`/home/student/updateStudent/${params.classID}/${data.id}`} state={{ studentData: data }}>
-                            <i className="bi bi-pencil-square mr-3"></i>
-                        </Link>
-                        <i
-                            className="bi bi-trash-fill text-danger"
-                            onClick={() => handleDelete(data.id)}
-                            style={{ cursor: 'pointer' }}
-                        ></i>
-                    </td>
-                </tr>
-            ));
+        return state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+            <tr key={i} className="text-center">
+                <td>{data.student_name}</td>
+                <td>{data.gender}</td>
+                <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
+                <td>{data.address}</td>
+                <td>
+                    <Link to={`/home/student/updateStudent/${params.classID}/${data.id}`} state={{ studentData: data }}>
+                        <i className="bi bi-pencil-square mr-3"></i>
+                    </Link>
+                    <i
+                        className="bi bi-trash-fill text-danger"
+                        onClick={() => handleDelete(data.id)}
+                        style={{ cursor: 'pointer' }}
+                    ></i>
+                </td>
+            </tr>
+        ));
     };
 
     const handlePrevious = () => {
@@ -127,11 +125,11 @@ export default function Student() {
     };
 
     const csvData = [
-        ["Họ và tên", "Giới tính", "Ngày sinh", "Quê quán"],
+        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán'],
         ...state.student.map((data) => [
             data.student_name,
             data.gender,
-            moment(data.birthday, "YYYY-MM-DD").format('DD-MM-YYYY'), // Định dạng ngày sinh thành "DD-MM-YYYY"
+            moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'), // Định dạng ngày sinh thành "DD-MM-YYYY"
             data.address,
         ]),
     ];
@@ -145,21 +143,19 @@ export default function Student() {
                     <Link className="btn btn-success" to={`/home/student/createStudent/${params.classID}`}>
                         + Thêm học sinh
                     </Link>
-                    <label htmlFor="import" className='btn btn-warning ml-5 mt-2'> <i class="fa-solid fa-file-import"></i> Import</label>
-                    <input type="file" id='import' hidden />
-                    <CSVLink
-                        data={csvData}
-                        filename={"student_data.csv"}
-                        className="btn btn-primary ml-2"
-                    >
+                    <label htmlFor="import" className="btn btn-warning ml-5 mt-2">
+                        {' '}
+                        <i class="fa-solid fa-file-import"></i> Import
+                    </label>
+                    <input type="file" id="import" hidden />
+                    <CSVLink data={csvData} filename={'student_data.csv'} className="btn btn-primary ml-2">
                         <i class="fa-solid fa-file-arrow-down"></i> Export
                     </CSVLink>
                     <p className="float-right">Sỉ số: ({state.student.length} học sinh)</p>
-
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">
-                        <label className='mr-3'>
+                        <label className="mr-3">
                             Tìm Kiếm:
                             <input
                                 type="search"
@@ -201,12 +197,12 @@ export default function Student() {
                             <tbody>{generateRows()}</tbody>
                         </table>
                     </div>
-                    <div className="pagination">
+                    <div className="pagination d-flex m-3 justify-content-center">
                         <button className="btn btn-primary mr-3" onClick={handlePrevious}>
-                            <i className="fa fa-angle-left"></i> PRE
+                            <i className="fa fa-angle-left"></i>
                         </button>
                         <button className="btn btn-primary" onClick={handleNext}>
-                            NEXT <i className="fa fa-angle-right"></i>
+                            <i className="fa fa-angle-right"></i>
                         </button>
                     </div>
                 </div>

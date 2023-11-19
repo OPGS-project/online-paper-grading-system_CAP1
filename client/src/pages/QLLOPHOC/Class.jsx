@@ -64,7 +64,7 @@ export default function Class() {
         } else {
             // Nếu có từ khóa tìm kiếm, tạo mảng lớp học mới dựa trên kết quả tìm kiếm
             const filteredClass = originalClass.filter((data) =>
-                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
+                data.class_name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
             setState((prevState) => ({
                 ...prevState,
@@ -76,29 +76,27 @@ export default function Class() {
     };
 
     const generateRows = () => {
-        return state.Class
-            .slice(state.offset, state.offset + state.perPage)
-            .map((data, i) => (
-                <tr key={i} className="text-center">
-                    <td>{data.class_name}</td>
-                    <td>{data.total_students}</td>
-                    <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
-                    <td>{data.content}</td>
-                    <td>
-                        <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
-                            Xem học sinh
-                        </Link>
-                    </td>
-                    <td>
-                        <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
-                        <i
-                            className="bi bi-trash-fill text-danger"
-                            onClick={() => handleDelete(data.id)}
-                            style={{ cursor: 'pointer' }}
-                        ></i>
-                    </td>
-                </tr>
-            ));
+        return state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+            <tr key={i} className="text-center">
+                <td>{data.class_name}</td>
+                <td>{data.total_students}</td>
+                <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
+                <td>{data.content}</td>
+                <td>
+                    <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
+                        Xem học sinh
+                    </Link>
+                </td>
+                <td>
+                    <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
+                    <i
+                        className="bi bi-trash-fill text-danger"
+                        onClick={() => handleDelete(data.id)}
+                        style={{ cursor: 'pointer' }}
+                    ></i>
+                </td>
+            </tr>
+        ));
     };
 
     const handlePrevious = () => {
@@ -140,7 +138,7 @@ export default function Class() {
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">
-                        <label className='mr-3'>
+                        <label className="mr-3">
                             Tìm Kiếm:
                             <input
                                 type="search"
@@ -183,12 +181,12 @@ export default function Class() {
                             <tbody>{generateRows()}</tbody>
                         </table>
                     </div>
-                    <div className="pagination">
+                    <div className="pagination d-flex m-3 justify-content-center">
                         <button className="btn btn-primary mr-3" onClick={handlePrevious}>
-                            <i className="fa fa-angle-left"></i> PRE
+                            <i className="fa fa-angle-left"></i>
                         </button>
                         <button className="btn btn-primary" onClick={handleNext}>
-                            NEXT <i className="fa fa-angle-right"></i>
+                            <i className="fa fa-angle-right"></i>
                         </button>
                     </div>
                 </div>

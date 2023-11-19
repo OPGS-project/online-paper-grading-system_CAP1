@@ -134,7 +134,7 @@ export const loginSuccess = (id, refresh_token) =>
           process.env.JWT_SECRET,
           { expiresIn: "5d" }
         );
-      console.log(token);
+
       resolve({
         err: token ? 0 : 3,
         msg: token ? "OK" : "User not found or fail to login !",
