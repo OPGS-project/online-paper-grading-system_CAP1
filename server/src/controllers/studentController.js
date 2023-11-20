@@ -1,7 +1,9 @@
 import * as authServices from "../services";
-import { internalServerError, badRequest } from "../middlewares/handle_errors";
-import { student_name, classID, gender, address } from "../helpers/joi_schema";
 import joi from "joi";
+import fs from 'fs';
+import csvParser from 'csv-parser';
+import { badRequest, internalServerError } from '../middlewares/handle_errors';
+import models from '../models';
 const cloudinary = require("cloudinary").v2;
 
 export const getStudent = async (req, res) => {
@@ -68,6 +70,64 @@ export const deleteStudent = async (req, res) => {
   } catch (error) {
     console.log(error);
     return internalServerError(res);
+  }
+};
+
+export const uploadCSV = async (req, res) => {
+  const csvFilePath = `${__dirname}/../uploads/${req.file.filename}`;
+  console.log('CSV File Path:', csvFilePath);
+
+  const results = [];
+
+  const processCSV = () => {
+    return new Promise((resolve, reject) => {
+      const stream = fs.createReadStream(csvFilePath)
+        .pipe(csvParser())
+        .on('data', async (data) => {
+          try {
+            const object={}
+            // console.log('Data from CSV:', typeof data);
+            for (const [key, value] of Object.entries(data)) {
+              if(key === 'classID'){
+                object.class_id=value
+              }
+              else if(key === 'Giới tính') object.gender=value
+              else if(key === 'Ngày sinh') object.birthday=value
+              else if(key === 'Quê quán') object.address=value
+              else object['student_name']=value
+            }
+            console.log(object);
+            // Parse the date string into a JavaScript Date object
+            const parsedBirthday = new Date(object.birthday);
+            // Check if the parsed date is valid
+            if (isNaN(parsedBirthday.getTime())) {
+              throw new Error('Invalid date format in CSV data');
+            }
+            // // Create a new instance of the Student model
+            const newStudent = await models.Student.create(object);
+            console.log(newStudent);
+            results.push(newStudent);
+          } catch (err) {
+            console.error('Error inserting data into MySQL database:', err.message);
+            reject(err);
+          }
+        })
+        .on('end', () => {
+          fs.unlinkSync(csvFilePath);
+          resolve();
+        })
+        .on('error', (error) => {
+          console.error('Error during CSV parsing or database insertion:', error.message);
+          reject(error);
+        });
+    });
+  };
+
+  try {
+    await processCSV();
+    res.json({ success: true, message: 'CSV file uploaded and data inserted into the database.', results });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error during CSV parsing or database insertion.', error: error.message });
   }
 };
 

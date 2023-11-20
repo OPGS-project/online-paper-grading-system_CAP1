@@ -3,6 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
+import { Button, Modal } from 'react-bootstrap';
 
 export default function Class() {
     const [state, setState] = useState({
@@ -12,6 +13,8 @@ export default function Class() {
         pageCount: 0,
         searchTerm: '',
         originalClass: [],
+        showConfirmationModal: false,
+        classToDelete: null,
     });
 
     useEffect(() => {
@@ -38,23 +41,16 @@ export default function Class() {
     };
 
     const handleDelete = async (id) => {
-        try {
-            await axios.delete('http://localhost:8081/api/class/delete-class/' + id);
-            // Remove the deleted item from the state
-            setState((prevState) => ({
-                ...prevState,
-                Class: prevState.Class.filter((item) => item.id !== id),
-                originalClass: prevState.originalClass.filter((item) => item.id !== id),
-            }));
-        } catch (err) {
-            console.log(err);
-        }
+        setState((prevState) => ({
+            ...prevState,
+            showConfirmationModal: true,
+            classToDelete: id,
+        }));
     };
 
     const handleSearch = () => {
         const { originalClass, searchTerm, perPage } = state;
         if (searchTerm === '') {
-            // Nếu không có từ khóa tìm kiếm, hiển thị toàn bộ lớp học từ danh sách gốc
             setState((prevState) => ({
                 ...prevState,
                 Class: originalClass,
@@ -62,7 +58,6 @@ export default function Class() {
                 offset: 0,
             }));
         } else {
-            // Nếu có từ khóa tìm kiếm, tạo mảng lớp học mới dựa trên kết quả tìm kiếm
             const filteredClass = originalClass.filter((data) =>
                 data.class_name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
@@ -122,7 +117,30 @@ export default function Class() {
             ...prevState,
             searchTerm: '',
         }));
-        handleSearch(); // Gọi lại tìm kiếm để hiển thị toàn bộ lớp học
+        handleSearch();
+    };
+
+    const handleConfirmationModalClose = () => {
+        setState((prevState) => ({
+            ...prevState,
+            showConfirmationModal: false,
+            classToDelete: null,
+        }));
+    };
+
+    const handleDeleteConfirmed = async () => {
+        try {
+            await axios.delete(`http://localhost:8081/api/class/delete-class/${state.classToDelete}`);
+            setState((prevState) => ({
+                ...prevState,
+                Class: prevState.Class.filter((item) => item.id !== state.classToDelete),
+                originalClass: prevState.originalClass.filter((item) => item.id !== state.classToDelete),
+            }));
+        } catch (err) {
+            console.log(err);
+        } finally {
+            handleConfirmationModalClose();
+        }
     };
 
     return (
@@ -191,6 +209,22 @@ export default function Class() {
                     </div>
                 </div>
             </div>
+
+            {/* Confirmation Modal */}
+            <Modal show={state.showConfirmationModal} onHide={handleConfirmationModalClose} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Xác nhận</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Bạn chắc chắn muốn xóa ?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleConfirmationModalClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteConfirmed}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

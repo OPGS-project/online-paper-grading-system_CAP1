@@ -11,7 +11,7 @@ cloudinary.config({
 
 const userStorage = new CloudinaryStorage({
   cloudinary,
-  allowedFormats: ["jpg", "png"],
+  allowedFormats: ["jpg", "png", "pdf"],
   params: {
     folder: "users",
   },
