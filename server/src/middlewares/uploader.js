@@ -13,7 +13,7 @@ const userStorage = new CloudinaryStorage({
   cloudinary,
   allowedFormats: ["jpg", "png", "pdf"],
   params: {
-    folder: "users",
+    folder: "uploads",
   },
 });
 

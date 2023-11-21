@@ -6,41 +6,52 @@ import 'react-toastify/dist/ReactToastify.css';
 import '~~/student/DropFileInput.scss';
 import { ImageConfig } from '~/utils/helper';
 import uploadImg from '~~/images/cloud-upload-regular-240.png';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
+
+
 
 const DropFileInput = (props) => {
     const wrapperRef = useRef(null);
     const [fileList, setFileList] = useState([]);
+    const { token } = useSelector(state => state.auth)
+    const params = useParams()
+    console.log(params)
+    // console.log(token)
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
     const onFileDrop = async (e) => {
-        const newFile = e.target.files[0];
-        if (newFile) {
-            const formData = new FormData();
-            formData.append('file', newFile);
+        if( e.target.files ) setFileList(prev => [...prev, e.target.files[0] ])
+        // const newFile = e.target.files[0];
+        // if (newFile) {
+        //     const formData = new FormData();
+        //     formData.append('image', newFile);
 
-            try {
-                const response = await axios.post('http://localhost:8081/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+        //     try {
+        //         const response = await axios.post('http://localhost:8081/api/submission', formData, {
+        //             headers: {
+        //               'Content-Type': 'multipart/form-data',                     
+        //                 authorization: token,                      
+        //             },
+        //         });
 
-                const uploadedFile = response.data;
+        //         const uploadedFile = response.data;
 
-                const updatedList = [...fileList, uploadedFile];
-                setFileList(updatedList);
-                props.onFileChange(updatedList);
-                // Hiển thị thông báo thành công
-                toast.success('Tải lên thành công');
-            } catch (error) {
-                console.error('Lỗi tải lên:', error);
-                // Hiển thị thông báo lỗi
-                toast.error('Lỗi tải lên');
-            }
-        }
+        //         const updatedList = [...fileList, uploadedFile];
+        //         setFileList(updatedList);
+        //         props.onFileChange(updatedList);
+        //         // Hiển thị thông báo thành công
+        //         toast.success('Tải lên thành công');
+        //     } catch (error) {
+        //         console.error('Lỗi tải lên:', error);
+        //         // Hiển thị thông báo lỗi
+        //         toast.error('Lỗi tải lên');
+        //     }
+        // }
     };
 
     const fileRemove = (file) => {
@@ -55,13 +66,15 @@ const DropFileInput = (props) => {
         if (fileList.length > 0) {
             const formData = new FormData();
             fileList.forEach((file, index) => {
-                formData.append(`file_${index}`, file);
+                formData.append(`image`, file);
             });
-
+            formData.append('assignment_id', params.aid)
+            
             try {
-                const response = await axios.post('http://localhost:8081/submit', formData, {
+                const response = await axios.post('http://localhost:8081/api/submission', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
+                         authorization: token,
                     },
                 });
 

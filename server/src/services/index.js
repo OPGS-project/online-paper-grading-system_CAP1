@@ -5,3 +5,4 @@ export * from "./criteriaService";
 export * from "./classService";
 export * from "./studentService";
 export * from "./authStudentService";
+export * from "./submissionService"

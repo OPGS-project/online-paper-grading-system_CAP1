@@ -13,7 +13,7 @@ export const registerStudent = ({ name, email, password }) =>
       const response = await db.Student.findOrCreate({
         where: { email },
         defaults: {
-          id: generateRandomString(10),
+          id: generateRandomString(5),
           email,
           student_name: name,
           password: hashPassword(password),
