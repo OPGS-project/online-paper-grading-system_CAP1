@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 function SidebarStudent() {
+    
     return (
         <ul
             className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -33,14 +34,14 @@ function SidebarStudent() {
 
             <li className="nav-item mb-5">
                 <Link
-                    to="/student/class-of-student"
+                    to="/student/return-assignment"
                     className="custom-link no-underline"
                     style={{ textDecoration: 'none' }}
                 >
                     <div className="nav-link">
                         <FaDoorClosed />
                         <span className="ml-2" style={{ fontSize: 16 }}>
-                            Lớp Học
+                            Trả bài
                         </span>
                     </div>
                 </Link>
