@@ -24,6 +24,8 @@ import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
 import LoginStudent from '~/pagesStudent/LoginStudent';
 import RegisterStudent from '~/pagesStudent/RegisterStudent';
 import AssignmentStudent from '~/pagesStudent/AssignmentStudent';
+import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
+
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
@@ -71,6 +73,7 @@ const privateRoutes = [
     { path: '/login-student', component: LoginStudent, layout: null },
     { path: '/register-student', component: RegisterStudent, layout: null },
     { path: '/student/assignment-of-student', component: AssignmentStudent },
+    { path: '/student/return-assignment', component: ReturnAssignment },
 
     { path: '/student/upload-assignment/:aid', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },

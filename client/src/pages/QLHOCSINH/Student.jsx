@@ -3,7 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVLink} from 'react-csv';
 import { Button, Modal } from 'react-bootstrap';
 
 export default function Student() {
