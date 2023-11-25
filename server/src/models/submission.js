@@ -19,6 +19,14 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "classData",
       });
+      Submission.belongsTo(models.Assignment, {
+        foreignKey: "assignment_id",
+        as: "assignmentData",
+      });
+      Submission.belongsTo(models.Student, {
+        foreignKey: "student_id",
+        as: "studentData",
+      })
     }
   }
   Submission.init(

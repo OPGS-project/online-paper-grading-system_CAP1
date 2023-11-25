@@ -64,7 +64,7 @@ const publicRoutes = [
     { path: '/home/user-profile', component: Profile },
     { path: '/home/update-password', component: UpdatePass },
     //Chấm bài
-    { path: '/home/grading', component: Grading },
+    { path: '/home/grading/:student_id', component: Grading },
 ];
 
 const privateRoutes = [

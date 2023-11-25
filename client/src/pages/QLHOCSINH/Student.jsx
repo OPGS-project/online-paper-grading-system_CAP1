@@ -126,12 +126,13 @@ export default function Student() {
     };
 
     const csvData = [
-        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán'],
+        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán','classID'],
         ...state.student.map((data) => [
             data.student_name,
             data.gender,
             moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'),
             data.address,
+            params.classID,
         ]),
     ];
 

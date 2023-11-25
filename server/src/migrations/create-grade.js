@@ -12,12 +12,6 @@ module.exports = {
       submission_id: {
         type: Sequelize.INTEGER,
       },
-      criteria_id: {
-        type: Sequelize.INTEGER,
-      },
-      selected_area: {
-        type: Sequelize.STRING,
-      },
       score_value: {
         type: Sequelize.FLOAT,
       },
@@ -25,6 +19,9 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       image: {
+        type: Sequelize.STRING,
+      },
+      filename: {
         type: Sequelize.STRING,
       },
       createdAt: {
