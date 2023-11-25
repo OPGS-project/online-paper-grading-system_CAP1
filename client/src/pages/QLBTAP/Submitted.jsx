@@ -12,7 +12,8 @@ const Submitted = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8081/api/assignment/${params.assignmentId}`)
+            // .get(`http://localhost:8081/api/submission/${params.assignment_id}`)
+            .get(`http://localhost:8081/api/submission`)
             .then((res) => setValues(res.data.response[0].classData.studentData))
             .catch((err) => console.error(err));
     }, []);
@@ -45,7 +46,7 @@ const Submitted = () => {
                             {values?.map((data, i) => (
                                 <tr key={i}>
                                     <td>{data.student_name}</td>
-                                    <td>Đã nộp</td>
+                                    <td>{data.submission_status}</td>
                                     <td>
                                         <Link to="/home/grading" className="btn btn-outline-success">
                                             Chấm bài

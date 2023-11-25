@@ -27,15 +27,15 @@ export const getSubmission = ({
           ...queries,
           order: [["id", "DESC"]],
           attributes: {
-            exclude: ["createdAt	", "updatedAt"],
+            exclude: ["createdAt", "updatedAt"],
           },
-          // include: [
-          //   {
-          //     model: db.Grade,
-          //     as: "gradeData",
-          //     attributes: ["score_value"],
-          //   },
-          // ],
+          include: [
+            {
+              model: db.Grade,
+              as: "gradeData",
+              attributes: ["score_value"],
+            },
+          ],
         });
         resolve({
           err: response ? 0 : 1,
@@ -52,7 +52,6 @@ export const getSubmission = ({
 export const getSubmissionById = (assignment_id) =>
     new Promise(async (resolve, reject) => {
       try {
-        console.log(assignment_id)
         const response = await db.Assignment.findAll({
           where: { id: assignment_id },
           attributes: {
@@ -61,13 +60,16 @@ export const getSubmissionById = (assignment_id) =>
           include: [
             {
               model: db.Submission,
-              as: 'submissionData'
+              as: 'submissionData',
+              attributes: {
+                exclude: ["createdAt", "updatedAt"],
+              },
 
             },
-              {
-                model: db.Class,
-                as:'classData'
-              }
+              // {
+              //   model: db.Class,
+              //   as:'classData'
+              // }
           ],
         });
         resolve({
@@ -84,6 +86,42 @@ export const getSubmissionById = (assignment_id) =>
       }
     });
 
+// export const getSubmissionByStudentId = (student_id, class_id, assignment_id) =>
+//   new Promise(async (resolve, reject) => {
+//     try {
+//       console.log(student_id);
+//       console.log(assignment_id);
+//       console.log(class_id);
+//       const response = await db.Assignment.findAll({       
+//         where: { id: assignment_id },
+//         attributes: {
+//           exclude: ["createdAt", "updatedAt"],
+//         },
+//         include: [
+//           {
+//             model: db.Submission,
+//             as: 'submissionData',
+//             where: { student_id: student_id, class_id: class_id }, // Add this condition
+//           },
+//           {
+//             model: db.Class,
+//             as: 'classData',
+//           },
+//         ],
+//       });
+
+//       resolve({
+//         err: response ? 0 : 1,
+//         message: response ? "Got" : "Cannot be found!!!",
+//         assignment: response,
+//         response: response.rows,
+//         count: response.count,
+//       });
+//     } catch (e) {
+//       console.log(e);
+//       reject(e);
+//     }
+//   });
 
 //CREATE
 // export const uploadSubmission = ( body, fileData ) => new Promise(async (resolve, reject) => {
