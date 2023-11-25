@@ -9,9 +9,6 @@ import uploadImg from '~~/images/cloud-upload-regular-240.png';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-
-
-
 const DropFileInput = (props) => {
     const wrapperRef = useRef(null);
     const [fileList, setFileList] = useState([]);
@@ -25,7 +22,7 @@ const DropFileInput = (props) => {
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
     const onFileDrop = async (e) => {
-        if( e.target.files ) setFileList(prev => [...prev, e.target.files[0] ])
+        if (e.target.files) setFileList(prev => [...prev, e.target.files[0]])
         // const newFile = e.target.files[0];
         // if (newFile) {
         //     const formData = new FormData();
@@ -69,12 +66,12 @@ const DropFileInput = (props) => {
                 formData.append(`image`, file);
             });
             formData.append('assignment_id', params.aid)
-            
+
             try {
                 const response = await axios.post('http://localhost:8081/api/submission', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                         authorization: token,
+                        authorization: token,
                     },
                 });
 

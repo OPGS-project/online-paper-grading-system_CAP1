@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Grade.belongsTo(models.Submission, {
+        foreignKey: 'submission_id',
+        as: "submissionData",
+      });
     }
   }
   Grade.init(
@@ -17,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       score_value: DataTypes.FLOAT,
       comments: DataTypes.TEXT,
       image: DataTypes.STRING,
+      filename: DataTypes.STRING,
     },
     {
       sequelize,
