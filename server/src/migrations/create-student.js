@@ -30,6 +30,9 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
+      birthday: {
+        type: Sequelize.DATE,
+      },
       password: {
         type: Sequelize.STRING,
       },
