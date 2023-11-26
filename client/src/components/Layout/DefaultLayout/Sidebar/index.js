@@ -5,18 +5,14 @@ import { Collapse } from 'bootstrap';
 
 function Sidebar() {
     var [toggle, setToggle] = useState(false);
+    var [toggle2, setToggle2] = useState(false);
+    var [toggle3, setToggle3] = useState(false);
 
     useEffect(() => {
         var myCollapse = document.getElementById('collapseTarget');
         var bsCollapse = new Collapse(myCollapse, { toggle: false });
         toggle ? bsCollapse.show() : bsCollapse.hide();
-    });
 
-    //
-
-    var [toggle2, setToggle2] = useState(false);
-
-    useEffect(() => {
         var myCollapse2 = document.getElementById('collapseTarget2');
         var bsCollapse2 = new Collapse(myCollapse2, { toggle: false });
         toggle2 ? bsCollapse2.show() : bsCollapse2.hide();
@@ -24,7 +20,7 @@ function Sidebar() {
 
     return (
         <ul
-            className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            className={`navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ${toggle3 ? 'toggled' : ''}`}
             id="accordionSidebar"
             style={{ minHeight: 900 }}
         >
@@ -104,7 +100,9 @@ function Sidebar() {
             <hr className="sidebar-divider d-none d-md-block" />
 
             <div className="text-center d-none d-md-inline mt-5">
-                <button className="rounded-circle border-0" id="sidebarToggle"></button>
+                <Link className="nav-link collapsed" onClick={() => setToggle3((toggle3) => !toggle3)}>
+                    <button className="rounded-circle border-0" id="sidebarToggle"></button>
+                </Link>
             </div>
         </ul>
     );

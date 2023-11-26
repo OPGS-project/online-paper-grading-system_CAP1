@@ -23,32 +23,6 @@ const DropFileInput = (props) => {
 
     const onFileDrop = async (e) => {
         if (e.target.files) setFileList(prev => [...prev, e.target.files[0]])
-        // const newFile = e.target.files[0];
-        // if (newFile) {
-        //     const formData = new FormData();
-        //     formData.append('image', newFile);
-
-        //     try {
-        //         const response = await axios.post('http://localhost:8081/api/submission', formData, {
-        //             headers: {
-        //               'Content-Type': 'multipart/form-data',                     
-        //                 authorization: token,                      
-        //             },
-        //         });
-
-        //         const uploadedFile = response.data;
-
-        //         const updatedList = [...fileList, uploadedFile];
-        //         setFileList(updatedList);
-        //         props.onFileChange(updatedList);
-        //         // Hiển thị thông báo thành công
-        //         toast.success('Tải lên thành công');
-        //     } catch (error) {
-        //         console.error('Lỗi tải lên:', error);
-        //         // Hiển thị thông báo lỗi
-        //         toast.error('Lỗi tải lên');
-        //     }
-        // }
     };
 
     const fileRemove = (file) => {
