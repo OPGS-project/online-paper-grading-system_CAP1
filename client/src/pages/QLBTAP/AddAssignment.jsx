@@ -115,7 +115,7 @@ export default function AddAssignment() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/home/assignment');
+                    navigate(-1);
                 }}
             >
                 <i class="fa-solid fa-arrow-left"></i>

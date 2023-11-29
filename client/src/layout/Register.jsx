@@ -48,7 +48,7 @@ export default function Register() {
         name: '',
         email: '',
         password: '',
-        // confirm_password: '',
+        confirm_password: '',
     });
 
     const navigate = useNavigate();
@@ -67,13 +67,13 @@ export default function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (values.email.length < 0 || values.email === '')
-            setError((prev) => ({
+            return setError((prev) => ({
                 ...prev,
                 emailErr: 'Email không được để trống',
             }));
 
         if (values.password.length < 0 || !password_pattern.test(values.password) || values.password === '')
-            setError((prev) => ({
+            return setError((prev) => ({
                 ...prev,
                 passwordErr: 'Mật khẩu không được để trống và có ít nhất 8 ký tự',
             }));
@@ -83,7 +83,7 @@ export default function Register() {
             values.confirm_password === '' ||
             String(values.confirm_password) !== String(values.password)
         )
-            setError((prev) => ({
+            return setError((prev) => ({
                 ...prev,
                 confirm_passwordErr: 'Mật khẩu không trùng khớp!!',
             }));

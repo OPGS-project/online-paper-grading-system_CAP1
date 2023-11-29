@@ -9,7 +9,6 @@ function AssignmentStudent() {
     const { token } = useSelector((state) => state.auth);
 
     const [values, setValues] = useState([]);
-    const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchUser = async () => {

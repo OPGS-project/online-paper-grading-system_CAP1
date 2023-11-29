@@ -32,6 +32,24 @@ export const apiUpdateUser = (token, data) =>
             reject(error);
         }
     });
+export const apiChangePassTeacher = (token, data) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await aixos({
+                method: 'post',
+                url: 'http://localhost:8081/api/auth/change-password',
+                headers: {
+                    authorization: token,
+                },
+                data,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+//student
 
 export const apiGetStudent = (token) =>
     new Promise(async (resolve, reject) => {

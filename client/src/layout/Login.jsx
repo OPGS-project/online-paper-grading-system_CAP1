@@ -117,6 +117,7 @@ export default function Login() {
                                                             handleChange(e);
                                                         }}
                                                         name="email"
+                                                        required
                                                     />
                                                     {error.emailErr && (
                                                         <small className="text-danger pl-3">{error.emailErr}</small>
@@ -136,6 +137,7 @@ export default function Login() {
                                                             handleChange(e);
                                                         }}
                                                         name="password"
+                                                        required
                                                     />
                                                     <div className="position-absolute eye-login" onClick={handleShow}>
                                                         {show ? <FaEyeSlash /> : <FaEye />}
@@ -181,12 +183,9 @@ export default function Login() {
                                                     Tạo tài khoản
                                                 </Link>
                                                 <hr />
-                                                <div className="row">
-                                                    <Link className="small col-7" to="/login-student">
+                                                <div className="text-center">
+                                                    <Link className="small " to="/login-student">
                                                         Đăng nhập với tài khoản học sinh
-                                                    </Link>
-                                                    <Link className="small" to="/register-student">
-                                                        Tạo tài khoản học sinh
                                                     </Link>
                                                 </div>
                                             </div>

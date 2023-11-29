@@ -24,7 +24,7 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
-      email: {
+      username: {
         type: Sequelize.STRING,
       },
       avatar: {

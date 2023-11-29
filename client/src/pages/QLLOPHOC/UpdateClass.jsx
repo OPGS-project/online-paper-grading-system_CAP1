@@ -74,7 +74,7 @@ export default function UpdateClass() {
 
     return (
         <div className="container-fluid">
-            <button className="btn btn-primary" onClick={() => navigate('/home/class')}>
+            <button className="btn btn-primary" onClick={() => navigate(-1)}>
                 <i className="bi bi-arrow-left"></i> Quay lại
             </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">

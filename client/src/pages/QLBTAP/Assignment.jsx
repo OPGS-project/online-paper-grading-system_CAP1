@@ -136,10 +136,10 @@ export default function Assignment() {
                 <td>
                     <i className="fa-solid fa-folder icon-folder"></i>
                 </td>
-                <td className="text-left pl-3">{data.assignment_name}</td>
+                <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
                 <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm a')}</td>
                 <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm a')}</td>
-                <td>{data.classData.class_name}</td>
+                <td>{data.classData?.class_name}</td>
                 <td>1</td>
                 <td>
                     <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
