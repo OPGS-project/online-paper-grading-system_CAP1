@@ -27,18 +27,18 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "mysql": "^2.18.1",
-    "mysql2": "^3.6.2",
+    "mysql2": "^3.6.5",
     "nodemailer": "^6.9.6",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
-    "sequelize": "^6.33.0",
+    "sequelize": "^6.35.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@babel/node": "^7.22.19",
-    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-env": "^7.23.3",
     "sequelize-cli": "^6.6.1"
   }
 }

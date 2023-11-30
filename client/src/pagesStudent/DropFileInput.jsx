@@ -6,41 +6,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import '~~/student/DropFileInput.scss';
 import { ImageConfig } from '~/utils/helper';
 import uploadImg from '~~/images/cloud-upload-regular-240.png';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FcFile } from 'react-icons/fc';
 
 const DropFileInput = (props) => {
     const wrapperRef = useRef(null);
     const [fileList, setFileList] = useState([]);
+    const { token } = useSelector((state) => state.auth);
+    const params = useParams();
+    // console.log(params);
+    // console.log(token)
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
     const onFileDrop = async (e) => {
-        const newFile = e.target.files[0];
-        if (newFile) {
-            const formData = new FormData();
-            formData.append('file', newFile);
-
-            try {
-                const response = await axios.post('http://localhost:8081/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-
-                const uploadedFile = response.data;
-
-                const updatedList = [...fileList, uploadedFile];
-                setFileList(updatedList);
-                props.onFileChange(updatedList);
-                // Hiển thị thông báo thành công
-                toast.success('Tải lên thành công');
-            } catch (error) {
-                console.error('Lỗi tải lên:', error);
-                // Hiển thị thông báo lỗi
-                toast.error('Lỗi tải lên');
-            }
-        }
+        if (e.target.files) setFileList((prev) => [...prev, e.target.files[0]]);
     };
 
     const fileRemove = (file) => {
@@ -50,24 +33,42 @@ const DropFileInput = (props) => {
         props.onFileChange(updatedList);
     };
 
+    const notifySuccess = (errorMessage) => {
+        toast.success(errorMessage, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
+    const navigate = useNavigate();
     // Xử lý sự kiện khi nút "Nộp Bài" được nhấn
     const handleSubmission = async () => {
         if (fileList.length > 0) {
             const formData = new FormData();
             fileList.forEach((file, index) => {
-                formData.append(`file_${index}`, file);
+                formData.append(`image`, file);
             });
+            formData.append('assignment_id', params.aid);
 
             try {
-                const response = await axios.post('http://localhost:8081/submit', formData, {
+                const response = await axios.post('http://localhost:8081/api/submission', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
+                        authorization: token,
                     },
                 });
 
                 // Xử lý phản hồi từ máy chủ (response.data)
                 // Hiển thị thông báo thành công
-                toast.success('Nộp bài thành công');
+                notifySuccess('Nộp bài thành công');
+                setTimeout(() => {
+                    navigate(-1);
+                }, 2000);
             } catch (error) {
                 console.error('Lỗi nộp bài:', error);
                 // Hiển thị thông báo lỗi
@@ -97,11 +98,15 @@ const DropFileInput = (props) => {
                 <div className="drop-file-preview">
                     <p className="drop-file-preview__title">Đã tải lên</p>
                     {fileList.map((item, index) => (
-                        <div key={index} className="drop-file-preview__item">
-                            <img src={ImageConfig[item.format] || ImageConfig['default']} alt="" />
+                        <div key={index} className="drop-file-preview__item ">
+                            {/* <img
+                                src={ImageConfig[item.format] || ImageConfig['default']}
+                                alt=""
+                                style={{ color: '#0056b3' }}
+                            /> */}
+                            <FcFile className="m-2" style={{ width: 30, height: 30 }} />
                             <div className="drop-file-preview__item__info">
-                                <p>{item.original_filename}</p>
-                                <p>{item.bytes}B</p>
+                                <span>{item.name}</span>
                             </div>
                             <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>
                                 x

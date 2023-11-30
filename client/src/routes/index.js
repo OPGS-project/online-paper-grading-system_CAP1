@@ -23,6 +23,8 @@ import Submitted from '~/pages/QLBTAP/Submitted';
 import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
 import LoginStudent from '~/pagesStudent/LoginStudent';
 import AssignmentStudent from '~/pagesStudent/AssignmentStudent';
+import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
+
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
@@ -60,7 +62,7 @@ const publicRoutes = [
     { path: '/home/user-profile', component: Profile },
     { path: '/home/update-password', component: UpdatePass },
     //Chấm bài
-    { path: '/home/grading', component: Grading },
+    { path: '/home/grading/:student_id', component: Grading },
 ];
 
 const privateRoutes = [
@@ -68,6 +70,7 @@ const privateRoutes = [
     { path: '/choose-role-login', component: ChooseRoleLogin, layout: null },
     { path: '/login-student', component: LoginStudent, layout: null },
     { path: '/student/assignment-of-student', component: AssignmentStudent },
+    { path: '/student/return-assignment', component: ReturnAssignment },
 
     { path: '/student/upload-assignment/:aid', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },

@@ -1,6 +1,4 @@
 import * as authServices from "../services";
-import { badRequest } from "../middlewares/handle_errors";
-import joi from "joi";
 
 export const loginStudent = async (req, res) => {
   try {
@@ -16,7 +14,8 @@ export const loginStudent = async (req, res) => {
 export const changePasswordStudent = async (req, res) => {
   try {
     const { id } = req.user;
-    const response = await services.changePasswordStudent(req.body, id);
+    // console.log(req.user);
+    const response = await authServices.changePasswordStudent(req.body, id);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

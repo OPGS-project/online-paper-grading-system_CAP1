@@ -3,7 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVLink} from 'react-csv';
 import { Button, Modal } from 'react-bootstrap';
 
 export default function Student() {
@@ -126,12 +126,13 @@ export default function Student() {
     };
 
     const csvData = [
-        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán'],
+        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán','classID'],
         ...state.student.map((data) => [
             data.student_name,
             data.gender,
             moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'),
             data.address,
+            params.classID,
         ]),
     ];
 

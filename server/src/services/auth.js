@@ -14,7 +14,7 @@ export const register = ({ name, email, password }) =>
       const response = await db.Teacher.findOrCreate({
         where: { email },
         defaults: {
-          id: generateRandomString(10),
+          id: generateRandomString(5),
           name,
           email,
           password: hashPassword(password),

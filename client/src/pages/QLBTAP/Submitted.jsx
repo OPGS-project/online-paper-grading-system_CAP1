@@ -12,8 +12,11 @@ const Submitted = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8081/api/assignment/${params.assignmentId}`)
-            .then((res) => setValues(res.data.response[0].classData.studentData))
+            .get(`http://localhost:8081/api/studentSubmitted/${params.assignmentId}`)
+            .then((res) => {
+                console.log(res.data);
+                setValues(res.data.response)
+            })
             .catch((err) => console.error(err));
     }, []);
 
@@ -52,10 +55,10 @@ const Submitted = () => {
                         <tbody className="text-center">
                             {values?.map((data, i) => (
                                 <tr key={i}>
-                                    <td>{data.student_name}</td>
+                                    <td>{data.studentData.student_name}</td>
                                     <td>Đã nộp</td>
                                     <td>
-                                        <Link to="/home/grading" className="btn btn-outline-success">
+                                        <Link to={`/home/grading/${data.student_id}`} className="btn btn-outline-success">
                                             Chấm bài
                                         </Link>
                                     </td>
