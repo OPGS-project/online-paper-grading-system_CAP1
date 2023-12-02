@@ -10,8 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: $input-bg;
+    background-color: $body-bg;
     .drop-file-input__label {
         text-align: center;
         color: $txt-second-color;
@@ -45,23 +44,15 @@
     }
     .drop-file-preview__title {
         margin-bottom: 20px;
-        .drop-file-preview__item {
-            position: relative;
-            display: flex;
-            margin-bottom: 10px;
-            background-color: $input-bg;
-            padding: 15px;
-            border-radius: 20px;
-        }
-        .drop-file-preview__item img {
-            width: 50px;
-            margin-right: 20px;
-        }
-        .drop-file-preview__item__info {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    }
+    .drop-file-preview__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color: $input-bg;
+        padding: 15px;
+        border-radius: 20px;
     }
 
     .drop-file-preview__item__del {

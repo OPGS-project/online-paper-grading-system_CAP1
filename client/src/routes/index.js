@@ -20,10 +20,9 @@ import UpdateClass from '~/pages/QLLOPHOC/UpdateClass';
 import ChooseRole from '~/pages/ChooseRole';
 import Statis from '~/pages/THONGKE/Statis';
 import Submitted from '~/pages/QLBTAP/Submitted';
-import Criteria from '~/pages/QLBTAP/Criteria';
+//học sinh page
 import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
 import LoginStudent from '~/pagesStudent/LoginStudent';
-import RegisterStudent from '~/pagesStudent/RegisterStudent';
 import AssignmentStudent from '~/pagesStudent/AssignmentStudent';
 import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
@@ -43,7 +42,6 @@ const publicRoutes = [
     { path: '/home/statis', component: Statis },
     // QLBAITAP
     { path: '/home/assignment', component: Assignment },
-    { path: '/home/criteria', component: Criteria },
     { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
     { path: '/home/assignment/add-assignment', component: AddAssignment },
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
@@ -74,7 +72,6 @@ const privateRoutes = [
     //OF Student
     { path: '/choose-role-login', component: ChooseRoleLogin, layout: null },
     { path: '/login-student', component: LoginStudent, layout: null },
-    { path: '/register-student', component: RegisterStudent, layout: null },
     { path: '/student/assignment-of-student', component: AssignmentStudent },
     { path: '/student/return-assignment', component: ReturnAssignment },
 

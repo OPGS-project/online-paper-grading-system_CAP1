@@ -3,7 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
-import { CSVLink} from 'react-csv';
+import { CSVLink } from 'react-csv';
 import { Button, Modal } from 'react-bootstrap';
 
 export default function Student() {
@@ -78,6 +78,7 @@ export default function Student() {
             }));
         }
     };
+    // console.log(state.student);
 
     const generateRows = () => {
         return state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
@@ -126,7 +127,7 @@ export default function Student() {
     };
 
     const csvData = [
-        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán','classID'],
+        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'classID'],
         ...state.student.map((data) => [
             data.student_name,
             data.gender,
@@ -174,75 +175,75 @@ export default function Student() {
         }
     };
 
-    <div className="card shadow mb-4">
-        <div className="card-header py-3">
-            <Link className="btn btn-success" to={`/home/student/createStudent/${params.classID}`}>
-                + Thêm học sinh
-            </Link>
-            <label htmlFor="import" className="btn btn-warning ml-5 mt-2">
-                {' '}
-                <i class="fa-solid fa-file-import"></i> Import
-            </label>
-            <input type="file" id="import" hidden />
-            <CSVLink data={csvData} filename={'student_data.csv'} className="btn btn-primary ml-2">
-                <i class="fa-solid fa-file-arrow-down"></i> Export
-            </CSVLink>
-            <p className="float-right">Sỉ số: ({state.student.length} học sinh)</p>
-        </div>
-        <div className="card-body">
-            <div id="dataTable_filter" className="filteredData mb-2">
-                <label className="mr-3">
-                    Tìm Kiếm:
-                    <input
-                        type="search"
-                        className="form-control form-control-sm"
-                        placeholder=""
-                        aria-controls="dataTable"
-                        value={state.searchTerm}
-                        onChange={(e) =>
-                            setState({
-                                ...state,
-                                searchTerm: e.target.value,
-                            })
-                        }
-                        onKeyUp={(e) => {
-                            if (e.key === 'Enter') {
-                                handleSearch();
-                            }
-                        }}
-                    />
-                </label>
-                <button className="btn btn-primary" onClick={handleSearch}>
-                    <i className="fas fa-search"></i>
-                </button>
-                <button className="btn btn-danger ml-2" onClick={handleClearSearch}>
-                    X
-                </button>
-            </div>
-            <div className="table-responsive">
-                <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
-                    <thead>
-                        <tr className="text-center">
-                            <th>Họ và tên</th>
-                            <th>Giới tính</th>
-                            <th>Ngày sinh</th>
-                            <th>Quê quán</th>
-                            <th>Tùy chỉnh</th>
-                        </tr>
-                    </thead>
-                    <tbody>{generateRows()}</tbody>
-                </table>
-            </div>
-            <div className="pagination d-flex m-3 justify-content-center">
-                <button className="btn btn-primary mr-3" onClick={handlePrevious}>
-                    <i className="fa fa-angle-left"></i>
-                </button>
-                <button className="btn btn-primary" onClick={handleNext}>
-                    <i className="fa fa-angle-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>;
+    // <div className="card shadow mb-4">
+    //     <div className="card-header py-3">
+    //         <Link className="btn btn-success" to={`/home/student/createStudent/${params.classID}`}>
+    //             + Thêm học sinh
+    //         </Link>
+    //         <label htmlFor="import" className="btn btn-warning ml-5 mt-2">
+    //             {' '}
+    //             <i class="fa-solid fa-file-import"></i> Import
+    //         </label>
+    //         <input type="file" id="import" hidden />
+    //         <CSVLink data={csvData} filename={'student_data.csv'} className="btn btn-primary ml-2">
+    //             <i class="fa-solid fa-file-arrow-down"></i> Export
+    //         </CSVLink>
+    //         <p className="float-right">Sỉ số: ({state.student.length} học sinh)</p>
+    //     </div>
+    //     <div className="card-body">
+    //         <div id="dataTable_filter" className="filteredData mb-2">
+    //             <label className="mr-3">
+    //                 Tìm Kiếm:
+    //                 <input
+    //                     type="search"
+    //                     className="form-control form-control-sm"
+    //                     placeholder=""
+    //                     aria-controls="dataTable"
+    //                     value={state.searchTerm}
+    //                     onChange={(e) =>
+    //                         setState({
+    //                             ...state,
+    //                             searchTerm: e.target.value,
+    //                         })
+    //                     }
+    //                     onKeyUp={(e) => {
+    //                         if (e.key === 'Enter') {
+    //                             handleSearch();
+    //                         }
+    //                     }}
+    //                 />
+    //             </label>
+    //             <button className="btn btn-primary" onClick={handleSearch}>
+    //                 <i className="fas fa-search"></i>
+    //             </button>
+    //             <button className="btn btn-danger ml-2" onClick={handleClearSearch}>
+    //                 X
+    //             </button>
+    //         </div>
+    //         <div className="table-responsive">
+    //             <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
+    //                 <thead>
+    //                     <tr className="text-center">
+    //                         <th>Họ và tên</th>
+    //                         <th>Giới tính</th>
+    //                         <th>Ngày sinh</th>
+    //                         <th>Quê quán</th>
+    //                         <th>Tùy chỉnh</th>
+    //                     </tr>
+    //                 </thead>
+    //                 <tbody>{generateRows()}</tbody>
+    //             </table>
+    //         </div>
+    //         <div className="pagination d-flex m-3 justify-content-center">
+    //             <button className="btn btn-primary mr-3" onClick={handlePrevious}>
+    //                 <i className="fa fa-angle-left"></i>
+    //             </button>
+    //             <button className="btn btn-primary" onClick={handleNext}>
+    //                 <i className="fa fa-angle-right"></i>
+    //             </button>
+    //         </div>
+    //     </div>
+    // </div>;
     const handleConfirmationModalClose = () => {
         setState((prevState) => ({
             ...prevState,

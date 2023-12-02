@@ -254,10 +254,11 @@ export const changePassword = (body, userId) =>
             )
         : "Password is wrong";
       resolve({
-        success: response1[0] > 0 ? true : false,
+        err: response1[0] > 0 ? 0 : 1,
         mess: response1[0] > 0 ? "Changed password successfully" : response1,
       });
     } catch (e) {
+      console.log(e);
       reject(e);
     }
   });

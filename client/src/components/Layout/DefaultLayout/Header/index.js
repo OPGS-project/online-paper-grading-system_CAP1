@@ -63,7 +63,7 @@ function Header() {
                 <li className="nav-item dropdown no-arrow">
                     <Link onClick={() => setToggle3((toggl3) => !toggle3)} className="nav-link dropdown-toggle">
                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userData?.name}</span>
-                        <img className="img-profile rounded-circle" src={userData.avatar} alt="avatar" />
+                        <img className="img-profile rounded-circle" src={userData?.avatar} alt="avatar" />
                     </Link>
 
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" id="collapseTarget3">

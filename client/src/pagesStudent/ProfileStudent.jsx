@@ -10,7 +10,7 @@ function ProfileStudent() {
     const { token } = useSelector((state) => state.auth);
     const [userData, setUserData] = useState({
         student_name: '',
-        email: '',
+
         phone: '',
         address: '',
         avatar: '',
@@ -33,7 +33,6 @@ function ProfileStudent() {
             if (response?.data.err === 0) {
                 setUserData({
                     student_name: response.data.response.student_name,
-                    email: response.data.response.email,
                     phone: response.data.response.phone,
                     address: response.data.response.address,
                     avatar: response.data.response.avatar,
@@ -97,7 +96,7 @@ function ProfileStudent() {
                 <h3 className="text-center ml-5 ">Thông tin cá nhân</h3>
             </div>
             <ToastContainer />
-            <form className="user">
+            <form className="user mt-5">
                 <div className="row justify-content-around">
                     <div className="col-md-5 flex-grow-1">
                         <div className="form-group">
@@ -112,17 +111,7 @@ function ProfileStudent() {
                             />
                             {error.errName && <small className="text-danger pl-3">{error.errName}</small>}
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="name-bt" className="pl-2">
-                                Email
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control form-control-user"
-                                value={userData.email}
-                                onChange={(e) => setUserData((prev) => ({ ...prev, email: e.target.value }))}
-                            />
-                        </div>
+
                         <div className="form-group">
                             <label htmlFor="name-bt" className="pl-2">
                                 Số điện thoại

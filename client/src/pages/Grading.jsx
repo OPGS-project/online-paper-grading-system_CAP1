@@ -26,8 +26,6 @@ function Grading() {
     const [comment, setComment] = useState('');
 
     const [submission_id, setSubmission_id] = useState('');
-    // const [assignment_id, setAssignment_id] = useState('');
-
 
     const history = [];
     const [color, setColor] = useState('#35363a');

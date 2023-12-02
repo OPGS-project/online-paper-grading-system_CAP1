@@ -51,7 +51,7 @@ export default function EditAssignment() {
     const handleChange = (e) => {
         setAssignment({ ...assignment, [e.target.name]: e.target.value });
     };
-    console.log(assignment);
+    // console.log(assignment);
     // console.log(params);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -85,7 +85,7 @@ export default function EditAssignment() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/home/assignment');
+                    navigate(-1);
                 }}
             >
                 <i className="fa-solid fa-arrow-left"></i>
@@ -120,9 +120,6 @@ export default function EditAssignment() {
                         required
                         onChange={(e) => setAssignment((prev) => ({ ...prev, of_class: e.target.value }))}
                     >
-                        <option selected disabled>
-                            {assignment.of_class}
-                        </option>
                         {classData?.map((data, i) => (
                             <option key={i} name="of_class">
                                 {data.class_name}
@@ -186,7 +183,7 @@ export default function EditAssignment() {
                         />
 
                         <label className="custom-file-label " htmlFor="file">
-                            {assignment.file_path?.name}
+                            {assignment.filename}
                         </label>
                     </div>
                 </div>

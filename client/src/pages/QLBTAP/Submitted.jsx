@@ -32,6 +32,14 @@ const Submitted = () => {
     console.log(values);
     return (
         <div className="container-fluid">
+            <button
+                className="btn btn-back"
+                onClick={() => {
+                    navigate(-1);
+                }}
+            >
+                <i className="fa-solid fa-arrow-left"></i>
+            </button>
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3 d-flex justify-content-between">
                     <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Nộp</h6>

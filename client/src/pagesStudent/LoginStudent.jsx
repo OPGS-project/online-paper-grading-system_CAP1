@@ -4,9 +4,9 @@ import { FaEyeSlash } from '@react-icons/all-files/fa/FaEyeSlash';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '~~/layout/Login.scss';
-import { ToastContainer, toast, useToast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import actionTypes from '~/store/actions/actionTypes';
 import Swal from 'sweetalert2';
 
@@ -41,22 +41,22 @@ export default function LoginStudent() {
     };
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [values, setValues] = useState({ email: '', password: '' });
+    const [values, setValues] = useState({ username: '', password: '' });
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
     const [error, setError] = useState({
-        emailErr: null,
+        usernamErr: null,
         passwordErr: null,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (values.email.length < 0 || values.email === '')
+        if (values.username.length < 0 || values.username === '')
             setError((prev) => ({
                 ...prev,
-                emailErr: 'Email không được để trống',
+                usernamErr: 'Username không được để trống',
             }));
 
         if (values.password.length < 0 || values.password === '')
@@ -65,7 +65,7 @@ export default function LoginStudent() {
                 passwordErr: 'Mật khẩu không được để trống',
             }));
 
-        if (error.emailErr === null || error.passwordErr === null) {
+        if (error.usernamErr === null || error.passwordErr === null) {
             axios.post('http://localhost:8081/api/authStudent/login', values).then((res) => {
                 console.log(res);
                 if (res.data.err === 0) {
@@ -101,20 +101,20 @@ export default function LoginStudent() {
                                             <form className="user" method="post" onSubmit={handleSubmit}>
                                                 <div className="form-group">
                                                     <input
-                                                        type="email"
+                                                        type="text"
                                                         className="form-control form-control-user"
-                                                        placeholder="example@gmai.com"
+                                                        placeholder="Nhập username của bạn"
                                                         onChange={(e) => {
                                                             setError((prev) => ({
                                                                 ...prev,
-                                                                emailErr: null,
+                                                                usernamErr: null,
                                                             }));
                                                             handleChange(e);
                                                         }}
-                                                        name="email"
+                                                        name="username"
                                                     />
-                                                    {error.emailErr && (
-                                                        <small className="text-danger pl-3">{error.emailErr}</small>
+                                                    {error.usernamErr && (
+                                                        <small className="text-danger pl-3">{error.usernamErr}</small>
                                                     )}
                                                 </div>
 
@@ -154,11 +154,6 @@ export default function LoginStudent() {
                                                             Nhớ mật khẩu
                                                         </label>
                                                     </div>
-                                                    <div className="text-center">
-                                                        <Link className="small" to="/forgot-password">
-                                                            Quên mật khẩu?
-                                                        </Link>
-                                                    </div>
                                                 </div>
                                                 <button to="" className="btn btn-primary btn-user btn-block">
                                                     Đăng Nhập
@@ -169,10 +164,6 @@ export default function LoginStudent() {
                                             <ToastContainer />
 
                                             <div className="text-center">
-                                                <Link className="small" to="/register-student">
-                                                    Tạo tài khoản
-                                                </Link>
-                                                <hr />
                                                 <div className="row">
                                                     <Link className="small col-7" to="/login-teacher">
                                                         Đăng nhập với tài khoản giáo viên

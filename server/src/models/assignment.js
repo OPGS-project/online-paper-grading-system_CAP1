@@ -15,11 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         as: "classData",
       });
 
-      // Assignment.hasOne(models.Class, {
-      //   foreignKey: "class_name",
-      //   // targetKey: "class_name",
-      //   // as: "classData",
-      // });
+      Assignment.hasMany(models.Submission, {
+        foreignKey: "assignment_id",    
+        as: "submissionData",
+      });
     }
   }
   Assignment.init(

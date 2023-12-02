@@ -27,11 +27,14 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
-      email: {
+      username: {
         type: Sequelize.STRING,
       },
       avatar: {
         type: Sequelize.STRING,
+      },
+      birthday: {
+        type: Sequelize.DATE,
       },
       password: {
         type: Sequelize.STRING,

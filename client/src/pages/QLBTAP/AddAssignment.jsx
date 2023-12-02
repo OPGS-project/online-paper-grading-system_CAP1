@@ -115,7 +115,7 @@ export default function AddAssignment() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate('/home/assignment');
+                    navigate(-1);
                 }}
             >
                 <i class="fa-solid fa-arrow-left"></i>
@@ -136,6 +136,7 @@ export default function AddAssignment() {
                         className="form-control form-control-user"
                         id="name-bt"
                         name="assignment_name"
+                        placeholder="Nhập tên bài tập"
                         onChange={(e) => {
                             setError((prev) => ({
                                 ...prev,

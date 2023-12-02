@@ -42,7 +42,6 @@ function Profile() {
                     address: response.data.response.address,
                     avatar: response.data.response.avatar,
                 });
-                setUpdateCheck(false);
             } else {
                 setUserData({});
             }
@@ -88,11 +87,13 @@ function Profile() {
         const formData = new FormData();
 
         // if (typeof userData.avatar === 'object') formData.append('avatar', userData.avatar);
-        if (userData.name === '')
-            setError((prev) => ({
+        if (userData.name === '') {
+            return setError((prev) => ({
                 ...prev,
                 errName: 'Họ tên không được để trống',
             }));
+        }
+
         if (userData.phone === `^\d{10}$`)
             setError((prev) => ({
                 ...prev,
