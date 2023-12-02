@@ -2,21 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { fabric } from 'fabric';
 import moment from 'moment/moment';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { FabricJSCanvas, useFabricJSEditor } from 'fabricjs-react';
 import { FaUndo, FaRedo, FaDownload } from 'react-icons/fa';
 import '~~/pages/Grading.scss';
 import { Link, useParams } from 'react-router-dom';
 import { Collapse } from 'bootstrap';
+// import { param } from 'jquery';
 
 function Grading() {
-    const { student_id } = useParams();
-    console.log(student_id);
+    const navigate = useNavigate();
+    const { assignment_id, student_id } = useParams();
+    console.log("Student id: " + student_id);
+    console.log("Assignment id: " + assignment_id);
+
     const { editor, onReady } = useFabricJSEditor();
     const [downloadLink, setDownloadLink] = useState('');
     const [downloadName, setDownloadName] = useState('');
     const [showAssignmentImage, setShowAssignmentImage] = useState(false);
 
     const [totalScore, setTotalScore] = useState(0);
+    const [comment, setComment] = useState('');
+
+    const [submission_id, setSubmission_id] = useState('');
+    // const [assignment_id, setAssignment_id] = useState('');
+
 
     const history = [];
     const [color, setColor] = useState('#35363a');
@@ -31,9 +42,7 @@ function Grading() {
         toggle4 ? bsCollapse4.show() : bsCollapse4.hide();
     });
 
-    // class_name: '',
-    // createdAt: '',
-
+    //Thông tin học sinh 
     const [studentName, setStudentName] = useState({
         student_name: '',
     });
@@ -49,9 +58,16 @@ function Grading() {
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/api/submiss/${student_id}`);
+                const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
                 if (response.data.err === 0) {
                     const responseData = response.data.response[0];
+
+                    const submission_id = responseData.id;
+                    console.log("Submission id: " + submission_id);
+
+                    // const assignment_id = responseData.assignment_id;
+                    // console.log("Assignment id: " + assignment_id);
+
                     const { student_name } = responseData.studentData;
                     const { class_name } = responseData.classData;
                     const createdAt = responseData.createdAt;
@@ -60,6 +76,14 @@ function Grading() {
                         student_name,
                     });
 
+                    // setAssignment_id(
+                    //     assignment_id,
+                    // );
+
+                    setSubmission_id(
+                        submission_id,
+                    );
+
                     setClassName({
                         class_name,
                     });
@@ -67,8 +91,6 @@ function Grading() {
                     setCreatedAt({
                         createdAt,
                     });
-
-                    // Continue with the rest of your code...
                 } else {
                     console.error(response.data.message);
                 }
@@ -80,11 +102,12 @@ function Grading() {
         fetchDataStudent();
     }, [student_id]);
 
+    //Xem đề bài
     const toggleAssignmentImage = async () => {
         try {
             if (!showAssignmentImage) {
                 // Fetch data from the API using Axios
-                const response = await axios.get(`http://localhost:8081/api/submiss/${student_id}`);
+                const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
 
                 // Kiểm tra xem yêu cầu có thành công không
                 if (response.data.err === 0) {
@@ -103,15 +126,87 @@ function Grading() {
             console.error(error);
         }
     };
+    //Hàm xử lý notify message
+    const notifySuccess = (errorMessage) => {
+        toast.success(errorMessage, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
+    const notifyError = (errorMessage) => {
+        toast.error(errorMessage, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
+    };
 
-    // const toggleAssignmentImage = () => {
-    //     if (!showAssignmentImage) {
-    //         // Mở hình ảnh bài tập trong cửa sổ hoặc tab mới
-    //         const assignmentImageUrl = 'https://image.vtc.vn/files/ctv.phianam/2019/11/12/1-6-0927005.jpg';
-    //         window.open(assignmentImageUrl, '_blank');
-    //     }
-    //     setShowAssignmentImage(!showAssignmentImage);
-    // };
+    // Hàm chuyển đổi dữ liệu Base64 thành đối tượng File
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        return new File([u8arr], filename, { type: mime });
+    }
+
+    //Lưu bài
+    const saveGradedAssignment = async () => {
+        try {
+            const canvasDataURL = editor.canvas.toDataURL({ format: 'png' });
+            console.log(canvasDataURL);
+
+            const userComment = comment;
+
+            // Chuyển đổi dữ liệu canvas thành đối tượng File
+            const fileData = dataURLtoFile(canvasDataURL, 'gradedAssignments.png');
+            console.log(fileData);
+
+            // Tạo FormData để chứa dữ liệu
+            const formData = new FormData();
+            formData.append('submission_id', submission_id);
+            formData.append('score_value', totalScore);
+            formData.append('comments', userComment);
+            formData.append('image', fileData);
+
+            // Gọi API để lưu graded assignment
+            const response = await axios.post('http://localhost:8081/api/grading/', formData);
+
+            // Xử lý kết quả từ API (response)
+            if (response.data.err === 0) {
+                // Lưu thành công
+                notifySuccess('Lưu kết quả chấm bài thành công!');
+                setTimeout(() => {
+                    navigate(`/home/assignment/submitted/${assignment_id}`);
+                }, 2000);
+                // console.log(response.data.mes);
+            } else {
+                // Lưu thất bại
+                notifyError('Không thành công!');
+                // console.error(response.data.mes);
+            }
+        } catch (error) {
+            // Xử lý lỗi nếu có
+            console.error(error);
+        }
+    };
 
     // ----------------------------------------------------- Xử lý thao tác chấm nhanh bằng bàn phím -------------------------------------
 
@@ -296,7 +391,6 @@ function Grading() {
     //     if (!editor || !fabric) {
     //         return;
     //     }
-
     //     const url = 'https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg';
 
     //     fabric.Image.fromURL(
@@ -346,15 +440,22 @@ function Grading() {
 
     const fetchDataImage = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/submiss/${student_id}`);
+            const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
             if (response.data.err === 0) {
-                // Lặp qua mảng response để lấy tất cả các giá trị của trường "image"
-                response.data.response.forEach(item => {
-                    const imageUrl = item.image;
-                    // Sử dụng hàm addBackground với URL hình ảnh động từ API của bạn
-                    addBackground(imageUrl);
-                });
-            } else {
+                const responseData = response.data.response[0];
+
+                const imageUrl = responseData.image;
+
+                // //Lặp qua mảng response để lấy tất cả các giá trị của trường "image"
+                // response.data.response.forEach(item => {
+                //     const imageUrl = item.image;
+                //     //Sử dụng hàm addBackground với URL hình ảnh động từ API của bạn
+                //     addBackground(imageUrl);
+                // });
+
+                addBackground(imageUrl);
+            }
+            else {
                 console.error(response.data.message);
             }
         } catch (error) {
@@ -574,7 +675,13 @@ function Grading() {
                         </div>
                         <div className="card-body">
                             <div className="input-container">
-                                <textarea className="textarea " placeholder="Nhập nội dung ở đây..."></textarea>
+                                <textarea
+                                    className="textarea "
+                                    placeholder="Nhập nội dung ở đây..."
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                >
+                                </textarea>
                             </div>
                             <div
                                 className=" my-3 d-flex align-items-center text-danger justify-content-center"
@@ -592,7 +699,13 @@ function Grading() {
                                 {/* <h6 className="text-danger mr-3 col-4">Điểm</h6> */}
                             </div>
                             <div className="text-center">
-                                <button className="btn btn-outline-success px-5 py-2 mt-3">Lưu</button>
+                                <button
+                                    className="btn btn-outline-success px-5 py-2 mt-3"
+                                    onClick={saveGradedAssignment}
+                                    disabled={!cropImage}
+                                >
+                                    Lưu
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -695,6 +808,7 @@ function Grading() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

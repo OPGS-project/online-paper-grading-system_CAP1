@@ -27,7 +27,7 @@ const assignmentStorage = new CloudinaryStorage({
 
 const gradeStorage = new CloudinaryStorage({
   cloudinary,
-  allowedFormats: ["jpg", "png", "pdf"],
+  allowedFormats: ["jpg", "png"],
   params: {
     folder: "gradedAssignments",
   },

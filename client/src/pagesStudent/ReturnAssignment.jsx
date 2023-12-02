@@ -14,7 +14,7 @@ function ReturnAssignment() {
       image: [
         {
           original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700754314/uploads/kzs7iah8ce8tclahjdnq.jpg",
-            },
+        },
         {
           original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700583449/uploads/gsdnyh61ddn38mrqhhwu.jpg",
         },
@@ -24,22 +24,22 @@ function ReturnAssignment() {
       ],
     },
     {
-        id: 2,
-        name_assignment: "Kiểm tra giữa kỳ 2",
-        score_value: 8,
-        comments: "Tạm được",
-        image: [
-          {
-            original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700754314/uploads/kzs7iah8ce8tclahjdnq.jpg",
-          },
-          {
-            original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700583449/uploads/gsdnyh61ddn38mrqhhwu.jpg",
-          },
-          {
-            original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700318392/assignments/e52wcuptfepvqzgoxhvq.jpg",
-          },
-        ],
-      },
+      id: 2,
+      name_assignment: "Kiểm tra giữa kỳ 2",
+      score_value: 8,
+      comments: "Tạm được",
+      image: [
+        {
+          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700754314/uploads/kzs7iah8ce8tclahjdnq.jpg",
+        },
+        {
+          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700583449/uploads/gsdnyh61ddn38mrqhhwu.jpg",
+        },
+        {
+          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700318392/assignments/e52wcuptfepvqzgoxhvq.jpg",
+        },
+      ],
+    },
   ];
   const [currentImage, setCurrentImage] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);

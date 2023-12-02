@@ -7,7 +7,8 @@ const cloudinary = require('cloudinary').v2;
 export const get_submission_ById= async (req, res) =>{
     try{ 
         const { studentId } = req.params;
-        const response = await services.get_submission_ById(studentId);
+        const { assignment_id } = req.params;
+        const response = await services.get_submission_ById(assignment_id, studentId);
         return res.status(200).json(response)
 
     }catch (error){

@@ -10,6 +10,7 @@ import EditAssignment from '~/pages/QLBTAP/EditAssignment';
 import Profile from '~/pages/USER/Profile';
 import UpdatePass from '~/pages/USER/UpdatePass';
 import Grading from '~/pages/Grading';
+import GradedAssignment from '~/pages/GradedAssignment';
 import Student from '~/pages/QLHOCSINH/Student';
 import CreateStudent from '~/pages/QLHOCSINH/CreateStudent';
 import UpdateStudent from '~/pages/QLHOCSINH/UpdateStudent';
@@ -25,7 +26,6 @@ import LoginStudent from '~/pagesStudent/LoginStudent';
 import RegisterStudent from '~/pagesStudent/RegisterStudent';
 import AssignmentStudent from '~/pagesStudent/AssignmentStudent';
 import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
-
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
@@ -64,7 +64,10 @@ const publicRoutes = [
     { path: '/home/user-profile', component: Profile },
     { path: '/home/update-password', component: UpdatePass },
     //Chấm bài
-    { path: '/home/grading/:student_id', component: Grading },
+    { path: '/home/grading/:assignment_id/:student_id', component: Grading },
+    //test
+    { path: '/home/GradedAssignment/:id/:student_name', component: GradedAssignment },
+    //test
 ];
 
 const privateRoutes = [

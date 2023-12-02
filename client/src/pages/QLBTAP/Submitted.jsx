@@ -29,12 +29,13 @@ const Submitted = () => {
     //     }
     // };
 
+    console.log(values);
     return (
         <div className="container-fluid">
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3 d-flex justify-content-between">
                     <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Nộp</h6>
-                    <h6 className="m-0 font-weight-bold text-primary">Lớp </h6>
+                    {/* <h6 className="m-0 font-weight-bold text-primary">Lớp </h6> */}
                 </div>
                 <div className="card-body">
                     <div className="table-responsive"></div>
@@ -50,9 +51,15 @@ const Submitted = () => {
                                     <td>{data.studentData.student_name}</td>
                                     <td>Đã nộp</td>
                                     <td>
-                                        <Link to={`/home/grading/${data.student_id}`} className="btn btn-outline-success">
-                                            Chấm bài
-                                        </Link>
+                                        {
+                                            data.submission_status === "Đã chấm"
+                                                ? <Link to={`/home/GradedAssignment/${data.id}/${data.studentData.student_name}`} className="btn btn-outline-success">
+                                                    {data.submission_status}
+                                                </Link>
+                                                : <Link to={`/home/grading/${data.assignment_id}/${data.student_id}`} className="btn btn-outline-success">
+                                                    {data.submission_status}
+                                                </Link>
+                                        }
                                     </td>
                                 </tr>
                             ))}

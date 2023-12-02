@@ -6,6 +6,6 @@ const router = express.Router();
 
 // router.use(verifyToken)
 
-router.get("/:studentId", controllers.get_submission_ById);
+router.get("/:assignment_id/:studentId/", controllers.get_submission_ById);
 
 module.exports = router;

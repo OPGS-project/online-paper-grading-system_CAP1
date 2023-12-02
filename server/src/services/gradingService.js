@@ -3,7 +3,7 @@ import {Op} from 'sequelize'
 const cloudinary = require('cloudinary').v2;
 
 //CREATE
-export const saveGradedAssignments = (body, fileData, userId) => new Promise(async (resolve, reject) => {
+export const saveGradedAssignments = (body, fileData) => new Promise(async (resolve, reject) => {
   try {
       const response = await db.Grade.create({
         submission_id: body.submission_id,
@@ -24,15 +24,10 @@ export const saveGradedAssignments = (body, fileData, userId) => new Promise(asy
       }
   } catch (error) {
       reject(error);
-
-      if (fileData) {
-          // Destroy the image in case of an error
-          cloudinary.uploader.destroy(fileData.filename);
-      }
   }
 });
 
-export const getGradeById = (submissionId) =>
+export const getGradeById = (submissionId, student_name) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Grade.findAll({

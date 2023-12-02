@@ -21,8 +21,10 @@ export const saveGradedAssignments = async (req, res) =>{
 export const getGradeById= async (req, res) =>{
     try{ 
         const { submissionId } = req.params;
+        const { studentName } = req.params;
+
         // const { studentId } = req.query;
-        const response = await services.getGradeById(submissionId);
+        const response = await services.getGradeById(submissionId, studentName);
         return res.status(200).json(response)
 
     }catch (error){
