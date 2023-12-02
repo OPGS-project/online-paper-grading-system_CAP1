@@ -108,6 +108,7 @@ export const createStudent = (body) =>
         gender: body.gender,
         address: body.address,
         class_id: body.classID,
+        birthday: body.birthday
       });
 
       resolve({

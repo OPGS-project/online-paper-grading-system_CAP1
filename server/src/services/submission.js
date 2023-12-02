@@ -34,7 +34,7 @@ export const get_submission_ById = (studentId) =>
     new Promise(async (resolve, reject) => {
       try {
         const response = await db.Submission.findAll({
-            attributes: ["image", "createdAt"],
+            attributes: ["image", "createdAt","id","assignment_id"],
             where: {student_id: studentId },
             include: [
             {
