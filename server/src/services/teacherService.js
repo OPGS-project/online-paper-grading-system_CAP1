@@ -6,15 +6,15 @@ export const getTeacher = (id) =>
     try {
       let response = await db.Teacher.findOne({
         where: { id },
-        raw: true,
+        raw: false,
         attributes: {
-          exclude: ["password", "refresh_token"],
+          exclude: ["createdAt", "updatedAt", "filename"],
         },
         include: [
           {
-            model: db.Role,
-            as: "roleData",
-            attributes: ["id", "code", "value"],
+            model: db.Class,
+            as: "classData",
+            attributes: ["class_name"],
           },
         ],
       });

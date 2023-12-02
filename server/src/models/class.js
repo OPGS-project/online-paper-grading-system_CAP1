@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       state: DataTypes.STRING,
       total_students: DataTypes.INTEGER,
       content: DataTypes.STRING,
+      id_teacher: DataTypes.INTEGER,
     },
     {
       sequelize,

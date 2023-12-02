@@ -7,6 +7,7 @@ import moment from 'moment/moment';
 import { FcViewDetails } from 'react-icons/fc';
 import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { AiFillRead } from 'react-icons/ai';
 
 export default function Assignment() {
     const [updateCheck, setUpdateCheck] = useState(false);
@@ -19,22 +20,6 @@ export default function Assignment() {
         searchTerm: '',
         originalAssignment: [],
     });
-    ////check trạng thái
-
-    // const [status, setStatus] = useState('');
-    // const currentDate = new Date();
-    // const assignmentStartDate = new Date(state.assignment[0].start_date);
-    // const assignmentEndDate = new Date(state.assignment[0].deadline);
-    // useEffect(() => {
-    //     // Check the deadline and update the status
-    //     if (assignmentStartDate < currentDate) {
-    //         setStatus('Chưa mở');
-    //     } else if (assignmentStartDate > currentDate) {
-    //         setStatus('Đang mở');
-    //     } else if (assignmentEndDate >= currentDate) {
-    //         setStatus('Đang đóng');
-    //     }
-    // }, [assignmentStartDate, assignmentEndDate]);
 
     useEffect(() => {
         axios
@@ -131,34 +116,41 @@ export default function Assignment() {
     };
 
     const generateRows = () => {
-        return state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-            <tr key={i} className="text-center">
-                <td>
-                    <i className="fa-solid fa-folder icon-folder"></i>
-                </td>
-                <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
-                <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm a')}</td>
-                <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm a')}</td>
-                <td>{data.classData?.class_name}</td>
-                <td>1</td>
-                <td>
-                    <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
-                        <FcViewDetails />
-                    </Link>
-                </td>
-
-                <td>
-                    <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
-                        <i className="fa-solid fa-pen-to-square icon-edit"></i>
-                    </Link>
-                </td>
-                <td>
-                    <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
-                        <i className="fa-solid fa-trash icon-delete"></i>
-                    </button>
+        return state.assignment.length > 0 ? (
+            state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+                <tr key={i} className="text-center">
+                    <td>
+                        <i className="fa-solid fa-folder icon-folder"></i>
+                    </td>
+                    <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
+                    <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm a')}</td>
+                    <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm a')}</td>
+                    <td>{data.classData?.class_name}</td>
+                    <td>1</td>
+                    <td>
+                        <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
+                            <FcViewDetails />
+                        </Link>
+                    </td>
+                    <td>
+                        <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
+                            <i className="fa-solid fa-pen-to-square icon-edit"></i>
+                        </Link>
+                    </td>
+                    <td>
+                        <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
+                            <i className="fa-solid fa-trash icon-delete"></i>
+                        </button>
+                    </td>
+                </tr>
+            ))
+        ) : (
+            <tr>
+                <td colSpan={9} className="text-center">
+                    Hiện tại chưa có bài tập nào <AiFillRead />
                 </td>
             </tr>
-        ));
+        );
     };
 
     const handlePrevious = () => {
@@ -196,7 +188,9 @@ export default function Assignment() {
                     <Link className="btn btn-success" to="/home/assignment/add-assignment">
                         + Thêm bài tập
                     </Link>
-                    <p className="float-right"> ( {state.assignment.length} bài tập )</p>
+                    {state.assignment.length > 0 ? (
+                        <p className="float-right"> ( {state.assignment.length} bài tập )</p>
+                    ) : null}
                 </div>
                 <div className="card-body">
                     <label className="mr-3">
@@ -255,6 +249,7 @@ export default function Assignment() {
                     </button>
                 </div>
             </div>
+
             <ToastContainer />
         </div>
     );

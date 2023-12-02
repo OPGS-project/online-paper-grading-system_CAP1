@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "roleData",
       });
 
-      // Teacher.belongsTo(models.Class, {
-      //   foreignKey: "name", // khóa ngoại từ bảng này
-      //   targetKey: "class_name", //lấy từ bảng kia
-      //   as: "teacherData",
-      // });
+      Teacher.hasMany(models.Class, {
+        foreignKey: "id_teacher",
+
+        as: "classData",
+      });
     }
   }
   Teacher.init(
