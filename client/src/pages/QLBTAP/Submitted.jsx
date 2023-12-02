@@ -54,14 +54,15 @@ const Submitted = () => {
                             <th></th>
                         </thead>
                         <tbody className="text-center">
+                            {/* //test */}
                             {values?.map((data, i) => (
                                 <tr key={i}>
-                                    <td>{data.studentData.student_name}</td>
+                                    <td>{data.student_name}</td>
                                     <td>Đã nộp</td>
                                     <td>
                                         {
                                             data.submission_status === "Đã chấm"
-                                                ? <Link to={`/home/GradedAssignment/${data.id}/${data.studentData.student_name}`} className="btn btn-outline-success">
+                                                ? <Link to={`/home/GradedAssignment/${data.id}/${data.student_name}`} className="btn btn-outline-success">
                                                     {data.submission_status}
                                                 </Link>
                                                 : <Link to={`/home/grading/${data.assignment_id}/${data.student_id}`} className="btn btn-outline-success">

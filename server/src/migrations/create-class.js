@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       id_teacher: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
