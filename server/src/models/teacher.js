@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
 
       Teacher.hasMany(models.Class, {
         foreignKey: "id_teacher",
-
         as: "classData",
       });
     }
