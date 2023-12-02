@@ -22,6 +22,9 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
+      id_teacher: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

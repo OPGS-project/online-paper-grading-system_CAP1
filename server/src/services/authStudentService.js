@@ -18,8 +18,8 @@ export const loginStudent = ({ username, password }) =>
         ? jwt.sign(
             { id: response.id, email: response.email },
             process.env.JWT_SECRET,
-            { expiresIn: "2d" } // time hết hạn của token
-          ) // mã hóa
+            { expiresIn: "2d" }
+          )
         : null;
       //Refresh_token
       const refreshToken = isChecked

@@ -1,9 +1,22 @@
+import { useEffect } from 'react';
 import { FaBookOpen, FaBookReader, FaDoorClosed } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 function SidebarStudent() {
-    
+    useEffect(() => {
+        var btnContainer = document.getElementById('accordionSidebar');
+        var btns = btnContainer.getElementsByClassName('nav-item');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', function () {
+                var current = document.querySelector('.nav-item.active');
+                if (current) {
+                    current.classList.remove('active');
+                }
+                this.classList.add('active');
+            });
+        }
+    });
     return (
         <ul
             className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
