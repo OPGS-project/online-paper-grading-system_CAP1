@@ -1,11 +1,15 @@
 import { FcList } from 'react-icons/fc';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { apiGetOne } from '~/apis/userService';
 
 export default function CreateClass() {
+    const { token } = useSelector((state) => state.auth);
+
     const [class_name, setClassName] = useState('');
     const [total_students, setTotalStudent] = useState('');
     const [content, setContent] = useState('');
@@ -36,23 +40,35 @@ export default function CreateClass() {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        axios
-            .post('http://localhost:8081/api/class/', {
+
+        try {
+            const user = await apiGetOne(token);
+            const id_teacher = user.data.response.id;
+
+            const postData = {
                 class_name,
                 total_students,
                 content,
-            })
-            .then((res) => {
-                console.log(res);
-                notifySuccess('Thêm lớp thành công');
-                setTimeout(() => {
-                    navigate('/home/class'); // thành công sẽ chuyển hướng
-                }, 2000);
-            })
-            .catch((err) => console.log(err));
+                id_teacher,
+            }
+
+            const response = await axios.post('http://localhost:8081/api/class/', postData);
+
+            console.log(response);
+
+            notifySuccess('Thêm lớp thành công');
+
+            setTimeout(() => {
+                navigate('/home/class'); // thành công sẽ chuyển hướng
+            }, 2000);
+        } catch (error) {
+            console.error(error);
+            notifyError('Đã có lỗi xảy ra khi thêm lớp');
+        }
     };
+
     return (
         <div className="container-fluid">
             <button
@@ -61,7 +77,7 @@ export default function CreateClass() {
                     navigate('/home/class');
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
                 <FcList className="mr-3" />
@@ -94,7 +110,7 @@ export default function CreateClass() {
                         Ghi chú
                     </label>
                     <textarea
-                        type="textariea"
+                        type="textaria"
                         className="form-control content-bt"
                         id="name-bt"
                         onChange={(e) => setContent(e.target.value)}
