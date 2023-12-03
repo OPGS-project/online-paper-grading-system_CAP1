@@ -161,16 +161,18 @@ export const getSubmissionById = (assignment_id) =>
 //   }
 // );
 
-export const uploadSubmission = async (body, fileData, id) => {
+export const uploadSubmission = async (body, fileData, id,class_id) => {
   return new Promise(async (resolve, reject) => {
       try {
           const response = await db.Submission.create({
               ...body,
               student_id : id,
+              class_id : class_id,
               image: fileData?.path,
               filename: fileData?.filename,
               submission_status: "Đã nộp"
           });
+          // console.log(class_id);
           if (fileData && !response[0] === 0) {
               // Only destroy the image if the submission was not successfully created
                cloudinary.uploader.destroy(fileData.filename);

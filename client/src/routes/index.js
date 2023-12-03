@@ -75,7 +75,7 @@ const privateRoutes = [
     { path: '/student/assignment-of-student', component: AssignmentStudent },
     { path: '/student/return-assignment', component: ReturnAssignment },
 
-    { path: '/student/upload-assignment/:aid', component: UploadAssignment },
+    { path: '/student/upload-assignment/:aid/:classId', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },
     { path: '/student/update-password', component: UpdatePassStudent },
 ];

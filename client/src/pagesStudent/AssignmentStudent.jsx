@@ -11,12 +11,14 @@ function AssignmentStudent() {
 
     const [values, setValues] = useState([]);
     const [data, setData] = useState([]);
-
+    const [classId, setClassId] = useState(null);  
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetAssignmentOfStudent(token);
             const user = await apiGetStudent(token);
-            // console.log(user);
+            const classId = user.data.response.class_id;
+            setClassId(classId);
+            // console.log(classId);
             if (response?.data.err === 0) {
                 setValues(response.data.response.rows[0].classData.assignmentData);
                 setData(user.data.response);
@@ -71,7 +73,7 @@ function AssignmentStudent() {
                                         </td>
                                         <td>
                                             <Link
-                                                to={`/student/upload-assignment/${data.id}`}
+                                                to={`/student/upload-assignment/${data.id}/${classId}`}
                                                 className=" nav-link text-center "
                                             >
                                                 Nộp bài

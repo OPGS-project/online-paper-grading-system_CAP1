@@ -184,7 +184,8 @@ function Grading() {
             formData.append('score_value', totalScore);
             formData.append('comments', userComment);
             formData.append('image', fileData);
-
+            formData.append('student_id', student_id);
+            
             // Gọi API để lưu graded assignment
             const response = await axios.post('http://localhost:8081/api/grading/', formData);
 
