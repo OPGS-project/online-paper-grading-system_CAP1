@@ -27,14 +27,17 @@ export const saveGradedAssignments = (body, fileData) => new Promise(async (reso
   }
 });
 
-export const getGradeById = (submissionId, student_name) =>
+export const getGradeById = (idStudent) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Grade.findAll({
         attributes: ["score_value", "comments", "image"],
-        where: { submission_id: submissionId },
+        where: { student_id: idStudent },
           include: [
             {
+              model: db.student,
+              attributes: ["student_id"],
+
               model: db.Submission,
               as: "submissionData",
               attributes: ["image"],
@@ -47,7 +50,7 @@ export const getGradeById = (submissionId, student_name) =>
                 {
                   model: db.Student,
                   as: "studentData",
-                  attributes: ["student_name"],
+                  attributes: ["student_name","id"],
                 },
               ],
             },

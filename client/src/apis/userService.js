@@ -115,3 +115,22 @@ export const apiChangePassStudent = (token, data) =>
             reject(error);
         }
     });
+
+export const apiGetGradingForStudent = (token, idStudent) => //data
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await aixos({
+                method: 'get',
+                url: `http://localhost:8081/api/grading/${idStudent}`,
+                headers: {
+                    authorization: token,
+                },
+                
+            });
+            // console.log(idStudent)
+            
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
