@@ -40,7 +40,7 @@ export const getGradeById = (idStudent) =>
 
               model: db.Submission,
               as: "submissionData",
-              attributes: ["image"],
+              attributes: ["image", "student_id"],
               include: [
                 {
                   model: db.Assignment,

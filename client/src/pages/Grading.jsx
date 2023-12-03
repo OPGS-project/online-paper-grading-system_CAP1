@@ -57,6 +57,7 @@ function Grading() {
         const fetchDataStudent = async () => {
             try {
                 const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
+                console.log(response)
                 if (response.data.err === 0) {
                     const responseData = response.data.response[0];
 
@@ -384,35 +385,6 @@ function Grading() {
         editor.canvas.renderAll();
     }, [editor]);
 
-    //FE
-    // const addBackground = () => {
-    //     if (!editor || !fabric) {
-    //         return;
-    //     }
-    //     const url = 'https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg';
-
-    //     fabric.Image.fromURL(
-    //         url,
-    //         (image) => {
-    //             // Tính toán các hệ số tỷ lệ để phù hợp với hình ảnh trong khung vẽ
-    //             const scaleX = editor.canvas.width / image.width;
-    //             const scaleY = editor.canvas.height / image.height;
-    //             const scale = Math.min(scaleX, scaleY);
-
-    //             // Chia tỷ lệ hình ảnh trong khi vẫn duy trì tỷ lệ khung hình của nó
-    //             image.scaleX = scale;
-    //             image.scaleY = scale;
-
-    //             // Căn giữa hình ảnh trong canvas
-    //             image.left = (editor.canvas.width - image.width * scale) / 2;
-    //             image.top = (editor.canvas.height - image.height * scale) / 2;
-
-    //             editor.canvas.setBackgroundImage(image, editor.canvas.renderAll.bind(editor.canvas));
-    //         },
-    //         { crossOrigin: 'anonymous' },
-    //     );
-    // };
-
     const addBackground = (imageUrl) => {
         if (!editor || !fabric) {
             return;
@@ -430,6 +402,10 @@ function Grading() {
                 image.left = (editor.canvas.width - image.width * scale) / 2;
                 image.top = (editor.canvas.height - image.height * scale) / 2;
 
+                // // Thêm hình ảnh vào canvas thay vì đặt làm hình nền
+                // editor.canvas.add(image);
+                // editor.canvas.renderAll();
+
                 editor.canvas.setBackgroundImage(image, editor.canvas.renderAll.bind(editor.canvas));
             },
             { crossOrigin: 'anonymous' }
@@ -442,18 +418,19 @@ function Grading() {
             if (response.data.err === 0) {
                 const responseData = response.data.response[0];
 
-                const imageUrl = responseData.image;
-
-                // //Lặp qua mảng response để lấy tất cả các giá trị của trường "image"
-                // response.data.response.forEach(item => {
-                //     const imageUrl = item.image;
-                //     //Sử dụng hàm addBackground với URL hình ảnh động từ API của bạn
-                //     addBackground(imageUrl);
-                // });
-
-                addBackground(imageUrl);
-            }
-            else {
+                // Kiểm tra xem có phải là mảng không
+                if (Array.isArray(responseData.image)) {
+                    // Lặp qua mảng để thực hiện hành động với từng URL hình ảnh
+                    responseData.image.forEach(imageUrl => {
+                        // Sử dụng hàm addBackground với URL hình ảnh động từ API của bạn
+                        addBackground(imageUrl);
+                        console.log(imageUrl);
+                    });
+                } else {
+                    // Nếu không phải là mảng, xử lý theo cách khác (nếu cần)
+                    console.error("Invalid image data");
+                }
+            } else {
                 console.error(response.data.message);
             }
         } catch (error) {
