@@ -86,8 +86,8 @@ function ReturnAssignment() {
             contentLabel="Image Modal"
           >
             <Gallery
-              // items={data[currentImage].image}
-              // startIndex={currentImage}
+              items={values.map(item => ({ original: item.image, description: item.comments }))}
+              startIndex={currentImage}
               onClose={closeLightbox}
             />
           </Modal>

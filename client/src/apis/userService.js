@@ -116,7 +116,7 @@ export const apiChangePassStudent = (token, data) =>
         }
     });
 
-export const apiGetGradingForStudent = (token, idStudent) => //data
+export const apiGetGradingForStudent = (token, idStudent) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await aixos({
