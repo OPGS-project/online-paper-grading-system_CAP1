@@ -44,7 +44,6 @@ export const getAssignment = ({
         err: response ? 0 : 1,
         message: response ? "Got" : "Can not found!!!",
         assignmentData: response,
-        count: response.count,
       });
     } catch (e) {
       console.log(e);
@@ -90,7 +89,7 @@ export const getAssignmentById = (assignmentId) =>
   });
 
 //CREATE
-export const createAssignment = (body, fileData) =>
+export const createAssignment = (body, fileData, tid) =>
   new Promise(async (resolve, reject) => {
     // console.log(fileData);
     try {
@@ -106,6 +105,7 @@ export const createAssignment = (body, fileData) =>
         where: { assignment_name: body?.assignment_name },
         defaults: {
           ...body,
+          id_teacher: tid,
           of_class: dataClass.dataValues.id,
         },
       });
@@ -171,4 +171,3 @@ export const deleteAssignment = (assignmentId) =>
       reject(e);
     }
   });
-
