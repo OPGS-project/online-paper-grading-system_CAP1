@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Assignment.hasMany(models.Submission, {
-        foreignKey: "assignment_id",    
+        foreignKey: "assignment_id",
         as: "submissionData",
       });
     }
@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       content_text: DataTypes.TEXT,
       file_path: DataTypes.STRING,
       filename: DataTypes.STRING,
+      id_teacher: DataTypes.STRING,
     },
     {
       sequelize,

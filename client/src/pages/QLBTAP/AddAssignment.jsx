@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 export default function AddAssignment() {
     const notifySuccess = (errorMessage) => {
@@ -31,6 +32,7 @@ export default function AddAssignment() {
             theme: 'light',
         });
     };
+    const { token } = useSelector((state) => state.auth);
 
     const [classData, setClassData] = useState([]);
     const navigate = useNavigate();
@@ -52,11 +54,15 @@ export default function AddAssignment() {
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    //
+    // get class
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/class/')
-            .then((res) => setClassData([...res.data.classData.rows]))
+            .get('http://localhost:8081/api/teacher/', {
+                headers: {
+                    authorization: token,
+                },
+            })
+            .then((res) => setClassData(res.data?.response.classData))
             .catch((err) => console.error(err));
     }, []);
 

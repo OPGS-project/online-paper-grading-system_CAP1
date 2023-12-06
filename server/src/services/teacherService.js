@@ -16,6 +16,10 @@ export const getTeacher = (id) =>
             as: "classData",
             attributes: ["class_name"],
           },
+          {
+            model: db.Assignment,
+            as: "assignmentData",
+          },
         ],
       });
       resolve({

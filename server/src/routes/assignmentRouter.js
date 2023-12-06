@@ -11,8 +11,7 @@ router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
 
 //PRIVATE ROUTER
-// router.use(verifyToken);
-// router.use(isTeacher);
+router.use(verifyToken);
 router.post(
   "/",
   uploadAssignment.single("file_path"),
