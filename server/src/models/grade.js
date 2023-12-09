@@ -13,10 +13,15 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'submission_id',
         as: "submissionData",
       });
+      Grade.belongsTo(models.Student, {
+        foreignKey: 'student_id',
+        as: "studentData",
+      });
     }
   }
   Grade.init(
     {
+      student_id:DataTypes.INTEGER,
       submission_id: DataTypes.INTEGER,
       score_value: DataTypes.FLOAT,
       comments: DataTypes.TEXT,

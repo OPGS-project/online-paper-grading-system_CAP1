@@ -145,7 +145,6 @@ export default function CreateStudent({ classID }) {
                         </label>
                         <input
                             type="text"
-                            value={'abcd1234'}
                             placeholder="Nhập mật khẩu của học sinh"
                             className="form-control form-control-user"
                             onChange={(text) => setPassword(text.target.value)}

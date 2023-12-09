@@ -6,13 +6,14 @@ const cloudinary = require('cloudinary').v2;
 export const saveGradedAssignments = (body, fileData) => new Promise(async (resolve, reject) => {
   try {
       const response = await db.Grade.create({
+        student_id:body.student_id,
         submission_id: body.submission_id,
         score_value: body.score_value,
         comments: body.comments,
         image: fileData?.path,
         filename: fileData?.filename,
       });
-
+      console.log(response);
       resolve({
           err: response ? 0 : 1,
           mes: response ? 'Save the graded assignment successfully' : 'Save failed graded assignments',
@@ -27,17 +28,20 @@ export const saveGradedAssignments = (body, fileData) => new Promise(async (reso
   }
 });
 
-export const getGradeById = (submissionId, student_name) =>
+export const getGradeById = (idStudent) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Grade.findAll({
         attributes: ["score_value", "comments", "image"],
-        where: { submission_id: submissionId },
+        where: { student_id: idStudent },
           include: [
             {
+              model: db.student,
+              attributes: ["student_id"],
+
               model: db.Submission,
               as: "submissionData",
-              attributes: ["image", "student_id"],
+              attributes: ["image"],
               include: [
                 {
                   model: db.Assignment,
@@ -47,7 +51,7 @@ export const getGradeById = (submissionId, student_name) =>
                 {
                   model: db.Student,
                   as: "studentData",
-                  attributes: ["student_name"],
+                  attributes: ["student_name","id"],
                 },
               ],
             },

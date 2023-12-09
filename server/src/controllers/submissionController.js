@@ -53,8 +53,8 @@ export const uploadSubmission = async (req, res) => {
   try {
     const { id } = req.user;
     const fileDataArray = req.files;
-
-  
+    const class_id = req.body.class_id;
+    // console.log(class_id);
     // Loop through each file
     const responses = [];
     for (const fileData of fileDataArray) {
@@ -65,7 +65,7 @@ export const uploadSubmission = async (req, res) => {
         // If there's an error with the filename, destroy the uploaded file
         cloudinary.uploader.destroy(fileData.filename);    
       }
-      const response = await services.uploadSubmission(req.body, fileData, id);
+      const response = await services.uploadSubmission(req.body, fileData, id,class_id);
       responses.push(response);
     }
     return res.status(200).json(responses);

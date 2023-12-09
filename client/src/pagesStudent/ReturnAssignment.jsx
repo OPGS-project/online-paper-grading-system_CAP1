@@ -1,46 +1,38 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Gallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import Modal from 'react-modal';
+import { apiGetGradingForStudent, apiGetStudent } from '~/apis/userService';
+
 
 function ReturnAssignment() {
-  const data = [
-    {
-      id: 1,
-      name_assignment: "Kiểm tra giữa kỳ 1",
-      score_value: 8,
-      comments: "Tốt",
-      image: [
-        {
-          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700754314/uploads/kzs7iah8ce8tclahjdnq.jpg",
-        },
-        {
-          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700583449/uploads/gsdnyh61ddn38mrqhhwu.jpg",
-        },
-        {
-          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700318392/assignments/e52wcuptfepvqzgoxhvq.jpg",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name_assignment: "Kiểm tra giữa kỳ 2",
-      score_value: 8,
-      comments: "Tạm được",
-      image: [
-        {
-          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700754314/uploads/kzs7iah8ce8tclahjdnq.jpg",
-        },
-        {
-          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700583449/uploads/gsdnyh61ddn38mrqhhwu.jpg",
-        },
-        {
-          original: "https://res.cloudinary.com/dpkkfverq/image/upload/v1700318392/assignments/e52wcuptfepvqzgoxhvq.jpg",
-        },
-      ],
-    },
-  ];
+  const { token } = useSelector((state) => state.auth);
+
+  const [values, setValues] = useState([]);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await apiGetStudent(token);
+      const idStudent = user.data.response.id;
+      console.log(idStudent)
+      const response = await apiGetGradingForStudent(token,idStudent);
+      // console.log(user);
+      // console.log(response);
+      if (response?.data.err === 0) {
+        // setValues(response.data.response.rows[0].classData.assignmentData);
+        setValues(response.data.response)
+        setData(user.data.response);
+      } else {
+        setValues([]);
+        setData([]);
+      }
+    };
+    token && fetchUser();
+  }, [token]);
+
+
   const [currentImage, setCurrentImage] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -71,9 +63,9 @@ function ReturnAssignment() {
               </tr>
             </thead>
             <tbody className="text-center">
-              {data.map((item, index) => (
+              {values.map((item, index) => (
                 <tr key={index}>
-                  <td style={{ fontWeight: 500 }}>{item.name_assignment}</td>
+                  <td style={{ fontWeight: 500 }}>{item.submissionData.assignmentData.assignment_name}</td>
                   <td>
                     <button
                       onClick={() => openLightbox(index)}
@@ -94,7 +86,7 @@ function ReturnAssignment() {
             contentLabel="Image Modal"
           >
             <Gallery
-              items={data[currentImage].image}
+              items={values.map(item => ({ original: item.image, description: item.comments }))}
               startIndex={currentImage}
               onClose={closeLightbox}
             />
