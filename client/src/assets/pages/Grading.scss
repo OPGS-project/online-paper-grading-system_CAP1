@@ -28,9 +28,12 @@
     }
 
     .assigment-images {
+        justify-content: center;
         text-align: center;
         padding: 8px 0;
         font-weight: 500;
+        display: flex;
+        align-items: center;
         background-color: rgb(252, 252, 252);
         cursor: pointer;
 
@@ -46,8 +49,11 @@
     .image-container {
         cursor: pointer;
         z-index: 999;
+        border: 1px solid rgb(232, 233, 235);
+        border-radius: 2px;
     }
 }
+
 
 // tools
 

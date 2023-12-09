@@ -64,17 +64,17 @@ export const getStudentSubmittedById = (assignmentId) =>
         ],
       });
 
-      // Tạo một đối tượng để theo dõi sinh viên đã xuất hiện
+      // Tạo một đối tượng để theo dõi học sinh đã xuất hiện
       const studentMap = {};
 
       for (const submission of response) {
         const studentId = submission.student_id;
 
-        // Nếu sinh viên đã xuất hiện trong đối tượng, gộp thông tin
+        // Nếu học sinh đã xuất hiện trong đối tượng, gộp thông tin
         if (studentMap[studentId]) {
           studentMap[studentId].image.push(submission.image);
         } else {
-          // Nếu sinh viên chưa xuất hiện, thêm mới vào đối tượng
+          // Nếu học sinh chưa xuất hiện, thêm mới vào đối tượng
           studentMap[studentId] = {
             id: submission.id,
             student_id: studentId,
@@ -169,7 +169,7 @@ export const get_submission_ById = (assignment_id, studentId) =>
         ],
       });
 
-      // Tạo một đối tượng để theo dõi sinh viên đã xuất hiện cho từng cặp assignment_id và student_id
+      // Tạo một đối tượng để theo dõi học sinh đã xuất hiện cho từng cặp assignment_id và student_id
       const submissionMap = {};
 
       for (const submission of response) {
