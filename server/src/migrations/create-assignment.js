@@ -30,9 +30,6 @@ module.exports = {
       filename: {
         type: Sequelize.STRING,
       },
-      id_teacher: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

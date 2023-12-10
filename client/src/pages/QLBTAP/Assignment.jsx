@@ -8,11 +8,9 @@ import { FcViewDetails } from 'react-icons/fc';
 import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { AiFillRead } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
 
 export default function Assignment() {
     const [updateCheck, setUpdateCheck] = useState(false);
-    const { token } = useSelector((state) => state.auth);
 
     const [state, setState] = useState({
         assignment: [],
@@ -25,14 +23,9 @@ export default function Assignment() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
-                headers: {
-                    Authorization: token,
-                },
-            })
+            .get('http://localhost:8081/api/assignment/')
             .then((res) => {
-                // console.log(res.data.response.assignmentData);
-                const assignemntData = res.data.response.assignmentData;
+                const assignemntData = res.data.assignmentData.rows;
                 setState((prevState) => ({
                     ...prevState,
                     assignment: assignemntData,
@@ -45,13 +38,9 @@ export default function Assignment() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
-                headers: {
-                    Authorization: token,
-                },
-            })
+            .get('http://localhost:8081/api/assignment/')
             .then((res) => {
-                const assignemntData = res.data.response.assignmentData;
+                const assignemntData = res.data.assignmentData.rows;
                 setState((prevState) => ({
                     ...prevState,
                     assignment: assignemntData,

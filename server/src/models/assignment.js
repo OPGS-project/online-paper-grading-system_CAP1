@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       content_text: DataTypes.TEXT,
       file_path: DataTypes.STRING,
       filename: DataTypes.STRING,
-      id_teacher: DataTypes.STRING,
     },
     {
       sequelize,

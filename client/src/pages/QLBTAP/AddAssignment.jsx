@@ -34,7 +34,6 @@ export default function AddAssignment() {
     };
     const { token } = useSelector((state) => state.auth);
 
-    const [classData, setClassData] = useState([]);
     const navigate = useNavigate();
     const [values, setValues] = useState({
         assignment_name: '',
@@ -55,6 +54,8 @@ export default function AddAssignment() {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
     // get class
+    const [classData, setClassData] = useState([]);
+
     useEffect(() => {
         axios
             .get('http://localhost:8081/api/teacher/', {
@@ -96,13 +97,11 @@ export default function AddAssignment() {
             }
         }
 
-        // for (let i of formData) {
-        //     console.log(i[0], i[1]);
-        // }
         axios
             .post('http://localhost:8081/api/assignment/', formData)
             .then((res) => {
                 console.log(res);
+
                 if (res.data.err === 0) {
                     notifySuccess('Thêm bài tập thành công!');
                     setTimeout(() => {

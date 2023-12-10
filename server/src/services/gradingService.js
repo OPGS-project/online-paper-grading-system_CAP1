@@ -33,7 +33,7 @@ export const getGradeById = (idStudent) =>
     try {
       const response = await db.Grade.findAll({
         attributes: ["score_value", "comments", "image"],
-        where: { student_id: idStudent },
+        where: { student_id: idStudent},
           include: [
             {
               model: db.student,
@@ -69,4 +69,40 @@ export const getGradeById = (idStudent) =>
     }
   });
 
-  
+  export const getGrade = (submissionId, student_name) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Grade.findAll({
+        attributes: ["score_value", "comments", "image"],
+        where: { submission_id: submissionId },
+          include: [
+            {
+              model: db.Submission,
+              as: "submissionData",
+              attributes: ["image", "student_id"],
+              include: [
+                {
+                  model: db.Assignment,
+                  as: "assignmentData",
+                  attributes: ["assignment_name"],
+                },
+                {
+                  model: db.Student,
+                  as: "studentData",
+                  attributes: ["student_name"],
+                },
+              ],
+            },
+          ],
+      });
+
+      resolve({
+        err: response ? 0 : 1,
+        message: response ? "Got" : "Can not found!!!",
+        response,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });

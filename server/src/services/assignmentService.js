@@ -44,6 +44,7 @@ export const getAssignment = ({
         err: response ? 0 : 1,
         message: response ? "Got" : "Can not found!!!",
         assignmentData: response,
+        count: response.count,
       });
     } catch (e) {
       console.log(e);
@@ -89,7 +90,7 @@ export const getAssignmentById = (assignmentId) =>
   });
 
 //CREATE
-export const createAssignment = (body, fileData, tid) =>
+export const createAssignment = (body, fileData) =>
   new Promise(async (resolve, reject) => {
     // console.log(fileData);
     try {
@@ -100,12 +101,11 @@ export const createAssignment = (body, fileData, tid) =>
       const dataClass = await db.Class.findOne({
         where: { class_name: body.of_class },
       });
-      // console.log(dataClass.dataValues.id);
+      // console.log(dataClass);
       const response = await db.Assignment.findOrCreate({
         where: { assignment_name: body?.assignment_name },
         defaults: {
           ...body,
-          id_teacher: tid,
           of_class: dataClass.dataValues.id,
         },
       });
