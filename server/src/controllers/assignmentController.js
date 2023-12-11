@@ -1,18 +1,12 @@
 import * as authServices from "../services";
 const cloudinary = require("cloudinary").v2;
-import { internalServerError, badRequest } from "../middlewares/handle_errors";
-import {
-  assignment_name,
-  start_date,
-  deadline,
-  of_class,
-} from "../helpers/joi_schema";
 import joi from "joi";
 //
 //
 export const getAssignment = async (req, res) => {
   try {
-    const response = await authServices.getAssignment(req.query);
+    const { id } = req.user;
+    const response = await authServices.getAssignment(id);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

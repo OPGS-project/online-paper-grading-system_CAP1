@@ -5,28 +5,13 @@ const cloudinary = require("cloudinary").v2;
 
 const mime = require("mime-types");
 
-export const getAssignment = ({
-  page,
-  limit,
-  order,
-  // name,
-
-  ...query
-}) =>
+export const getAssignment = (tid) =>
   new Promise(async (resolve, reject) => {
     try {
-      const queries = { raw: false, nest: true };
-      const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_NUMBER;
-      queries.offset = offset * fLimit;
-      queries.limit = fLimit;
-      if (order) queries.order = [order];
-
       // if (name) query.assignment_name = { [Op.substring]: name };
 
       const response = await db.Assignment.findAndCountAll({
-        where: query,
-        ...queries,
+        where: { id_teacher: tid },
         order: [["id", "DESC"]],
         attributes: {
           exclude: ["createdAt	", "updatedAt"],
@@ -44,7 +29,6 @@ export const getAssignment = ({
         err: response ? 0 : 1,
         message: response ? "Got" : "Can not found!!!",
         assignmentData: response,
-        count: response.count,
       });
     } catch (e) {
       console.log(e);

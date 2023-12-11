@@ -4,13 +4,23 @@ const cloudinary = require("cloudinary").v2;
 export const getTeacher = (id) =>
   new Promise(async (resolve, reject) => {
     try {
+      const dataId = await db.Assignment.findAll({
+        where: { id_teacher: id },
+      });
+
       let response = await db.Teacher.findOne({
         where: { id },
         raw: false,
+
         attributes: {
           exclude: ["createdAt", "updatedAt", "filename"],
         },
         include: [
+          {
+            model: db.Class,
+            as: "classData",
+            attributes: ["class_name"],
+          },
           {
             model: db.Assignment,
             as: "assignmentData",
@@ -28,6 +38,7 @@ export const getTeacher = (id) =>
         err: response ? 0 : 4,
         msg: response ? "OK" : "Teacher not found!",
         response,
+        dataId,
       });
     } catch (error) {
       reject(error);

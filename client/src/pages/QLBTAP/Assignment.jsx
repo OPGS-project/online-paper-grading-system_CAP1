@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
-import { FcViewDetails } from 'react-icons/fc';
+import { FcFolder, FcViewDetails } from 'react-icons/fc';
 import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { AiFillRead } from 'react-icons/ai';
@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 export default function Assignment() {
     const [updateCheck, setUpdateCheck] = useState(false);
     const { token } = useSelector((state) => state.auth);
-    const [status, setStatus] = useState('Đang mở');
 
     const [state, setState] = useState({
         assignment: [],
@@ -24,53 +23,40 @@ export default function Assignment() {
         originalAssignment: [],
     });
 
-    const [deadline, setDeadline] = useState({});
-
-    useEffect(() => {
-        const currentDate = new moment(Date()).format('DD-MM-YYYY HH:MM');
-        // console.log(currentDate);
-        if (deadline < currentDate) {
-            setStatus('Đã đóng');
-        }
-    }, [deadline]);
-
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
+            .get('http://localhost:8081/api/assignment/', {
                 headers: {
                     authorization: token,
                 },
             })
             .then((res) => {
-                // console.log(res.data.response.assignmentData[0].deadline);
-                const assignemntData = res.data.response.assignmentData;
+                // console.log(res.data.assignmentData.rows);
+                const assignmentData = res.data.assignmentData.rows;
                 setState((prevState) => ({
                     ...prevState,
-                    assignment: assignemntData,
-                    originalAssignment: assignemntData,
-                    pageCount: Math.ceil(assignemntData.length / prevState.perPage),
+                    assignment: assignmentData,
+                    originalAssignment: assignmentData,
+                    pageCount: Math.ceil(assignmentData.length / prevState.perPage),
                 }));
-                if (res.data.err === 0) {
-                    setDeadline(assignemntData[0].deadline);
-                }
             })
             .catch((err) => console.error(err));
     }, []);
     // console.log(deadline);
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
+            .get('http://localhost:8081/api/assignment/', {
                 headers: {
                     authorization: token,
                 },
             })
             .then((res) => {
-                const assignemntData = res.data.response.assignmentData;
+                const assignmentData = res.data.assignmentData.rows;
                 setState((prevState) => ({
                     ...prevState,
-                    assignment: assignemntData,
-                    originalAssignment: assignemntData,
-                    pageCount: Math.ceil(assignemntData.length / prevState.perPage),
+                    assignment: assignmentData,
+                    originalAssignment: assignmentData,
+                    pageCount: Math.ceil(assignmentData.length / prevState.perPage),
                 }));
                 setUpdateCheck(false);
             })
@@ -151,13 +137,18 @@ export default function Assignment() {
             state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => (
                 <tr key={i} className="text-center">
                     <td>
-                        <i className="fa-solid fa-folder icon-folder"></i>
+                        <FcFolder />
                     </td>
                     <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
                     <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm ')}</td>
                     <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
                     <td>{data.classData?.class_name}</td>
-                    <td>{status}</td>
+                    {moment(new Date()) > moment(data.deadline) ? (
+                        <td className="text-danger">Đã Đóng</td>
+                    ) : (
+                        <td>Đang Mở</td>
+                    )}
+
                     <td>
                         <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
                             <FcViewDetails />

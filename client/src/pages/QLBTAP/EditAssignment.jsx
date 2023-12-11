@@ -122,7 +122,9 @@ export default function EditAssignment() {
                         className="form-control form-control-user"
                         id="name-bt"
                         value={assignment.assignment_name}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                            setAssignment((prev) => ({ ...prev, assignment_name: e.target.value }));
+                        }}
                     />
                 </div>
                 <div className="form-group">
@@ -158,7 +160,9 @@ export default function EditAssignment() {
                             className="form-control form-control-user"
                             id="from"
                             value={moment(assignment.start_date).format('YYYY-MM-DDTHH:mm')}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                setAssignment((prev) => ({ ...prev, start_date: e.target.value }));
+                            }}
                         />
                     </div>
                     <div className="col-sm-6">
@@ -170,7 +174,9 @@ export default function EditAssignment() {
                             className="form-control form-control-user"
                             id="to"
                             value={moment(assignment.deadline).format('YYYY-MM-DDTHH:mm')}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                setAssignment((prev) => ({ ...prev, deadline: e.target.value }));
+                            }}
                         />
                     </div>
                 </div>
@@ -204,7 +210,7 @@ export default function EditAssignment() {
                         />
 
                         <label className="custom-file-label " htmlFor="file">
-                            {assignment.filename}
+                            {assignment.file_path?.name}
                         </label>
                     </div>
                 </div>
