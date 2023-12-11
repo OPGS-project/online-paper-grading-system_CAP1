@@ -54,7 +54,6 @@ const Submitted = () => {
                             <th></th>
                         </thead>
                         <tbody className="text-center">
-                            {/* //test */}
                             {values?.map((data, i) => (
                                 <tr key={i}>
                                     <td>{data.student_name}</td>

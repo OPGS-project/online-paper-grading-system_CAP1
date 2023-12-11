@@ -6,13 +6,11 @@ import { uploadAssignment } from "../middlewares/uploader";
 // import uploadCloud from "../middlewares/uploader";
 
 const router = express.Router();
-
+router.use(verifyToken);
 router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
 
 //PRIVATE ROUTER
-// router.use(verifyToken);
-// router.use(isTeacher);
 router.post(
   "/",
   uploadAssignment.single("file_path"),
@@ -24,9 +22,5 @@ router.put(
   controllers.updateAssignment
 );
 router.delete("/:assignmentId", controllers.deleteAssignment);
-
-// router.post("/", uploadCloud.single("image"), controllers.createNewBook);
-// router.put("/", uploadCloud.single("image"), controllers.updateBook);
-// router.delete("/", controllers.deleteBook);
 
 module.exports = router;

@@ -3,26 +3,20 @@ import db from "../models";
 import { Op } from "sequelize";
 
 //READ
-export const getClasses = ({
-  page,
-  limit,
-  order,
-  name,
-
-  ...query
-}) =>
+export const getClasses = (query, id_teacher) =>
   new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: false, nest: true };
+      console.log(query)
       // const offset = !page || +page <= 1 ? 0 : +page - 1;
       // const fLimit = +limit || +process.env.LIMIT_NUMBER;
       // queries.offset = offset * fLimit;
       // queries.limit = fLimit;
-      if (order) queries.order = [order];
-      if (name) query.class_name = { [Op.substring]: name };
+      // if (order) queries.order = [order];
+      // if (name) query.class_name = { [Op.substring]: name };
       const response = await db.Class.findAndCountAll({
-        where: query,
-        ...queries,
+        where: {id_teacher: query.id_teacher},
+        // ...queries,
         attributes: { exclude: ["createdAt", "updatedAt"] },
         include: [
           {

@@ -12,9 +12,15 @@ export const getTeacher = (id) =>
         },
         include: [
           {
-            model: db.Class,
-            as: "classData",
-            attributes: ["class_name"],
+            model: db.Assignment,
+            as: "assignmentData",
+            include: [
+              {
+                model: db.Class,
+                as: "classData",
+                attributes: ["class_name"],
+              },
+            ],
           },
         ],
       });

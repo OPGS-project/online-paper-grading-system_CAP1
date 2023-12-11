@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 export default function AddAssignment() {
     const notifySuccess = (errorMessage) => {
@@ -31,8 +32,8 @@ export default function AddAssignment() {
             theme: 'light',
         });
     };
+    const { token } = useSelector((state) => state.auth);
 
-    const [classData, setClassData] = useState([]);
     const navigate = useNavigate();
     const [values, setValues] = useState({
         assignment_name: '',
@@ -52,11 +53,17 @@ export default function AddAssignment() {
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    //
+    // get class
+    const [classData, setClassData] = useState([]);
+
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/class/')
-            .then((res) => setClassData([...res.data.classData.rows]))
+            .get('http://localhost:8081/api/teacher/', {
+                headers: {
+                    authorization: token,
+                },
+            })
+            .then((res) => setClassData(res.data?.response.classData))
             .catch((err) => console.error(err));
     }, []);
 
@@ -90,13 +97,17 @@ export default function AddAssignment() {
             }
         }
 
-        // for (let i of formData) {
-        //     console.log(i[0], i[1]);
-        // }
-        axios
-            .post('http://localhost:8081/api/assignment/', formData)
+        axios({
+            method: 'post',
+            url: 'http://localhost:8081/api/assignment/',
+            headers: {
+                authorization: token,
+            },
+            data: formData,
+        })
             .then((res) => {
                 console.log(res);
+
                 if (res.data.err === 0) {
                     notifySuccess('Thêm bài tập thành công!');
                     setTimeout(() => {

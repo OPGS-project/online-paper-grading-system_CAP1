@@ -11,6 +11,8 @@ import joi from "joi";
 
 export const getClasses = async (req, res) => {
   try {
+    // const { teacherID } = req.params;
+    // console.log(teacherID);
     const response = await services.getClasses(req.query);
     return res.status(200).json(response);
   } catch (error) {
@@ -18,7 +20,7 @@ export const getClasses = async (req, res) => {
 
     // return internalServerError(res);
   }
-  console.log(req.query);
+  // console.log(req.query);
 };
 
 export const getClassById = async (req, res) => {

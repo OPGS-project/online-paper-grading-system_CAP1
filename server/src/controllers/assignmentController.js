@@ -33,22 +33,17 @@ export const getAssignmentById = async (req, res) => {
 export const createAssignment = async (req, res) => {
   try {
     const fileData = req.file;
+    const { id } = req.user;
 
-    // const { error } = joi
-    //   .object({
-    //     assignment_name,
-    //     // start_date,
-    //     // deadline,
-    //     // of_class,
-    //   })
-    //   .validate({ ...req.body, file_path: fileData?.path });
-    // if (error) return badRequest(error.details[0].message, res);
-    // console.log(req.body);
     const { error } = joi.object().validate({ file_path: fileData?.path });
     if (error) {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
-    const response = await authServices.createAssignment(req.body, fileData);
+    const response = await authServices.createAssignment(
+      req.body,
+      fileData,
+      id
+    );
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

@@ -18,7 +18,7 @@ export const loginStudent = ({ username, password }) =>
         ? jwt.sign(
             { id: response.id, email: response.email },
             process.env.JWT_SECRET,
-            { expiresIn: "2d" }
+            { expiresIn: "7d" }
           )
         : null;
       //Refresh_token

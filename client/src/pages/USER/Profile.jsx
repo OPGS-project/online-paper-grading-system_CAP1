@@ -27,7 +27,7 @@ function Profile() {
     const [updateCheck, setUpdateCheck] = useState(false);
 
     // console.log(preview);
-    // console.log(userData);
+    console.log(userData);
     //
     // console.log(token);
     useEffect(() => {

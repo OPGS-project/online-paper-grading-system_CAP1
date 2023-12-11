@@ -8,9 +8,12 @@ import { FcViewDetails } from 'react-icons/fc';
 import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { AiFillRead } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 export default function Assignment() {
     const [updateCheck, setUpdateCheck] = useState(false);
+    const { token } = useSelector((state) => state.auth);
+    const [status, setStatus] = useState('Đang mở');
 
     const [state, setState] = useState({
         assignment: [],
@@ -21,26 +24,48 @@ export default function Assignment() {
         originalAssignment: [],
     });
 
+    const [deadline, setDeadline] = useState({});
+
+    useEffect(() => {
+        const currentDate = new moment(Date()).format('DD-MM-YYYY HH:MM');
+        // console.log(currentDate);
+        if (deadline < currentDate) {
+            setStatus('Đã đóng');
+        }
+    }, [deadline]);
+
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/assignment/')
+            .get('http://localhost:8081/api/teacher/', {
+                headers: {
+                    authorization: token,
+                },
+            })
             .then((res) => {
-                const assignemntData = res.data.assignmentData.rows;
+                // console.log(res.data.response.assignmentData[0].deadline);
+                const assignemntData = res.data.response.assignmentData;
                 setState((prevState) => ({
                     ...prevState,
                     assignment: assignemntData,
                     originalAssignment: assignemntData,
                     pageCount: Math.ceil(assignemntData.length / prevState.perPage),
                 }));
+                if (res.data.err === 0) {
+                    setDeadline(assignemntData[0].deadline);
+                }
             })
             .catch((err) => console.error(err));
     }, []);
-
+    // console.log(deadline);
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/assignment/')
+            .get('http://localhost:8081/api/teacher/', {
+                headers: {
+                    authorization: token,
+                },
+            })
             .then((res) => {
-                const assignemntData = res.data.assignmentData.rows;
+                const assignemntData = res.data.response.assignmentData;
                 setState((prevState) => ({
                     ...prevState,
                     assignment: assignemntData,
@@ -72,22 +97,28 @@ export default function Assignment() {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed)
-                axios.delete('http://localhost:8081/api/assignment/' + aid).then((res) => {
-                    if (+res.data.err === 0) {
-                        toast.success('Xóa thành công', {
-                            position: 'top-right',
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: 'light',
-                        });
+                axios
+                    .delete('http://localhost:8081/api/assignment/' + aid, {
+                        headers: {
+                            authorization: token,
+                        },
+                    })
+                    .then((res) => {
+                        if (+res.data.err === 0) {
+                            toast.success('Xóa thành công', {
+                                position: 'top-right',
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: 'light',
+                            });
 
-                        setUpdateCheck(true);
-                    }
-                });
+                            setUpdateCheck(true);
+                        }
+                    });
         });
     };
 
@@ -123,10 +154,10 @@ export default function Assignment() {
                         <i className="fa-solid fa-folder icon-folder"></i>
                     </td>
                     <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
-                    <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm a')}</td>
-                    <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm a')}</td>
+                    <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm ')}</td>
+                    <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
                     <td>{data.classData?.class_name}</td>
-                    <td>1</td>
+                    <td>{status}</td>
                     <td>
                         <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
                             <FcViewDetails />

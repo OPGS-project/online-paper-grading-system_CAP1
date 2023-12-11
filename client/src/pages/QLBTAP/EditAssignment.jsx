@@ -24,7 +24,7 @@ export default function EditAssignment() {
 
     const [assignment, setAssignment] = useState({
         assignment_name: '',
-        of_className: '',
+        of_class: '',
         start_date: '',
         deadline: '',
         content_text: '',
@@ -34,8 +34,12 @@ export default function EditAssignment() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/class/')
-            .then((res) => setClassData([...res.data.classData.rows]))
+            .get('http://localhost:8081/api/teacher/', {
+                headers: {
+                    authorization: token,
+                },
+            })
+            .then((res) => setClassData(res.data?.response.classData))
             .catch((err) => console.error(err));
     }, []);
     //
@@ -43,7 +47,11 @@ export default function EditAssignment() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8081/api/assignment/${params.assignmentId}`)
+            .get(`http://localhost:8081/api/assignment/${params.assignmentId}`, {
+                headers: {
+                    authorization: token,
+                },
+            })
             .then((res) => setAssignment({ ...res.data.response[0] }))
             .catch((err) => console.error(err));
     }, [params]);
@@ -68,8 +76,16 @@ export default function EditAssignment() {
             formData.append(i[0], i[1]);
         }
 
-        axios
-            .put(`http://localhost:8081/api/assignment/${assignment.id}`, formData)
+        // axios
+        //     .put(`http://localhost:8081/api/assignment/${assignment.id}`, formData)
+        axios({
+            method: 'put',
+            url: `http://localhost:8081/api/assignment/${assignment.id}`,
+            headers: {
+                authorization: token,
+            },
+            data: formData,
+        })
             .then((res) => {
                 console.log(res);
                 notifySuccess('Sửa bài tập thành công!');
@@ -113,13 +129,18 @@ export default function EditAssignment() {
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
                         Lớp
                     </label>
+
                     <select
                         className="custom-select "
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
+                        value={assignment.of_class}
                         onChange={(e) => setAssignment((prev) => ({ ...prev, of_class: e.target.value }))}
                     >
+                        <option selected disabled>
+                            Chọn lớp
+                        </option>
                         {classData?.map((data, i) => (
                             <option key={i} name="of_class">
                                 {data.class_name}

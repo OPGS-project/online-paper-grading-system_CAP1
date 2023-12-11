@@ -53,6 +53,7 @@ function Grading() {
         createdAt: '',
     });
 
+    //get api
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
@@ -64,9 +65,6 @@ function Grading() {
                     const submission_id = responseData.id;
                     console.log("Submission id: " + submission_id);
 
-                    // const assignment_id = responseData.assignment_id;
-                    // console.log("Assignment id: " + assignment_id);
-
                     const { student_name } = responseData.studentData;
                     const { class_name } = responseData.classData;
                     const createdAt = responseData.createdAt;
@@ -74,10 +72,6 @@ function Grading() {
                     setStudentName({
                         student_name,
                     });
-
-                    // setAssignment_id(
-                    //     assignment_id,
-                    // );
 
                     setSubmission_id(
                         submission_id,
@@ -100,6 +94,12 @@ function Grading() {
 
         fetchDataStudent();
     }, [student_id]);
+
+    //Hướng dẫn chấm bài
+    const gradingInstruction = () => {
+        const gradingInstructionLink = "https://www.youtube.com/watch?v=6NNoPXw5Yks";
+        window.open(gradingInstructionLink, '_blank');
+    }
 
     //Xem đề bài
     const toggleAssignmentImage = async () => {
@@ -278,6 +278,17 @@ function Grading() {
 
         // Thêm event listener cho sự kiện nhấn phím "X"
         const handleKeyPress = (event) => {
+            if ((event.key === "x" || event.key === "X") && cropImage && !event.ctrlKey && !event.metaKey) {
+                // Tạo đối tượng chữ "X" 
+                const textX = new fabric.Text("X", {
+                    left: 460,
+                    top: 100,
+                    fill: "red",
+                });
+                editor.canvas.add(textX);
+
+                editor.canvas.renderAll();
+            }
 
             // Kiểm tra xem phím "X" và phím Ctrl (hoặc Command trên macOS) đang được nhấn
             if ((event.key === 'x' || event.key === 'X') && (event.ctrlKey || event.metaKey) && cropImage) {
@@ -373,8 +384,6 @@ function Grading() {
 
         if (!editor.canvas.__eventListeners['mouse:up']) {
             editor.canvas.on('mouse:up', function (opt) {
-                // on mouse up we want to recalculate new interaction
-                // for all objects, so we call setViewportTransform
                 this.setViewportTransform(this.viewportTransform);
                 this.isDragging = false;
                 this.selection = true;
@@ -385,6 +394,10 @@ function Grading() {
 
         editor.canvas.renderAll();
     }, [editor]);
+
+    //Update handle image
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [responseData, setResponseData] = useState(null);
 
     const addBackground = (imageUrl) => {
         if (!editor || !fabric) {
@@ -403,14 +416,39 @@ function Grading() {
                 image.left = (editor.canvas.width - image.width * scale) / 2;
                 image.top = (editor.canvas.height - image.height * scale) / 2;
 
-                // // Thêm hình ảnh vào canvas thay vì đặt làm hình nền
-                // editor.canvas.add(image);
-                // editor.canvas.renderAll();
-
                 editor.canvas.setBackgroundImage(image, editor.canvas.renderAll.bind(editor.canvas));
             },
             { crossOrigin: 'anonymous' }
         );
+    };
+
+    const showPreviousImage = () => {
+        //Ảnh hợp lệ, nó là 1 mảng và lớn hơn 0
+        if (responseData && responseData.image && currentImageIndex > 0) {
+            const newIndex = currentImageIndex - 1;
+            setCurrentImageIndex(newIndex);
+            addBackground(responseData.image[newIndex]);
+        }
+    };
+
+    const showNextImage = () => {
+        //Ảnh hợp lệ, nó là 1 mảng và nhỏ hơn thứ tự lớn nhất trong mảng
+        if (responseData && responseData.image && currentImageIndex < responseData.image.length - 1) {
+            const newIndex = currentImageIndex + 1;
+            setCurrentImageIndex(newIndex);
+            addBackground(responseData.image[newIndex]);
+        }
+    };
+
+    const processImageData = (responseData, addBackground) => {
+        if (Array.isArray(responseData.image)) {
+            responseData.image.forEach((imageUrl) => {
+                addBackground(imageUrl);
+                console.log("Image: " + imageUrl);
+            });
+        } else {
+            console.error("Invalid image data");
+        }
     };
 
     const fetchDataImage = async () => {
@@ -418,19 +456,8 @@ function Grading() {
             const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
             if (response.data.err === 0) {
                 const responseData = response.data.response[0];
-
-                // Kiểm tra xem có phải là mảng không
-                if (Array.isArray(responseData.image)) {
-                    // Lặp qua mảng để thực hiện hành động với từng URL hình ảnh
-                    responseData.image.forEach(imageUrl => {
-                        // Sử dụng hàm addBackground với URL hình ảnh động từ API của bạn
-                        addBackground(imageUrl);
-                        console.log(imageUrl);
-                    });
-                } else {
-                    // Nếu không phải là mảng, xử lý theo cách khác (nếu cần)
-                    console.error("Invalid image data");
-                }
+                setResponseData(responseData);
+                processImageData(responseData, addBackground);
             } else {
                 console.error(response.data.message);
             }
@@ -439,7 +466,9 @@ function Grading() {
         }
     };
 
-    fetchDataImage();
+    useEffect(() => {
+        fetchDataImage();
+    }, []);
 
     useEffect(() => {
         if (!editor || !fabric) {
@@ -448,6 +477,7 @@ function Grading() {
         editor.canvas.setHeight(850);
         editor.canvas.setWidth(900);
 
+        //dbclick => câu đúng
         if (!editor.canvas.__eventListeners['mouse:dblclick']) {
             editor.canvas.on('mouse:dblclick', (opt) => {
                 // Lấy thông tin vị trí chuột từ đối tượng sự kiện
@@ -517,9 +547,15 @@ function Grading() {
             })
         }
 
-        addBackground();
-        editor.canvas.renderAll();
-    }, [editor?.canvas.backgroundImage]);
+        // Check và thêm hình ảnh nếu có
+        if (responseData && responseData.image) {
+            //lấy URL của ảnh từ mảng responseData.image ứng với chỉ số hiện tại currentImageIndex. 
+            const imageUrl = responseData.image[currentImageIndex];
+            addBackground(imageUrl);
+        }
+
+    }, [editor, fabric, responseData, currentImageIndex]);
+    //-------------------------------------
 
     useEffect(() => {
         if (!editor || !fabric) {
@@ -576,7 +612,6 @@ function Grading() {
     };
 
     const exportPNG = () => {
-        //   const svg = canvas.current.toSVG();
         setDownloadLink(
             editor.canvas.toDataURL({
                 format: 'png',
@@ -585,40 +620,6 @@ function Grading() {
         setDownloadName('assignment_graded.png');
     };
 
-    ///
-    // const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    // const images = [
-    //     'https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg',
-    //     'https://cdn.lazi.vn/storage/uploads/edu/answer/1631780134_lazi_339834.jpeg',
-    // ];
-
-    // useEffect(() => {
-    //     const prevButton = document.querySelector('.fa-chevron-left');
-    //     const nextButton = document.querySelector('.fa-chevron-right');
-
-    //     const updateImage = () => {
-    //         const image = document.getElementById('assignmentImage');
-    //         image.src = images[currentImageIndex];
-    //     };
-
-    //     const handlePrevClick = () => {
-    //         setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-    //     };
-
-    //     const handleNextClick = () => {
-    //         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    //     };
-
-    //     prevButton.addEventListener('click', handlePrevClick);
-    //     nextButton.addEventListener('click', handleNextClick);
-
-    //     updateImage();
-
-    //     return () => {
-    //         prevButton.removeEventListener('click', handlePrevClick);
-    //         nextButton.removeEventListener('click', handleNextClick);
-    //     };
-    // }, [currentImageIndex, images]);
     return (
         <div className="container-fluid m-0 ">
             <div className="content-container">
@@ -629,10 +630,9 @@ function Grading() {
                         <p>Thời gian nộp bài: {moment(createdAt.createdAt).format('DD-MM-YYYY HH:mm a')}</p>
                     </div>
                     <div className="assigment-images">
-                        {/* <i className="fa-solid fa-chevron-left"></i>
-                        <span className="mx-3">1/2</span>
-                        <i className="fa-solid fa-chevron-right"></i> */}
+                        <i style={{ marginRight: 10 }} onClick={showPreviousImage} className="fa-solid fa-chevron-left"></i>
                         <p style={{ margin: 0 }}>Hình ảnh bài nộp</p>
+                        <i style={{ marginLeft: 10 }} onClick={showNextImage} className="fa-solid fa-chevron-right"></i>
                     </div>
                     <div className="image-container">
                         <FabricJSCanvas onReady={onReady} />
@@ -640,7 +640,12 @@ function Grading() {
                 </div>
 
                 <div className=" card shadow flex-1 col-3 ">
-                    <div className="card mt-3">
+                    <div className="card mt-2">
+                        <button className="btn-primary btn btn-success" onClick={gradingInstruction}>
+                            Hướng dẫn chấm bài
+                        </button>
+                    </div>
+                    <div className="card mt-2">
                         <button className="btn-primary btn" onClick={toggleAssignmentImage}>
                             Xem đề bài
                         </button>
@@ -661,9 +666,7 @@ function Grading() {
                             </div>
                             <div
                                 className=" my-3 d-flex align-items-center text-danger justify-content-center"
-                            // style={{ height: 100, width: 200 }}
                             >
-                                {/* <h6 className="text-danger mr-3 col-3">Tổng</h6> */}
                                 Tổng
                                 <input
                                     className="col-3 mx-2 form-control "
@@ -672,7 +675,6 @@ function Grading() {
                                     onChange={(e) => setTotalScore(e.target.value)}
                                 />
                                 điểm
-                                {/* <h6 className="text-danger mr-3 col-4">Điểm</h6> */}
                             </div>
                             <div className="text-center">
                                 <button
@@ -704,7 +706,6 @@ function Grading() {
                                         disabled={!cropImage}
                                     >
                                         <i class="fa fa-font"></i>
-                                        {/* Thêm chữ */}
                                     </button>
                                 </div>
                                 <div className="text-center mb-2">
@@ -715,7 +716,6 @@ function Grading() {
                                         disabled={!cropImage}
                                     >
                                         <i class="fa fa-pencil"></i>
-                                        {/* Vẽ */}
                                     </button>
                                 </div>
                                 <div className="text-center mb-2">

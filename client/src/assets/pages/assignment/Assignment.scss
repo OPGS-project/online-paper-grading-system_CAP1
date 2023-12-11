@@ -41,11 +41,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 1);
-    /* Adjust the alpha value for the desired level of opacity */
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9998;
-    /* Adjust the z-index to be behind the expanded image */
 }
