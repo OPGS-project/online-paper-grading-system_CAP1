@@ -32,7 +32,7 @@ export default function UpdateClass() {
     const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -69,7 +69,7 @@ export default function UpdateClass() {
         notifySuccess('Cập nhập thành công');
         setTimeout(() => {
             navigate('/home/class');
-        }, 5000);
+        }, 2000);
     };
 
     return (

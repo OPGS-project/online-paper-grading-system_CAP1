@@ -2,7 +2,7 @@ import '~~/pages/assignment/Assignment.scss';
 import React, { useState, useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment/moment';
 import { FcFolder, FcViewDetails } from 'react-icons/fc';
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 export default function Assignment() {
     const [updateCheck, setUpdateCheck] = useState(false);
     const { token } = useSelector((state) => state.auth);
-
+    const navigate = useNavigate();
     const [state, setState] = useState({
         assignment: [],
         offset: 0,
@@ -135,9 +135,17 @@ export default function Assignment() {
     const generateRows = () => {
         return state.assignment.length > 0 ? (
             state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-                <tr key={i} className="text-center">
+                <tr
+                    key={i}
+                    className="text-center"
+                    style={{ cursor: 'pointer' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return navigate(`/home/assignment/submitted/${data.id}`);
+                    }}
+                >
                     <td>
-                        <FcFolder />
+                        <FcFolder size={20} />
                     </td>
                     <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
                     <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm ')}</td>
@@ -149,17 +157,17 @@ export default function Assignment() {
                         <td>Đang Mở</td>
                     )}
 
-                    <td>
-                        <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
+                    {/* <td>
+                        <Link className="btn " to={}>
                             <FcViewDetails />
                         </Link>
-                    </td>
-                    <td>
+                    </td> */}
+                    <td onClick={(e) => e.stopPropagation()}>
                         <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
                             <i className="fa-solid fa-pen-to-square icon-edit"></i>
                         </Link>
                     </td>
-                    <td>
+                    <td onClick={(e) => e.stopPropagation()}>
                         <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
                             <i className="fa-solid fa-trash icon-delete"></i>
                         </button>
