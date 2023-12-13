@@ -48,6 +48,8 @@ export const getStudentByClassId = (classID) => {
               "phone",
               "address",
               "birthday",
+              "username",
+              "password"
             ],
           },
         ],
