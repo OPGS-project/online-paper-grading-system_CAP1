@@ -52,7 +52,7 @@ export default function CreateClass() {
                 total_students,
                 content,
                 id_teacher,
-            }
+            };
 
             const response = await axios.post('http://localhost:8081/api/class/', postData);
 
@@ -94,16 +94,6 @@ export default function CreateClass() {
                         onChange={(e) => setClassName(e.target.value)}
                     />
                 </div>
-                <div className="form-row mt-3">
-                    <label className="text-capitalize font-weight-bold pl-2">Sĩ số</label>
-                    <input
-                        type="text"
-                        className="form-control form-control-lg form-control-user"
-                        required
-                        name="total_students"
-                        onChange={(e) => setTotalStudent(e.target.value)}
-                    />
-                </div>
 
                 <div className="form-row mt-3">
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
@@ -113,6 +103,7 @@ export default function CreateClass() {
                         type="textaria"
                         className="form-control content-bt"
                         id="name-bt"
+                        value="Không"
                         onChange={(e) => setContent(e.target.value)}
                     />
                 </div>

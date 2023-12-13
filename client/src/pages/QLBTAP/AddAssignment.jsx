@@ -58,12 +58,12 @@ export default function AddAssignment() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
+            .get('http://localhost:8081/api/class/', {
                 headers: {
                     authorization: token,
                 },
             })
-            .then((res) => setClassData(res.data?.response.classData))
+            .then((res) => setClassData(res.data.classData.rows))
             .catch((err) => console.error(err));
     }, []);
 
@@ -168,7 +168,10 @@ export default function AddAssignment() {
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
-                        onChange={(e) => setValues((prev) => ({ ...prev, of_class: e.target.value }))}
+                        onChange={(e) => {
+                            setError((prev) => ({ ...prev, errClass: null }));
+                            setValues((prev) => ({ ...prev, of_class: e.target.value }));
+                        }}
                     >
                         <option selected disabled value="Chọn lớp">
                             Chọn lớp

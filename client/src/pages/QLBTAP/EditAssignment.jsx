@@ -22,24 +22,18 @@ export default function EditAssignment() {
         });
     };
 
-    const [assignment, setAssignment] = useState({
-        assignment_name: '',
-        of_class: '',
-        start_date: '',
-        deadline: '',
-        content_text: '',
-    });
+    const [assignment, setAssignment] = useState({});
     //
     const [classData, setClassData] = useState([]);
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
+            .get('http://localhost:8081/api/class/', {
                 headers: {
                     authorization: token,
                 },
             })
-            .then((res) => setClassData(res.data?.response.classData))
+            .then((res) => setClassData(res.data.classData.rows))
             .catch((err) => console.error(err));
     }, []);
     //
@@ -59,7 +53,8 @@ export default function EditAssignment() {
     const handleChange = (e) => {
         setAssignment({ ...assignment, [e.target.name]: e.target.value });
     };
-    // console.log(assignment);
+    // console.log(assignment.classData.class_name);
+
     // console.log(params);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,7 +65,7 @@ export default function EditAssignment() {
             if (i[1] === '') continue;
             if (i[0] === 'createdAt') continue;
             if (i[0] === 'updatedAt') continue;
-            if (i[0] === 'of_className') continue;
+            // if (i[0] === 'of_className') continue;
             if (i[0] === 'file_path' && typeof i[1] === 'string') continue;
 
             formData.append(i[0], i[1]);
@@ -137,11 +132,13 @@ export default function EditAssignment() {
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
-                        value={assignment.of_class}
-                        onChange={(e) => setAssignment((prev) => ({ ...prev, of_class: e.target.value }))}
+                        onChange={(e) => {
+                            // setError((prev) => ({ ...prev, errClass: null }));
+                            setAssignment((prev) => ({ ...prev, of_class: e.target.value }));
+                        }}
                     >
                         <option selected disabled>
-                            Chọn lớp
+                            Chọn Lớp
                         </option>
                         {classData?.map((data, i) => (
                             <option key={i} name="of_class">

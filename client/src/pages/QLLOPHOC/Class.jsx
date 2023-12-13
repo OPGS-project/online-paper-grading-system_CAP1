@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { apiGetOne } from '~/apis/userService';
 
 export default function Class() {
     const [state, setState] = useState({
@@ -17,38 +16,30 @@ export default function Class() {
         originalClass: [],
         showConfirmationModal: false,
         classToDelete: null,
-        id_teacher: null
     });
     const { token } = useSelector((state) => state.auth);
-    // console.log(token)
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const user = await apiGetOne(token);
-                const id_teacher = user.data.response.id;
+        axios
+            .get('http://localhost:8081/api/class/', {
+                headers: {
+                    authorization: token,
+                },
+            })
+            .then((res) => {
+                // console.log(res.data.classData.row
 
-                // Set id_teacher in the component state
-                setState((prevState) => ({ ...prevState, id_teacher }));
+                const classData = res.data.classData.rows;
 
-                // Fetch classes using id_teacher
-                const response = await axios.get(`http://localhost:8081/api/class?id_teacher=${id_teacher}`);
-                const classData = response.data.classData;
-
-                // Update the component state
                 setState((prevState) => ({
                     ...prevState,
-                    Class: classData.rows,
-                    originalClass: classData.rows,
-                    pageCount: Math.ceil(classData.count / prevState.perPage),
+                    Class: classData,
+                    originalClass: classData,
+                    pageCount: Math.ceil(classData.length / prevState.perPage),
                 }));
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [token]);
+            })
+            .catch((err) => console.error(err));
+    });
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;

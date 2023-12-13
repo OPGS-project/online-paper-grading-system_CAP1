@@ -4,12 +4,10 @@ import authStudent from "./authStudentRouter";
 import assignment from "./assignmentRouter";
 import classes from "./classRouter";
 import student from "./studentRouter";
-import criteria from "./criteriaRouter";
-import submission from "./submissionRouter"
+import submission from "./submissionRouter";
 import grading from "./gradingRouter";
 import submiss from "./submission";
 import studentSubmitted from "./studentSubmitted";
-
 
 import { internalServerError } from "../middlewares/handle_errors";
 
@@ -19,7 +17,6 @@ const initRoutes = (app) => {
   app.use("/api/authStudent", authStudent);
   app.use("/api/assignment", assignment);
   app.use("/api/submission", submission);
-  app.use("/api/criteria", criteria);
   app.use("/api/class", classes);
   app.use("/api/student", student);
   app.use("/api/grading", grading);
