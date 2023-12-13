@@ -86,6 +86,7 @@ export default function Student() {
                 <td>{data.student_name}</td>
                 <td>{data.gender}</td>
                 <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
+                
                 <td>{data.address}</td>
                 <td>
                     <Link to={`/home/student/updateStudent/${params.classID}/${data.id}`} state={{ studentData: data }}>
@@ -127,11 +128,11 @@ export default function Student() {
     };
 
     const csvData = [
-        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'classID'],
+        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'classID','username', 'password'],
         ...state.student.map((data) => [
             data.student_name,
             data.gender,
-            moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'),
+            moment(data.birthday, 'YYYY-MM-DD').format('YYYY/MM/DD'),
             data.address,
             params.classID,
         ]),

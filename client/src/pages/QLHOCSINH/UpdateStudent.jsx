@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import moment from 'moment/moment';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdateStudent() {
@@ -54,9 +55,14 @@ export default function UpdateStudent() {
         }
 
         try {
-            const response = await axios.put(`http://localhost:8081/api/student/update-student/${classID}/${studentID}`, studentData);
-            if (response.status === 200) {
+            const formattedBirthday = moment(studentData.birthday, 'YYYY-MM-DD').format('YYYY-MM-DD');
 
+            const response = await axios.put(`http://localhost:8081/api/student/update-student/${classID}/${studentID}`, {
+                ...studentData,
+                birthday: formattedBirthday,
+            });
+
+            if (response.status === 200) {
                 notifySuccess("Cập nhập thành công");
                 setTimeout(() => {
                     navigate('/home/class/get-student/' + classID);
@@ -68,6 +74,7 @@ export default function UpdateStudent() {
             notifyError("Lỗi cập nhật dữ liệu: " + err.message);
         }
     };
+
 
     return (
         <div className="container-fluid">
@@ -97,7 +104,7 @@ export default function UpdateStudent() {
                             type="date"
                             className="form-control form-control-user"
                             onChange={(e) => setStudentData({ ...studentData, birthday: e.target.value })}
-                            value={studentData.birthday}
+                            value={moment(studentData.birthday, 'YYYY-MM-DD').format('YYYY-MM-DD')}
                         />
                     </div>
                 </div>

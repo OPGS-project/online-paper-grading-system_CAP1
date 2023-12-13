@@ -20,6 +20,16 @@ const Submitted = () => {
             .catch((err) => console.error(err));
     }, []);
 
+    // useEffect(() => {
+    //     axios
+    //         .get(`http://localhost:8081/api/grade/${params.student_id}`)
+    //         .then((res) => {
+    //             console.log(res.data);
+    //             setValues(res.data.response)
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, []);
+
     // const handleDelete = async (id) => {
     //     try {
     //         await axios.delete('http://localhost:8081/api/student/delete-student/' + id);
