@@ -85,11 +85,13 @@ export const uploadCSV = async (req, res) => {
             const object = {};
             // console.log('Data from CSV:', typeof data);
             for (const [key, value] of Object.entries(data)) {
-              if (key === "classID") {
-                object.class_id = value;
-              } else if (key === "Giới tính") object.gender = value;
+              if (key === "classID" || key === "Lớp") {object.class_id = value;} 
+              else if (key === "Giới tính") object.gender = value;
               else if (key === "Ngày sinh") object.birthday = value;
               else if (key === "Quê quán") object.address = value;
+              else if (key === "username"||key === "Tài khoản") object.username = value;
+              else if (key === "password" ||key ==="Mật khẩu") object.password = value;
+              else if (key === "Số điện thoại" || key ==="sđt") object.phone = value;
               else object["student_name"] = value;
             }
             console.log(object);

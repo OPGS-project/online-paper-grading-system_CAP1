@@ -3,20 +3,11 @@ import db from "../models";
 import { Op } from "sequelize";
 
 //READ
-export const getClasses = (query, id_teacher) =>
+export const getClasses = (tid) =>
   new Promise(async (resolve, reject) => {
     try {
-      const queries = { raw: false, nest: true };
-      console.log(query)
-      // const offset = !page || +page <= 1 ? 0 : +page - 1;
-      // const fLimit = +limit || +process.env.LIMIT_NUMBER;
-      // queries.offset = offset * fLimit;
-      // queries.limit = fLimit;
-      // if (order) queries.order = [order];
-      // if (name) query.class_name = { [Op.substring]: name };
       const response = await db.Class.findAndCountAll({
-        where: {id_teacher: query.id_teacher},
-        // ...queries,
+        where: { id_teacher: tid },
         attributes: { exclude: ["createdAt", "updatedAt"] },
         include: [
           {
@@ -50,7 +41,16 @@ export const getStudentByClassId = (classID) => {
           {
             model: db.Student,
             as: "studentData",
-            attributes: ["id", "student_name", "gender", "phone", "address","birthday"],
+            attributes: [
+              "id",
+              "student_name",
+              "gender",
+              "phone",
+              "address",
+              "birthday",
+              "username",
+              "password"
+            ],
           },
         ],
       });

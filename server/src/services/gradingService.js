@@ -14,7 +14,7 @@ export const saveGradedAssignments = (body, fileData) =>
         image: fileData?.path,
         filename: fileData?.filename,
       });
-      console.log(response);
+      // console.log(response);
       resolve({
         err: response ? 0 : 1,
         mes: response

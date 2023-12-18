@@ -30,7 +30,12 @@ export default function Student() {
         axios
             .get(`http://localhost:8081/api/class/${params.classID}`)
             .then((res) => {
-                const studentData = res.data.response[0].studentData;
+                const studentData = res.data.response[0].studentData.map((data) => ({
+                    ...data,
+                    username: data.username, 
+                    password: data.password,
+                }));
+    
                 setState((prevState) => ({
                     ...prevState,
                     student: studentData,
@@ -86,6 +91,7 @@ export default function Student() {
                 <td>{data.student_name}</td>
                 <td>{data.gender}</td>
                 <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
+
                 <td>{data.address}</td>
                 <td>
                     <Link to={`/home/student/updateStudent/${params.classID}/${data.id}`} state={{ studentData: data }}>
@@ -127,13 +133,16 @@ export default function Student() {
     };
 
     const csvData = [
-        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'classID'],
+        ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán','Số điện thoại', 'classID', 'username', 'password'],
         ...state.student.map((data) => [
             data.student_name,
             data.gender,
-            moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'),
+            moment(data.birthday, 'YYYY-MM-DD').format('YYYY/MM/DD'),
             data.address,
+            data.phone,
             params.classID,
+            data.username, // Thêm username vào mảng
+            data.password, // Thêm password vào mảng
         ]),
     ];
 
