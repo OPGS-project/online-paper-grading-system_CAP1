@@ -2,6 +2,7 @@ import { generateRandomString } from '../helpers/idRandom';
 import { student_name } from '../helpers/joi_schema';
 import db from '../models'
 import {Op} from 'sequelize'
+import grade from '../models/grade';
 const cloudinary = require('cloudinary').v2;
 
 //Cũ
@@ -53,7 +54,7 @@ export const getStudentSubmittedById = (assignmentId) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Submission.findAll({
-        attributes: ["id", "student_id", "assignment_id", "submission_status", "image"],
+        attributes: ["id", "student_id", "assignment_id", "submission_status", "image", "createdAt", "class_id"],
         where: { assignment_id: assignmentId },
         include: [
           {
@@ -61,7 +62,13 @@ export const getStudentSubmittedById = (assignmentId) =>
             as: "studentData",
             attributes: ["student_name"],
           },
+          {
+            model: db.Grade,
+            as: "gradeData",
+            
+          }
         ],
+
       });
 
       // Tạo một đối tượng để theo dõi học sinh đã xuất hiện
@@ -81,7 +88,10 @@ export const getStudentSubmittedById = (assignmentId) =>
             assignment_id: submission.assignment_id,
             student_name: submission.studentData.student_name,
             submission_status: submission.submission_status,
+            createdAt: submission.createdAt,
+            class_id: submission.class_id,
             image: [submission.image], // Sử dụng mảng để lưu trữ nhiều hình ảnh
+            gradeData: submission.gradeData,
           };
         }
 
@@ -89,6 +99,7 @@ export const getStudentSubmittedById = (assignmentId) =>
         const gradeEntry = await db.Grade.findOne({
           where: { submission_id: submission.id },
         });
+        
 
         // Cập nhật submit_status dựa trên kết quả
         studentMap[studentId].submission_status = gradeEntry ? "Đã chấm" : "Chấm bài";
