@@ -17,7 +17,7 @@ export default function Assignment() {
     const [state, setState] = useState({
         assignment: [],
         offset: 0,
-        perPage: 5,
+        perPage: 7,
         pageCount: 0,
         searchTerm: '',
         originalAssignment: [],
@@ -166,12 +166,13 @@ export default function Assignment() {
                         <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
                             <i className="fa-solid fa-pen-to-square icon-edit"></i>
                         </Link>
-                    </td>
-                    <td onClick={(e) => e.stopPropagation()}>
                         <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
                             <i className="fa-solid fa-trash icon-delete"></i>
                         </button>
                     </td>
+                    {/* <td onClick={(e) => e.stopPropagation()}>
+                        
+                    </td> */}
                 </tr>
             ))
         ) : (
@@ -261,9 +262,7 @@ export default function Assignment() {
                                     <th>Đến Ngày</th>
                                     <th>Giao Cho</th>
                                     <th>Trạng Thái</th>
-                                    <th>Chi tiết</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Tùy Chỉnh</th>
                                 </tr>
                             </thead>
                             <tbody>{generateRows()}</tbody>

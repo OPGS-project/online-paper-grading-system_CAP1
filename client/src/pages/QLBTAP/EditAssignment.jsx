@@ -90,7 +90,7 @@ export default function EditAssignment() {
             })
             .catch((err) => console.error(err));
     };
-
+    console.log(assignment);
     return (
         <div className="container-fluid">
             <button
@@ -115,6 +115,7 @@ export default function EditAssignment() {
                     <input
                         type="text"
                         className="form-control form-control-user"
+                        style={{ fontSize: 16 }}
                         id="name-bt"
                         value={assignment.assignment_name}
                         onChange={(e) => {
@@ -132,6 +133,7 @@ export default function EditAssignment() {
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
+                        value={assignment.of_class}
                         onChange={(e) => {
                             // setError((prev) => ({ ...prev, errClass: null }));
                             setAssignment((prev) => ({ ...prev, of_class: e.target.value }));

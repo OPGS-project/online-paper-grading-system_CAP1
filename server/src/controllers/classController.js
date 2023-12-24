@@ -48,7 +48,8 @@ export const getStudentByClassId = async (req, res) => {
 //CREATE
 export const createNewClass = async (req, res) => {
   try {
-    const response = await services.createNewClass(req.body);
+    const { id } = req.user;
+    const response = await services.createNewClass(req.body, id);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

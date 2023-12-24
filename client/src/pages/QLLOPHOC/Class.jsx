@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment/moment';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { GoMortarBoard } from 'react-icons/go';
 
 export default function Class() {
     const [state, setState] = useState({
         Class: [],
         offset: 0,
-        perPage: 5,
+        perPage: 7,
         pageCount: 0,
         searchTerm: '',
         originalClass: [],
@@ -78,29 +79,43 @@ export default function Class() {
             }));
         }
     };
-
+    const navigate = useNavigate();
     const generateRows = () => {
-        return state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-            <tr key={i} className="text-center">
-                <td>{data.class_name}</td>
-                <td>{data.total_students}</td>
-                <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
-                <td>{data.content}</td>
-                <td>
-                    <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
-                        Xem học sinh
-                    </Link>
-                </td>
-                <td>
-                    <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
-                    <i
-                        className="bi bi-trash-fill text-danger"
-                        onClick={() => handleDelete(data.id)}
-                        style={{ cursor: 'pointer' }}
-                    ></i>
+        return state.Class.length > 0 ? (
+            state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+                <tr
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return navigate(`/home/class/get-student/${data.id}`);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                    key={i}
+                    className="text-center"
+                >
+                    <td>{data.class_name}</td>
+                    <td>{data.content}</td>
+                    {/* <td>
+                        <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
+                            Xem học sinh
+                        </Link>
+                    </td> */}
+                    <td onClick={(e) => e.stopPropagation()}>
+                        <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
+                        <i
+                            className="bi bi-trash-fill text-danger"
+                            onClick={() => handleDelete(data.id)}
+                            style={{ cursor: 'pointer' }}
+                        ></i>
+                    </td>
+                </tr>
+            ))
+        ) : (
+            <tr>
+                <td colSpan={9} className="text-center">
+                    Hiện tại chưa có lớp học nào <GoMortarBoard />
                 </td>
             </tr>
-        ));
+        );
     };
 
     const handlePrevious = () => {
@@ -198,10 +213,7 @@ export default function Class() {
                             <thead>
                                 <tr className="text-center">
                                     <th>Tên lớp</th>
-                                    <th>Sĩ số</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Ghi chú</th>
-                                    <th>Danh sách</th>
+                                    <th>Khóa</th>
                                     <th>Tùy chỉnh</th>
                                 </tr>
                             </thead>
@@ -227,10 +239,10 @@ export default function Class() {
                 <Modal.Body>Bạn chắc chắn muốn xóa ?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleConfirmationModalClose}>
-                        Cancel
+                        Hủy
                     </Button>
                     <Button variant="danger" onClick={handleDeleteConfirmed}>
-                        Delete
+                        Xóa
                     </Button>
                 </Modal.Footer>
             </Modal>

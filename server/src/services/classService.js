@@ -49,7 +49,7 @@ export const getStudentByClassId = (classID) => {
               "address",
               "birthday",
               "username",
-              "password"
+              "password",
             ],
           },
         ],
@@ -94,12 +94,12 @@ export const getClassById = (classID) =>
   });
 
 //CREATE
-export const createNewClass = (body) =>
+export const createNewClass = (body, tid) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Class.findOrCreate({
         where: { class_name: body?.class_name },
-        defaults: { ...body },
+        defaults: { ...body, id_teacher: tid },
       });
       // console.log(response);
       resolve({

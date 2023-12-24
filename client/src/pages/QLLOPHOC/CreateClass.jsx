@@ -6,13 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiGetOne } from '~/apis/userService';
+import { Input } from 'reactstrap';
 
 export default function CreateClass() {
     const { token } = useSelector((state) => state.auth);
 
-    const [class_name, setClassName] = useState('');
-    const [total_students, setTotalStudent] = useState('');
-    const [content, setContent] = useState('');
     const navigate = useNavigate();
 
     const notifyError = (errorMessage) => {
@@ -40,33 +38,34 @@ export default function CreateClass() {
         });
     };
 
-    const handleSubmit = async (event) => {
+    const [values, setValues] = useState({
+        class_name: '',
+        content: '2023-2026',
+    });
+    console.log(values);
+    const handleSubmit = (event) => {
         event.preventDefault();
 
-        try {
-            const user = await apiGetOne(token);
-            const id_teacher = user.data.response.id;
+        axios
+            .post('http://localhost:8081/api/class/', values, {
+                headers: {
+                    authorization: token,
+                },
+            })
 
-            const postData = {
-                class_name,
-                total_students,
-                content,
-                id_teacher,
-            };
+            .then((res) => {
+                console.log(res);
+                if (res.data.err === 0) {
+                    notifySuccess('Thêm lớp thành công');
 
-            const response = await axios.post('http://localhost:8081/api/class/', postData);
-
-            console.log(response);
-
-            notifySuccess('Thêm lớp thành công');
-
-            setTimeout(() => {
-                navigate('/home/class'); // thành công sẽ chuyển hướng
-            }, 2000);
-        } catch (error) {
-            console.error(error);
-            notifyError('Đã có lỗi xảy ra khi thêm lớp');
-        }
+                    setTimeout(() => {
+                        navigate('/home/class'); // thành công sẽ chuyển hướng
+                    }, 2000);
+                } else {
+                    notifyError('Đã có lỗi xảy ra khi thêm lớp');
+                }
+            })
+            .catch((e) => console.log(e));
     };
 
     return (
@@ -89,29 +88,31 @@ export default function CreateClass() {
                     <label className="text-capitalize font-weight-bold pl-2">Tên lớp</label>
                     <input
                         type="text"
+                        style={{ fontSize: 16 }}
                         className="form-control form-control-lg form-control-user"
                         required
-                        onChange={(e) => setClassName(e.target.value)}
+                        name="class_name"
+                        onChange={(e) => setValues((prev) => ({ ...prev, class_name: e.target.value }))}
                     />
                 </div>
 
                 <div className="form-row mt-3">
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
-                        Ghi chú
+                        Khóa
                     </label>
-                    <textarea
-                        type="textaria"
-                        className="form-control content-bt"
+                    <input
+                        style={{ fontSize: 16 }}
+                        className="form-control form-control-lg form-control-user"
                         id="name-bt"
-                        value="Không"
-                        onChange={(e) => setContent(e.target.value)}
+                        name="content"
+                        value={values.content}
+                        onChange={(e) => setValues((prev) => ({ ...prev, content: e.target.value }))}
                     />
                 </div>
                 <div className="text-center mt-5">
                     <button type="submit" className="btn btn-success px-5 py-2">
                         Lưu
                     </button>
-                    <button className="btn btn-light px-5 py-2 ml-3">Hủy</button>
                 </div>
             </form>
             <ToastContainer />

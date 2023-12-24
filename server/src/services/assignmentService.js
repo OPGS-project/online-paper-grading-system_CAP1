@@ -107,6 +107,7 @@ export const createAssignment = (body, fileData, tid) =>
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
+
 //UPDATE
 export const updateAssignment = (assignmentId, body, fileData) =>
   new Promise(async (resolve, reject) => {

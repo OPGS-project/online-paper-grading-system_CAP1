@@ -146,6 +146,7 @@ export default function AddAssignment() {
                         type="text"
                         className="form-control form-control-user"
                         id="name-bt"
+                        style={{ fontSize: 16 }}
                         name="assignment_name"
                         placeholder="Nhập tên bài tập"
                         onChange={(e) => {
@@ -158,7 +159,7 @@ export default function AddAssignment() {
                     />
                 </div>
                 {error.errName && <small className="text-danger ml-3">{error?.errName}</small>}
-                <div className="form-group">
+                <div className="form-group ">
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
                         Lớp
                     </label>
