@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import moment from 'moment/moment';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { GoMortarBoard } from 'react-icons/go';
@@ -18,29 +16,35 @@ export default function Class() {
         showConfirmationModal: false,
         classToDelete: null,
     });
+
     const { token } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        axios
-            .get('http://localhost:8081/api/class/', {
+        // Fetch classes when the component mounts
+        fetchClasses();
+    }, []);
+
+    const fetchClasses = async () => {
+        try {
+            const response = await axios.get('http://localhost:8081/api/class/', {
                 headers: {
                     authorization: token,
                 },
-            })
-            .then((res) => {
-                // console.log(res.data.classData.row
+            });
 
-                const classData = res.data.classData.rows;
+            const classData = response.data.classData.rows;
 
-                setState((prevState) => ({
-                    ...prevState,
-                    Class: classData,
-                    originalClass: classData,
-                    pageCount: Math.ceil(classData.length / prevState.perPage),
-                }));
-            })
-            .catch((err) => console.error(err));
-    });
+            setState((prevState) => ({
+                ...prevState,
+                Class: classData,
+                originalClass: classData,
+                pageCount: Math.ceil(classData.length / prevState.perPage),
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;
@@ -50,7 +54,7 @@ export default function Class() {
         }));
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
         setState((prevState) => ({
             ...prevState,
             showConfirmationModal: true,
@@ -60,17 +64,14 @@ export default function Class() {
 
     const handleSearch = () => {
         const { originalClass, searchTerm, perPage } = state;
+
         if (searchTerm === '') {
-            setState((prevState) => ({
-                ...prevState,
-                Class: originalClass,
-                pageCount: Math.ceil(originalClass.length / perPage),
-                offset: 0,
-            }));
+            restoreOriginalClasses();
         } else {
             const filteredClass = originalClass.filter((data) =>
-                data.class_name.toLowerCase().includes(searchTerm.toLowerCase()),
+                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
             );
+
             setState((prevState) => ({
                 ...prevState,
                 Class: filteredClass,
@@ -79,26 +80,27 @@ export default function Class() {
             }));
         }
     };
-    const navigate = useNavigate();
+
+    const restoreOriginalClasses = () => {
+        setState((prevState) => ({
+            ...prevState,
+            Class: prevState.originalClass,
+            pageCount: Math.ceil(prevState.originalClass.length / prevState.perPage),
+            offset: 0,
+        }));
+    };
+
     const generateRows = () => {
         return state.Class.length > 0 ? (
             state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
                 <tr
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        return navigate(`/home/class/get-student/${data.id}`);
-                    }}
-                    style={{ cursor: 'pointer' }}
                     key={i}
+                    onClick={() => navigate(`/home/class/get-student/${data.id}`)}
+                    style={{ cursor: 'pointer' }}
                     className="text-center"
                 >
                     <td>{data.class_name}</td>
                     <td>{data.content}</td>
-                    {/* <td>
-                        <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
-                            Xem học sinh
-                        </Link>
-                    </td> */}
                     <td onClick={(e) => e.stopPropagation()}>
                         <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
                         <i
@@ -141,7 +143,7 @@ export default function Class() {
             ...prevState,
             searchTerm: '',
         }));
-        handleSearch();
+        restoreOriginalClasses();
     };
 
     const handleConfirmationModalClose = () => {
@@ -155,6 +157,7 @@ export default function Class() {
     const handleDeleteConfirmed = async () => {
         try {
             await axios.delete(`http://localhost:8081/api/class/delete-class/${state.classToDelete}`);
+
             setState((prevState) => ({
                 ...prevState,
                 Class: prevState.Class.filter((item) => item.id !== state.classToDelete),
@@ -188,12 +191,7 @@ export default function Class() {
                                 placeholder=""
                                 aria-controls="dataTable"
                                 value={state.searchTerm}
-                                onChange={(e) =>
-                                    setState({
-                                        ...state,
-                                        searchTerm: e.target.value,
-                                    })
-                                }
+                                onChange={(e) => setState({ ...state, searchTerm: e.target.value })}
                                 onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
                                         handleSearch();
