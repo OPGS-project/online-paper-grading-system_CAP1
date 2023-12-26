@@ -46,6 +46,7 @@ const Submitted = () => {
                             <th>Trạng Thái</th>
                             <th>Thời gian nộp</th>
                             <th>Thời gian chấm</th>
+                            <th>Điểm</th>
                             <th></th>
                         </thead>
                         <tbody className="text-center">
@@ -58,6 +59,10 @@ const Submitted = () => {
                                         <td>
                                             {data.gradeData && data.gradeData.createdAt
                                                 ? moment(data.gradeData.createdAt).format('DD-MM-YYYY HH:mm ')
+                                                : 'Chưa chấm'}
+                                        </td>
+                                        <td> {data.gradeData && data.gradeData.score_value
+                                                ? data.gradeData.score_value
                                                 : 'Chưa chấm'}
                                         </td>
                                         <td>
