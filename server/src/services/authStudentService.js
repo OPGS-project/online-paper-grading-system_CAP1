@@ -75,7 +75,7 @@ export const changePasswordStudent = (body, userId) =>
             )
         : "Password is wrong";
       resolve({
-        err: response1[0] > 0 ? true : false,
+        err: response1[0] > 0 ? 0 : 1,
         mes: response1[0] > 0 ? "Changed password successfully" : response1,
       });
     } catch (e) {

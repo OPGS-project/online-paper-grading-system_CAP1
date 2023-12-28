@@ -58,7 +58,7 @@ function ProfileStudent() {
             theme: 'light',
         });
     };
-
+    const phonePattern = 'd{10}$ ';
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -69,7 +69,7 @@ function ProfileStudent() {
                 ...prev,
                 errName: 'Họ tên không được để trống',
             }));
-        if (userData.phone === `^\d{10}$`)
+        if (userData.phone !== phonePattern)
             setError((prev) => ({
                 ...prev,
                 errPhone: 'Số điện thoại không hợp lệ',
@@ -80,13 +80,14 @@ function ProfileStudent() {
             if (i[0] === 'avatar' && typeof i[1] === 'string') continue;
             formData.append(i[0], i[1]);
         }
-
-        const response = await apiUpdateStudent(token, formData);
-        // console.log(response);
-        if (response?.data.err === 0) {
-            notifySuccess('Cập nhật thành công !');
-        } else {
-            alert('Lỗi');
+        if (error.errName === null && error.errPhone === null) {
+            const response = await apiUpdateStudent(token, formData);
+            // console.log(response);
+            if (response?.data.err === 0) {
+                notifySuccess('Cập nhật thành công !');
+            } else {
+                alert('Lỗi');
+            }
         }
     };
 
