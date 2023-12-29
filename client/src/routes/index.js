@@ -11,6 +11,7 @@ import Profile from '~/pages/USER/Profile';
 import UpdatePass from '~/pages/USER/UpdatePass';
 import Grading from '~/pages/Grading';
 import GradedAssignment from '~/pages/GradedAssignment';
+import EditGradedAssignment from '~/pages/EditGradedAssignment';
 import Student from '~/pages/QLHOCSINH/Student';
 import CreateStudent from '~/pages/QLHOCSINH/CreateStudent';
 import UpdateStudent from '~/pages/QLHOCSINH/UpdateStudent';
@@ -63,9 +64,11 @@ const publicRoutes = [
     { path: '/home/update-password', component: UpdatePass },
     //Chấm bài
     { path: '/home/grading/:assignment_id/:student_id', component: Grading },
-    //test
+    //Bài đã chấm
     { path: '/home/GradedAssignment/:id/:student_name', component: GradedAssignment },
-    //test
+    //Sửa bài đã chấm
+    { path: '/home/EditGradedAssignment/:id/:student_name', component: EditGradedAssignment },
+
 ];
 
 const privateRoutes = [

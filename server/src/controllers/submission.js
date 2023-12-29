@@ -20,10 +20,7 @@ export const get_submission_ById= async (req, res) =>{
 export const getStudentSubmittedById= async (req, res) =>{
     try{ 
         const { assignmentId } = req.params;
-        // const { assignmentId } = req.query;
         const response = await services.getStudentSubmittedById(assignmentId);
-        // const response = await services.get_submission_ById(studentId, assignmentId)
-
         return res.status(200).json(response)
 
     }catch (error){

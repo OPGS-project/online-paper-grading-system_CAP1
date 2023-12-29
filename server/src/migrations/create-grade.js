@@ -12,6 +12,9 @@ module.exports = {
       submission_id: {
         type: Sequelize.INTEGER,
       },
+      student_id: {
+        type: Sequelize.INTEGER,
+      },
       score_value: {
         type: Sequelize.FLOAT,
       },
@@ -20,6 +23,9 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
+      },
+      canvas_json: {
+        type: Sequelize.JSON,
       },
       filename: {
         type: Sequelize.STRING,
