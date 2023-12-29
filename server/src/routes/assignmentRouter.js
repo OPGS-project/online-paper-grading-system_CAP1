@@ -6,6 +6,7 @@ import { uploadAssignment } from "../middlewares/uploader";
 // import uploadCloud from "../middlewares/uploader";
 
 const router = express.Router();
+
 router.use(verifyToken);
 
 router.get("/", controllers.getAssignment);

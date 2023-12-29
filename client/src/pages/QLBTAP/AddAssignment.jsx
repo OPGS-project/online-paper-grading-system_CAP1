@@ -58,12 +58,12 @@ export default function AddAssignment() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/teacher/', {
+            .get('http://localhost:8081/api/class/', {
                 headers: {
                     authorization: token,
                 },
             })
-            .then((res) => setClassData(res.data?.response.classData))
+            .then((res) => setClassData(res.data.classData.rows))
             .catch((err) => console.error(err));
     }, []);
 
@@ -146,6 +146,7 @@ export default function AddAssignment() {
                         type="text"
                         className="form-control form-control-user"
                         id="name-bt"
+                        style={{ fontSize: 16 }}
                         name="assignment_name"
                         placeholder="Nhập tên bài tập"
                         onChange={(e) => {
@@ -158,7 +159,7 @@ export default function AddAssignment() {
                     />
                 </div>
                 {error.errName && <small className="text-danger ml-3">{error?.errName}</small>}
-                <div className="form-group">
+                <div className="form-group ">
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
                         Lớp
                     </label>
@@ -168,7 +169,10 @@ export default function AddAssignment() {
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
-                        onChange={(e) => setValues((prev) => ({ ...prev, of_class: e.target.value }))}
+                        onChange={(e) => {
+                            setError((prev) => ({ ...prev, errClass: null }));
+                            setValues((prev) => ({ ...prev, of_class: e.target.value }));
+                        }}
                     >
                         <option selected disabled value="Chọn lớp">
                             Chọn lớp

@@ -15,7 +15,7 @@ export const saveGradedAssignments = (body, fileData) =>
         canvas_json: body.canvas_json,
         filename: fileData?.filename,
       });
-      console.log(response);
+      // console.log(response);
       resolve({
         err: response ? 0 : 1,
         mes: response

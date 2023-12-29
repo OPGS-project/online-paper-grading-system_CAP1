@@ -9,27 +9,20 @@ const Submitted = () => {
     const navigate = useNavigate();
     const [values, setValues] = useState([]);
     const params = useParams();
-
+    const [studentSubmitted, setStudentSubmitted] = useState([]);
+    // console.log(params)
     useEffect(() => {
         axios
             .get(`http://localhost:8081/api/studentSubmitted/${params.assignmentId}`)
             .then((res) => {
-                console.log(res.data);
-                setValues(res.data.response)
+                // console.log(res.data);
+                setValues(res.data.response);
             })
             .catch((err) => console.error(err));
     }, []);
 
-    // const handleDelete = async (id) => {
-    //     try {
-    //         await axios.delete('http://localhost:8081/api/student/delete-student/' + id);
-    //         window.location.reload();
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
+    // console.log(values);
 
-    console.log(values);
     return (
         <div className="container-fluid">
             <button
@@ -51,26 +44,51 @@ const Submitted = () => {
                         <thead className="text-center">
                             <th>Tên học sinh</th>
                             <th>Trạng Thái</th>
+                            <th>Thời gian nộp</th>
+                            <th>Thời gian chấm</th>
+                            <th>Điểm</th>
                             <th></th>
                         </thead>
                         <tbody className="text-center">
-                            {values?.map((data, i) => (
-                                <tr key={i}>
-                                    <td>{data.student_name}</td>
-                                    <td>Đã nộp</td>
-                                    <td>
-                                        {
-                                            data.submission_status === "Đã chấm"
-                                                ? <Link to={`/home/GradedAssignment/${data.id}/${data.student_name}`} className="btn btn-outline-success">
+                            {values.length > 0 ? (
+                                values?.map((data, i) => (
+                                    <tr key={i}>
+                                        <td>{data.student_name}</td>
+                                        <td>Đã nộp</td>
+                                        <td>{moment(data.createdAt).format('DD-MM-YYYY HH:mm ')}</td>
+                                        <td>
+                                            {data.gradeData && data.gradeData.createdAt
+                                                ? moment(data.gradeData.createdAt).format('DD-MM-YYYY HH:mm ')
+                                                : 'Chưa chấm'}
+                                        </td>
+                                        <td> {data.gradeData && data.gradeData.score_value
+                                                ? data.gradeData.score_value
+                                                : 'Chưa chấm'}
+                                        </td>
+                                        <td>
+                                            {data.submission_status === 'Đã chấm' ? (
+                                                <Link
+                                                    to={`/home/GradedAssignment/${data.id}/${data.student_name}`}
+                                                    className="btn btn-outline-success"
+                                                >
                                                     {data.submission_status}
                                                 </Link>
-                                                : <Link to={`/home/grading/${data.assignment_id}/${data.student_id}`} className="btn btn-outline-success">
+                                            ) : (
+                                                <Link
+                                                    to={`/home/grading/${data.assignment_id}/${data.student_id}`}
+                                                    className="btn btn-outline-success"
+                                                >
                                                     {data.submission_status}
                                                 </Link>
-                                        }
-                                    </td>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={5}>Hiện tại chưa có học sinh nào nộp bài</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>

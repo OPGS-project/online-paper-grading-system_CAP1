@@ -32,7 +32,7 @@ export default function UpdateClass() {
     const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -69,68 +69,54 @@ export default function UpdateClass() {
         notifySuccess('Cập nhập thành công');
         setTimeout(() => {
             navigate('/home/class');
-        }, 5000);
+        }, 2000);
     };
 
     return (
         <div className="container-fluid">
-            <button className="btn btn-primary" onClick={() => navigate(-1)}>
-                <i className="bi bi-arrow-left"></i> Quay lại
+            <button
+                className="btn btn-back"
+                onClick={() => {
+                    navigate(-1);
+                }}
+            >
+                <i class="fa-solid fa-arrow-left"></i>
             </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
-                Cập nhật lớp
-                <small className="d-block mt-2">(Điền thông tin lớp vào biểu mẫu dưới đây)</small>
+                <i className="fa-regular fa-pen-to-square"></i>
+                Cập nhật lớp học
             </h1>
-            <form className="mt-5" onSubmit={handleSubmit}>
-                <h4 className="h4 mb-4 text-gray-800">Biểu mẫu:</h4>
-                <div className="form-row">
-                    <div className="col-12">
-                        <label htmlFor="className">Tên lớp:</label>
-                        <input
-                            type="text"
-                            placeholder="Nhập tên lớp"
-                            className="form-control form-control-lg"
-                            onChange={(e) => setClassData({ ...classData, class_name: e.target.value })}
-                            value={classData.class_name}
-                            id="className"
-                            required
-                        />
-                        <p className="err2"></p>
-                    </div>
+            <form className="user" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label className="text-capitalize font-weight-bold pl-3">Tên lớp</label>
+                    <input
+                        type="text"
+                        placeholder="Nhập tên lớp"
+                        style={{ fontSize: 16 }}
+                        className="form-control form-control-user "
+                        onChange={(e) => setClassData({ ...classData, class_name: e.target.value })}
+                        value={classData.class_name}
+                        id="className"
+                        required
+                    />
+                    <p className="err2"></p>
                 </div>
-                <div className="form-row">
-                    <div className="col-6">
-                        <label htmlFor="totalStudent">Sĩ số:</label>
-                        <input
-                            type="text"
-                            placeholder="Nhập sĩ số học sinh"
-                            className="form-control form-control-lg"
-                            onChange={(e) => setClassData({ ...classData, total_students: Number(e.target.value) })}
-                            value={classData.total_students}
-                            id="totalStudent"
-                            required
-                        />
-                        <p className="err2"></p>
-                    </div>
-                    <div className="col-6">
-                        <label htmlFor="status">Ghi chú:</label>
-                        <input
-                            type="text"
-                            placeholder="Nhập ghi chú"
-                            className="form-control form-control-lg"
-                            onChange={(e) => setClassData({ ...classData, content: e.target.value })}
-                            value={classData.content}
-                            id="content"
-                            required
-                        />
-                        <p className="err3"></p>
-                    </div>
+
+                <div className="form-group">
+                    <label className="text-capitalize font-weight-bold pl-3">Khóa</label>
+                    <input
+                        placeholder="Nhập khóa học của lớp"
+                        style={{ fontSize: 16 }}
+                        className="form-control form-control-lg form-control-user"
+                        onChange={(e) => setClassData({ ...classData, content: e.target.value })}
+                        value={classData.content}
+                        id="content"
+                        required
+                    />
+                    <p className="err3"></p>
                 </div>
-                <div className="text-center mt-5">
-                    <button type="submit" className="btn-lg btn-primary">
-                        Cập nhật lớp
-                    </button>
-                </div>
+
+                <button className="btn btn-success px-5 py-2 float-right">Lưu Lớp</button>
             </form>
             <ToastContainer />
         </div>

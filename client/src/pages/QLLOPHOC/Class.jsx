@@ -1,54 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import moment from 'moment/moment';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { apiGetOne } from '~/apis/userService';
+import { GoMortarBoard } from 'react-icons/go';
 
 export default function Class() {
     const [state, setState] = useState({
         Class: [],
         offset: 0,
-        perPage: 5,
+        perPage: 7,
         pageCount: 0,
         searchTerm: '',
         originalClass: [],
         showConfirmationModal: false,
         classToDelete: null,
-        id_teacher: null
     });
+
     const { token } = useSelector((state) => state.auth);
-    // console.log(token)
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const user = await apiGetOne(token);
-                const id_teacher = user.data.response.id;
+        // Fetch classes when the component mounts
+        fetchClasses();
+    }, []);
 
-                // Set id_teacher in the component state
-                setState((prevState) => ({ ...prevState, id_teacher }));
+    const fetchClasses = async () => {
+        try {
+            const response = await axios.get('http://localhost:8081/api/class/', {
+                headers: {
+                    authorization: token,
+                },
+            });
 
-                // Fetch classes using id_teacher
-                const response = await axios.get(`http://localhost:8081/api/class?id_teacher=${id_teacher}`);
-                const classData = response.data.classData;
+            const classData = response.data.classData.rows;
 
-                // Update the component state
-                setState((prevState) => ({
-                    ...prevState,
-                    Class: classData.rows,
-                    originalClass: classData.rows,
-                    pageCount: Math.ceil(classData.count / prevState.perPage),
-                }));
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [token]);
+            setState((prevState) => ({
+                ...prevState,
+                Class: classData,
+                originalClass: classData,
+                pageCount: Math.ceil(classData.length / prevState.perPage),
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;
@@ -58,7 +54,7 @@ export default function Class() {
         }));
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
         setState((prevState) => ({
             ...prevState,
             showConfirmationModal: true,
@@ -68,17 +64,14 @@ export default function Class() {
 
     const handleSearch = () => {
         const { originalClass, searchTerm, perPage } = state;
+
         if (searchTerm === '') {
-            setState((prevState) => ({
-                ...prevState,
-                Class: originalClass,
-                pageCount: Math.ceil(originalClass.length / perPage),
-                offset: 0,
-            }));
+            restoreOriginalClasses();
         } else {
             const filteredClass = originalClass.filter((data) =>
-                data.class_name.toLowerCase().includes(searchTerm.toLowerCase()),
+                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
             );
+
             setState((prevState) => ({
                 ...prevState,
                 Class: filteredClass,
@@ -88,28 +81,43 @@ export default function Class() {
         }
     };
 
+    const restoreOriginalClasses = () => {
+        setState((prevState) => ({
+            ...prevState,
+            Class: prevState.originalClass,
+            pageCount: Math.ceil(prevState.originalClass.length / prevState.perPage),
+            offset: 0,
+        }));
+    };
+
     const generateRows = () => {
-        return state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-            <tr key={i} className="text-center">
-                <td>{data.class_name}</td>
-                <td>{data.total_students}</td>
-                <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
-                <td>{data.content}</td>
-                <td>
-                    <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
-                        Xem học sinh
-                    </Link>
-                </td>
-                <td>
-                    <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
-                    <i
-                        className="bi bi-trash-fill text-danger"
-                        onClick={() => handleDelete(data.id)}
-                        style={{ cursor: 'pointer' }}
-                    ></i>
+        return state.Class.length > 0 ? (
+            state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+                <tr
+                    key={i}
+                    onClick={() => navigate(`/home/class/get-student/${data.id}`)}
+                    style={{ cursor: 'pointer' }}
+                    className="text-center"
+                >
+                    <td>{data.class_name}</td>
+                    <td>{data.content}</td>
+                    <td onClick={(e) => e.stopPropagation()}>
+                        <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
+                        <i
+                            className="bi bi-trash-fill text-danger"
+                            onClick={() => handleDelete(data.id)}
+                            style={{ cursor: 'pointer' }}
+                        ></i>
+                    </td>
+                </tr>
+            ))
+        ) : (
+            <tr>
+                <td colSpan={9} className="text-center">
+                    Hiện tại chưa có lớp học nào <GoMortarBoard />
                 </td>
             </tr>
-        ));
+        );
     };
 
     const handlePrevious = () => {
@@ -135,7 +143,7 @@ export default function Class() {
             ...prevState,
             searchTerm: '',
         }));
-        handleSearch();
+        restoreOriginalClasses();
     };
 
     const handleConfirmationModalClose = () => {
@@ -149,6 +157,7 @@ export default function Class() {
     const handleDeleteConfirmed = async () => {
         try {
             await axios.delete(`http://localhost:8081/api/class/delete-class/${state.classToDelete}`);
+
             setState((prevState) => ({
                 ...prevState,
                 Class: prevState.Class.filter((item) => item.id !== state.classToDelete),
@@ -182,12 +191,7 @@ export default function Class() {
                                 placeholder=""
                                 aria-controls="dataTable"
                                 value={state.searchTerm}
-                                onChange={(e) =>
-                                    setState({
-                                        ...state,
-                                        searchTerm: e.target.value,
-                                    })
-                                }
+                                onChange={(e) => setState({ ...state, searchTerm: e.target.value })}
                                 onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
                                         handleSearch();
@@ -207,10 +211,7 @@ export default function Class() {
                             <thead>
                                 <tr className="text-center">
                                     <th>Tên lớp</th>
-                                    <th>Sĩ số</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Ghi chú</th>
-                                    <th>Danh sách</th>
+                                    <th>Khóa</th>
                                     <th>Tùy chỉnh</th>
                                 </tr>
                             </thead>
@@ -236,10 +237,10 @@ export default function Class() {
                 <Modal.Body>Bạn chắc chắn muốn xóa ?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleConfirmationModalClose}>
-                        Cancel
+                        Hủy
                     </Button>
                     <Button variant="danger" onClick={handleDeleteConfirmed}>
-                        Delete
+                        Xóa
                     </Button>
                 </Modal.Footer>
             </Modal>

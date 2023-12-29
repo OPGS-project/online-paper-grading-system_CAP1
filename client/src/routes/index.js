@@ -21,6 +21,8 @@ import UpdateClass from '~/pages/QLLOPHOC/UpdateClass';
 import ChooseRole from '~/pages/ChooseRole';
 import Statis from '~/pages/THONGKE/Statis';
 import Submitted from '~/pages/QLBTAP/Submitted';
+import StudentScores from '~/pages/QLHOCSINH/StudentScores';
+
 //học sinh page
 import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
 import LoginStudent from '~/pagesStudent/LoginStudent';
@@ -51,7 +53,7 @@ const publicRoutes = [
     { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
     { path: '/home/student/updateStudent/:classID/:studentID', component: UpdateStudent },
-    // { path: '/student/updateStudent/:id', component: UpdateStudent },
+    { path: '/home/student/student-scores/:sid', component: StudentScores },
 
     //QLLOPHOC
     { path: '/home/class', component: Class },

@@ -1,3 +1,4 @@
+import { of_class } from "../helpers/joi_schema";
 import db from "../models";
 import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
@@ -106,6 +107,7 @@ export const createAssignment = (body, fileData, tid) =>
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
+
 //UPDATE
 export const updateAssignment = (assignmentId, body, fileData) =>
   new Promise(async (resolve, reject) => {
@@ -119,11 +121,17 @@ export const updateAssignment = (assignmentId, body, fileData) =>
         body.file_path = fileData?.path;
         body.filename = fileData?.filename;
       }
-
-      const response = await db.Assignment.update(body, {
-        where: { id: assignmentId.assignmentId },
+      const dataClass = await db.Class.findOne({
+        where: { class_name: body.of_class },
       });
-
+      const response = await db.Assignment.update(
+        { ...body, of_class: dataClass.dataValues.id },
+        {
+          where: {
+            id: assignmentId.assignmentId,
+          },
+        }
+      );
       resolve({
         err: response[0] > 0 ? 0 : 1,
         message:

@@ -18,6 +18,7 @@ function Profile() {
     const [error, setError] = useState({
         errName: null,
         errPhone: null,
+        errEmail: null,
     });
 
     const [preview, setPreview] = useState({
@@ -27,7 +28,7 @@ function Profile() {
     const [updateCheck, setUpdateCheck] = useState(false);
 
     // console.log(preview);
-    console.log(userData);
+    // console.log(userData);
     //
     // console.log(token);
     useEffect(() => {
@@ -85,7 +86,8 @@ function Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-
+        // const phonePattern = ;
+        // const emailPattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$';
         // if (typeof userData.avatar === 'object') formData.append('avatar', userData.avatar);
         if (userData.name === '') {
             return setError((prev) => ({
@@ -93,12 +95,17 @@ function Profile() {
                 errName: 'Họ tên không được để trống',
             }));
         }
-
-        if (userData.phone === `^\d{10}$`)
-            setError((prev) => ({
-                ...prev,
-                errPhone: 'Số điện thoại không hợp lệ',
-            }));
+        // if (userData.email === '' || userData.email !== emailPattern) {
+        //     return setError((prev) => ({
+        //         ...prev,
+        //         errEmail: 'Email không đúng định dạng',
+        //     }));
+        // }
+        // if (userData.phone === '')
+        //     setError((prev) => ({
+        //         ...prev,
+        //         errPhone: 'Số điện thoại không đúng định dạng',
+        //     }));
         for (let i of Object.entries(userData)) {
             if (i[1] === '') continue;
             if (i[1] === null) continue;
@@ -108,13 +115,20 @@ function Profile() {
         // for (let i of formData) {
         //     console.log(i[0], i[1]);
         // }
+        if (error.errName === null && error.errPhone === null && error.errEmail === null) {
+            const response = await apiUpdateUser(token, formData);
+            // console.log(response);
+            if (response?.data.err === 0) {
+                notifySuccess('Cập nhật thành công !');
 
-        const response = await apiUpdateUser(token, formData);
-        console.log(response);
-        if (response?.data.err === 0) {
-            notifySuccess('Cập nhật thành công !');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                alert('Lỗi');
+            }
         } else {
-            alert('Lỗi');
+            toast.error('Vui lòng nhập đúng dữ liệu');
         }
     };
 
@@ -135,7 +149,10 @@ function Profile() {
                                 type="text"
                                 className="form-control form-control-user  "
                                 value={userData.name}
-                                onChange={(e) => setUserData((prev) => ({ ...prev, name: e.target.value }))}
+                                onChange={(e) => {
+                                    setUserData((prev) => ({ ...prev, name: e.target.value }));
+                                    setError((prev) => ({ ...prev, errName: null }));
+                                }}
                             />
                             {error.errName && <small className="text-danger pl-3">{error.errName}</small>}
                         </div>
@@ -144,11 +161,15 @@ function Profile() {
                                 Email
                             </label>
                             <input
-                                type="text"
+                                type="email"
                                 className="form-control form-control-user"
                                 value={userData.email}
-                                onChange={(e) => setUserData((prev) => ({ ...prev, email: e.target.value }))}
+                                onChange={(e) => {
+                                    setUserData((prev) => ({ ...prev, email: e.target.value }));
+                                    // setError((prev) => ({ ...prev, errEmail: null }));
+                                }}
                             />
+                            {/* {error.errEmail && <small className="text-danger pl-3">{error.errEmail}</small>} */}
                         </div>
                         <div className="form-group">
                             <label htmlFor="name-bt" className="pl-2">
@@ -159,9 +180,12 @@ function Profile() {
                                 className="form-control form-control-user"
                                 value={userData.phone}
                                 name="phone"
-                                onChange={(e) => setUserData((prev) => ({ ...prev, phone: e.target.value }))}
+                                onChange={(e) => {
+                                    setUserData((prev) => ({ ...prev, phone: e.target.value }));
+                                    // setError((prev) => ({ ...prev, errPhone: null }));
+                                }}
                             />
-                            {error.errPhone && <small className="text-danger pl-3">{error.errPhone}</small>}
+                            {/* {error.errPhone && <small className="text-danger pl-3">{error.errPhone}</small>} */}
                         </div>
                         <div className="form-group">
                             <label htmlFor="name-bt" className="pl-2">

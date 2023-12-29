@@ -39,7 +39,7 @@ export default function CreateStudent({ classID }) {
     const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -93,10 +93,9 @@ export default function CreateStudent({ classID }) {
             >
                 <i className="fa-solid fa-arrow-left"></i>
             </button>
-            <h1 className="h3 mb-4 text-gray-800 text-center">
+            <h1 className="h3 mb-5 text-gray-800 text-center">
                 <FcList className="mr-3" />
                 Thêm học sinh
-                <small className="d-block mt-2">(Điền thông tin lớp vào biểu mẫu dưới đây)</small>
             </h1>
             <form className="mt-3 user mx-5" onSubmit={handleSubmit}>
                 <div className="form-row">
@@ -106,6 +105,7 @@ export default function CreateStudent({ classID }) {
                         </label>
                         <input
                             type="text"
+                            style={{ fontSize: 16 }}
                             placeholder="Nhập tên học sinh"
                             className="form-control form-control-user"
                             onChange={(text) => setStudentName(text.target.value)}
@@ -127,13 +127,14 @@ export default function CreateStudent({ classID }) {
                         </div>
                     </div>
                 </div>
-                <div className="form-row mt-3">
+                <div className="form-row mt-5">
                     <div className="col-6">
                         <label className="text-capitalize font-weight-bold pl-2">
                             username <b className="text-danger">*</b>
                         </label>
                         <input
                             type="text"
+                            style={{ fontSize: 16 }}
                             placeholder="Nhập tên đăng nhập của học sinh"
                             className="form-control form-control-user"
                             onChange={(text) => setUserName(text.target.value)}
@@ -145,17 +146,19 @@ export default function CreateStudent({ classID }) {
                         </label>
                         <input
                             type="text"
+                            style={{ fontSize: 16 }}
                             placeholder="Nhập mật khẩu của học sinh"
                             className="form-control form-control-user"
                             onChange={(text) => setPassword(text.target.value)}
                         />
                     </div>
                 </div>
-                <div className="form-row mt-3">
+                <div className="form-row mt-5">
                     <div className="col-6">
                         <label className="text-capitalize font-weight-bold pl-2">Quê quán</label>
                         <input
                             type="text"
+                            style={{ fontSize: 16 }}
                             placeholder="Nhập quê quán"
                             className="form-control form-control-user"
                             onChange={(text) => setAddress(text.target.value)}
@@ -166,7 +169,7 @@ export default function CreateStudent({ classID }) {
                             Giới tính <b className="text-danger">*</b>
                         </label>
                         <select
-                            className="form-control form-user"
+                            className="custom-select"
                             style={{ height: 50, borderRadius: 100 }}
                             value={gender}
                             onChange={(text) => setGender(text.target.value)}
