@@ -2,22 +2,29 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { AiFillRead } from 'react-icons/ai';
 import { FaAngellist } from 'react-icons/fa';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { apiGetAssignmentOfStudent, apiGetStudent } from '~/apis/userService';
 function AssignmentStudent() {
     // const navigate = useNavigate();
     const { token } = useSelector((state) => state.auth);
+    console.log(token)
 
     const [values, setValues] = useState([]);
     const [data, setData] = useState([]);
-    const [classId, setClassId] = useState(null);  
+    const [classId, setClassId] = useState(null);
+    const [studentId, setStudentId] = useState(null);
+
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetAssignmentOfStudent(token);
             const user = await apiGetStudent(token);
             const classId = user.data.response.class_id;
             setClassId(classId);
+            const studentId = user.data.response.id;
+            console.log(studentId);
+            setStudentId(studentId);
             // console.log(classId);
             if (response?.data.err === 0) {
                 setValues(response.data.response.rows[0].classData.assignmentData);
@@ -29,6 +36,16 @@ function AssignmentStudent() {
         };
         token && fetchUser();
     }, [token]);
+
+    // useEffect(() => {
+    //     axios
+    //         .get(`http://localhost:8081/api/submiss/${studentId}`)
+    //         .then((res) => {
+    //             // console.log(res.data);
+    //             setValues(res.data.response);
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, []);
 
     return (
         <div className="container-fluid">

@@ -224,6 +224,49 @@ export const get_submission_ById = (assignment_id, studentId) =>
     }
   });
 
+  //Cũ
+export const checkSubmission = (studentId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Submission.findAll({
+        attributes: ["id", "student_id", "assignment_id", "submission_status"],
+        where: { student_id: studentId },
+          include: [
+            {
+              model: db.Student,
+              as: "studentData",
+              attributes: ["student_name"],
+            },
+            {
+              model: db.Assignment,
+              as: "assignmentData",
+              attributes: ["deadline", "file_path", "assignment_name"],
+            },
+          ],
+      });
+
+      //Lặp qua từng phần tử (submission) của response(tìm kiếm trong db Submission) 
+      for (const submission of response) {
+        // Kiểm tra xem có mục nào tương ứng trong bảng Grade không
+        const submissionEntry = await db.Assignment.findOne({
+          where: { id: submission.assignment_id },
+        });
+
+        // Cập nhật submit_status dựa trên kết quả
+        submission.submission_status = submissionEntry ? "Đã nộp" : "Nộp bài";
+      }
+
+      resolve({
+        err: response ? 0 : 1,
+        message: response ? "Got" : "Can not found!!!",
+        response,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+
 
 
 

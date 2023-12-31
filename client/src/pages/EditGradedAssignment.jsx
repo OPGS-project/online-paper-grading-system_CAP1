@@ -514,8 +514,10 @@ function EditGradedAssignment() {
     };
 
     useEffect(() => {
-        fetchDataImage();
-    }, [editor]);
+        if (editor) {
+            fetchDataImage();
+        }
+    }, []);
 
     //test
 
@@ -596,8 +598,6 @@ function EditGradedAssignment() {
                 editor.canvas.renderAll();
             })
         }
-
-        addBackground();
 
     }, [editor, fabric]);
 
