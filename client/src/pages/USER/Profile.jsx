@@ -120,7 +120,6 @@ function Profile() {
             // console.log(response);
             if (response?.data.err === 0) {
                 notifySuccess('Cập nhật thành công !');
-
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
