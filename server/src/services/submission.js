@@ -224,7 +224,6 @@ export const get_submission_ById = (assignment_id, studentId) =>
     }
   });
 
-  //Cũ
 export const checkSubmission = (studentId) =>
   new Promise(async (resolve, reject) => {
     try {
