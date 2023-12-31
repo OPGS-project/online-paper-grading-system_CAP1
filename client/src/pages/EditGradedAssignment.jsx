@@ -111,7 +111,7 @@ function EditGradedAssignment() {
 
     //Hướng dẫn chấm bài
     const gradingInstruction = () => {
-        const gradingInstructionLink = "https://www.youtube.com/watch?v=6NNoPXw5Yks";
+        const gradingInstructionLink = "https://youtu.be/KTwJn28WIak";
         window.open(gradingInstructionLink, '_blank');
     }
 
@@ -456,6 +456,8 @@ function EditGradedAssignment() {
     //     fetchDataImage();
     // }, []);
 
+    //test
+
     const addBackground = async (canvasJson) => {
         if (!editor || !fabric) {
             return;
@@ -594,6 +596,7 @@ function EditGradedAssignment() {
                 editor.canvas.renderAll();
             })
         }
+
         addBackground();
 
     }, [editor, fabric]);

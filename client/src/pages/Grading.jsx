@@ -97,7 +97,7 @@ function Grading() {
 
     //Hướng dẫn chấm bài
     const gradingInstruction = () => {
-        const gradingInstructionLink = "https://www.youtube.com/watch?v=6NNoPXw5Yks";
+        const gradingInstructionLink = "https://youtu.be/KTwJn28WIak";
         window.open(gradingInstructionLink, '_blank');
     }
 
