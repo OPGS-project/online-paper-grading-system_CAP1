@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       score_value: DataTypes.FLOAT,
       comments: DataTypes.TEXT,
       image: DataTypes.STRING,
+      canvas_json: DataTypes.JSON,
       filename: DataTypes.STRING,
     },
     {

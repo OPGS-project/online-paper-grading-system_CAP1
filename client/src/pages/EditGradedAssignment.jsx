@@ -9,23 +9,25 @@ import { FaUndo, FaRedo, FaDownload } from 'react-icons/fa';
 import '~~/pages/Grading.scss';
 import { Link, useParams } from 'react-router-dom';
 import { Collapse } from 'bootstrap';
-// import { param } from 'jquery';
 
-function Grading() {
+function EditGradedAssignment() {
     const navigate = useNavigate();
-    const { assignment_id, student_id } = useParams();
-    console.log("Student id: " + student_id);
-    console.log("Assignment id: " + assignment_id);
+    const params = useParams();
+    console.log("Submission id: " + params.id);
+    console.log("Student name: " + params.student_name);
 
     const { editor, onReady } = useFabricJSEditor();
     const [downloadLink, setDownloadLink] = useState('');
     const [downloadName, setDownloadName] = useState('');
     const [showAssignmentImage, setShowAssignmentImage] = useState(false);
 
-    const [totalScore, setTotalScore] = useState(0);
-    const [comment, setComment] = useState('');
+    const [comment, setComment] = useState({
+        comments: '',
+    });
 
-    const [submission_id, setSubmission_id] = useState('');
+    const [totalScore, setTotalScore] = useState({
+        score_value: '',
+    });
 
     const history = [];
     const [color, setColor] = useState('#35363a');
@@ -41,10 +43,6 @@ function Grading() {
     });
 
     //Thông tin học sinh 
-    const [studentName, setStudentName] = useState({
-        student_name: '',
-    });
-
     const [className, setClassName] = useState({
         class_name: '',
     });
@@ -53,28 +51,44 @@ function Grading() {
         createdAt: '',
     });
 
+    const [student_id, setStudentId] = useState({
+        student_id: '',
+    });
+
+    const [gradeId, setGradedId] = useState({
+        gradeId: '',
+    });
+
     //get api
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
+                const response = await axios.get(`http://localhost:8081/api/grading/${params.id}/${params.student_name}`);
                 console.log(response)
                 if (response.data.err === 0) {
                     const responseData = response.data.response[0];
 
-                    const submission_id = responseData.id;
-                    console.log("Submission id: " + submission_id);
+                    const student_id = responseData.student_id;
+                    const gradeId = responseData.id;
+                    const comments = responseData.comments;
+                    const score_value = responseData.score_value;
+                    const { class_name } = responseData.submissionData.classData;
+                    const { createdAt } = responseData.submissionData;
 
-                    const { student_name } = responseData.studentData;
-                    const { class_name } = responseData.classData;
-                    const createdAt = responseData.createdAt;
+                    setStudentId(
+                        student_id,
+                    );
 
-                    setStudentName({
-                        student_name,
-                    });
+                    setGradedId(
+                        gradeId,
+                    );
 
-                    setSubmission_id(
-                        submission_id,
+                    setComment(
+                        comments,
+                    );
+
+                    setTotalScore(
+                        score_value,
                     );
 
                     setClassName({
@@ -93,7 +107,7 @@ function Grading() {
         };
 
         fetchDataStudent();
-    }, [student_id]);
+    }, []);
 
     //Hướng dẫn chấm bài
     const gradingInstruction = () => {
@@ -106,12 +120,12 @@ function Grading() {
         try {
             if (!showAssignmentImage) {
                 // Fetch data from the API using Axios
-                const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
+                const response = await axios.get(`http://localhost:8081/api/grading/${params.id}/${params.student_name}`);
 
                 // Kiểm tra xem yêu cầu có thành công không
                 if (response.data.err === 0) {
                     // Lấy URL hình ảnh bài tập từ phản hồi API
-                    const assignmentImageUrl = response.data.response[0].assignmentData.file_path;
+                    const assignmentImageUrl = response.data.response[0].submissionData.assignmentData.file_path;
                     // Mở hình ảnh bài tập trong cửa sổ hoặc tab mới
                     window.open(assignmentImageUrl, '_blank');
                 } else {
@@ -124,6 +138,7 @@ function Grading() {
             console.error(error);
         }
     };
+
     //Hàm xử lý notify message
     const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
@@ -137,6 +152,7 @@ function Grading() {
             theme: 'light',
         });
     };
+
     const notifyError = (errorMessage) => {
         toast.error(errorMessage, {
             position: 'top-right',
@@ -165,7 +181,7 @@ function Grading() {
         return new File([u8arr], filename, { type: mime });
     }
 
-    //Lưu bài
+    //Update 
     const saveGradedAssignment = async () => {
         try {
             const canvasDataURL = editor.canvas.toDataURL({ format: 'png' });
@@ -187,7 +203,7 @@ function Grading() {
 
             // Tạo FormData để chứa dữ liệu
             const formData = new FormData();
-            formData.append('submission_id', submission_id);
+            formData.append('submission_id', params.id);
             formData.append('score_value', totalScore);
             formData.append('comments', userComment);
             formData.append('image', fileData);
@@ -195,14 +211,14 @@ function Grading() {
             formData.append('student_id', student_id);
 
             // Gọi API để lưu graded assignment
-            const response = await axios.post('http://localhost:8081/api/grading/', formData);
+            const response = await axios.put(`http://localhost:8081/api/grading/${gradeId}`, formData);
 
             // Xử lý kết quả từ API (response)
             if (response.data.err === 0) {
                 // Lưu thành công
-                notifySuccess('Lưu kết quả chấm bài thành công!');
+                notifySuccess('Cập nhật thành công!');
                 setTimeout(() => {
-                    navigate(`/home/assignment/submitted/${assignment_id}`);
+                    navigate(`/home/GradedAssignment/${params.id}/${params.student_name}`);
                 }, 2000);
                 // console.log(response.data.mes);
             } else {
@@ -403,69 +419,92 @@ function Grading() {
         editor.canvas.renderAll();
     }, [editor]);
 
-    //Update handle image
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [responseData, setResponseData] = useState(null);
+    // const addBackground = (canvasJson) => {
+    //     if (!editor || !fabric) {
+    //         return;
+    //     }
 
-    const addBackground = (imageUrl) => {
+    //     editor.canvas.loadFromJSON(canvasJson, editor.canvas.renderAll.bind(editor.canvas), (o, object) => {
+    //         fabric.log(o, object);
+    //     },
+    //         { crossOrigin: 'anonymous' }
+    //     )
+    // }
+
+    // //test handle convert json to object
+    // const fetchDataImage = async () => {
+    //     try {
+    //         const response = await axios.get(`http://localhost:8081/api/grading/${params.id}/${params.student_name}`);
+    //         if (response.data.err === 0) {
+    //             const responseData = response.data.response[0];
+    //             const canvasJsonDatabase = responseData.canvas_json;
+    //             const canvasJson = JSON.parse(canvasJsonDatabase);
+    //             console.log("Canvas json: ")
+    //             console.log(canvasJson);
+    //             const imageUrl = canvasJson.backgroundImage.src;
+    //             console.log(imageUrl);
+    //             addBackground(canvasJson);
+    //         } else {
+    //             console.error(response.data.message);
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchDataImage();
+    // }, []);
+
+    //test
+
+    const addBackground = async (canvasJson) => {
         if (!editor || !fabric) {
             return;
         }
-        fabric.Image.fromURL(
-            imageUrl,
-            (image) => {
-                const scaleX = editor.canvas.width / image.width;
-                const scaleY = editor.canvas.height / image.height;
-                const scale = Math.min(scaleX, scaleY);
 
-                image.scaleX = scale;
-                image.scaleY = scale;
+        const loadImage = (imageUrl) => {
+            return new Promise((resolve, reject) => {
+                fabric.util.loadImage(imageUrl, (img) => {
+                    const scale = Math.min(editor.canvas.width / img.width, editor.canvas.height / img.height);
 
-                image.left = (editor.canvas.width - image.width * scale) / 2;
-                image.top = (editor.canvas.height - image.height * scale) / 2;
+                    const fabricImage = new fabric.Image(img, {
+                        scaleX: scale,
+                        scaleY: scale,
+                        left: (editor.canvas.width - img.width * scale) / 2,
+                        top: (editor.canvas.height - img.height * scale) / 2,
+                        crossOrigin: 'anonymous'
+                    });
 
-                editor.canvas.setBackgroundImage(image, editor.canvas.renderAll.bind(editor.canvas));
-            },
-            { crossOrigin: 'anonymous' }
-        );
-    };
-
-    const showPreviousImage = () => {
-        //Ảnh hợp lệ, nó là 1 mảng và lớn hơn 0
-        if (responseData && responseData.image && currentImageIndex > 0) {
-            const newIndex = currentImageIndex - 1;
-            setCurrentImageIndex(newIndex);
-            addBackground(responseData.image[newIndex]);
-        }
-    };
-
-    const showNextImage = () => {
-        //Ảnh hợp lệ, nó là 1 mảng và nhỏ hơn thứ tự lớn nhất trong mảng
-        if (responseData && responseData.image && currentImageIndex < responseData.image.length - 1) {
-            const newIndex = currentImageIndex + 1;
-            setCurrentImageIndex(newIndex);
-            addBackground(responseData.image[newIndex]);
-        }
-    };
-
-    const processImageData = (responseData, addBackground) => {
-        if (Array.isArray(responseData.image)) {
-            responseData.image.forEach((imageUrl) => {
-                addBackground(imageUrl);
-                console.log("Image: " + imageUrl);
+                    resolve(fabricImage);
+                }, null, { crossOrigin: 'anonymous' });
             });
-        } else {
-            console.error("Invalid image data");
-        }
+        };
+
+        editor.canvas.loadFromJSON(canvasJson, async () => {
+            try {
+                const backgroundImage = await loadImage(canvasJson.backgroundImage.src);
+                editor.canvas.setBackgroundImage(backgroundImage, editor.canvas.renderAll.bind(editor.canvas));
+            } catch (error) {
+                console.error('Error loading background image:', error);
+            }
+        }, (o, object) => {
+            fabric.log(o, object);
+        }, { crossOrigin: 'anonymous' });
     };
 
     const fetchDataImage = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
+            const response = await axios.get(`http://localhost:8081/api/grading/${params.id}/${params.student_name}`);
             if (response.data.err === 0) {
                 const responseData = response.data.response[0];
-                setResponseData(responseData);
-                processImageData(responseData, addBackground);
+                const canvasJsonDatabase = responseData.canvas_json;
+                const canvasJson = JSON.parse(canvasJsonDatabase);
+                console.log("Canvas json: ");
+                console.log(canvasJson);
+                const imgUrl = canvasJson.backgroundImage.src;
+                console.log(imgUrl);
+                addBackground(canvasJson);
             } else {
                 console.error(response.data.message);
             }
@@ -476,12 +515,15 @@ function Grading() {
 
     useEffect(() => {
         fetchDataImage();
-    }, []);
+    }, [editor]);
+
+    //test
 
     useEffect(() => {
         if (!editor || !fabric) {
             return;
         }
+
         editor.canvas.setHeight(850);
         editor.canvas.setWidth(900);
 
@@ -555,14 +597,10 @@ function Grading() {
             })
         }
 
-        // Check và thêm hình ảnh nếu có
-        if (responseData && responseData.image) {
-            //lấy URL của ảnh từ mảng responseData.image ứng với chỉ số hiện tại currentImageIndex. 
-            const imageUrl = responseData.image[currentImageIndex];
-            addBackground(imageUrl);
-        }
+        addBackground();
 
-    }, [editor, fabric, responseData, currentImageIndex]);
+    }, [editor, fabric]);
+
     //-------------------------------------
 
     useEffect(() => {
@@ -626,14 +664,6 @@ function Grading() {
             }),
         );
         setDownloadName('assignment_graded.png');
-        //test convert image to json
-        const testJson = editor.canvas.toJSON();
-        console.log(testJson);
-
-        // const canvasJSON = editor.canvas.toJSON();
-        // console.log(canvasJSON);
-        // const canvasJSONString = JSON.stringify(canvasJSON);
-        // console.log(canvasJSONString);
     };
 
     return (
@@ -641,17 +671,17 @@ function Grading() {
             <div className="content-container">
                 <div className="assignment-info-box col-10 ">
                     <div className="assignment-info ">
-                        <p>Tên: {studentName.student_name}</p>
+                        <p>Tên: {params.student_name}</p>
                         <p>Lớp: {className.class_name}</p>
                         <p>Thời gian nộp bài: {moment(createdAt.createdAt).format('DD-MM-YYYY HH:mm a')}</p>
                     </div>
                     <div className="assigment-images">
-                        <i style={{ marginRight: 10 }} onClick={showPreviousImage} className="fa-solid fa-chevron-left"></i>
+                        <i style={{ marginRight: 10 }} className="fa-solid fa-chevron-left"></i>
                         <p style={{ margin: 0 }}>Hình ảnh bài nộp</p>
-                        <i style={{ marginLeft: 10 }} onClick={showNextImage} className="fa-solid fa-chevron-right"></i>
+                        <i style={{ marginLeft: 10 }} className="fa-solid fa-chevron-right"></i>
                     </div>
                     <div className="image-container">
-                        <FabricJSCanvas onReady={onReady} />
+                        <FabricJSCanvas onReady={onReady} id="canvas" />
                     </div>
                 </div>
 
@@ -698,7 +728,7 @@ function Grading() {
                                     onClick={saveGradedAssignment}
                                     disabled={!cropImage}
                                 >
-                                    Lưu
+                                    Cập nhật
                                 </button>
                             </div>
                         </div>
@@ -805,4 +835,4 @@ function Grading() {
     );
 }
 
-export default Grading;
+export default EditGradedAssignment;

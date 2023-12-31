@@ -169,7 +169,7 @@ export const get_submission_ById = (assignment_id, studentId) =>
           },
           {
             model: db.Class,
-            attributes: ["class_name"],
+            attributes: ["class_name"], 
             as: "classData", // Bí danh cho mối quan hệ
           },
           {

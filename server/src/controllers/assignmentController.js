@@ -1,8 +1,7 @@
 import * as authServices from "../services";
 const cloudinary = require("cloudinary").v2;
 import joi from "joi";
-//
-//
+
 export const getAssignment = async (req, res) => {
   try {
     const { id } = req.user;
@@ -64,6 +63,7 @@ export const updateAssignment = async (req, res) => {
     // return internalServerError(res);
   }
 };
+
 export const deleteAssignment = async (req, res) => {
   try {
     const assignmentId = req.params;

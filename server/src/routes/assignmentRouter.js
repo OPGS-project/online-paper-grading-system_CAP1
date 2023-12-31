@@ -8,6 +8,7 @@ import { uploadAssignment } from "../middlewares/uploader";
 const router = express.Router();
 
 router.use(verifyToken);
+
 router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
 
@@ -17,11 +18,13 @@ router.post(
   uploadAssignment.single("file_path"),
   controllers.createAssignment
 );
+
 router.put(
   "/:assignmentId",
   uploadAssignment.single("file_path"),
   controllers.updateAssignment
 );
+
 router.delete("/:assignmentId", controllers.deleteAssignment);
 
 module.exports = router;

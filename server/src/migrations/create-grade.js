@@ -24,6 +24,9 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
+      canvas_json: {
+        type: Sequelize.JSON,
+      },
       filename: {
         type: Sequelize.STRING,
       },

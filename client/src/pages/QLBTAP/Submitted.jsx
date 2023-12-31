@@ -61,9 +61,20 @@ const Submitted = () => {
                                                 ? moment(data.gradeData.createdAt).format('DD-MM-YYYY HH:mm ')
                                                 : 'Chưa chấm'}
                                         </td>
-                                        <td> {data.gradeData && data.gradeData.score_value
-                                                ? data.gradeData.score_value
-                                                : 'Chưa chấm'}
+                                        <td > {data.gradeData && data.gradeData.score_value
+                                            ? (
+                                                <Link
+                                                    to={`/home/GradedAssignment/${data.id}/${data.student_name}`}
+                                                    className=""
+                                                    style={{
+                                                        color: 'red',
+                                                        fontWeight: 500,
+                                                    }}
+                                                >
+                                                    {data.gradeData.score_value}
+                                                </Link>
+                                            )
+                                            : 'Chưa chấm'}
                                         </td>
                                         <td>
                                             {data.submission_status === 'Đã chấm' ? (
