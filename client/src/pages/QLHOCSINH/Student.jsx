@@ -244,6 +244,23 @@ export default function Student() {
             handleConfirmationModalClose();
         }
     };
+    const csvTemplateHeaders = ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'Số điện thoại', 'Lớp', 'username', 'password'];
+
+    const handleDownloadTemplate = () => {
+        const csvTemplateData = [csvTemplateHeaders];
+        const csvContent = csvTemplateData.map(row => row.join(',')).join('\n');
+      
+        const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], {
+          type: 'text/csv;charset=utf-8;'
+        });
+      
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+      
+        link.href = url;
+        link.download = 'student_template.csv';
+        link.click();
+      };
     //
     return (
         <div className="container-fluid">
@@ -270,6 +287,10 @@ export default function Student() {
                         <i class="fa-solid fa-file-arrow-down"></i> Export
                     </CSVLink>
                     <p className="float-right">Sỉ số: ({state.student.length} học sinh)</p>
+                    <button className="btn btn-info ml-2" onClick={handleDownloadTemplate}>
+                        <i className="bi bi-file-earmark-arrow-down-fill"></i> Template
+                    </button>
+
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">

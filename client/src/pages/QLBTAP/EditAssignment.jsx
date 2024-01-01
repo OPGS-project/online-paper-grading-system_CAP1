@@ -133,7 +133,6 @@ export default function EditAssignment() {
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
-                        value={assignment.of_class}
                         onChange={(e) => {
                             // setError((prev) => ({ ...prev, errClass: null }));
                             setAssignment((prev) => ({ ...prev, of_class: e.target.value }));
