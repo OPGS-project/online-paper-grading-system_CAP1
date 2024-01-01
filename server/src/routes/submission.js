@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/:assignment_id/:studentId/", controllers.get_submission_ById);
 
-router.get("/:studentId/", controllers.checkSubmission);
+// router.get("/:studentId/", controllers.checkSubmission);
 
 
 module.exports = router;
