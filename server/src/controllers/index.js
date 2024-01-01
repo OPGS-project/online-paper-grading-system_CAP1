@@ -7,3 +7,4 @@ export * from "./authStudentController";
 export * from "./submissionController";
 export * from "./gradingController";
 export * from "./submission";
+export * from "./pageStudentController";

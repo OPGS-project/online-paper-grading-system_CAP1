@@ -56,7 +56,7 @@ export const apiGetStudent = (token) =>
         try {
             const response = await aixos({
                 method: 'get',
-                url: 'http://localhost:8081/api/student/get-student',
+                url: 'http://localhost:8081/api/main-student/get-student',
                 headers: {
                     authorization: token,
                 },
@@ -88,7 +88,7 @@ export const apiGetAssignmentOfStudent = (token, data) =>
         try {
             const response = await aixos({
                 method: 'get',
-                url: 'http://localhost:8081/api/student/get-assignment-of-student',
+                url: 'http://localhost:8081/api/main-student/get-assignment-of-student',
                 headers: {
                     authorization: token,
                 },
@@ -125,10 +125,9 @@ export const apiGetGradingForStudent = (token, idStudent) =>
                 headers: {
                     authorization: token,
                 },
-                
             });
             // console.log(idStudent)
-            
+
             resolve(response);
         } catch (error) {
             reject(error);

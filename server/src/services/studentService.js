@@ -3,100 +3,75 @@ import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
 const cloudinary = require("cloudinary").v2;
 
-export const getStudent = ({
-  page,
-  limit,
-  order,
-  name,
-
-  ...query
-}) =>
-  new Promise(async (resolve, reject) => {
+export const getStudent = (cid) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const queries = { raw: true, nest: true };
-      // const offset = !page || +page <= 1 ? 0 : +page - 1;
-      // const fLimit = +limit || +process.env.LIMIT_NUMBER;
-      // queries.offset = offset * fLimit;
-      // queries.limit = fLimit;
-      if (order) queries.order = [order];
-      if (name) query.student_name = { [Op.substring]: name };
-      const response = await db.Student.findAndCountAll({
-        where: query,
-        ...queries,
-        attributes: {
-          exclude: ["createdAt", "updatedAt"],
-        },
-      });
-
-      resolve({
-        err: response ? 0 : 1,
-        message: response ? "Got" : "Can not found!!!",
-        student: response,
-      });
-    } catch (e) {
-      console.log(e);
-      reject(e);
-    }
-  });
-//
-
-export const getStudentCurrent = (id) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      let response = await db.Student.findOne({
-        where: { id },
-        raw: true,
-        attributes: {
-          exclude: ["password", "refresh_token"],
-        },
-      });
-      resolve({
-        err: response ? 0 : 1,
-        msg: response ? "OK" : "Student not found!",
-        response,
-      });
-    } catch (error) {
-      console.log(error);
-      reject(error);
-    }
-  });
-//getAssignment of Student
-
-export const getAssignmentOfStudent = (id) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      let response = await db.Student.findAndCountAll({
-        where: { id },
+      const response = await db.Class.findOne({
+        where: { id: cid },
         raw: false,
-        attributes: {
-          exclude: ["createdAt", "updatedAt", "password"],
-        },
+        attributes: ["id", "class_name"],
         include: [
           {
-            model: db.Class,
-            as: "classData",
-            attributes: ["class_name"],
-            include: [
-              {
-                model: db.Assignment,
-                as: "assignmentData",
-                attributes: ["assignment_name", "deadline", "id", "file_path"],
-              },
-            ],
+            model: db.Student,
+            attributes: ["student_name", "gender", "address", "birthday"],
+            through: {
+              model: db.Student_Class,
+            },
           },
         ],
       });
-
       resolve({
         err: response ? 0 : 1,
-        msg: response ? "OK" : "Student not found!",
-        response,
+        mess: response ? "Get data success" : "Get data failure",
+        response: response,
       });
     } catch (error) {
-      console.log(error);
       reject(error);
     }
   });
+};
+
+//
+
+//getAssignment of Student
+
+// export const getAssignmentOfStudent = (id) =>
+//   new Promise(async (resolve, reject) => {
+//     try {
+//       let response = await db.Student.findOne({
+//         where: { id },
+//         raw: false,
+//         attributes: {
+//           exclude: ["createdAt", "updatedAt", "password"],
+//         },
+//         include: [
+//           {
+//             model: db.Class,
+//             attributes: ["class_name"],
+//             through: {
+//               model: db.Student_Class,
+//             },
+//             // include: [
+//             //   {
+//             //     model: db.Assignment,
+//             //     as: "assignmentData",
+//             //     attributes: ["assignment_name", "deadline", "id", "file_path"],
+//             //   },
+//             // ],
+//           },
+//         ],
+//       });
+
+//       resolve({
+//         err: response ? 0 : 1,
+//         msg: response ? "OK" : "Student not found!",
+//         response,
+//       });
+//     } catch (error) {
+//       console.log(error);
+//       reject(error);
+//     }
+//   });
 
 //CREATE
 export const createStudent = (body) =>

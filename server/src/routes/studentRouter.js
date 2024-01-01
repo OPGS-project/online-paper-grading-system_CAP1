@@ -6,7 +6,7 @@ import { uploadUser } from "../middlewares/uploader";
 
 const router = express.Router();
 
-router.get("/", controllers.getStudent);
+router.get("/:cid", controllers.getStudent);
 router.post("/", controllers.createStudent);
 router.put("/update-student/:classId/:studentId", controllers.updateStudent);
 router.delete("/delete-student/:studentId", controllers.deleteStudent);
@@ -21,6 +21,6 @@ router.put(
   controllers.updateStudentProfile
 );
 
-router.get("/get-assignment-of-student", controllers.getAssignmentOfStudent);
+// router.get("/get-assignment-of-student", controllers.getAssignmentOfStudent);
 
 module.exports = router;

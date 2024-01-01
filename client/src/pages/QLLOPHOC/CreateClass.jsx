@@ -62,7 +62,7 @@ export default function CreateClass() {
                         navigate('/home/class'); // thành công sẽ chuyển hướng
                     }, 2000);
                 } else {
-                    notifyError('Đã có lỗi xảy ra khi thêm lớp');
+                    notifyError('Lớp học đã tồn tại');
                 }
             })
             .catch((e) => console.log(e));

@@ -4,24 +4,25 @@ import { AiFillRead } from 'react-icons/ai';
 import { FaAngellist } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { apiGetAssignmentOfStudent, apiGetStudent } from '~/apis/userService';
+import { apiGetAssignmentOfStudent } from '~/apis/userService';
 function AssignmentStudent() {
     // const navigate = useNavigate();
     const { token } = useSelector((state) => state.auth);
 
     const [values, setValues] = useState([]);
     const [data, setData] = useState([]);
-    const [classId, setClassId] = useState(null);  
+    const [classId, setClassId] = useState(null);
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetAssignmentOfStudent(token);
-            const user = await apiGetStudent(token);
-            const classId = user.data.response.class_id;
-            setClassId(classId);
+
+            // const classId = user.data.response.class_id;
+            // setClassId(classId);
             // console.log(classId);
+            console.log(response.data.response.Classes);
             if (response?.data.err === 0) {
-                setValues(response.data.response.rows[0].classData.assignmentData);
-                setData(user.data.response);
+                setValues(response.data.response.Classes);
+                setData(response.data.response);
             } else {
                 setValues([]);
                 setData([]);
@@ -49,6 +50,7 @@ function AssignmentStudent() {
                         <thead className="text-center">
                             <tr>
                                 <th>Tên Bài Tập</th>
+                                <th>Lớp</th>
                                 <th>Hạn Nộp</th>
                                 <th>Chi tiết</th>
                                 <th>Nộp bài</th>
@@ -58,7 +60,8 @@ function AssignmentStudent() {
                             {values.length > 0 ? (
                                 values?.map((data, i) => (
                                     <tr key={i}>
-                                        <td style={{ fontWeight: 500 }}>{data.assignment_name}</td>
+                                        <td style={{ fontWeight: 500 }}>{data.assignmentData[0].assignment_name}</td>
+                                        <td style={{ fontWeight: 500 }}>{data.class_name}</td>
                                         <td style={{ fontWeight: 500 }}>
                                             {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
                                         </td>

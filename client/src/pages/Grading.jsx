@@ -14,8 +14,8 @@ import { Collapse } from 'bootstrap';
 function Grading() {
     const navigate = useNavigate();
     const { assignment_id, student_id } = useParams();
-    console.log("Student id: " + student_id);
-    console.log("Assignment id: " + assignment_id);
+    console.log('Student id: ' + student_id);
+    console.log('Assignment id: ' + assignment_id);
 
     const { editor, onReady } = useFabricJSEditor();
     const [downloadLink, setDownloadLink] = useState('');
@@ -40,7 +40,7 @@ function Grading() {
         toggle4 ? bsCollapse4.show() : bsCollapse4.hide();
     });
 
-    //Thông tin học sinh 
+    //Thông tin học sinh
     const [studentName, setStudentName] = useState({
         student_name: '',
     });
@@ -58,12 +58,12 @@ function Grading() {
         const fetchDataStudent = async () => {
             try {
                 const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
-                console.log(response)
+                console.log(response);
                 if (response.data.err === 0) {
                     const responseData = response.data.response[0];
 
                     const submission_id = responseData.id;
-                    console.log("Submission id: " + submission_id);
+                    console.log('Submission id: ' + submission_id);
 
                     const { student_name } = responseData.studentData;
                     const { class_name } = responseData.classData;
@@ -73,9 +73,7 @@ function Grading() {
                         student_name,
                     });
 
-                    setSubmission_id(
-                        submission_id,
-                    );
+                    setSubmission_id(submission_id);
 
                     setClassName({
                         class_name,
@@ -97,9 +95,9 @@ function Grading() {
 
     //Hướng dẫn chấm bài
     const gradingInstruction = () => {
-        const gradingInstructionLink = "https://youtu.be/KTwJn28WIak";
+        const gradingInstructionLink = 'https://youtu.be/KTwJn28WIak';
         window.open(gradingInstructionLink, '_blank');
-    }
+    };
 
     //Xem đề bài
     const toggleAssignmentImage = async () => {
@@ -179,11 +177,11 @@ function Grading() {
 
             //Chuyển đổi thành json
             const canvasJSON = editor.canvas.toJSON();
-            console.log("canvasJSON: ");
+            console.log('canvasJSON: ');
             console.log(canvasJSON);
             const canvasJSONString = JSON.stringify(canvasJSON);
 
-            console.log(canvasJSONString)
+            console.log(canvasJSONString);
 
             // Tạo FormData để chứa dữ liệu
             const formData = new FormData();
@@ -286,12 +284,13 @@ function Grading() {
 
         // Thêm event listener cho sự kiện nhấn phím "X"
         const handleKeyPress = (event) => {
-            if ((event.key === "x" || event.key === "X") && cropImage && !event.ctrlKey && !event.metaKey) {
-                // Tạo đối tượng chữ "X" 
-                const textX = new fabric.Text("X", {
+            if ((event.key === 'x' || event.key === 'X') && cropImage && !event.ctrlKey && !event.metaKey) {
+                // Tạo đối tượng chữ "X"
+                const textX = new fabric.Text('\u2715', {
                     left: 460,
                     top: 100,
-                    fill: "red",
+                    fill: 'red',
+                    fontWeight: 550,
                 });
                 editor.canvas.add(textX);
 
@@ -426,7 +425,7 @@ function Grading() {
 
                 editor.canvas.setBackgroundImage(image, editor.canvas.renderAll.bind(editor.canvas));
             },
-            { crossOrigin: 'anonymous' }
+            { crossOrigin: 'anonymous' },
         );
     };
 
@@ -452,10 +451,10 @@ function Grading() {
         if (Array.isArray(responseData.image)) {
             responseData.image.forEach((imageUrl) => {
                 addBackground(imageUrl);
-                console.log("Image: " + imageUrl);
+                console.log('Image: ' + imageUrl);
             });
         } else {
-            console.error("Invalid image data");
+            console.error('Invalid image data');
         }
     };
 
@@ -490,10 +489,11 @@ function Grading() {
             editor.canvas.on('mouse:dblclick', (opt) => {
                 // Lấy thông tin vị trí chuột từ đối tượng sự kiện
                 var pointer = editor.canvas.getPointer(opt.e);
-                const textV = new fabric.Text('V', {
+                const textV = new fabric.Text('\u2713', {
                     left: pointer.x,
-                    top: pointer.y - 8,
+                    top: pointer.y - 10,
                     fill: 'red',
+                    fontWeight: 550,
                 });
 
                 editor.canvas.add(textV);
@@ -552,16 +552,15 @@ function Grading() {
                 editor.canvas.add(commentV);
                 //-------------------------------------------------------------------------
                 editor.canvas.renderAll();
-            })
+            });
         }
 
         // Check và thêm hình ảnh nếu có
         if (responseData && responseData.image) {
-            //lấy URL của ảnh từ mảng responseData.image ứng với chỉ số hiện tại currentImageIndex. 
+            //lấy URL của ảnh từ mảng responseData.image ứng với chỉ số hiện tại currentImageIndex.
             const imageUrl = responseData.image[currentImageIndex];
             addBackground(imageUrl);
         }
-
     }, [editor, fabric, responseData, currentImageIndex]);
     //-------------------------------------
 
@@ -580,7 +579,7 @@ function Grading() {
             top: 110,
             width: 160,
             fontSize: 26,
-            fill: "red",
+            fill: 'red',
         });
         editor.canvas.add(comment);
     };
@@ -646,7 +645,11 @@ function Grading() {
                         <p>Thời gian nộp bài: {moment(createdAt.createdAt).format('DD-MM-YYYY HH:mm a')}</p>
                     </div>
                     <div className="assigment-images">
-                        <i style={{ marginRight: 10 }} onClick={showPreviousImage} className="fa-solid fa-chevron-left"></i>
+                        <i
+                            style={{ marginRight: 10 }}
+                            onClick={showPreviousImage}
+                            className="fa-solid fa-chevron-left"
+                        ></i>
                         <p style={{ margin: 0 }}>Hình ảnh bài nộp</p>
                         <i style={{ marginLeft: 10 }} onClick={showNextImage} className="fa-solid fa-chevron-right"></i>
                     </div>
@@ -677,12 +680,9 @@ function Grading() {
                                     placeholder="Nhập nội dung ở đây..."
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
-                                >
-                                </textarea>
+                                ></textarea>
                             </div>
-                            <div
-                                className=" my-3 d-flex align-items-center text-danger justify-content-center"
-                            >
+                            <div className=" my-3 d-flex align-items-center text-danger justify-content-center">
                                 Tổng
                                 <input
                                     className="col-3 mx-2 form-control "

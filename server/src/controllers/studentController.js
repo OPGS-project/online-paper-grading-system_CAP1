@@ -8,34 +8,29 @@ const cloudinary = require("cloudinary").v2;
 
 export const getStudent = async (req, res) => {
   try {
-    const response = await authServices.getStudent(req.query);
+    const { cid } = req.params;
+    // console.log(req.params);
+    const response = await authServices.getStudent(cid);
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
+
     // return internalServerError(res);
   }
 };
-export const getStudentCurrent = async (req, res) => {
-  try {
-    const { id } = req.user;
-    const response = await authServices.getStudentCurrent(id);
-    return res.status(200).json(response);
-  } catch (error) {
-    console.log(error);
-    // return internalServerError(res);
-  }
-};
+
 //
-export const getAssignmentOfStudent = async (req, res) => {
-  try {
-    const { id } = req.user;
-    const response = await authServices.getAssignmentOfStudent(id);
-    return res.status(200).json(response);
-  } catch (error) {
-    console.log(error);
-    // return internalServerError(res);
-  }
-};
+// export const getAssignmentOfStudent = async (req, res) => {
+//   try {
+//     const { id } = req.user;
+//     console.log(req.user);
+//     const response = await authServices.getAssignmentOfStudent(id);
+//     return res.status(200).json(response);
+//   } catch (error) {
+//     console.log(error);
+//     // return internalServerError(res);
+//   }
+// };
 
 //
 export const createStudent = async (req, res) => {

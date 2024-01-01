@@ -7,3 +7,4 @@ export * from "./authStudentService";
 export * from "./submissionService";
 export * from "./gradingService";
 export * from "./submission";
+export * from "./pageStudentService";

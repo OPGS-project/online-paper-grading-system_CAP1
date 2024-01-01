@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import Class from '../QLLOPHOC/Class';
 
 export default function EditAssignment() {
     const navigate = useNavigate();
@@ -133,15 +134,11 @@ export default function EditAssignment() {
                         style={{ height: 50, borderRadius: 100 }}
                         id="validationTooltip04"
                         required
-                        value={assignment.of_class}
                         onChange={(e) => {
                             // setError((prev) => ({ ...prev, errClass: null }));
                             setAssignment((prev) => ({ ...prev, of_class: e.target.value }));
                         }}
                     >
-                        <option selected disabled>
-                            Chọn Lớp
-                        </option>
                         {classData?.map((data, i) => (
                             <option key={i} name="of_class">
                                 {data.class_name}

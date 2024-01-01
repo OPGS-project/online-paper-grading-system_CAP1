@@ -32,10 +32,11 @@ export default function Student() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8081/api/class/${params.classID}`)
+            .get(`http://localhost:8081/api/student/${params.classID}`)
             .then((res) => {
-                const classData = res.data.response[0];
-                const studentData = res.data.response[0].studentData.map((data) => ({
+                console.log(res);
+                const classData = res.data.response;
+                const studentData = res.data.response.Students.map((data) => ({
                     ...data,
                     username: data.username,
                     password: data.password,

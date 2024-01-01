@@ -8,6 +8,7 @@ import submission from "./submissionRouter";
 import grading from "./gradingRouter";
 import submiss from "./submission";
 import studentSubmitted from "./studentSubmitted";
+import mainStudent from "./pageStudentRouter";
 
 import { internalServerError } from "../middlewares/handle_errors";
 
@@ -22,6 +23,7 @@ const initRoutes = (app) => {
   app.use("/api/grading", grading);
   app.use("/api/submiss", submiss);
   app.use("/api/studentSubmitted", studentSubmitted);
+  app.use("/api/main-student", mainStudent);
 
   // app.use("/", internalServerError);
 };

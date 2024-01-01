@@ -63,6 +63,9 @@ export default function UpdatePassStudent() {
             // console.log(response);
             if (response?.data.err === 0) {
                 toast.success('Cập nhật mật khẩu thành công');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
             } else {
                 toast.error('Có lỗi gì đó');
             }
