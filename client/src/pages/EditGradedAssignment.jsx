@@ -515,9 +515,7 @@ function EditGradedAssignment() {
     };
 
     useEffect(() => {
-        if (editor) {
-            fetchDataImage();
-        }
+        fetchDataImage();
     }, [editor]);
 
     //test
