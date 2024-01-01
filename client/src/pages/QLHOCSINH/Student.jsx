@@ -40,7 +40,7 @@ export default function Student() {
                     username: data.username,
                     password: data.password,
                 }));
-
+    
                 setState((prevState) => ({
                     ...prevState,
                     student: studentData,
@@ -184,33 +184,23 @@ export default function Student() {
             data.password, // Thêm password vào mảng
         ]),
     ];
-
+    
     const handleImport = async (e) => {
         if (isImporting) {
             return;
         }
-
         setIsImporting(true);
 
         const file = e.target.files[0];
-
-        const csvData = [
-            ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán'],
-            ...state.student.map((data) => [
-                data.student_name,
-                data.gender,
-                moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'), // Định dạng ngày sinh thành "DD-MM-YYYY"
-                data.address,
-            ]),
-        ];
+        
         if (file) {
             const formData = new FormData();
             formData.append('csvFile', file);
-
             try {
-                await axios.post(`http://localhost:8081/api/student/upload-csv`, formData);
+                await axios.post(`http://localhost:8081/api/student/upload-csv/${params.classID}`, formData);
                 alert('CSV file uploaded successfully!');
                 render();
+                setIsImporting(false);
             } catch (error) {
                 console.error(error);
                 alert('Error uploading CSV file. Please try again.');
