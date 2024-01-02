@@ -1,3 +1,4 @@
+import { id } from "../helpers/joi_schema";
 import db from "../models";
 import { Op } from "sequelize";
 // import { v4 as generateId } from "uuid";
@@ -13,7 +14,7 @@ export const getStudent = (cid) => {
         include: [
           {
             model: db.Student,
-            attributes: ["student_name", "gender", "address", "birthday"],
+            attributes: ["id", "student_name", "gender", "address", "birthday"],
             through: {
               model: db.Student_Class,
             },
@@ -77,8 +78,10 @@ export const getStudent = (cid) => {
 export const createStudent = (body) =>
   new Promise(async (resolve, reject) => {
     try {
+      // const dataClass = await db.Class.findOne({
+      //   where: { clas },
+      // });
       const response = await db.Student.create({
-        // where: { student_name: body?.student_name },
         student_name: body.student_name,
         gender: body.gender,
         address: body.address,
@@ -87,11 +90,16 @@ export const createStudent = (body) =>
         username: body.username,
         password: body.password,
       });
-
+      // console.log(response);
+      const dataStudent = await db.Student_Class.create({
+        class_id: response.class_id,
+        student_id: response.id,
+      });
       resolve({
         err: response ? 0 : 1,
         mes: response ? "Created student" : "Can not create Student!!!",
         res: response,
+        dataStudent,
       });
     } catch (e) {
       console.log(e);

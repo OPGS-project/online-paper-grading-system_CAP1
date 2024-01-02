@@ -461,6 +461,7 @@ function Grading() {
     const fetchDataImage = async () => {
         try {
             const response = await axios.get(`http://localhost:8081/api/submiss/${assignment_id}/${student_id}`);
+            console.log(response);
             if (response.data.err === 0) {
                 const responseData = response.data.response[0];
                 setResponseData(responseData);

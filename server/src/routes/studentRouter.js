@@ -13,7 +13,7 @@ router.delete("/delete-student/:studentId", controllers.deleteStudent);
 
 router.post("/upload-csv", upload.single("csvFile"), controllers.uploadCSV);
 router.use(verifyToken);
-router.get("/get-student", controllers.getStudentCurrent);
+// router.get("/get-student", controllers.getStudentCurrent);
 router.put(
   "/update-student-profile",
 

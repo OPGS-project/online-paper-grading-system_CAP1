@@ -1,9 +1,9 @@
-import { generateRandomString } from '../helpers/idRandom';
-import { student_name } from '../helpers/joi_schema';
-import db from '../models'
-import {Op} from 'sequelize'
-import grade from '../models/grade';
-const cloudinary = require('cloudinary').v2;
+import { generateRandomString } from "../helpers/idRandom";
+import { student_name } from "../helpers/joi_schema";
+import db from "../models";
+import { Op } from "sequelize";
+import grade from "../models/grade";
+const cloudinary = require("cloudinary").v2;
 
 //Cũ
 // export const getStudentSubmittedById = (assignmentId) =>
@@ -28,7 +28,7 @@ const cloudinary = require('cloudinary').v2;
 //       // }
 //       //test
 
-//       //Lặp qua từng phần tử (submission) của response(tìm kiếm trong db Submission) 
+//       //Lặp qua từng phần tử (submission) của response(tìm kiếm trong db Submission)
 //       for (const submission of response) {
 //         // Kiểm tra xem có mục nào tương ứng trong bảng Grade không
 //         const gradeEntry = await db.Grade.findOne({
@@ -54,7 +54,15 @@ export const getStudentSubmittedById = (assignmentId) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Submission.findAll({
-        attributes: ["id", "student_id", "assignment_id", "submission_status", "image", "createdAt", "class_id"],
+        attributes: [
+          "id",
+          "student_id",
+          "assignment_id",
+          "submission_status",
+          "image",
+          "createdAt",
+          "class_id",
+        ],
         where: { assignment_id: assignmentId },
         include: [
           {
@@ -65,10 +73,8 @@ export const getStudentSubmittedById = (assignmentId) =>
           {
             model: db.Grade,
             as: "gradeData",
-            
-          }
+          },
         ],
-
       });
 
       // Tạo một đối tượng để theo dõi học sinh đã xuất hiện
@@ -99,10 +105,11 @@ export const getStudentSubmittedById = (assignmentId) =>
         const gradeEntry = await db.Grade.findOne({
           where: { submission_id: submission.id },
         });
-        
 
         // Cập nhật submit_status dựa trên kết quả
-        studentMap[studentId].submission_status = gradeEntry ? "Đã chấm" : "Chấm bài";
+        studentMap[studentId].submission_status = gradeEntry
+          ? "Đã chấm"
+          : "Chấm bài";
       }
 
       // Chuyển đối tượng thành mảng
@@ -169,7 +176,7 @@ export const get_submission_ById = (assignment_id, studentId) =>
           },
           {
             model: db.Class,
-            attributes: ["class_name"], 
+            attributes: ["class_name"],
             as: "classData", // Bí danh cho mối quan hệ
           },
           {
@@ -223,11 +230,3 @@ export const get_submission_ById = (assignment_id, studentId) =>
       reject(e);
     }
   });
-
-
-
-
-
-
-
-

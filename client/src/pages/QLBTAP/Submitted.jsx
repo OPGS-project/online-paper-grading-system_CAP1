@@ -21,7 +21,7 @@ const Submitted = () => {
             .catch((err) => console.error(err));
     }, []);
 
-    // console.log(values);
+    console.log(values);
 
     return (
         <div className="container-fluid">
@@ -61,8 +61,9 @@ const Submitted = () => {
                                                 ? moment(data.gradeData.createdAt).format('DD-MM-YYYY HH:mm ')
                                                 : 'Chưa chấm'}
                                         </td>
-                                        <td > {data.gradeData && data.gradeData.score_value
-                                            ? (
+                                        <td>
+                                            {' '}
+                                            {data.gradeData && data.gradeData.score_value ? (
                                                 <Link
                                                     to={`/home/GradedAssignment/${data.id}/${data.student_name}`}
                                                     className=""
@@ -73,8 +74,9 @@ const Submitted = () => {
                                                 >
                                                     {data.gradeData.score_value}
                                                 </Link>
-                                            )
-                                            : 'Chưa chấm'}
+                                            ) : (
+                                                'Chưa chấm'
+                                            )}
                                         </td>
                                         <td>
                                             {data.submission_status === 'Đã chấm' ? (

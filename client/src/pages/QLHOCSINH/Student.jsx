@@ -91,7 +91,7 @@ export default function Student() {
             }));
         }
     };
-
+    // console.log(state.student);
     //
     const navigate = useNavigate();
     const generateRows = () => {

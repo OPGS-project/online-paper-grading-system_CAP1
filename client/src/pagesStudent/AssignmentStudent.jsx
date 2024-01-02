@@ -10,27 +10,28 @@ function AssignmentStudent() {
     const { token } = useSelector((state) => state.auth);
 
     const [values, setValues] = useState([]);
-    const [data, setData] = useState([]);
+    const [user, setUser] = useState([]);
     const [classId, setClassId] = useState(null);
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetAssignmentOfStudent(token);
-
-            // const classId = user.data.response.class_id;
-            // setClassId(classId);
-            // console.log(classId);
-            console.log(response.data.response.Classes);
+            const classId = response.data.response.class_id;
+            const userId = response.data.response.id;
+            setClassId(classId);
+            setUser(userId);
+            // console.log(response);
+            // console.log(response.data.response.Classes);
             if (response?.data.err === 0) {
                 setValues(response.data.response.Classes);
-                setData(response.data.response);
+                setUser(response.data.response);
             } else {
                 setValues([]);
-                setData([]);
+                setUser([]);
             }
         };
         token && fetchUser();
     }, [token]);
-
+    console.log(user.id);
     return (
         <div className="container-fluid">
             <div className="card shadow">
@@ -38,9 +39,10 @@ function AssignmentStudent() {
                     <h3 className="p-3  d-flex align-items-center" style={{ color: '#F3B664' }}>
                         <FaAngellist />
                         <span className=" ml-3">
-                            Chào bạn {data.student_name} <FaAngellist />
+                            Chào bạn {user.student_name} <FaAngellist />
                         </span>
                     </h3>
+
                     {values.length > 0 ? (
                         <h4 className=" p-3 d-flex align-items-center">Bạn đang có {values.length} bài tập</h4>
                     ) : null}
@@ -65,6 +67,7 @@ function AssignmentStudent() {
                                         <td style={{ fontWeight: 500 }}>
                                             {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
                                         </td>
+
                                         <td>
                                             <Link
                                                 to={data.file_path}
@@ -74,9 +77,10 @@ function AssignmentStudent() {
                                                 Xem bài tập
                                             </Link>
                                         </td>
+
                                         <td>
                                             <Link
-                                                to={`/student/upload-assignment/${data.id}/${classId}`}
+                                                to={`/student/upload-assignment/${user.id}/${classId}`}
                                                 className=" nav-link text-center "
                                             >
                                                 Nộp bài
