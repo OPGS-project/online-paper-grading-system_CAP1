@@ -503,8 +503,6 @@ function EditGradedAssignment() {
                 const canvasJson = JSON.parse(canvasJsonDatabase);
                 console.log("Canvas json: ");
                 console.log(canvasJson);
-                const imgUrl = canvasJson.backgroundImage.src;
-                console.log(imgUrl);
                 addBackground(canvasJson);
             } else {
                 console.error(response.data.message);
