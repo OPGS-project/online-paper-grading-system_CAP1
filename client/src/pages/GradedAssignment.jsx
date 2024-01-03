@@ -13,12 +13,11 @@ function GradedAssignment() {
     const [values, setValues] = useState([]);
     const params = useParams();
 
-    console.log(`Student name: ${params.student_name}`);
-    console.log(`Submission id: ${params.id}`);
+    // console.log(`Student name: ${params.student_name}`);
+    // console.log(`Submission id: ${params.id}`);
 
     const [expandedImage, setExpandedImage] = useState(null);
     const [expandedSubmissionImage, setExpandedSubmissionImage] = useState(null);
-
 
     const [expandedComments, setExpandedComments] = useState(null);
     const maxCommentsLength = 20;
@@ -36,15 +35,12 @@ function GradedAssignment() {
                 const responseData = res.data.response[0];
 
                 const assignmentId = responseData.submissionData.assignmentData.id;
-                console.log("Assignment id: " + assignmentId);
+                console.log('Assignment id: ' + assignmentId);
 
-                setAssignmentId(
-                    assignmentId,
-                );
+                setAssignmentId(assignmentId);
             })
             .catch((err) => console.error(err));
     }, []);
-
 
     //Delete graded assignments
     const handleDelete = (gid) => {
@@ -58,31 +54,36 @@ function GradedAssignment() {
             cancelButtonText: 'Hủy',
         }).then((result) => {
             if (result.isConfirmed)
-                axios
-                    .delete('http://localhost:8081/api/grading/' + gid, {
-                    })
-                    .then((res) => {
-                        if (+res.data.err === 0) {
-                            toast.success('Xóa thành công', {
-                                position: 'top-right',
-                                autoClose: 1000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: 'light',
-                            });
-                            setTimeout(() => {
-                                navigate(`/home/assignment/submitted/${assignmentId}`);
-                            }, 2000);
-                        }
-                    });
+                axios.delete('http://localhost:8081/api/grading/' + gid, {}).then((res) => {
+                    if (+res.data.err === 0) {
+                        toast.success('Xóa thành công', {
+                            position: 'top-right',
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                        });
+                        setTimeout(() => {
+                            navigate(`/home/assignment/submitted/${assignmentId}`);
+                        }, 2000);
+                    }
+                });
         });
     };
 
     return (
         <div className="container-fluid">
+            <button
+                className="btn btn-back"
+                onClick={() => {
+                    navigate(-1);
+                }}
+            >
+                <i className="fa-solid fa-arrow-left"></i>
+            </button>
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3 d-flex justify-content-between">
                     <h6 className="m-0 font-weight-bold text-primary">Tên học sinh: {params.student_name}</h6>
@@ -170,12 +171,18 @@ function GradedAssignment() {
                                         {data.comments.length > maxCommentsLength ? (
                                             <>
                                                 {expandedComments === i ? (
-                                                    <span onClick={() => setExpandedComments(null)}>{data.comments}</span>
+                                                    <span onClick={() => setExpandedComments(null)}>
+                                                        {data.comments}
+                                                    </span>
                                                 ) : (
                                                     <>
                                                         {data.comments.slice(0, maxCommentsLength)}...
                                                         <span
-                                                            style={{ color: 'rgb(78, 115, 223)', cursor: 'pointer', textDecoration: 'underline' }}
+                                                            style={{
+                                                                color: 'rgb(78, 115, 223)',
+                                                                cursor: 'pointer',
+                                                                textDecoration: 'underline',
+                                                            }}
                                                             onClick={() => setExpandedComments(i)}
                                                         >
                                                             Xem thêm
@@ -189,7 +196,10 @@ function GradedAssignment() {
                                     </td>
                                     <td style={{ color: 'red', fontWeight: 500 }}>{data.score_value}</td>
                                     <td>
-                                        <Link to={`/home/EditGradedAssignment/${params.id}/${data.submissionData.studentData.student_name}`} className="btn">
+                                        <Link
+                                            to={`/home/EditGradedAssignment/${params.id}/${data.submissionData.studentData.student_name}`}
+                                            className="btn"
+                                        >
                                             <i className="fa-solid fa-pen-to-square icon-edit"></i>
                                         </Link>
                                     </td>

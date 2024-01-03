@@ -152,9 +152,23 @@ export default function Assignment() {
                     <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
                     <td>{data.classData?.class_name}</td>
                     {moment(new Date()) > moment(data.deadline) ? (
-                        <td className="text-danger">Đã Đóng</td>
+                        <td className="text-danger">
+                            <span
+                                className="p-2"
+                                style={{ backgroundColor: '#FF6464', borderRadius: '15px', color: 'white' }}
+                            >
+                                Đã Đóng
+                            </span>
+                        </td>
                     ) : (
-                        <td>Đang Mở</td>
+                        <td>
+                            <span
+                                className="p-2"
+                                style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
+                            >
+                                Đang Mở
+                            </span>
+                        </td>
                     )}
 
                     {/* <td>
@@ -212,7 +226,7 @@ export default function Assignment() {
 
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Bài tập đã Giao</h1>
+            <h1 className="h3 mb-2 text-gray-800">Bài tập Đã Giao</h1>
 
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3 d-flex justify-content-between">

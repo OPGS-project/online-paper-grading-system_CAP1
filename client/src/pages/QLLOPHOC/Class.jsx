@@ -69,7 +69,7 @@ export default function Class() {
             restoreOriginalClasses();
         } else {
             const filteredClass = originalClass.filter((data) =>
-                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
+                data.class_name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
 
             setState((prevState) => ({
@@ -99,6 +99,8 @@ export default function Class() {
                     style={{ cursor: 'pointer' }}
                     className="text-center"
                 >
+                    <td style={{ fontWeight: 500 }}>{i + 1}</td>
+
                     <td>{data.class_name}</td>
                     <td>{data.content}</td>
                     <td onClick={(e) => e.stopPropagation()}>
@@ -113,7 +115,7 @@ export default function Class() {
             ))
         ) : (
             <tr>
-                <td colSpan={9} className="text-center">
+                <td colSpan={10} className="text-center">
                     Hiện tại chưa có lớp học nào <GoMortarBoard />
                 </td>
             </tr>
@@ -210,6 +212,7 @@ export default function Class() {
                         <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
+                                    <th></th>
                                     <th>Tên lớp</th>
                                     <th>Khóa</th>
                                     <th>Tùy chỉnh</th>

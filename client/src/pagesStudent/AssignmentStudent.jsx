@@ -31,7 +31,7 @@ function AssignmentStudent() {
         };
         token && fetchUser();
     }, [token]);
-    console.log(user.id);
+    console.log(values);
     return (
         <div className="container-fluid">
             <div className="card shadow">
@@ -51,6 +51,7 @@ function AssignmentStudent() {
                     <table className="table table-hover" id="dataTable" width={100}>
                         <thead className="text-center">
                             <tr>
+                                <th></th>
                                 <th>Tên Bài Tập</th>
                                 <th>Lớp</th>
                                 <th>Hạn Nộp</th>
@@ -62,7 +63,13 @@ function AssignmentStudent() {
                             {values.length > 0 ? (
                                 values?.map((data, i) => (
                                     <tr key={i}>
-                                        <td style={{ fontWeight: 500 }}>{data.assignmentData[0].assignment_name}</td>
+                                        <td>{i + 1}</td>
+                                        <td style={{ fontWeight: 500 }}>
+                                            {/* {data.assignmentData.assignment_name} */}
+                                            {data.assignmentData.map((assignment, index) => (
+                                                <div key={index}>{assignment.assignment_name}</div>
+                                            ))}
+                                        </td>
                                         <td style={{ fontWeight: 500 }}>{data.class_name}</td>
                                         <td style={{ fontWeight: 500 }}>
                                             {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
@@ -90,7 +97,7 @@ function AssignmentStudent() {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={4}>
+                                    <td colSpan={6}>
                                         Hiện tại chưa có bài tập nào <AiFillRead />
                                     </td>
                                 </tr>

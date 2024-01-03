@@ -78,29 +78,43 @@ export const getStudent = (cid) => {
 export const createStudent = (body) =>
   new Promise(async (resolve, reject) => {
     try {
-      // const dataClass = await db.Class.findOne({
-      //   where: { clas },
-      // });
-      const response = await db.Student.create({
-        student_name: body.student_name,
-        gender: body.gender,
-        address: body.address,
-        class_id: body.classID,
-        birthday: body.birthday,
-        username: body.username,
-        password: body.password,
+      const studentData = await db.Student.findOne({
+        where: { student_name: body?.student_name },
       });
+      // console.log(studentData);
+      if (studentData !== null) {
+        const response1 = await db.Student_Class.create({
+          student_id: studentData.dataValues.id,
+          class_id: body.classID,
+        });
+        resolve({
+          err: response1 ? 0 : 1,
+          mes: response1 ? "Created student" : "Can not create Student!!!",
+          res: response1,
+        });
+      } else {
+        const response = await db.Student.create({
+          student_name: body.student_name,
+          gender: body.gender,
+          address: body.address,
+          class_id: body.classID,
+          birthday: body.birthday,
+          username: body.username,
+          password: body.password,
+        });
+        const dataStudent = await db.Student_Class.create({
+          class_id: response.class_id,
+          student_id: response.id,
+        });
+        resolve({
+          err: response ? 0 : 1,
+          mes: response ? "Created student" : "Can not create Student!!!",
+          res: response,
+          dataStudent,
+        });
+      }
+
       // console.log(response);
-      const dataStudent = await db.Student_Class.create({
-        class_id: response.class_id,
-        student_id: response.id,
-      });
-      resolve({
-        err: response ? 0 : 1,
-        mes: response ? "Created student" : "Can not create Student!!!",
-        res: response,
-        dataStudent,
-      });
     } catch (e) {
       console.log(e);
       reject(e);

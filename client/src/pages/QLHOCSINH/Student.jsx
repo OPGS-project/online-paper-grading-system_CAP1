@@ -98,6 +98,7 @@ export default function Student() {
         return state.student.length > 0 ? (
             state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
                 <tr key={i} style={{ cursor: 'pointer' }} className="text-center ">
+                    <td style={{ fontWeight: 500 }}>{i + 1}</td>
                     <td className="text-left pl-5">{data.student_name}</td>
                     <td>{data.gender}</td>
                     <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
@@ -124,7 +125,7 @@ export default function Student() {
             ))
         ) : (
             <tr>
-                <td colSpan={9} className="text-center">
+                <td colSpan={10} className="text-center">
                     Hiện tại chưa có học sinh nào <FaRegCircleUser />
                     {/* return state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
             <tr key={i} className="text-center">
@@ -306,6 +307,7 @@ export default function Student() {
                         <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
+                                    <th></th>
                                     <th style={{ width: 300 }}>Họ và tên</th>
                                     <th>Giới tính</th>
                                     <th>Ngày sinh</th>
