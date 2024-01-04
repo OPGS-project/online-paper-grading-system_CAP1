@@ -79,7 +79,7 @@ export const createStudent = (body) =>
   new Promise(async (resolve, reject) => {
     try {
       const studentData = await db.Student.findOne({
-        where: { student_name: body?.student_name },
+        where: { username: body?.username },
       });
       // console.log(studentData);
       if (studentData !== null) {

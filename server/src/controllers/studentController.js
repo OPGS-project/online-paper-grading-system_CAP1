@@ -94,7 +94,7 @@ export const uploadCSV = async (req, res) => {
                 object.phone = value;
               else object["student_name"] = value;
             }
-            console.log(object);
+            // console.log(object);
             // Parse the date string into a JavaScript Date object
             const parsedBirthday = new Date(object.birthday);
             // Check if the parsed date is valid
@@ -103,7 +103,18 @@ export const uploadCSV = async (req, res) => {
             }
             // // Create a new instance of the Student model
             const newStudent = await models.Student.create(object);
-            console.log(newStudent);
+            const studentId = newStudent.id;
+            const response1 = await models.Student_Class.create({
+              student_id: studentId,
+              class_id: object.class_id,
+            });
+            // console.log(response1);
+            resolve({
+              err: response1 ? 0 : 1,
+              mes: response1 ? "Created student" : "Can not create Student!!!",
+              res: response1,
+            });
+            // console.log(object.class_id);
             results.push(newStudent);
           } catch (err) {
             console.error(

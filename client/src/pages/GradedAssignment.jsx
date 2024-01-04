@@ -79,7 +79,7 @@ function GradedAssignment() {
             <button
                 className="btn btn-back"
                 onClick={() => {
-                    navigate(-1);
+                    navigate(`/home/assignment/submitted/${assignmentId}`);
                 }}
             >
                 <i className="fa-solid fa-arrow-left"></i>

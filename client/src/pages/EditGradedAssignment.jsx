@@ -13,8 +13,8 @@ import { Collapse } from 'bootstrap';
 function EditGradedAssignment() {
     const navigate = useNavigate();
     const params = useParams();
-    console.log("Submission id: " + params.id);
-    console.log("Student name: " + params.student_name);
+    console.log('Submission id: ' + params.id);
+    console.log('Student name: ' + params.student_name);
 
     const { editor, onReady } = useFabricJSEditor();
     const [downloadLink, setDownloadLink] = useState('');
@@ -42,9 +42,9 @@ function EditGradedAssignment() {
         toggle4 ? bsCollapse4.show() : bsCollapse4.hide();
     });
 
-    //Thông tin học sinh 
+    //Thông tin học sinh
     const [className, setClassName] = useState({
-        class_name: '',
+        assignment_name: '',
     });
 
     const [createdAt, setCreatedAt] = useState({
@@ -63,8 +63,10 @@ function EditGradedAssignment() {
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/api/grading/${params.id}/${params.student_name}`);
-                console.log(response)
+                const response = await axios.get(
+                    `http://localhost:8081/api/grading/${params.id}/${params.student_name}`,
+                );
+                console.log(response);
                 if (response.data.err === 0) {
                     const responseData = response.data.response[0];
 
@@ -72,27 +74,19 @@ function EditGradedAssignment() {
                     const gradeId = responseData.id;
                     const comments = responseData.comments;
                     const score_value = responseData.score_value;
-                    const { class_name } = responseData.submissionData.classData;
+                    const { assignment_name } = responseData.submissionData.assignmentData;
                     const { createdAt } = responseData.submissionData;
 
-                    setStudentId(
-                        student_id,
-                    );
+                    setStudentId(student_id);
 
-                    setGradedId(
-                        gradeId,
-                    );
+                    setGradedId(gradeId);
 
-                    setComment(
-                        comments,
-                    );
+                    setComment(comments);
 
-                    setTotalScore(
-                        score_value,
-                    );
+                    setTotalScore(score_value);
 
                     setClassName({
-                        class_name,
+                        assignment_name,
                     });
 
                     setCreatedAt({
@@ -111,16 +105,18 @@ function EditGradedAssignment() {
 
     //Hướng dẫn chấm bài
     const gradingInstruction = () => {
-        const gradingInstructionLink = "https://youtu.be/KTwJn28WIak";
+        const gradingInstructionLink = 'https://youtu.be/KTwJn28WIak';
         window.open(gradingInstructionLink, '_blank');
-    }
+    };
 
     //Xem đề bài
     const toggleAssignmentImage = async () => {
         try {
             if (!showAssignmentImage) {
                 // Fetch data from the API using Axios
-                const response = await axios.get(`http://localhost:8081/api/grading/${params.id}/${params.student_name}`);
+                const response = await axios.get(
+                    `http://localhost:8081/api/grading/${params.id}/${params.student_name}`,
+                );
 
                 // Kiểm tra xem yêu cầu có thành công không
                 if (response.data.err === 0) {
@@ -181,7 +177,7 @@ function EditGradedAssignment() {
         return new File([u8arr], filename, { type: mime });
     }
 
-    //Update 
+    //Update
     const saveGradedAssignment = async () => {
         try {
             const canvasDataURL = editor.canvas.toDataURL({ format: 'png' });
@@ -195,11 +191,11 @@ function EditGradedAssignment() {
 
             //Chuyển đổi thành json
             const canvasJSON = editor.canvas.toJSON();
-            console.log("canvasJSON: ");
+            console.log('canvasJSON: ');
             console.log(canvasJSON);
             const canvasJSONString = JSON.stringify(canvasJSON);
 
-            console.log(canvasJSONString)
+            console.log(canvasJSONString);
 
             // Tạo FormData để chứa dữ liệu
             const formData = new FormData();
@@ -302,12 +298,12 @@ function EditGradedAssignment() {
 
         // Thêm event listener cho sự kiện nhấn phím "X"
         const handleKeyPress = (event) => {
-            if ((event.key === "x" || event.key === "X") && cropImage && !event.ctrlKey && !event.metaKey) {
-                // Tạo đối tượng chữ "X" 
-                const textX = new fabric.Text("X", {
+            if ((event.key === 'x' || event.key === 'X') && cropImage && !event.ctrlKey && !event.metaKey) {
+                // Tạo đối tượng chữ "X"
+                const textX = new fabric.Text('X', {
                     left: 460,
                     top: 100,
-                    fill: "red",
+                    fill: 'red',
                 });
                 editor.canvas.add(textX);
 
@@ -465,32 +461,42 @@ function EditGradedAssignment() {
 
         const loadImage = (imageUrl) => {
             return new Promise((resolve, reject) => {
-                fabric.util.loadImage(imageUrl, (img) => {
-                    const scale = Math.min(editor.canvas.width / img.width, editor.canvas.height / img.height);
+                fabric.util.loadImage(
+                    imageUrl,
+                    (img) => {
+                        const scale = Math.min(editor.canvas.width / img.width, editor.canvas.height / img.height);
 
-                    const fabricImage = new fabric.Image(img, {
-                        scaleX: scale,
-                        scaleY: scale,
-                        left: (editor.canvas.width - img.width * scale) / 2,
-                        top: (editor.canvas.height - img.height * scale) / 2,
-                        crossOrigin: 'anonymous'
-                    });
+                        const fabricImage = new fabric.Image(img, {
+                            scaleX: scale,
+                            scaleY: scale,
+                            left: (editor.canvas.width - img.width * scale) / 2,
+                            top: (editor.canvas.height - img.height * scale) / 2,
+                            crossOrigin: 'anonymous',
+                        });
 
-                    resolve(fabricImage);
-                }, null, { crossOrigin: 'anonymous' });
+                        resolve(fabricImage);
+                    },
+                    null,
+                    { crossOrigin: 'anonymous' },
+                );
             });
         };
 
-        editor.canvas.loadFromJSON(canvasJson, async () => {
-            try {
-                const backgroundImage = await loadImage(canvasJson.backgroundImage.src);
-                editor.canvas.setBackgroundImage(backgroundImage, editor.canvas.renderAll.bind(editor.canvas));
-            } catch (error) {
-                console.error('Error loading background image:', error);
-            }
-        }, (o, object) => {
-            fabric.log(o, object);
-        }, { crossOrigin: 'anonymous' });
+        editor.canvas.loadFromJSON(
+            canvasJson,
+            async () => {
+                try {
+                    const backgroundImage = await loadImage(canvasJson.backgroundImage.src);
+                    editor.canvas.setBackgroundImage(backgroundImage, editor.canvas.renderAll.bind(editor.canvas));
+                } catch (error) {
+                    console.error('Error loading background image:', error);
+                }
+            },
+            (o, object) => {
+                fabric.log(o, object);
+            },
+            { crossOrigin: 'anonymous' },
+        );
     };
 
     const fetchDataImage = async () => {
@@ -500,10 +506,8 @@ function EditGradedAssignment() {
                 const responseData = response.data.response[0];
                 const canvasJsonDatabase = responseData.canvas_json;
                 const canvasJson = JSON.parse(canvasJsonDatabase);
-                console.log("Canvas json: ");
+                console.log('Canvas json: ');
                 console.log(canvasJson);
-                const imgUrl = canvasJson.backgroundImage.src;
-                console.log(imgUrl);
                 addBackground(canvasJson);
             } else {
                 console.error(response.data.message);
@@ -594,11 +598,10 @@ function EditGradedAssignment() {
                 editor.canvas.add(commentV);
                 //-------------------------------------------------------------------------
                 editor.canvas.renderAll();
-            })
+            });
         }
 
         addBackground();
-
     }, [editor, fabric]);
 
     //-------------------------------------
@@ -618,7 +621,7 @@ function EditGradedAssignment() {
             top: 110,
             width: 160,
             fontSize: 26,
-            fill: "red",
+            fill: 'red',
         });
         editor.canvas.add(comment);
     };
@@ -672,7 +675,7 @@ function EditGradedAssignment() {
                 <div className="assignment-info-box col-10 ">
                     <div className="assignment-info ">
                         <p>Tên: {params.student_name}</p>
-                        <p>Lớp: {className.class_name}</p>
+                        <p>Bài Tập: {className.assignment_name}</p>
                         <p>Thời gian nộp bài: {moment(createdAt.createdAt).format('DD-MM-YYYY HH:mm a')}</p>
                     </div>
                     <div className="assigment-images">
@@ -707,12 +710,9 @@ function EditGradedAssignment() {
                                     placeholder="Nhập nội dung ở đây..."
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
-                                >
-                                </textarea>
+                                ></textarea>
                             </div>
-                            <div
-                                className=" my-3 d-flex align-items-center text-danger justify-content-center"
-                            >
+                            <div className=" my-3 d-flex align-items-center text-danger justify-content-center">
                                 Tổng
                                 <input
                                     className="col-3 mx-2 form-control "

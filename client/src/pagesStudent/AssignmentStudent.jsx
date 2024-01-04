@@ -65,10 +65,10 @@ function AssignmentStudent() {
                                     <tr key={i}>
                                         <td>{i + 1}</td>
                                         <td style={{ fontWeight: 500 }}>
-                                            {/* {data.assignmentData.assignment_name} */}
-                                            {data.assignmentData.map((assignment, index) => (
+                                            {data.assignmentData[0]?.assignment_name}
+                                            {/* {data.assignmentData.map((assignment, index) => (
                                                 <div key={index}>{assignment.assignment_name}</div>
-                                            ))}
+                                            ))} */}
                                         </td>
                                         <td style={{ fontWeight: 500 }}>{data.class_name}</td>
                                         <td style={{ fontWeight: 500 }}>
@@ -87,7 +87,7 @@ function AssignmentStudent() {
 
                                         <td>
                                             <Link
-                                                to={`/student/upload-assignment/${user.id}/${classId}`}
+                                                to={`/student/upload-assignment/${user.id}/${data.assignmentData[0]?.id}`}
                                                 className=" nav-link text-center "
                                             >
                                                 Nộp bài

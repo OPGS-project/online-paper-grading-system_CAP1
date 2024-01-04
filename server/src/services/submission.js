@@ -181,7 +181,7 @@ export const get_submission_ById = (assignment_id, studentId) =>
           },
           {
             model: db.Assignment,
-            attributes: ["file_path"],
+            attributes: ["file_path", "assignment_name"],
             as: "assignmentData", // Bí danh cho mối quan hệ
           },
         ],
@@ -210,6 +210,7 @@ export const get_submission_ById = (assignment_id, studentId) =>
               class_name: submission.classData.class_name,
             },
             assignmentData: {
+              assignment_name: submission.assignmentData.assignment_name,
               file_path: submission.assignmentData.file_path,
             },
             image: [submission.image], // Sử dụng mảng để lưu trữ nhiều hình ảnh
@@ -224,6 +225,40 @@ export const get_submission_ById = (assignment_id, studentId) =>
         err: mergedResponse ? 0 : 1,
         message: mergedResponse ? "Oke" : "Can not found!!!",
         response: mergedResponse,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+
+export const getInforStudent = (assignment_id, studentId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Student.findAll({
+        where: { student_id: studentId, assignment_id: assignment_id },
+        include: [
+          {
+            model: db.Student,
+            attributes: ["student_name"],
+            as: "studentData", // Bí danh cho mối quan hệ
+          },
+          {
+            model: db.Class,
+            attributes: ["class_name"],
+            as: "classData", // Bí danh cho mối quan hệ
+          },
+          {
+            model: db.Assignment,
+            attributes: ["file_path"],
+            as: "assignmentData", // Bí danh cho mối quan hệ
+          },
+        ],
+      });
+      resolve({
+        err: response ? 0 : 1,
+        message: response ? "Oke" : "Can not found!!!",
+        response,
       });
     } catch (e) {
       console.log(e);

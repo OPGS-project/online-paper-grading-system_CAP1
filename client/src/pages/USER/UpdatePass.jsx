@@ -52,7 +52,6 @@ export default function UpdatePass() {
     const [values, setValues] = useState({
         password: '',
         newPassword: '',
-        confirm_password: '',
     });
 
     const [error, setError] = useState({
@@ -83,21 +82,26 @@ export default function UpdatePass() {
         }
 
         if (error.errNewPassword === null || error.errConfirmPass === null) {
-            const response = await apiChangePassTeacher(token, {
-                password: values.password,
-                newPassword: values.newPassword,
-            });
-            // console.log(response);
-            if (response?.data.err === 0) {
+            const response = await apiChangePassTeacher(
+                token,
+
+                {
+                    password: values.password,
+                    newPassword: values.newPassword,
+                },
+            );
+            // console.log(response.data.err);
+            if (response.data.err === 0) {
                 notifySuccess('Cập nhật mật khẩu thành công');
             } else {
-                notifyError('Có lỗi gì đó');
+                notifyError('Mật khẩu sai');
             }
         } else {
-            alert('hahaha');
+            alert('Lỗi ');
         }
     };
 
+    // console.log(values);
     return (
         <div className="container pt-5">
             <div className="card o-hidden border-0 shadow-lg ">

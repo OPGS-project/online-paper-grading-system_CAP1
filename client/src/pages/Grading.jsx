@@ -46,7 +46,7 @@ function Grading() {
     });
 
     const [className, setClassName] = useState({
-        class_name: '',
+        assignment_name: '',
     });
 
     const [createdAt, setCreatedAt] = useState({
@@ -63,10 +63,10 @@ function Grading() {
                     const responseData = response.data.response[0];
 
                     const submission_id = responseData.id;
-                    console.log('Submission id: ' + submission_id);
+                    // console.log('Submission id: ' + submission_id);
 
                     const { student_name } = responseData.studentData;
-                    const { class_name } = responseData.classData;
+                    const { assignment_name } = responseData.assignmentData;
                     const createdAt = responseData.createdAt;
 
                     setStudentName({
@@ -76,7 +76,7 @@ function Grading() {
                     setSubmission_id(submission_id);
 
                     setClassName({
-                        class_name,
+                        assignment_name,
                     });
 
                     setCreatedAt({
@@ -642,7 +642,7 @@ function Grading() {
                 <div className="assignment-info-box col-10 ">
                     <div className="assignment-info ">
                         <p>Tên: {studentName.student_name}</p>
-                        <p>Lớp: {className.class_name}</p>
+                        <p>Bài Tập: {className.assignment_name}</p>
                         <p>Thời gian nộp bài: {moment(createdAt.createdAt).format('DD-MM-YYYY HH:mm a')}</p>
                     </div>
                     <div className="assigment-images">
