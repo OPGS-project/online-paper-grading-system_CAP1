@@ -1,4 +1,4 @@
-import React, { useEffect,useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -9,12 +9,13 @@ import uploadImg from '~~/images/cloud-upload-regular-240.png';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FcFile } from 'react-icons/fc';
-import {  apiGetStudent } from '~/apis/userService';
+import { apiGetStudent } from '~/apis/userService';
 const DropFileInput = (props) => {
     const wrapperRef = useRef(null);
     const [fileList, setFileList] = useState([]);
     const { token } = useSelector((state) => state.auth);
     const params = useParams();
+    console.log(params);
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -51,12 +52,8 @@ const DropFileInput = (props) => {
             fileList.forEach((file, index) => {
                 formData.append(`image`, file);
             });
-            formData.append(
-                'assignment_id', params.aid)
-            ;
-            formData.append(
-                'class_id',params.classId)
-            ;
+            formData.append('assignment_id', params.aid);
+            formData.append('class_id', params.classId);
             try {
                 const response = await axios.post('http://localhost:8081/api/submission', formData, {
                     headers: {

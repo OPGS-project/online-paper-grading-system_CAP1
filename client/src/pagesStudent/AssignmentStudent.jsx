@@ -2,12 +2,14 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { AiFillRead } from 'react-icons/ai';
 import { FaAngellist } from 'react-icons/fa';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { apiGetAssignmentOfStudent } from '~/apis/userService';
 function AssignmentStudent() {
     // const navigate = useNavigate();
     const { token } = useSelector((state) => state.auth);
+    console.log(token);
 
     const [values, setValues] = useState([]);
     const [user, setUser] = useState([]);
@@ -19,7 +21,7 @@ function AssignmentStudent() {
             const userId = response.data.response.id;
             setClassId(classId);
             setUser(userId);
-            // console.log(response);
+            console.log(response);
             // console.log(response.data.response.Classes);
             if (response?.data.err === 0) {
                 setValues(response.data.response.Classes);
@@ -77,7 +79,7 @@ function AssignmentStudent() {
 
                                         <td>
                                             <Link
-                                                to={data.file_path}
+                                                to={data.assignmentData[0]?.file_path}
                                                 target="_blank"
                                                 className=" nav-link text-center "
                                             >
@@ -87,7 +89,7 @@ function AssignmentStudent() {
 
                                         <td>
                                             <Link
-                                                to={`/student/upload-assignment/${user.id}/${data.assignmentData[0]?.id}`}
+                                                to={`/student/upload-assignment/${data.assignmentData[0]?.id}/${classId}`}
                                                 className=" nav-link text-center "
                                             >
                                                 Nộp bài

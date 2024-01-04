@@ -29,6 +29,18 @@ export const getStudentSubmittedById= async (req, res) =>{
     }
 }
 
+// export const checkSubmission= async (req, res) =>{
+//     try{ 
+//         const { studentId } = req.params;
+//         const response = await services.checkSubmission(studentId);
+//         return res.status(200).json(response)
+
+//     }catch (error){
+//         console.log(error);
+//         // return internalServerError(res)
+//     }
+// }
+
 
 
 

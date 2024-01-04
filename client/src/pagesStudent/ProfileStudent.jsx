@@ -29,7 +29,7 @@ function ProfileStudent() {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetStudent(token);
-            // console.log(response);
+            console.log(response);
             if (response?.data.err === 0) {
                 setUserData({
                     student_name: response.data.response.student_name,

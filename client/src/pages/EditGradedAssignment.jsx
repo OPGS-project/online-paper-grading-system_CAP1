@@ -300,10 +300,11 @@ function EditGradedAssignment() {
         const handleKeyPress = (event) => {
             if ((event.key === 'x' || event.key === 'X') && cropImage && !event.ctrlKey && !event.metaKey) {
                 // Tạo đối tượng chữ "X"
-                const textX = new fabric.Text('X', {
+                const textX = new fabric.Text('\u2715', {
                     left: 460,
                     top: 100,
                     fill: 'red',
+                    fontWeight: 550,
                 });
                 editor.canvas.add(textX);
 
@@ -536,10 +537,11 @@ function EditGradedAssignment() {
             editor.canvas.on('mouse:dblclick', (opt) => {
                 // Lấy thông tin vị trí chuột từ đối tượng sự kiện
                 var pointer = editor.canvas.getPointer(opt.e);
-                const textV = new fabric.Text('V', {
+                const textV = new fabric.Text('\u2713', {
                     left: pointer.x,
-                    top: pointer.y - 8,
+                    top: pointer.y - 10,
                     fill: 'red',
+                    fontWeight: 550,
                 });
 
                 editor.canvas.add(textV);
@@ -600,8 +602,6 @@ function EditGradedAssignment() {
                 editor.canvas.renderAll();
             });
         }
-
-        addBackground();
     }, [editor, fabric]);
 
     //-------------------------------------

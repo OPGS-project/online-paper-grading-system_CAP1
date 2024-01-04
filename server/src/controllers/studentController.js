@@ -68,7 +68,8 @@ export const deleteStudent = async (req, res) => {
 export const uploadCSV = async (req, res) => {
   const csvFilePath = `${__dirname}/../uploads/${req.file.filename}`;
   console.log("CSV File Path:", csvFilePath);
-
+  const { classId } = req.params;
+  console.log(classId);
   const results = [];
 
   const processCSV = () => {
@@ -79,29 +80,35 @@ export const uploadCSV = async (req, res) => {
         .on("data", async (data) => {
           try {
             const object = {};
-            // console.log('Data from CSV:', typeof data);
+            console.log(data);
             for (const [key, value] of Object.entries(data)) {
-              if (key === "classID" || key === "Lớp") {
-                object.class_id = value;
-              } else if (key === "Giới tính") object.gender = value;
-              else if (key === "Ngày sinh") object.birthday = value;
-              else if (key === "Quê quán") object.address = value;
-              else if (key === "username" || key === "Tài khoản")
+              if (key === "Giới tính") {
+                object.gender = value;
+              } else if (key === "Ngày sinh") {
+                object.birthday = value;
+              } else if (key === "Quê quán") {
+                object.address = value;
+              } else if (key === "username" || key === "Tài khoản") {
                 object.username = value;
-              else if (key === "password" || key === "Mật khẩu")
+              } else if (key === "password" || key === "Mật khẩu") {
                 object.password = value;
-              else if (key === "Số điện thoại" || key === "sđt")
+              } else if (key === "Số điện thoại" || key === "sđt") {
                 object.phone = value;
-              else object["student_name"] = value;
+              } else {
+                object["student_name"] = value;
+              }
             }
+            object.class_id = classId;
             // console.log(object);
+
             // Parse the date string into a JavaScript Date object
             const parsedBirthday = new Date(object.birthday);
             // Check if the parsed date is valid
             if (isNaN(parsedBirthday.getTime())) {
               throw new Error("Invalid date format in CSV data");
             }
-            // // Create a new instance of the Student model
+
+            // Create a new instance of the Student model
             const newStudent = await models.Student.create(object);
             const studentId = newStudent.id;
             const response1 = await models.Student_Class.create({

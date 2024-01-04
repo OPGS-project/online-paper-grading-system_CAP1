@@ -41,7 +41,7 @@ export default function Student() {
                     username: data.username,
                     password: data.password,
                 }));
-
+    
                 setState((prevState) => ({
                     ...prevState,
                     student: studentData,
@@ -186,33 +186,23 @@ export default function Student() {
             data.password, // Thêm password vào mảng
         ]),
     ];
-
+    
     const handleImport = async (e) => {
         if (isImporting) {
             return;
         }
-
         setIsImporting(true);
 
         const file = e.target.files[0];
-
-        const csvData = [
-            ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán'],
-            ...state.student.map((data) => [
-                data.student_name,
-                data.gender,
-                moment(data.birthday, 'YYYY-MM-DD').format('DD-MM-YYYY'), // Định dạng ngày sinh thành "DD-MM-YYYY"
-                data.address,
-            ]),
-        ];
+        
         if (file) {
             const formData = new FormData();
             formData.append('csvFile', file);
-
             try {
-                await axios.post(`http://localhost:8081/api/student/upload-csv`, formData);
+                await axios.post(`http://localhost:8081/api/student/upload-csv/${params.classID}`, formData);
                 alert('CSV file uploaded successfully!');
                 render();
+                setIsImporting(false);
             } catch (error) {
                 console.error(error);
                 alert('Error uploading CSV file. Please try again.');
@@ -246,6 +236,23 @@ export default function Student() {
             handleConfirmationModalClose();
         }
     };
+    const csvTemplateHeaders = ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'Số điện thoại', 'Lớp', 'username', 'password'];
+
+    const handleDownloadTemplate = () => {
+        const csvTemplateData = [csvTemplateHeaders];
+        const csvContent = csvTemplateData.map(row => row.join(',')).join('\n');
+      
+        const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], {
+          type: 'text/csv;charset=utf-8;'
+        });
+      
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+      
+        link.href = url;
+        link.download = 'student_template.csv';
+        link.click();
+      };
     //
     return (
         <div className="container-fluid">
@@ -272,6 +279,10 @@ export default function Student() {
                         <i class="fa-solid fa-file-arrow-down"></i> Export
                     </CSVLink>
                     <p className="float-right">Sỉ số: ({state.student.length} học sinh)</p>
+                    <button className="btn btn-info ml-2" onClick={handleDownloadTemplate}>
+                        <i className="bi bi-file-earmark-arrow-down-fill"></i> Template
+                    </button>
+
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">
