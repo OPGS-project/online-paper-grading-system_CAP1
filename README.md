@@ -12,7 +12,7 @@ The system is designed for users who are teachers and students. It is built usin
 - Clone the repository
 
 ```bash
-[git clone https://github.com/OPGS-project/online-paper-grading-system_CAP1.git](https://github.com/OPGS-project/online-paper-grading-system_CAP1.git)
+https://github.com/OPGS-project/online-paper-grading-system_CAP1.git
 ```
 
 - Checkout brach `developer_han`
