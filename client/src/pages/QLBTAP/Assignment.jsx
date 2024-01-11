@@ -226,7 +226,7 @@ export default function Assignment() {
 
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Bài tập Đã Giao</h1>
+            <h1 className="h3 mb-2 text-gray-800">Bài Tập Đã Giao</h1>
 
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3 d-flex justify-content-between">

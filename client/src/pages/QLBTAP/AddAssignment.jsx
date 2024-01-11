@@ -114,7 +114,7 @@ export default function AddAssignment() {
                         navigate('/home/assignment');
                     }, 2000);
                 } else {
-                    notifyError('Vui lòng nhập đúng dữ liệu');
+                    notifyError('Tên bài tập đã tồn tại');
                 }
             })
             .catch((err) => console.log(err));

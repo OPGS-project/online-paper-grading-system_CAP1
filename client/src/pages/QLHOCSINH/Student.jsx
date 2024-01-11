@@ -41,7 +41,7 @@ export default function Student() {
                     username: data.username,
                     password: data.password,
                 }));
-    
+
                 setState((prevState) => ({
                     ...prevState,
                     student: studentData,
@@ -98,7 +98,6 @@ export default function Student() {
         return state.student.length > 0 ? (
             state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
                 <tr key={i} style={{ cursor: 'pointer' }} className="text-center ">
-                    <td style={{ fontWeight: 500 }}>{i + 1}</td>
                     <td className="text-left pl-5">{data.student_name}</td>
                     <td>{data.gender}</td>
                     <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
@@ -125,7 +124,7 @@ export default function Student() {
             ))
         ) : (
             <tr>
-                <td colSpan={10} className="text-center">
+                <td colSpan={9} className="text-center">
                     Hiện tại chưa có học sinh nào <FaRegCircleUser />
                     {/* return state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
             <tr key={i} className="text-center">
@@ -186,7 +185,7 @@ export default function Student() {
             data.password, // Thêm password vào mảng
         ]),
     ];
-    
+
     const handleImport = async (e) => {
         if (isImporting) {
             return;
@@ -194,7 +193,7 @@ export default function Student() {
         setIsImporting(true);
 
         const file = e.target.files[0];
-        
+
         if (file) {
             const formData = new FormData();
             formData.append('csvFile', file);
@@ -236,23 +235,32 @@ export default function Student() {
             handleConfirmationModalClose();
         }
     };
-    const csvTemplateHeaders = ['Họ và tên', 'Giới tính', 'Ngày sinh', 'Quê quán', 'Số điện thoại', 'Lớp', 'username', 'password'];
+    const csvTemplateHeaders = [
+        'Họ và tên',
+        'Giới tính',
+        'Ngày sinh',
+        'Quê quán',
+        'Số điện thoại',
+        'Lớp',
+        'username',
+        'password',
+    ];
 
     const handleDownloadTemplate = () => {
         const csvTemplateData = [csvTemplateHeaders];
-        const csvContent = csvTemplateData.map(row => row.join(',')).join('\n');
-      
-        const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], {
-          type: 'text/csv;charset=utf-8;'
+        const csvContent = csvTemplateData.map((row) => row.join(',')).join('\n');
+
+        const blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), csvContent], {
+            type: 'text/csv;charset=utf-8;',
         });
-      
+
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
-      
+
         link.href = url;
         link.download = 'student_template.csv';
         link.click();
-      };
+    };
     //
     return (
         <div className="container-fluid">
@@ -282,7 +290,6 @@ export default function Student() {
                     <button className="btn btn-info ml-2" onClick={handleDownloadTemplate}>
                         <i className="bi bi-file-earmark-arrow-down-fill"></i> Template
                     </button>
-
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">
@@ -318,7 +325,6 @@ export default function Student() {
                         <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
-                                    <th></th>
                                     <th style={{ width: 300 }}>Họ và tên</th>
                                     <th>Giới tính</th>
                                     <th>Ngày sinh</th>

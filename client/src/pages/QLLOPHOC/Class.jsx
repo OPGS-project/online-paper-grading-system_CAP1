@@ -212,7 +212,7 @@ export default function Class() {
                         <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
-                                    <th></th>
+                                    <th style={{ width: 100 }}></th>
                                     <th>Tên lớp</th>
                                     <th>Khóa</th>
                                     <th>Tùy chỉnh</th>

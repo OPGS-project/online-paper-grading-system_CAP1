@@ -40,7 +40,7 @@ const Submitted = () => {
                 submission.gradeData && submission.gradeData.score_value
                     ? submission.gradeData.score_value
                     : 'Chưa chấm',
-            'Điểm trung bình cả lớp: ': index === 0 ? averageScore.toFixed(2) : '',
+            'Điểm trung bình của bài tập: ': index === 0 ? averageScore.toFixed(2) : '',
         }));
         return csvData;
     };
