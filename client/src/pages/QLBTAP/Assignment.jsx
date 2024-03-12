@@ -229,14 +229,18 @@ export default function Assignment() {
             <h1 className="h3 mb-2 text-gray-800">Bài Tập Đã Giao</h1>
 
             <div className="card shadow mb-4 height-table">
-                <div className="card-header py-3 d-flex justify-content-between">
-                    <Link className="btn btn-success" to="/home/assignment/add-assignment">
-                        + Thêm bài tập
+                <div className="card-header py-3">
+                    <Link className="btn btn-success mr-3" to="/home/assignment/add-assignment-essay">
+                        + Bài tập tự luận
                     </Link>
                     {state.assignment.length > 0 ? (
                         <p className="float-right"> ( {state.assignment.length} bài tập )</p>
                     ) : null}
+                    <Link className="btn btn-primary" to="/home/assignment/add-assignment-short">
+                        + Bài tập ngắn
+                    </Link>
                 </div>
+                
                 <div className="card-body">
                     <label className="mr-3">
                         Tìm Kiếm:

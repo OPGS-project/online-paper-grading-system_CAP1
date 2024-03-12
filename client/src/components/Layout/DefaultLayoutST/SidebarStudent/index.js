@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { FaBookOpen, FaBookReader, FaDoorClosed } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function SidebarStudent() {
     useEffect(() => {
@@ -54,7 +53,21 @@ function SidebarStudent() {
                     <div className="nav-link">
                         <FaDoorClosed />
                         <span className="ml-2" style={{ fontSize: 16 }}>
-                            Trả bài
+                            Trả bài tự luận
+                        </span>
+                    </div>
+                </Link>
+            </li>
+            <li className="nav-item mb-5">
+                <Link
+                    to="/student/return-assignment"
+                    className="custom-link no-underline"
+                    style={{ textDecoration: 'none' }}
+                >
+                    <div className="nav-link">
+                        <FaDoorClosed />
+                        <span className="ml-2" style={{ fontSize: 16 }}>
+                            Trả bài tập ngắn
                         </span>
                     </div>
                 </Link>

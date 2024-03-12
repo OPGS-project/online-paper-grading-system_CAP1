@@ -4,7 +4,8 @@ import Login from '../layout/Login';
 import LoginSuccess from '../layout/LoginSuccess';
 import Register from '../layout/Register';
 import ForgotPassword from '~/layout/ForgotPassword';
-import AddAssignment from '~/pages/QLBTAP/AddAssignment';
+import AddAssignmentEssay from '~/pages/QLBTAP/AddAssignmentEssay';
+import AddAssignmentShort from '~/pages/QLBTAP/AddAssignmentShort';
 import Assignment from '~/pages/QLBTAP/Assignment';
 import EditAssignment from '~/pages/QLBTAP/EditAssignment';
 import Profile from '~/pages/USER/Profile';
@@ -46,7 +47,9 @@ const publicRoutes = [
     // QLBAITAP
     { path: '/home/assignment', component: Assignment },
     { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
-    { path: '/home/assignment/add-assignment', component: AddAssignment },
+    { path: '/home/assignment/add-assignment-essay', component: AddAssignmentEssay },
+    { path: '/home/assignment/add-assignment-short', component: AddAssignmentShort },
+
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
 
     //QLHSINH

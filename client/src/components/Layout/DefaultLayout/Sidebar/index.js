@@ -103,8 +103,11 @@ function Sidebar() {
                         <Link className="collapse-item" to="/home/assignment">
                             Thông tin bài tập
                         </Link>
-                        <Link className="collapse-item" to="/home/assignment/add-assignment">
-                            Thêm bài tập
+                        <Link className="collapse-item" to="/home/assignment/add-assignment-essay">
+                            Thêm bài tập tự luận
+                        </Link>
+                        <Link className="collapse-item" to="/home/assignment/add-assignment-short">
+                            Thêm bài tập ngắn
                         </Link>
                     </div>
                 </div>

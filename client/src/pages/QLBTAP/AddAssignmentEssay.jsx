@@ -1,4 +1,4 @@
-import '~~/pages/assignment/AddAssignment.scss';
+import '~~/pages/assignment/AddAssignmentEssay.scss';
 import { useNavigate } from 'react-router-dom';
 import { FcList } from 'react-icons/fc';
 import { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
-export default function AddAssignment() {
+export default function AddAssignmentEssay() {
     const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
             position: 'top-right',
