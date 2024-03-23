@@ -51,14 +51,25 @@ export default function AddAssignmentShort() {
     setItems(newItems);
   };
 
-  const handleSaveQuestion = () => {
+  const handleSaveQuestion = async () => {
     const jsonQuestions = {
       questions: items.map(item => ({
         title: item.title,
         grade: item.grade
       }))
     };
-    console.log("JSON các câu hỏi:", jsonQuestions);
+    console.log(jsonQuestions);
+    try {
+      const response = await axios.post('YOUR_API_ENDPOINT', {
+        title: inputValueTitle,
+        description: inputValueDescription,
+        json: JSON.stringify(jsonQuestions)
+      });
+      
+      console.log('Response from server:', response.data);
+    } catch (error) {
+      console.error('Error occurred while sending data to server:', error);
+    }
   };
 
   const handleDeleteItem = (id) => {
@@ -113,24 +124,24 @@ export default function AddAssignmentShort() {
 
     const file = e.target.files[0];
 
-    if (file) {
-      const formData = new FormData();
-      formData.append('csvFile', file);
-      try {
-        // await axios.post(`http://localhost:8081/api/student/upload-csv/${params.classID}`, formData);
-        alert('CSV file uploaded successfully!');
-        render();
-        setIsImporting(false);
-      } catch (error) {
-        console.error(error);
-        alert('Error uploading CSV file. Please try again.');
-      } finally {
-        setIsImporting(false);
-      }
-    } else {
-      alert('Please select a CSV file to upload.');
-      setIsImporting(false);
-    }
+    // if (file) {
+    //   const formData = new FormData();
+    //   formData.append('csvFile', file);
+    //   try {
+    //     // await axios.post(`http://localhost:8081/api/student/upload-csv/${params.classID}`, formData);
+    //     alert('CSV file uploaded successfully!');
+    //     render();
+    //     setIsImporting(false);
+    //   } catch (error) {
+    //     console.error(error);
+    //     alert('Error uploading CSV file. Please try again.');
+    //   } finally {
+    //     setIsImporting(false);
+    //   }
+    // } else {
+    //   alert('Please select a CSV file to upload.');
+    //   setIsImporting(false);
+    // }
   };
 
 
