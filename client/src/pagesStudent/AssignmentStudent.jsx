@@ -6,26 +6,22 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { apiGetAssignmentOfStudent } from '~/apis/userService';
-function AssignmentStudent() {
-    // const navigate = useNavigate();
-    const { token } = useSelector((state) => state.auth);
-    console.log(token);
 
+function AssignmentStudent() {
+    const { token } = useSelector((state) => state.auth);
     const [values, setValues] = useState([]);
     const [user, setUser] = useState([]);
     const [classId, setClassId] = useState(null);
+
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetAssignmentOfStudent(token);
-            const classId = response.data.response.class_id;
-            const userId = response.data.response.id;
-            setClassId(classId);
-            setUser(userId);
-            console.log(response);
-            // console.log(response.data.response.Classes);
             if (response?.data.err === 0) {
+                const classId = response.data.response.class_id;
+                const userId = response.data.response.id;
+                setClassId(classId);
+                setUser(userId);
                 setValues(response.data.response.Classes);
-                setUser(response.data.response);
             } else {
                 setValues([]);
                 setUser([]);
@@ -33,21 +29,20 @@ function AssignmentStudent() {
         };
         token && fetchUser();
     }, [token]);
-    console.log(values);
+
     return (
         <div className="container-fluid">
             <div className="card shadow">
                 <div className="text-left card-header">
-                    <h3 className="p-3  d-flex align-items-center" style={{ color: '#F3B664' }}>
+                    <h3 className="p-3 d-flex align-items-center" style={{ color: '#F3B664' }}>
                         <FaAngellist />
-                        <span className=" ml-3">
+                        <span className="ml-3">
                             Chào bạn {user.student_name} <FaAngellist />
                         </span>
                     </h3>
-
-                    {values.length > 0 ? (
-                        <h4 className=" p-3 d-flex align-items-center">Bạn đang có {values.length} bài tập</h4>
-                    ) : null}
+                    {values.length > 0 && (
+                        <h4 className="p-3 d-flex align-items-center">Bạn đang có {values.length} bài tập</h4>
+                    )}
                 </div>
                 <div className="card-body">
                     <table className="table table-hover" id="dataTable" width={100}>
@@ -63,39 +58,38 @@ function AssignmentStudent() {
                         </thead>
                         <tbody className="text-center">
                             {values.length > 0 ? (
-                                values?.map((data, i) => (
-                                    <tr key={i}>
-                                        <td>{i + 1}</td>
-                                        <td style={{ fontWeight: 500 }}>
-                                            {data.assignmentData[0]?.assignment_name}
-                                            {/* {data.assignmentData.map((assignment, index) => (
-                                                <div key={index}>{assignment.assignment_name}</div>
-                                            ))} */}
-                                        </td>
-                                        <td style={{ fontWeight: 500 }}>{data.class_name}</td>
-                                        <td style={{ fontWeight: 500 }}>
-                                            {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
-                                        </td>
-
-                                        <td>
-                                            <Link
-                                                to={data.assignmentData[0]?.file_path}
-                                                target="_blank"
-                                                className=" nav-link text-center "
-                                            >
-                                                Xem bài tập
-                                            </Link>
-                                        </td>
-
-                                        <td>
-                                            <Link
-                                                to={`/student/upload-assignment/${data.assignmentData[0]?.id}/${classId}`}
-                                                className=" nav-link text-center "
-                                            >
-                                                Nộp bài
-                                            </Link>
-                                        </td>
-                                    </tr>
+                                values.map((data, i) => (
+                                    <React.Fragment key={i}>
+                                        {data.assignmentData.length > 0 && (
+                                            <tr>
+                                                <td>{i + 1}</td>
+                                                <td style={{ fontWeight: 500 }}>
+                                                    {data.assignmentData[0]?.assignment_name}
+                                                </td>
+                                                <td style={{ fontWeight: 500 }}>{data.class_name}</td>
+                                                <td style={{ fontWeight: 500 }}>
+                                                    {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
+                                                </td>
+                                                <td>
+                                                    <Link
+                                                        to={data.assignmentData[0]?.file_path}
+                                                        target="_blank"
+                                                        className="nav-link text-center"
+                                                    >
+                                                        Xem bài tập
+                                                    </Link>
+                                                </td>
+                                                <td>
+                                                    <Link
+                                                        to={`/student/upload-assignment/${data.assignmentData[0]?.id}/${classId}`}
+                                                        className="nav-link text-center"
+                                                    >
+                                                        Nộp bài
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
                                 ))
                             ) : (
                                 <tr>
