@@ -8,3 +8,5 @@ export * from "./submissionController";
 export * from "./gradingController";
 export * from "./submission";
 export * from "./pageStudentController";
+
+export * from "./shortassignControlle";

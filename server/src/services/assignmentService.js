@@ -164,3 +164,41 @@ export const deleteAssignment = (assignmentId) =>
       reject(e);
     }
   });
+
+
+  // export const addShortAssignment = (data) =>{
+  //   return new Promise( async(resolve,reject) =>{
+  //     try {
+
+  //       const { assignment_name, start_date, deadline, of_class, content_text, file_path, filename, id_teacher, short_answers } = data
+  //       // Chuyển đổi dữ liệu câu trả lời ngắn thành JSON (nếu cần)
+  //     let ShortAnswers = short_answers;
+  //     console.log(data)
+  //     console.log(short_answers)
+  //     if (typeof short_answers === 'string') {
+  //       ShortAnswers = JSON.parse(short_answers);
+  //     }     
+  //     // Tạo bản ghi mới trong database
+  //     await db.Assignments.create({
+  //       assignment_name,
+  //       start_date,
+  //       deadline,
+  //       of_class,
+  //       content_text,
+  //       file_path,
+  //       filename,
+  //       id_teacher,
+  //       short_answers: ShortAnswers
+
+  //     });
+  //     resolve({
+  //         err:0,
+  //         mes:"add thành công"
+  //     })
+        
+  //     } catch (error) {
+  //       reject(error)
+  //     }
+  //   })
+    
+  // }

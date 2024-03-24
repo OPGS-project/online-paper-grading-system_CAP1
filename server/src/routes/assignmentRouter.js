@@ -11,6 +11,8 @@ router.use(verifyToken);
 
 router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
+// add short 
+// router.post("/shortassign",controllers.addShortAssignment)
 
 //PRIVATE ROUTER
 router.post(
