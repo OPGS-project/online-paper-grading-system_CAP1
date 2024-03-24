@@ -9,4 +9,4 @@ export * from "./gradingController";
 export * from "./submission";
 export * from "./pageStudentController";
 
-export * from "./shortassignControlle";
+export * from "./shortassignController";

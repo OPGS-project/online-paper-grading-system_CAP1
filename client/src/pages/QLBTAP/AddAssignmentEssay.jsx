@@ -129,7 +129,7 @@ export default function AddAssignmentEssay() {
                     navigate(-1);
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
 
             <h1 className="h3 mb-4 text-gray-800 text-center">
@@ -165,8 +165,7 @@ export default function AddAssignmentEssay() {
                     </label>
 
                     <select
-                        className="custom-select "
-                        style={{ height: 50, borderRadius: 100 }}
+                        className="custom-select"
                         id="validationTooltip04"
                         required
                         onChange={(e) => {
@@ -178,7 +177,7 @@ export default function AddAssignmentEssay() {
                             Chọn lớp
                         </option>
                         {classData?.map((data, i) => (
-                            <option key={i} name="of_class">
+                            <option key={i} value={data.class_name}>
                                 {data.class_name}
                             </option>
                         ))}

@@ -270,7 +270,7 @@ export default function Student() {
                     navigate(-1);
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
             <h1 className="h3 mb-2 text-center">Danh sách học sinh lớp {dataClass.class_name}</h1>
 

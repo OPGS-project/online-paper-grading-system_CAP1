@@ -1,15 +1,18 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoDuplicateOutline } from 'react-icons/io5';
 import '~~/pages/assignment/AddAssignmentShort.scss';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function AddAssignmentShort() {
   const [inputValueTitle, setInputValueTitle] = useState('Mẫu không có tiêu đề');
   const [inputValueDescription, setInputValueDescription] = useState('Mô tả biểu mẫu');
   const [inputValueTitleQuestion, setInputValueTitleQuestion] = useState('Câu hỏi không có tiêu đề');
-  const [isImporting, setIsImporting] = useState(false);
-  const [update, setUpdate] = useState(false);
-  
+  const [classList, setClassList] = useState([]);
+  const [values, setValues] = useState({
+    of_class: '',
+  });
+
   const [newItems, setNewItems] = useState([]);
   const [items, setItems] = useState([
     {
@@ -18,10 +21,6 @@ export default function AddAssignmentShort() {
       grade: 0
     }
   ]);
-
-  const render = useCallback(() => {
-    setUpdate(!update);
-  }, [update]);
 
   const handleAddItem = () => {
     const newItem = {
@@ -51,21 +50,31 @@ export default function AddAssignmentShort() {
     setItems(newItems);
   };
 
-  const handleSaveQuestion = async () => {
+  const handleSaveQuestion = async (e) => {
+    e.preventDefault();
+
+    if (values.of_class === '' || values.of_class.length < 0) {
+      return setError((prev) => ({
+        ...prev,
+        errClass: 'Vui lòng chọn lớp học',
+      }));
+    }
+
     const jsonQuestions = {
       questions: items.map(item => ({
         title: item.title,
         grade: item.grade
       }))
     };
-    console.log(jsonQuestions);
+    // console.log(jsonQuestions);
     try {
-      const response = await axios.post('YOUR_API_ENDPOINT', {
-        title: inputValueTitle,
+      const response = await axios.post('http://localhost:8081/api/short-assignment/add-short-assignment', {
+        assignment_name: inputValueTitle,
         description: inputValueDescription,
-        json: JSON.stringify(jsonQuestions)
+        question_name: JSON.stringify(jsonQuestions),
+        of_class: values.of_class,
       });
-      
+
       console.log('Response from server:', response.data);
     } catch (error) {
       console.error('Error occurred while sending data to server:', error);
@@ -116,35 +125,23 @@ export default function AddAssignmentShort() {
     setItems(newItems);
   };
 
-  const handleImport = async (e) => {
-    if (isImporting) {
-      return;
-    }
-    setIsImporting(true);
+  const { token } = useSelector((state) => state.auth);
 
-    const file = e.target.files[0];
-
-    // if (file) {
-    //   const formData = new FormData();
-    //   formData.append('csvFile', file);
-    //   try {
-    //     // await axios.post(`http://localhost:8081/api/student/upload-csv/${params.classID}`, formData);
-    //     alert('CSV file uploaded successfully!');
-    //     render();
-    //     setIsImporting(false);
-    //   } catch (error) {
-    //     console.error(error);
-    //     alert('Error uploading CSV file. Please try again.');
-    //   } finally {
-    //     setIsImporting(false);
-    //   }
-    // } else {
-    //   alert('Please select a CSV file to upload.');
-    //   setIsImporting(false);
-    // }
-  };
-
-
+  useEffect(() => {
+    axios
+      .get('http://localhost:8081/api/class/', {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((res) => setClassList(res.data.classData.rows))
+      .catch((err) => console.error(err));
+  }, []);
+  const [error, setError] = useState({
+    errName: null,
+    errClass: null,
+    errFinish: null,
+  });
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
       <div className="right-sidebar">
@@ -157,9 +154,8 @@ export default function AddAssignmentShort() {
         <label htmlFor="import" className="btn btn-warning ml-5 mt-2">
           <i className="fa-solid fa-file-import"></i>
         </label>
-        <input type="file" id="import" onChange={handleImport} hidden />
+        <input type="file" id="import" hidden />
         <button className="btn btn-primary" onClick={handleSaveQuestion}>Lưu</button>
-
       </div>
       <div className="title-container shadow-sm">
         <div className="line"></div>
@@ -176,6 +172,25 @@ export default function AddAssignmentShort() {
           onChange={handleDescriptionChange}
           className="description-text"
         />
+        <select
+          className="custom-select"
+          style={{ height: 50, borderRadius: 100 }}
+          id="validationTooltip04"
+          required
+          value={values.of_class}
+          onChange={(e) => {
+            setError((prev) => ({ ...prev, errClass: null }));
+            setValues((prev) => ({ ...prev, of_class: e.target.value }));
+          }}
+        >
+          <option value="">Chọn lớp</option>
+          {classList.map((classItem, index) => (
+            <option key={index} value={classItem.class_name}>
+              {classItem.class_name}
+            </option>
+          ))}
+        </select>
+        {error?.errClass && <small className="text-danger ml-3">{error?.errClass}</small>}
       </div>
 
       {items.map(item => (
