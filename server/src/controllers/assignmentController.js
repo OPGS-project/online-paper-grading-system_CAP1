@@ -73,3 +73,18 @@ export const deleteAssignment = async (req, res) => {
     console.log(error);
   }
 };
+// //add short assignment
+// export const addShortAssignment = async(req,res) =>{
+//   try {
+//     // let data = { assignment_name, start_date, deadline, of_class, content_text, file_path, filename, id_teacher, short_questions }
+//     // data = Object.assign(data, req.body);
+//     const message = await assignmentService(req.body)
+//     return res.status(200).json(message)
+    
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+  
+
+// }
