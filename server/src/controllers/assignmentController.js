@@ -73,18 +73,37 @@ export const deleteAssignment = async (req, res) => {
     console.log(error);
   }
 };
-// //add short assignment
-// export const addShortAssignment = async(req,res) =>{
-//   try {
-//     // let data = { assignment_name, start_date, deadline, of_class, content_text, file_path, filename, id_teacher, short_questions }
-//     // data = Object.assign(data, req.body);
-//     const message = await assignmentService(req.body)
-//     return res.status(200).json(message)
-    
-//   } catch (error) {
-//     console.log(error);
-//   }
 
-  
+// Add short assignment
+export const addShortAssignment = async (req, res) => {
+  try {
+    console.log(req.body);
+      const { id } = req.user;
 
-// }
+      if (!req.user || !req.user.id) {
+          return res.status(401).json({ success: false, error: 'Xác thực không thành công.' });
+      }
+
+      // Kiểm tra xem assignment_name và short_answers đã được cung cấp hay chưa
+      if (!req.body.assignment_name || !req.body.question_name) {
+          return res.status(400).json({ success: false, error: 'Vui lòng cung cấp đầy đủ thông tin.' });
+      }
+
+      // Gọi hàm addShortAssignment từ service để thêm bài tập ngắn
+      const message = await authServices.addShortAssignmentService(
+        req.body,
+        id
+      );
+      
+      // Kiểm tra kết quả trả về từ service và phản hồi cho client tương ứng
+      if (message && message.err === 0) {
+          return res.status(200).json({ success: true, message: message.mes });
+      } else {
+          return res.status(500).json({ success: false, error: 'Thêm bài tập ngắn thất bại.' });
+      }
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: 'Lỗi máy chủ .' });
+  }
+};
+

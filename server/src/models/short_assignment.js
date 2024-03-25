@@ -32,9 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Short_Assignment",
+      modelName: "Short_assignment",
     }
   );
-
+  console.log('Đã vào model short_assignment aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   return Short_assignment;
 };
