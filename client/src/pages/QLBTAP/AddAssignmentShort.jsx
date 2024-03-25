@@ -68,11 +68,18 @@ export default function AddAssignmentShort() {
     };
     // console.log(jsonQuestions);
     try {
-      const response = await axios.post('http://localhost:8081/api/short-assignment/add-short-assignment', {
-        assignment_name: inputValueTitle,
-        description: inputValueDescription,
-        question_name: JSON.stringify(jsonQuestions),
-        of_class: values.of_class,
+      const response = await axios({
+        method: 'post',
+        url: 'http://localhost:8081/api/short-assignment/add-short-assignment',
+        headers: {
+          authorization: token,
+        },
+        data: {
+          assignment_name: inputValueTitle,
+          description: inputValueDescription,
+          question_name: JSON.stringify(jsonQuestions),
+          of_class: values.of_class,
+        },
       });
 
       console.log('Response from server:', response.data);

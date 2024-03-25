@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-    //   Assignment.belongsTo(models.Class, {
-    //     foreignKey: "of_class",
-    //     targetKey: "id",
-    //     as: "classData",
-    //   });
+      Short_assignment.belongsTo(models.Class, {
+        foreignKey: "of_class",
+        targetKey: "id",
+        as: "classData",
+      });
 
     //   Assignment.hasMany(models.Submission, {
     //     foreignKey: "assignment_id",
@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       assignment_name: DataTypes.STRING,
       id_teacher: DataTypes.STRING,
       question_name:DataTypes.JSON,
+      of_class: DataTypes.INTEGER,
       answer_file:DataTypes.STRING,
       ckeditor_settings:DataTypes.JSON,
     },

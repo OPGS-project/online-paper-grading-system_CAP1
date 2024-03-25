@@ -1,24 +1,20 @@
 import db from "../models";
 
-
-
-
-//chưa lấy được id_teacher
 export const addShortAssignmentService = async (data, tid) => {
     try {
-        const { assignment_name, short_answers } = data;
-
-        // Ensure short_answers is a valid JSON object
-        let ShortAnswers = short_answers;
-        if (typeof short_answers === 'string') {
-            ShortAnswers = JSON.parse(short_answers);
+        const { assignment_name, question_name } = data;
+        console.log(data);
+        // Ensure question_name is a valid JSON object
+        let ShortAnswers = question_name;
+        if (typeof question_name === 'string') {
+            ShortAnswers = JSON.parse(question_name);
         }
 
         // Create a new record in the Short_assignment table
-        await db.Short_Assignment.create({
+        await db.Short_assignment.findOrCreate({
             assignment_name: assignment_name,
             id_teacher: tid,
-            question_name: ShortAnswers
+            question_name: ShortAnswers,
             // Add other fields as necessary
         });
 
