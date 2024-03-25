@@ -1,6 +1,5 @@
 import db from "../models";
 
-//chưa lấy được id_teacher
 export const addShortAssignmentService = async (data, tid) => {
     try {
         // Ensure short_answers is a valid JSON object
