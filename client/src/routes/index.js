@@ -32,6 +32,7 @@ import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
+import DoAssignmentShort from '~/pagesStudent/DoAssignmentShort';
 
 //Public routes
 const publicRoutes = [
@@ -49,6 +50,7 @@ const publicRoutes = [
     { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
     { path: '/home/assignment/add-assignment-essay', component: AddAssignmentEssay },
     { path: '/home/assignment/add-assignment-short', component: AddAssignmentShort },
+    
 
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
 
@@ -57,6 +59,9 @@ const publicRoutes = [
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
     { path: '/home/student/updateStudent/:classID/:studentID', component: UpdateStudent },
     { path: '/home/student/student-scores/:sid', component: StudentScores },
+    
+
+
 
     //QLLOPHOC
     { path: '/home/class', component: Class },
@@ -86,6 +91,7 @@ const privateRoutes = [
     { path: '/student/upload-assignment/:aid/:classId', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },
     { path: '/student/update-password', component: UpdatePassStudent },
+    { path: '/student/do-assignment-short', component: DoAssignmentShort },
 ];
 
 export { publicRoutes, privateRoutes };
