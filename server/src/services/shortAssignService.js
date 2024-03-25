@@ -13,7 +13,7 @@ export const addShortAssignmentService = async (data, tid) => {
         });
         // console.log(dataClass);
         // Create a new record in the Short_assignment table
-        await db.Short_assignment.findOrCreate({
+        await db.Assignment.findOrCreate({
             where: { assignment_name: data?.assignment_name },
             defaults: {
                 ...data,
