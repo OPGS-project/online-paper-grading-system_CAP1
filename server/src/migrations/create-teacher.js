@@ -30,6 +30,9 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
+      filename: {
+        type: Sequelize.STRING,
+      },
       refresh_token: {
         type: Sequelize.STRING,
       },

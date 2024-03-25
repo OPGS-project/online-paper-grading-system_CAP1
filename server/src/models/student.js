@@ -9,21 +9,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Student.hasMany(models.Assignment, {
-        foreignKey: "assignment_name",
-        as: "assignmentData",
+      // Student.belongsTo(models.Class, {
+      //   foreignKey: "class_id",
+      //   targetKey: "id",
+      //   as: "classData",
+      // });
+      // Student.belongsTo(models.Student_Class, {
+      //   foreignKey: "id",
+      //   targetKey: "student_id",
+      //   as: "studentData",
+      // });
+      Student.belongsToMany(models.Class, {
+        through: "Student_Class",
+        foreignKey: "student_id",
       });
     }
   }
   Student.init(
     {
-      class_id: DataTypes.STRING,
+      class_id: DataTypes.INTEGER,
       student_name: DataTypes.STRING,
       phone: DataTypes.INTEGER,
       gender: DataTypes.STRING,
-      birthday: DataTypes.DATEONLY,
       address: DataTypes.STRING,
-      email: DataTypes.STRING,
+      username: DataTypes.STRING,
+      avatar: DataTypes.STRING,
+      birthday: DataTypes.DATE,
+      password: DataTypes.STRING,
+      filename: DataTypes.STRING,
     },
     {
       sequelize,

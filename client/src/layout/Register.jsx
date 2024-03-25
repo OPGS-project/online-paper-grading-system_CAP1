@@ -48,7 +48,7 @@ export default function Register() {
         name: '',
         email: '',
         password: '',
-        // confirm_password: '',
+        confirm_password: '',
     });
 
     const navigate = useNavigate();
@@ -67,13 +67,13 @@ export default function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (values.email.length < 0 || values.email === '')
-            setError((prev) => ({
+            return setError((prev) => ({
                 ...prev,
                 emailErr: 'Email không được để trống',
             }));
 
         if (values.password.length < 0 || !password_pattern.test(values.password) || values.password === '')
-            setError((prev) => ({
+            return setError((prev) => ({
                 ...prev,
                 passwordErr: 'Mật khẩu không được để trống và có ít nhất 8 ký tự',
             }));
@@ -83,7 +83,7 @@ export default function Register() {
             values.confirm_password === '' ||
             String(values.confirm_password) !== String(values.password)
         )
-            setError((prev) => ({
+            return setError((prev) => ({
                 ...prev,
                 confirm_passwordErr: 'Mật khẩu không trùng khớp!!',
             }));
@@ -120,10 +120,10 @@ export default function Register() {
 
     return (
         <div className="bg-gradient-primary">
-            <div className="container pt-5">
-                <div className="card o-hidden border-0 shadow-lg ">
+            <div className="container p-5">
+                <div className="card o-hidden border-0 shadow-lg mb-5">
                     <div className="card-body p-0 ">
-                        <div className="p-5 m-center ">
+                        <div className=" m-center ">
                             <div className="text-center">
                                 <h1 className="h3 text-gray-900 mb-4 text-uppercase">Tạo tài khoản</h1>
 
@@ -150,41 +150,52 @@ export default function Register() {
                                         />
                                         {error.emailErr && <small className="text-danger pl-3">{error.emailErr}</small>}
                                     </div>
-                                    <div className="form-group row">
-                                        <div className="col-sm-6 mb-3 mb-sm-0">
-                                            <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
-                                            <input
-                                                type={show ? 'text' : 'password'}
-                                                className="form-control form-control-user"
-                                                placeholder="Mật khẩu"
-                                                onChange={handleChange}
-                                                name="password"
-                                            />
-                                            <div className="position-absolute eye cursor-pointer" onClick={handleShow}>
-                                                {show ? <FaEyeSlash /> : <FaEye />}
-                                            </div>
-                                            {error.passwordErr && (
-                                                <small className="text-danger pl-3">{error.passwordErr}</small>
-                                            )}
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <label className="float-left ml-3 label-regis ">Nhập Lại Mật Khẩu</label>
 
-                                            <input
-                                                type={show2 ? 'text' : 'password'}
-                                                className="form-control form-control-user"
-                                                placeholder="Nhập lại mật khẩu"
-                                                onChange={handleChange}
-                                                name="confirm_password"
-                                            />
-                                            <div className="position-absolute eye  " onClick={handleShow2}>
-                                                {show2 ? <FaEyeSlash /> : <FaEye />}
-                                            </div>
-                                            {error.confirm_passwordErr && (
-                                                <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
-                                            )}
+                                    <div className="form-group ">
+                                        <label className="float-left ml-3 label-regis ">Mật Khẩu</label>
+                                        <input
+                                            type={show ? 'text' : 'password'}
+                                            className="form-control form-control-user"
+                                            placeholder="Mật khẩu"
+                                            onChange={(e) => {
+                                                setError((prev) => ({
+                                                    ...prev,
+                                                    passwordErr: null,
+                                                }));
+                                                handleChange(e);
+                                            }}
+                                            name="password"
+                                        />
+                                        <div className="position-absolute eye  cursor-pointer" onClick={handleShow}>
+                                            {show ? <FaEyeSlash /> : <FaEye />}
                                         </div>
+                                        {error.passwordErr && (
+                                            <small className="text-danger pl-3">{error.passwordErr}</small>
+                                        )}
                                     </div>
+
+                                    <div className="form-group position-relative">
+                                        <label className="float-left ml-3  label-regis ">Nhập Lại Mật Khẩu</label>
+
+                                        <input
+                                            type={show2 ? 'text' : 'password'}
+                                            className="form-control form-control-user"
+                                            placeholder="Nhập lại mật khẩu"
+                                            onChange={handleChange}
+                                            name="confirm_password"
+                                        />
+                                        <div
+                                            className="position-absolute eye "
+                                            style={{ right: '3%' }}
+                                            onClick={handleShow2}
+                                        >
+                                            {show2 ? <FaEyeSlash /> : <FaEye />}
+                                        </div>
+                                        {error.confirm_passwordErr && (
+                                            <small className="text-danger pl-3">{error.confirm_passwordErr}</small>
+                                        )}
+                                    </div>
+
                                     <div className="mx-5">
                                         <button className="btn btn-primary btn-user px-5" type="submit">
                                             Đăng Ký
@@ -195,7 +206,7 @@ export default function Register() {
 
                                 <hr />
                                 <div className="text-center">
-                                    <Link className="small" to="/login">
+                                    <Link className="small" to="/login-teacher">
                                         Bạn đã có tài khoản ? Đăng Nhập
                                     </Link>
                                 </div>

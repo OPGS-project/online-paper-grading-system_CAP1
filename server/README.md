@@ -24,17 +24,20 @@ npx sequelize db:migrate
 200 :
 
 # set-u
-__________
+
+---
+
 cd client
 npm install
-__________
+
+---
+
 cd server
 npm install @babel/preset-env --save-dev
 npm install --save mysql2
- npm install --save sequelize
+npm install --save sequelize
 cd src
 npx sequelize db:migrate
 cd ..
 edit env and config
 npm start
-

@@ -4,17 +4,33 @@ const cloudinary = require("cloudinary").v2;
 export const getTeacher = (id) =>
   new Promise(async (resolve, reject) => {
     try {
+      const dataId = await db.Assignment.findAll({
+        where: { id_teacher: id },
+      });
+
       let response = await db.Teacher.findOne({
         where: { id },
-        raw: true,
+        raw: false,
+
         attributes: {
-          exclude: ["password", "refresh_token"],
+          exclude: ["createdAt", "updatedAt", "filename"],
         },
         include: [
           {
-            model: db.Role,
-            as: "roleData",
-            attributes: ["id", "code", "value"],
+            model: db.Class,
+            as: "classData",
+            attributes: ["class_name"],
+          },
+          {
+            model: db.Assignment,
+            as: "assignmentData",
+            include: [
+              {
+                model: db.Class,
+                as: "classData",
+                attributes: ["class_name"],
+              },
+            ],
           },
         ],
       });
@@ -22,6 +38,7 @@ export const getTeacher = (id) =>
         err: response ? 0 : 4,
         msg: response ? "OK" : "Teacher not found!",
         response,
+        dataId,
       });
     } catch (error) {
       reject(error);
@@ -39,7 +56,7 @@ export const updateTeacher = (tid, body, fileData) =>
         body.avatar = fileData?.path;
         body.fileName = fileData?.filename;
       }
-      console.log(fileData);
+
       const response = await db.Teacher.update(body, {
         where: { id: tid },
       });

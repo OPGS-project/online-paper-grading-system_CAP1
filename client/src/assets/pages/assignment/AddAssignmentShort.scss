@@ -1,0 +1,122 @@
+// AddAssignmentShort.scss
+hr {
+  margin: 0;
+}
+
+textarea {
+  height: 50px;
+}
+
+.header-short-assignment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.right-sidebar {
+position: fixed;
+top: 50%;
+right: 20px;
+transform: translateY(-50%);
+height: 150px;
+border-radius: 20px;
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+  
+.add-new-button {
+background: none;
+border: none;
+cursor: pointer;
+font-size: 24px;
+color: #4e73df;
+margin: 2px;
+}
+
+.title-container {
+  margin-top: 30px;
+  border-radius: 10px;
+  min-height: 100px;
+  height: auto;
+  width: 60%;
+  background-color: white;
+}
+
+.content-add-item {
+  position: relative;
+  margin-top: 30px;
+  height: auto;
+  min-height: 100px;
+  width: 60%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.line {
+  height: 10px;
+  background-color: #4e73df;
+  border-radius: 10px 10px 0px 0px;
+  margin-bottom: 10px;
+}
+
+.title-text,
+.description-text,
+.title-question {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  width: calc(100% - 20px);
+}
+
+.title-question {
+  background-color: #f0ebf8;
+  border-radius: 10px;
+}
+
+.title-question:focus {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.title-text {
+  font-size: 30px;
+}
+
+.footer-item {
+  position: relative;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  float: right;
+}
+
+.footer-question {
+  float: right;
+}
+
+.delete-question-icon,
+.duplicate-question-icon {
+  margin-bottom: 10px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 20px;
+}
+.add-item-animation {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+0% {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+  

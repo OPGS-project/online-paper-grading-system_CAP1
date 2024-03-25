@@ -14,7 +14,7 @@ export const register = ({ name, email, password }) =>
       const response = await db.Teacher.findOrCreate({
         where: { email },
         defaults: {
-          id: generateRandomString(10),
+          id: generateRandomString(5),
           name,
           email,
           password: hashPassword(password),
@@ -29,7 +29,7 @@ export const register = ({ name, email, password }) =>
               role: response[0].role,
             },
             process.env.JWT_SECRET,
-            { expiresIn: "2d" } // time hết hạn của token
+            { expiresIn: "7d" } // time hết hạn của token
           )
         : null;
       //Refresh_token
@@ -78,8 +78,8 @@ export const login = ({ email, password }) =>
         ? jwt.sign(
             { id: response.id, email: response.email, role: response.role },
             process.env.JWT_SECRET,
-            { expiresIn: "2d" } // time hết hạn của token
-          ) // mã hóa
+            { expiresIn: "7d" }
+          )
         : null;
       //Refresh_token
       const refreshToken = isChecked
@@ -134,7 +134,7 @@ export const loginSuccess = (id, refresh_token) =>
           process.env.JWT_SECRET,
           { expiresIn: "5d" }
         );
-      console.log(token);
+
       resolve({
         err: token ? 0 : 3,
         msg: token ? "OK" : "User not found or fail to login !",
@@ -254,10 +254,11 @@ export const changePassword = (body, userId) =>
             )
         : "Password is wrong";
       resolve({
-        success: response1[0] > 0 ? true : false,
+        err: response1[0] > 0 ? 0 : 1,
         mess: response1[0] > 0 ? "Changed password successfully" : response1,
       });
     } catch (e) {
+      console.log(e);
       reject(e);
     }
   });

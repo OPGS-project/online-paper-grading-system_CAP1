@@ -24,14 +24,15 @@ function ForgotPassword() {
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    const handleResetPass = () => {
+    const handleResetPass = (e) => {
+        e.preventDefault();
         axios
-            .post('http://localhost:8081/api/auth/reset-password')
+            .post('http://localhost:8081/api/auth/reset-password', values)
             .then((res) => {
                 console.log(res);
                 notifySuccess('Kiểm tra email của bạn!');
                 setTimeout(() => {
-                    navigate('/login');
+                    navigate('/login-teacher');
                 }, 3000);
             })
             .catch((err) => {
@@ -77,7 +78,7 @@ function ForgotPassword() {
                                                 <hr />
                                                 <btn
                                                     className="btn btn-user btn-block"
-                                                    onClick={() => navigate('/login')}
+                                                    onClick={() => navigate('/login-teacher')}
                                                 >
                                                     Quay lại
                                                 </btn>

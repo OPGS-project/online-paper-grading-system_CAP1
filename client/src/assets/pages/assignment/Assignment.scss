@@ -8,18 +8,23 @@
     left: 0;
     color: $text-color;
 }
+
 .icon-folder {
     color: $blue-color;
 }
+
 .icon-edit {
     color: $blue-color;
 }
+
 .icon-delete {
     color: $red-color;
 }
+
 .header-bt {
     align-items: center;
     height: 100px;
+
     .date {
         margin: 0 12px;
         width: 20%;
@@ -28,4 +33,17 @@
 
 .height-table {
     height: 80%;
+}
+
+.expanded-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
 }

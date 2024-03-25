@@ -12,7 +12,7 @@ function Home() {
                             Chào mừng bạn đến với OPGS ! <br />
                             Bạn có thể tạo bài tập, đề thi bên dưới
                         </h1>
-                        <Link to="/home/assignment/add-assignment" className="nav-link collapsed border-add">
+                        <Link to="/home/assignment/add-assignment-essay" className="nav-link collapsed border-add">
                             <div className="p-3 rounded-pill add-exam ">
                                 <i className="icon fas fa-pencil"></i>
                                 <span className="fontsize30 "> Tạo bài tập hoặc đề thi</span>

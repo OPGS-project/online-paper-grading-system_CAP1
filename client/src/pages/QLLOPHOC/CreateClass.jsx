@@ -1,18 +1,20 @@
 import { FcList } from 'react-icons/fc';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { apiGetOne } from '~/apis/userService';
+import { Input } from 'reactstrap';
 
 export default function CreateClass() {
-    const [class_name, setClassName] = useState('');
-    const [total_students, setTotalStudent] = useState('');
-    const [content, setContent] = useState('');
+    const { token } = useSelector((state) => state.auth);
+
     const navigate = useNavigate();
 
-        const notifyError = (errorMessage) => {
-            toast.error(errorMessage, {
+    const notifyError = (errorMessage) => {
+        toast.error(errorMessage, {
             position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
@@ -22,37 +24,50 @@ export default function CreateClass() {
             progress: undefined,
             theme: 'light',
         });
-      };
-      const notifySuccess = (errorMessage) => {
+    };
+    const notifySuccess = (errorMessage) => {
         toast.success(errorMessage, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
         });
-      };
+    };
 
+    const [values, setValues] = useState({
+        class_name: '',
+        content: '2023-2026',
+    });
+    console.log(values);
     const handleSubmit = (event) => {
         event.preventDefault();
+
         axios
-            .post('http://localhost:8081/api/class/', {
-                class_name,
-                total_students,
-                content,
+            .post('http://localhost:8081/api/class/', values, {
+                headers: {
+                    authorization: token,
+                },
             })
+
             .then((res) => {
                 console.log(res);
-                notifySuccess("Thêm lớp thành công");
-                setTimeout(() => {
-                    navigate('/home/class'); // thành công sẽ chuyển hướng
-                }, 5000);
+                if (res.data.err === 0) {
+                    notifySuccess('Thêm lớp thành công');
+
+                    setTimeout(() => {
+                        navigate('/home/class'); // thành công sẽ chuyển hướng
+                    }, 2000);
+                } else {
+                    notifyError('Lớp học đã tồn tại');
+                }
             })
-            .catch((err) => console.log(err));
+            .catch((e) => console.log(e));
     };
+
     return (
         <div className="container-fluid">
             <button
@@ -61,7 +76,7 @@ export default function CreateClass() {
                     navigate('/home/class');
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
                 <FcList className="mr-3" />
@@ -73,43 +88,34 @@ export default function CreateClass() {
                     <label className="text-capitalize font-weight-bold pl-2">Tên lớp</label>
                     <input
                         type="text"
+                        style={{ fontSize: 16 }}
                         className="form-control form-control-lg form-control-user"
                         required
-                        onChange={(e) => setClassName(e.target.value)}
-                    />
-                </div>
-                <div className="form-row mt-3">
-                    <label className="text-capitalize font-weight-bold pl-2">Sĩ số</label>
-                    <input
-                        type="text"
-                        className="form-control form-control-lg form-control-user"
-                        required
-                        name="total_students"
-                        onChange={(e) => setTotalStudent(e.target.value)}
+                        name="class_name"
+                        onChange={(e) => setValues((prev) => ({ ...prev, class_name: e.target.value }))}
                     />
                 </div>
 
                 <div className="form-row mt-3">
                     <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
-                        Ghi chú
+                        Khóa
                     </label>
-                    <textarea
-                        type="textariea"
-                        className="form-control content-bt"
+                    <input
+                        style={{ fontSize: 16 }}
+                        className="form-control form-control-lg form-control-user"
                         id="name-bt"
-                        onChange={(e) => setContent(e.target.value)}
+                        name="content"
+                        value={values.content}
+                        onChange={(e) => setValues((prev) => ({ ...prev, content: e.target.value }))}
                     />
                 </div>
                 <div className="text-center mt-5">
                     <button type="submit" className="btn btn-success px-5 py-2">
                         Lưu
                     </button>
-                    <button className="btn btn-light px-5 py-2 ml-3">Hủy</button>
                 </div>
             </form>
             <ToastContainer />
         </div>
     );
 }
-
-

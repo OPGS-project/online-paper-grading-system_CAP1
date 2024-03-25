@@ -40,22 +40,7 @@ function Header() {
                 <i className="fa fa-bars"></i>
             </button>
 
-            <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div className="input-group">
-                    <input
-                        type="text"
-                        className="form-control bg-light border-0 small"
-                        placeholder="Tìm kiếm..."
-                        aria-label="Search"
-                        aria-describedby="basic-addon2"
-                    />
-                    <div className="input-group-append">
-                        <button className="btn btn-primary" type="button">
-                            <i className="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+            <div></div>
 
             <ul className="navbar-nav ml-auto">
                 <div className="topbar-divider d-none d-sm-block"></div>
@@ -63,7 +48,7 @@ function Header() {
                 <li className="nav-item dropdown no-arrow">
                     <Link onClick={() => setToggle3((toggl3) => !toggle3)} className="nav-link dropdown-toggle">
                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userData?.name}</span>
-                        <img className="img-profile rounded-circle" src={userData.avatar} alt="avatar" />
+                        <img className="img-profile rounded-circle" src={userData?.avatar} alt="avatar" />
                     </Link>
 
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" id="collapseTarget3">
@@ -78,12 +63,15 @@ function Header() {
 
                         <div className="dropdown-divider"></div>
                         {isLoggedIn ? (
-                            <button className="dropdown-item" onClick={() => dispatch(logout()) && navigate('/login')}>
+                            <button
+                                className="dropdown-item"
+                                onClick={() => dispatch(logout()) && navigate('/login-teacher')}
+                            >
                                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Đăng xuất
                             </button>
                         ) : (
-                            <button className="dropdown-item" onClick={() => navigate('/login')}>
+                            <button className="dropdown-item" onClick={() => navigate('/login-teacher')}>
                                 <AiOutlineLogin className="mr-2 text-gray-400" />
                                 Đăng nhập
                             </button>

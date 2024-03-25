@@ -16,16 +16,19 @@ function Introduce() {
                             <FaBookReader className="icon-intro" />
                             <span className="title ml-5"> O P G S</span>
                         </div>
-                        <div className="text-intro mt-5">Hệ thống chấm bài và quản lý </div>
+                        <div className="text-intro mt-5">Hệ thống chấm bài và quản lý giáo dục</div>
                     </div>
                     <div className="col-md-5 form-intro">
                         <div className="d-flex flex-column mt-4 p-3 box-intro ">
-                            <button className="btn  btn-primary p-3 my-3 btn-intro" onClick={() => navigate('/login')}>
+                            <button
+                                className="btn  btn-primary p-3 my-3 btn-intro"
+                                onClick={() => navigate('/choose-role-login')}
+                            >
                                 Đăng Nhập
                             </button>
                             <button
                                 className="btn  btn-google p-3 my-3 btn-intro"
-                                onClick={() => navigate('/choose-role')}
+                                onClick={() => navigate('/register-teacher')}
                             >
                                 Đăng Ký
                             </button>

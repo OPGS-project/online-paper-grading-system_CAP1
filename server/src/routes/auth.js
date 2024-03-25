@@ -1,5 +1,7 @@
 import * as controllers from "../controllers";
 import express from "express";
+import verifyToken from "../middlewares/verify_token";
+
 require("dotenv").config;
 
 const passport = require("passport");
@@ -33,6 +35,8 @@ router.post("/login", controllers.login);
 router.post("/login-success", controllers.loginSuccess);
 router.post("/reset-password", controllers.resetPassword);
 router.post("/refresh-token", controllers.refreshTokenController);
+
+router.use(verifyToken);
 router.post("/change-password", controllers.changePassword);
 
 module.exports = router;

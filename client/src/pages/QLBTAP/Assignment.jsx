@@ -1,46 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import '~~/pages/assignment/Assignment.scss';
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import { FiSearch } from '@react-icons/all-files//fi/FiSearch';
-import { FcInspection, FcViewDetails } from 'react-icons/fc';
-
+import React, { useState, useEffect } from 'react';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment/moment';
-import Swal from 'sweetalert2';
+import { FcFolder, FcViewDetails } from 'react-icons/fc';
 import { ToastContainer, toast } from 'react-toastify';
-import ReactPaginate from 'react-paginate';
-import { Pagination } from '~/components/Pagination';
+import Swal from 'sweetalert2';
+import { AiFillRead } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
-const Assignment = () => {
-    const navigate = useNavigate();
-    const [count, setCount] = useState(0);
-    const [assignment, setAssignment] = useState([]);
+export default function Assignment() {
     const [updateCheck, setUpdateCheck] = useState(false);
-    const params = useParams();
+    const { token } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+    const [state, setState] = useState({
+        assignment: [],
+        offset: 0,
+        perPage: 7,
+        pageCount: 0,
+        searchTerm: '',
+        originalAssignment: [],
+    });
 
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/assignment/')
+            .get('http://localhost:8081/api/assignment/', {
+                headers: {
+                    authorization: token,
+                },
+            })
             .then((res) => {
-                // const  limit = 7,
-                // const page: queries.page,
-                if (res.data.err === 0) {
-                    setAssignment(res.data.assignmentData.rows);
-                    setCount(res.data.assignmentData.count);
-                }
+                // console.log(res.data.assignmentData.rows);
+                const assignmentData = res.data.assignmentData.rows;
+                setState((prevState) => ({
+                    ...prevState,
+                    assignment: assignmentData,
+                    originalAssignment: assignmentData,
+                    pageCount: Math.ceil(assignmentData.length / prevState.perPage),
+                }));
             })
             .catch((err) => console.error(err));
     }, []);
-
+    // console.log(deadline);
     useEffect(() => {
         axios
-            .get('http://localhost:8081/api/assignment/')
+            .get('http://localhost:8081/api/assignment/', {
+                headers: {
+                    authorization: token,
+                },
+            })
             .then((res) => {
-                setAssignment(res.data.assignmentData.rows);
+                const assignmentData = res.data.assignmentData.rows;
+                setState((prevState) => ({
+                    ...prevState,
+                    assignment: assignmentData,
+                    originalAssignment: assignmentData,
+                    pageCount: Math.ceil(assignmentData.length / prevState.perPage),
+                }));
                 setUpdateCheck(false);
             })
             .catch((err) => console.error(err));
     }, [updateCheck]);
+
+    const handlePageClick = (data) => {
+        const selectedPage = data.selected;
+        setState((prevState) => ({
+            ...prevState,
+            offset: selectedPage * prevState.perPage,
+        }));
+    };
 
     const handleDelete = (aid, name) => {
         Swal.fire({
@@ -54,121 +83,221 @@ const Assignment = () => {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed)
-                axios.delete('http://localhost:8081/api/assignment/' + aid).then((res) => {
-                    if (+res.data.err === 0) {
-                        toast.success('Xóa thành công', {
-                            position: 'top-right',
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: 'light',
-                        });
+                axios
+                    .delete('http://localhost:8081/api/assignment/' + aid, {
+                        headers: {
+                            authorization: token,
+                        },
+                    })
+                    .then((res) => {
+                        if (+res.data.err === 0) {
+                            toast.success('Xóa thành công', {
+                                position: 'top-right',
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: 'light',
+                            });
 
-                        setUpdateCheck(true);
-                    }
-                });
+                            setUpdateCheck(true);
+                        }
+                    });
         });
+    };
+
+    const handleSearch = () => {
+        const { originalAssignment, searchTerm, perPage } = state;
+        if (searchTerm === '') {
+            // Nếu không có từ khóa tìm kiếm, hiển thị toàn bộ danh sách học sinh từ danh sách gốc
+            setState((prevState) => ({
+                ...prevState,
+                assignment: originalAssignment,
+                pageCount: Math.ceil(originalAssignment.length / perPage),
+                offset: 0,
+            }));
+        } else {
+            // Nếu có từ khóa tìm kiếm, tạo mảng học sinh mới dựa trên kết quả tìm kiếm
+            const filteredAssignment = originalAssignment.filter((data) =>
+                data.assignment_name.toLowerCase().includes(searchTerm.toLowerCase()),
+            );
+            setState((prevState) => ({
+                ...prevState,
+                assignment: filteredAssignment,
+                pageCount: Math.ceil(filteredAssignment.length / perPage),
+                offset: 0,
+            }));
+        }
+    };
+
+    const generateRows = () => {
+        return state.assignment.length > 0 ? (
+            state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+                <tr
+                    key={i}
+                    className="text-center"
+                    style={{ cursor: 'pointer' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return navigate(`/home/assignment/submitted/${data.id}`);
+                    }}
+                >
+                    <td>
+                        <FcFolder size={20} />
+                    </td>
+                    <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
+                    <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm ')}</td>
+                    <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
+                    <td>{data.classData?.class_name}</td>
+                    {moment(new Date()) > moment(data.deadline) ? (
+                        <td className="text-danger">
+                            <span
+                                className="p-2"
+                                style={{ backgroundColor: '#FF6464', borderRadius: '15px', color: 'white' }}
+                            >
+                                Đã Đóng
+                            </span>
+                        </td>
+                    ) : (
+                        <td>
+                            <span
+                                className="p-2"
+                                style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
+                            >
+                                Đang Mở
+                            </span>
+                        </td>
+                    )}
+
+                    {/* <td>
+                        <Link className="btn " to={}>
+                            <FcViewDetails />
+                        </Link>
+                    </td> */}
+                    <td onClick={(e) => e.stopPropagation()}>
+                        <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
+                            <i className="fa-solid fa-pen-to-square icon-edit"></i>
+                        </Link>
+                        <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
+                            <i className="fa-solid fa-trash icon-delete"></i>
+                        </button>
+                    </td>
+                    {/* <td onClick={(e) => e.stopPropagation()}>
+                        
+                    </td> */}
+                </tr>
+            ))
+        ) : (
+            <tr>
+                <td colSpan={9} className="text-center">
+                    Hiện tại chưa có bài tập nào <AiFillRead />
+                </td>
+            </tr>
+        );
+    };
+
+    const handlePrevious = () => {
+        if (state.offset - state.perPage >= 0) {
+            setState((prevState) => ({
+                ...prevState,
+                offset: prevState.offset - prevState.perPage,
+            }));
+        }
+    };
+
+    const handleNext = () => {
+        if (state.offset + state.perPage < state.assignment.length) {
+            setState((prevState) => ({
+                ...prevState,
+                offset: prevState.offset + prevState.perPage,
+            }));
+        }
+    };
+
+    const handleClearSearch = () => {
+        setState((prevState) => ({
+            ...prevState,
+            searchTerm: '',
+        }));
+        handleSearch(); // Gọi lại tìm kiếm để hiển thị toàn bộ danh sách học sinh
     };
 
     return (
         <div className="container-fluid">
-            <div className="row header-bt">
-                <div className="ml-3">
-                    <form className="form-inline mr-auto w-100 navbar-search">
-                        <div className="input-group position-relative">
-                            <input
-                                type="text"
-                                className="form-control bg-light small input-search"
-                                placeholder="Tìm kiếm"
-                                aria-label="Search"
-                                aria-describedby="basic-addon2"
-                            />
-                            <div className="input-group-append">
-                                <button className="btn btn-primary" type="button">
-                                    <FiSearch />
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <h1 className="h3 mb-2 text-gray-800">Bài Tập Đã Giao</h1>
+
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Giao</h6>
+                    <Link className="btn btn-success mr-3" to="/home/assignment/add-assignment-essay">
+                        + Bài tập tự luận
+                    </Link>
+                    {state.assignment.length > 0 ? (
+                        <p className="float-right"> ( {state.assignment.length} bài tập )</p>
+                    ) : null}
+                    <Link className="btn btn-primary" to="/home/assignment/add-assignment-short">
+                        + Bài tập ngắn
+                    </Link>
                 </div>
+                
                 <div className="card-body">
-                    <div className="table-responsive"></div>
-                    <table className="table table-hover" id="dataTable">
-                        <thead className="text-center">
-                            <tr>
-                                <th></th>
-                                <th>Tên</th>
-                                <th>Từ Ngày</th>
-                                <th>Đến Ngày</th>
-                                <th>Giao Cho</th>
-                                <th>Trạng Thái</th>
-                                <th>Chi tiết</th>
-                                {/* <th>Tiêu chí</th> */}
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            {assignment?.map((data, i) => (
-                                <tr key={i}>
-                                    <td>
-                                        <i className="fa-solid fa-folder icon-folder"></i>
-                                    </td>
-                                    <td>
-                                        {/* {(+params.get('page') > 1 ? +params.get('page') - 1 : 0) *
-                                            +import.meta.env.V  TE_REACT_APP_LIMIT +
-                                            i +
-                                            1} */}
-                                        {data.assignment_name}
-                                    </td>
-                                    <td>{moment(data.start_date).format('DD-MM-YYYY')}</td>
-                                    <td>{moment(data.deadline).format('DD-MM-YYYY')}</td>
-                                    <td>{data.of_class}</td>
-                                    <td>20</td>
-                                    <td>
-                                        <Link className="btn " to={`/home/assignment/submitted/${data.id}`}>
-                                            <FcViewDetails />
-                                        </Link>
-                                    </td>
-                                    {/* <td>
-                                        <Link className="btn" to={`/home/assignment/criteria`}>
-                                            <FcInspection />
-                                        </Link>
-                                    </td> */}
+                    <label className="mr-3">
+                        Tìm Kiếm:
+                        <input
+                            type="search"
+                            className="form-control form-control-sm"
+                            placeholder=""
+                            aria-controls="dataTable"
+                            value={state.searchTerm}
+                            onChange={(e) =>
+                                setState({
+                                    ...state,
+                                    searchTerm: e.target.value,
+                                })
+                            }
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleSearch();
+                                }
+                            }}
+                        />
+                    </label>
+                    <button className="btn btn-primary" onClick={handleSearch}>
+                        <i className="fas fa-search"></i>
+                    </button>
+                    <button className="btn btn-danger ml-2" onClick={handleClearSearch}>
+                        X
+                    </button>
 
-                                    <td>
-                                        <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
-                                            <i className="fa-solid fa-pen-to-square icon-edit"></i>
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <button
-                                            className="btn"
-                                            onClick={() => handleDelete(data.id, data.assignment_name)}
-                                        >
-                                            <i className="fa-solid fa-trash icon-delete"></i>
-                                        </button>
-                                    </td>
+                    <div className="table-responsive">
+                        <table className="table table-hover" id="dataTable" width={100}>
+                            <thead className="text-center">
+                                <tr>
+                                    <th></th>
+                                    <th style={{ width: 200 }}>Tên</th>
+                                    <th>Từ Ngày</th>
+                                    <th>Đến Ngày</th>
+                                    <th>Giao Cho</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Tùy Chỉnh</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <ToastContainer />
-                    <div className="w-full mt-1">
-                        <Pagination totalCount={count} />
+                            </thead>
+                            <tbody>{generateRows()}</tbody>
+                        </table>
                     </div>
                 </div>
+                <div className="pagination d-flex m-3 justify-content-center">
+                    <button className="btn btn-primary mr-3" onClick={handlePrevious}>
+                        <i className="fa fa-angle-left"></i>
+                    </button>
+                    <button className="btn btn-primary" onClick={handleNext}>
+                        <i className="fa fa-angle-right"></i>
+                    </button>
+                </div>
             </div>
+
+            <ToastContainer />
         </div>
     );
-};
-
-export default Assignment;
+}
