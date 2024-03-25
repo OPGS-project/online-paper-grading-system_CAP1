@@ -6,7 +6,9 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { apiGetAssignmentOfStudent } from '~/apis/userService';
-function AssignmentStudent() {
+
+
+function AssignmentShortStudent() {
     // const navigate = useNavigate();
     const { token } = useSelector((state) => state.auth);
     console.log(token);
@@ -46,7 +48,7 @@ function AssignmentStudent() {
                     </h3>
 
                     {values.length > 0 ? (
-                        <h4 className=" p-3 d-flex align-items-center">Bạn đang có {values.length} bài tập tự luận</h4>
+                        <h4 className=" p-3 d-flex align-items-center">Bạn đang có {values.length} bài tập ngắn</h4>
                     ) : null}
                 </div>
                 <div className="card-body">
@@ -56,9 +58,9 @@ function AssignmentStudent() {
                                 <th></th>
                                 <th>Tên Bài Tập</th>
                                 <th>Lớp</th>
-                                <th>Hạn Nộp</th>
-                                <th>Chi tiết</th>
-                                <th>Nộp bài</th>
+                                <th>Hạn Làm Bài</th>
+                               
+                                <th>Nộp Bài</th>
                             </tr>
                         </thead>
                         <tbody className="text-center">
@@ -77,22 +79,14 @@ function AssignmentStudent() {
                                             {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
                                         </td>
 
-                                        <td>
-                                            <Link
-                                                to={data.assignmentData[0]?.file_path}
-                                                target="_blank"
-                                                className=" nav-link text-center "
-                                            >
-                                                Xem bài tập
-                                            </Link>
-                                        </td>
+                                       
 
                                         <td>
                                             <Link
-                                                to={`/student/upload-assignment/${data.assignmentData[0]?.id}/${classId}`}
+                                                to={`/student/do-assignment-short`}
                                                 className=" nav-link text-center "
                                             >
-                                                Nộp bài
+                                                Làm bài
                                             </Link>
                                         </td>
                                     </tr>
@@ -112,4 +106,4 @@ function AssignmentStudent() {
     );
 }
 
-export default AssignmentStudent;
+export default AssignmentShortStudent;

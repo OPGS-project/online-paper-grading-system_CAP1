@@ -33,6 +33,7 @@ import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
 import DoAssignmentShort from '~/pagesStudent/DoAssignmentShort';
+import AssignmentShortStudent from '~/pagesStudent/AssignmentShortStudent';
 
 //Public routes
 const publicRoutes = [
@@ -92,6 +93,7 @@ const privateRoutes = [
     { path: '/student/student-profile', component: ProfileStudent },
     { path: '/student/update-password', component: UpdatePassStudent },
     { path: '/student/do-assignment-short', component: DoAssignmentShort },
+    { path: '/student/assignment-short-student', component: AssignmentShortStudent },
 ];
 
 export { publicRoutes, privateRoutes };

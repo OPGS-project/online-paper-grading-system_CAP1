@@ -1,134 +1,94 @@
-hr {
-  margin: 0;
+/* Style for the container */
+.container-fluid {
+  margin: 20px;
 }
 
-textarea {
-  height: 50px;
-}
-
+/* Style for the header */
 .header-short-assignment {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 80%;
+  margin-bottom: 20px;
 }
 
-.right-sidebar {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  height: 150px;
-  border-radius: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Style for the title */
+.title-container {
+  background-color: #f8f9fc;
+  padding: 20px;
+  border-radius: 5px;
 }
 
-.add-new-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  color: #4e73df;
-  margin: 2px;
-}
-
-.title-container,
-.content-add-item {
-  margin-top: 30px;
-  height: auto;
-  width: 80%; // Adjusted width
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Added box shadow
-}
-
-.line {
-  height: 10px;
-  background-color: #4e73df;
-  border-radius: 10px 10px 0px 0px;
+/* Style for the description */
+.title-container p {
   margin-bottom: 10px;
 }
 
-.title-text,
-.description-text,
-.title-question {
-  border: none;
-  outline: none;
-  font-size: 20px;
-  width: calc(100% - 20px);
-  padding: 10px; // Added padding for better spacing
+/* Style for each question container */
+.content-add-item {
+  margin-top: 20px;
+  position: relative;
 }
 
-.title-question {
-  background-color: #f0ebf8;
-  border-radius: 10px;
+/* Style for the submit button */
+.btn-primary {
+  margin-top: 20px;
 }
 
-.title-question:focus {
-  background-color: #ccc;
-  border-radius: 10px;
+/* Style for the error message */
+.text-danger {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
-.title-text {
-  font-size: 30px;
+/* Style for the modal */
+.modal-dialog {
+  max-width: 500px;
 }
 
-.footer-question {
-  margin-top: 10px; // Adjusted margin
+/* Style for modal header */
+.modal-header {
+  background-color: #007bff;
+  color: #fff;
+  border-bottom: none;
 }
 
-.delete-question-icon,
-.duplicate-question-icon {
-  margin-right: 10px; // Adjusted margin
-  font-size: 20px;
-  cursor: pointer;
+/* Style for modal body */
+.modal-body {
+  padding: 20px;
 }
 
-.add-item-animation {
-  animation: fadeIn 0.5s ease-in-out;
+/* Style for modal footer */
+.modal-footer {
+  justify-content: center;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Style for modal close button */
+.close {
+  color: #fff;
 }
 
-* {
-  box-sizing: border-box;
+/* Style for modal confirm button */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
-body {
-  font-family: sans-serif;
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
 }
 
-input,
-textarea,
-[contenteditable] {
-  font: inherit;
-  line-height: 1.5;
-  width: 600px;
-  padding: 8px 12px;
-  overflow: auto;
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 
-label {
-  display: block;
-  margin-bottom: 4px;
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
 }
 
-[contenteditable] {
-  height: 10rem;
-  border: 1px solid;
-  resize: both;
-}
 
+
+.content-add-item.shadow-sm {
+  position: relative;
+  width: auto;
+}

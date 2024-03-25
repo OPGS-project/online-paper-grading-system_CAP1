@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { Grammarly, GrammarlyEditorPlugin } from "@grammarly/editor-sdk-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import '~~/pages/assignment/DoAssignmentShort.scss';
@@ -59,8 +58,16 @@ export default function DoAssignmentShort() {
     }
   };
 
+  const handleModalSubmit = () => {
+    // Here you can implement the logic for submitting the form
+    // and then close the modal
+    // For now, just closing the modal
+    closeModal();
+  };
+
   const closeModal = () => {
     setShowModal(false);
+    setSubmissionError(''); // Clear submission error
     // Reset form or navigate to another page upon successful submission
   };
 
@@ -71,25 +78,21 @@ export default function DoAssignmentShort() {
       </div>
       <div className="title-container shadow-sm">
         <p>{content.description}</p> {/* Display description */}
+        {content.items.map(item => (
+          <div className="content-add-item shadow-sm" key={item.id}>
+            <CKEditor
+              editor={ClassicEditor}
+              data={item.answer || ''}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                handleAnswerChange(data, item.id);
+              }}
+            />
+          </div>
+        ))}
       </div>
-
-      {content.items.map(item => (
-        <div className="content-add-item shadow-sm" key={item.id}>
-          <CKEditor
-            editor={ClassicEditor}
-            data={item.answer || ''}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              handleAnswerChange(data, item.id);
-            }}
-          />
-        </div>
-      ))}
-      
       <div className="text-danger mb-3">{submissionError}</div>
-
       <button className="btn btn-primary" onClick={handleSubmit}>Nộp bài</button>
-
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>
@@ -99,7 +102,7 @@ export default function DoAssignmentShort() {
           <Button variant="secondary" onClick={closeModal}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={closeModal}>
+          <Button variant="primary" onClick={handleModalSubmit}>
             Submit
           </Button>
         </Modal.Footer>

@@ -38,7 +38,7 @@ function SidebarStudent() {
                     <div className="nav-link">
                         <FaBookOpen />
                         <span className="ml-2" style={{ fontSize: 16 }}>
-                            Bài Tập
+                            Bài tập tự luận
                         </span>
                     </div>
                 </Link>
@@ -58,9 +58,10 @@ function SidebarStudent() {
                     </div>
                 </Link>
             </li>
+
             <li className="nav-item mb-5">
                 <Link
-                    to="/student/do-assignment-short"
+                    to="/student/assignment-short-student"
                     className="custom-link no-underline"
                     style={{ textDecoration: 'none' }}
                 >
