@@ -24,6 +24,9 @@ module.exports = {
       ckeditor_settings: {
         type: Sequelize.JSON,
       },
+      description: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",
@@ -37,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Short-Assignments");
+    await queryInterface.dropTable("Short-Assignment");
   },
 };

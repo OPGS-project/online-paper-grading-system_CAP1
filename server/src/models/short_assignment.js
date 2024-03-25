@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       of_class: DataTypes.INTEGER,
       answer_file:DataTypes.STRING,
       ckeditor_settings:DataTypes.JSON,
+      description:DataTypes.STRING
     },
     {
       sequelize,

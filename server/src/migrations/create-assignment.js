@@ -42,6 +42,9 @@ module.exports = {
       ckeditor_settings: {
         type: Sequelize.JSON,
       },
+      description: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",
