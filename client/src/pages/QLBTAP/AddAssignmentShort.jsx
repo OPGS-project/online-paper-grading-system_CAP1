@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoDuplicateOutline } from 'react-icons/io5';
 import '~~/pages/assignment/AddAssignmentShort.scss';
 import axios from 'axios';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 
 export default function AddAssignmentShort() {
@@ -12,6 +13,8 @@ export default function AddAssignmentShort() {
   const [classList, setClassList] = useState([]);
   const [values, setValues] = useState({
     of_class: '',
+    start_date: moment().format('YYYY-MM-DDTHH:mm'),
+    deadline: moment().add(2, 'days').format('YYYY-MM-DDTHH:mm'),
   });
   const navigate = useNavigate();
 
@@ -26,6 +29,10 @@ export default function AddAssignmentShort() {
 
   const [isLoading, setIsLoading] = useState(false); // State để kiểm soát việc hiển thị loading
 
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
@@ -81,6 +88,9 @@ export default function AddAssignmentShort() {
     formData.append('question_name', JSON.stringify(jsonQuestions));
     formData.append('of_class', values.of_class);
     formData.append('file_path', selectedFile);
+    formData.append('start_date', values.start_date);
+    formData.append('deadline', values.deadline);
+
 
     try {
       const response = await axios.post(
@@ -214,6 +224,76 @@ export default function AddAssignmentShort() {
 
         </div>
       </div>
+      <div className='select-class-deadline' style={{width:"60%" , display:"flex",marginTop:"20px"}}>
+        <form style={{width:"100%" ,display:"flex",gap:"20px"}}>
+          <div className='form-group' style={{width:"20%"}}>
+            <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
+                        Lớp
+            </label>
+            <select
+              className="custom-select"
+              style={{ height: 50,}}
+              id="validationTooltip04"
+              required
+              value={values.of_class}
+              onChange={(e) => {
+                setError((prev) => ({ ...prev, errClass: null }));
+                setValues((prev) => ({ ...prev, of_class: e.target.value }));
+              }}
+            >
+              <option value="">Chọn lớp</option>
+              {classList.map((classItem, index) => (
+                <option key={index} value={classItem.class_name}>
+                  {classItem.class_name}
+                </option>
+              ))}
+            </select>
+          
+            {error?.errClass && <small className="text-danger ">{error?.errClass}</small>}
+          </div>
+          <div className="form-group row" style={{width:"80%"}}>
+                    <div className="col-sm-6 mb-3 mb-sm-0">
+                        <label htmlFor="from" className="text-capitalize font-weight-bold pl-2">
+                            Từ
+                        </label>
+                        <input
+                            type="datetime-local"
+                            style={{ height: 50,}}
+                            className="form-control form-control-user"
+                            id="from"
+                            name="start_date"
+                            value={values.start_date}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="col-sm-6">
+                        <label htmlFor="to" className="text-capitalize font-weight-bold pl-3">
+                            Đến
+                        </label>
+                        <input
+                            type="datetime-local"
+                            style={{ height: 50,}}
+                            className="form-control form-control-user"
+                            id="to"
+                            name="deadline"
+                            value={values.deadline}
+                            onChange={(e) => {
+                                setError((prev) => ({
+                                    ...prev,
+                                    errFinish: null,
+                                }));
+                                handleChange(e);
+                            }} //
+                        />
+                    </div>
+                    {error?.errFinish !== null && <small className="text-danger ml-3">{error?.errFinish}</small>}
+                </div>
+        </form>
+        
+
+      </div>
+        
       <div className="title-container shadow-sm">
         <div className="line"></div>
         <textarea
