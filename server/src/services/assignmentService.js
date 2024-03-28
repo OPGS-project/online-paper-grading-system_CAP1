@@ -102,7 +102,7 @@ export const createAssignment = (body, fileData, tid) =>
         mes: response[1] ? "OK" : "Can not create file pdf Assignment!!!",
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       reject(e);
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }

@@ -77,8 +77,13 @@ export const deleteAssignment = async (req, res) => {
 // Add short assignment
 export const addShortAssignment = async (req, res) => {
   try {
-    console.log(req.body);
+      const fileData = req.file;
       const { id } = req.user;
+
+      const { error } = joi.object().validate({ file_path: fileData?.path });
+      if (error) {
+        if (fileData) cloudinary.uploader.destroy(fileData.filename);
+      }
 
       if (!req.user || !req.user.id) {
           return res.status(401).json({ success: false, error: 'Xác thực không thành công.' });
@@ -92,18 +97,38 @@ export const addShortAssignment = async (req, res) => {
       // Gọi hàm addShortAssignment từ service để thêm bài tập ngắn
       const message = await authServices.addShortAssignmentService(
         req.body,
+        fileData,
         id
       );
       
       // Kiểm tra kết quả trả về từ service và phản hồi cho client tương ứng
-      if (message && message.err === 0) {
-          return res.status(200).json({ success: true, message: message.mes });
-      } else {
-          return res.status(500).json({ success: false, error: 'Thêm bài tập ngắn thất bại.' });
+      if (!message && message.err !== 0) {
+        return res.status(500).json({ success: false, error: 'Thêm bài tập ngắn thất bại.' });
       }
+      return res.status(200).json({ success: true, message: message.mes });
   } catch (error) {
       console.error(error);
       return res.status(500).json({ success: false, error: 'Lỗi máy chủ .' });
   }
 };
 
+// export const createAssignment = async (req, res) => {
+//   try {
+//     const fileData = req.file;
+//     const { id } = req.user;
+
+//     const { error } = joi.object().validate({ file_path: fileData?.path });
+//     if (error) {
+//       if (fileData) cloudinary.uploader.destroy(fileData.filename);
+//     }
+//     const response = await authServices.createAssignment(
+//       req.body,
+//       fileData,
+//       id
+//     );
+//     return res.status(200).json(response);
+//   } catch (error) {
+//     console.log(error);
+//     // return internalServerError(res);
+//   }
+// };

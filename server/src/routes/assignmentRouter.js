@@ -31,5 +31,9 @@ router.delete("/:assignmentId", controllers.deleteAssignment);
 
 
 // add short 
-router.post("/add-short-assignment", controllers.addShortAssignment);
+router.post(
+  "/add-short-assignment",
+  uploadAssignment.single("file_path"),
+  controllers.addShortAssignment
+  );
 module.exports = router;
