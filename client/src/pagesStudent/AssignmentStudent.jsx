@@ -60,35 +60,37 @@ function AssignmentStudent() {
                             {values.length > 0 ? (
                                 values.map((data, i) => (
                                     <React.Fragment key={i}>
-                                        {data.assignmentData.length > 0 && (
-                                            <tr>
-                                                <td>{i + 1}</td>
-                                                <td style={{ fontWeight: 500 }}>
-                                                    {data.assignmentData[0]?.assignment_name}
-                                                </td>
-                                                <td style={{ fontWeight: 500 }}>{data.class_name}</td>
-                                                <td style={{ fontWeight: 500 }}>
-                                                    {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
-                                                </td>
-                                                <td>
-                                                    <Link
-                                                        to={data.assignmentData[0]?.file_path}
-                                                        target="_blank"
-                                                        className="nav-link text-center"
-                                                    >
-                                                        Xem bài tập
-                                                    </Link>
-                                                </td>
-                                                <td>
-                                                    <Link
-                                                        to={`/student/upload-assignment/${data.assignmentData[0]?.id}/${classId}`}
-                                                        className="nav-link text-center"
-                                                    >
-                                                        Nộp bài
-                                                    </Link>
-                                                </td>
-                                            </tr>
-                                        )}
+                                        {data.assignmentData.length > 0 ? (
+                                            data.assignmentData.map((assignment, index) => (
+                                                <tr key={index}>
+                                                    <td>{i + 1}</td>
+                                                    <td style={{ fontWeight: 500 }}>
+                                                        {assignment.assignment_name}
+                                                    </td>
+                                                    <td style={{ fontWeight: 500 }}>{data.class_name}</td>
+                                                    <td style={{ fontWeight: 500 }}>
+                                                        {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
+                                                    </td>
+                                                    <td>
+                                                        <Link
+                                                            to={assignment.file_path}
+                                                            target="_blank"
+                                                            className="nav-link text-center"
+                                                        >
+                                                            Xem bài tập
+                                                        </Link>
+                                                    </td>
+                                                    <td>
+                                                        <Link
+                                                            to={`/student/upload-assignment/${assignment.id}/${classId}`}
+                                                            className="nav-link text-center"
+                                                        >
+                                                            Nộp bài
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        ) : null}
                                     </React.Fragment>
                                 ))
                             ) : (
