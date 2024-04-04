@@ -84,6 +84,7 @@ export default function AddAssignmentShort() {
     formData.append('file_path', selectedFile);
     formData.append('start_date', values.start_date);
     formData.append('deadline', values.deadline);
+    formData.append('type_assignment', 1);
 
     try {
       const response = await axios.post(

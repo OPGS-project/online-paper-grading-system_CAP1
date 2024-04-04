@@ -42,6 +42,7 @@ export default function AddAssignmentEssay() {
         deadline: moment().add(2, 'days').format('YYYY-MM-DDTHH:mm'),
         content_text: '',
         file_path: '',
+        type_assignment: 0,
     });
 
     const [error, setError] = useState({
