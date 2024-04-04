@@ -7,6 +7,18 @@ textarea {
   height: 50px;
 }
 
+.is-invalid {
+  border: 1px solid red;
+  background-color: rgb(255, 197, 197);
+}
+
+.title-text.is-invalid,
+.description-text.is-invalid,
+.title-question.is-invalid {
+  border-radius: 10px;
+  border: 1px solid red; // Đặt màu viền đỏ cho các textarea khi có lỗi
+}
+
 .header-short-assignment {
   display: flex;
   align-items: center;
@@ -66,14 +78,13 @@ margin: 2px;
 .title-text,
 .description-text,
 .title-question {
-  border: none;
+  border: solid transparent;
   outline: none;
   font-size: 20px;
   width: calc(100% - 20px);
 }
 
 .title-question {
-  background-color: #f0ebf8;
   border-radius: 10px;
 }
 

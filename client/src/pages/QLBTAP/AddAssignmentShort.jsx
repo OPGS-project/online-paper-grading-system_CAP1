@@ -2,21 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoDuplicateOutline } from 'react-icons/io5';
 import '~~/pages/assignment/AddAssignmentShort.scss';
+import { validateFields } from '~/validation/validateShortAssignment.js';
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
 export default function AddAssignmentShort() {
+  const { token } = useSelector((state) => state.auth);
+
+  const [isLoading, setIsLoading] = useState(false);
   const [inputValueTitle, setInputValueTitle] = useState('Tên bài tập');
-  const [inputValueDescription, setInputValueDescription] = useState('Mô tả');
+  const [inputValueDescription, setInputValueDescription] = useState(null);
   const [inputValueTitleQuestion, setInputValueTitleQuestion] = useState('Nhập câu hỏi');
   const [classList, setClassList] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     of_class: '',
     start_date: moment().format('YYYY-MM-DDTHH:mm'),
     deadline: moment().add(2, 'days').format('YYYY-MM-DDTHH:mm'),
   });
-  const navigate = useNavigate();
 
   const [newItems, setNewItems] = useState([]);
   const [items, setItems] = useState([
@@ -27,12 +33,20 @@ export default function AddAssignmentShort() {
     },
   ]);
 
-  const [isLoading, setIsLoading] = useState(false); // State để kiểm soát việc hiển thị loading
+  const [error, setError] = useState({
+    errClass: null,
+    errStart: null,
+    errFinish: null,
+    errTitle: null,
+    errDescription: null,
+    errQuestion: {}, // Thay đổi từ null sang object để lưu thông tin lỗi theo id câu hỏi
+    errGrade: null,
+  }); // State để lưu thông tin về lỗi
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  
+
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
@@ -43,37 +57,17 @@ export default function AddAssignmentShort() {
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
-  const handleTitleChange = (e) => {
-    setInputValueTitle(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setInputValueDescription(e.target.value);
-  };
-
-  const handleTitleQuestionChange = (e, id) => {
-    const newItems = items.map((item) => {
-      if (item.id === id) {
-        return { ...item, title: e.target.value };
-      }
-      return item;
-    });
-    setItems(newItems);
-  };
-
-  const [selectedFile, setSelectedFile] = useState(null);
+  
 
   const handleSaveQuestion = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Bắt đầu hiển thị loading khi bắt đầu xử lý dữ liệu
 
-    if (values.of_class === '' || values.of_class.length < 0) {
-      setIsLoading(false); // Tắt hiển thị loading khi có lỗi
-      return setError((prev) => ({
-        ...prev,
-        errClass: 'Vui lòng chọn lớp học',
-      }));
+    // Kiểm tra tính hợp lệ của các trường trước khi gửi dữ liệu
+    if (!validateFields(values, inputValueTitle, inputValueDescription, items, setError)) {
+      return;
     }
+
+    setIsLoading(true); // Bắt đầu hiển thị loading khi bắt đầu xử lý dữ liệu
 
     const jsonQuestions = {
       questions: items.map((item) => ({
@@ -90,7 +84,6 @@ export default function AddAssignmentShort() {
     formData.append('file_path', selectedFile);
     formData.append('start_date', values.start_date);
     formData.append('deadline', values.deadline);
-
 
     try {
       const response = await axios.post(
@@ -156,7 +149,32 @@ export default function AddAssignmentShort() {
     setItems(newItems);
   };
 
-  const { token } = useSelector((state) => state.auth);
+  const handleTitleInputChange = (e) => {
+    // Cập nhật giá trị của tiêu đề
+    setInputValueTitle(e.target.value);
+    // Ẩn thông báo lỗi nếu có
+    setError((prevError) => ({ ...prevError, errTitle: null }));
+  };
+
+  const handleDescriptionChange = (e) => {
+    setInputValueDescription(e.target.value);
+    setError((prevError) => ({ ...prevError, errDescription: null }));
+  };
+  const handleQuestionInputChange = (e, id) => {
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        // Cập nhật giá trị của câu hỏi
+        const newValue = e.target.value;
+        // Ẩn thông báo lỗi tương ứng nếu có
+        const newError = { ...error };
+        delete newError.errQuestion[id];
+        setError(newError);
+        return { ...item, title: newValue };
+      }
+      return item;
+    });
+    setItems(newItems);
+  };
 
   useEffect(() => {
     axios
@@ -168,11 +186,6 @@ export default function AddAssignmentShort() {
       .then((res) => setClassList(res.data.classData.rows))
       .catch((err) => console.error(err));
   }, []);
-  const [error, setError] = useState({
-    errName: null,
-    errClass: null,
-    errFinish: null,
-  });
 
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
@@ -185,7 +198,7 @@ export default function AddAssignmentShort() {
         <h1 className="h3 mb-2 text-gray-800 font-weight">Thêm bài tập ngắn</h1>
         <div>
           <label style={{ marginRight: 20 }} htmlFor="import" className="btn btn-warning ml-5 mt-2">
-            <i className="fa-solid fa-file-import"></i> Import
+            <i className="fa-solid fa-file-import"></i> Answer
           </label>
           <input
             type="file"
@@ -193,26 +206,6 @@ export default function AddAssignmentShort() {
             onChange={(e) => setSelectedFile(e.target.files[0])}
             hidden
           />
-
-          <select
-            className="custom-select"
-            style={{ height: 38, borderRadius: 6, width: 120 }}
-            id="validationTooltip04"
-            required
-            value={values.of_class}
-            onChange={(e) => {
-              setError((prev) => ({ ...prev, errClass: null }));
-              setValues((prev) => ({ ...prev, of_class: e.target.value }));
-            }}
-          >
-            <option value="">Chọn lớp</option>
-            {classList.map((classItem, index) => (
-              <option key={index} value={classItem.class_name}>
-                {classItem.class_name}
-              </option>
-            ))}
-          </select>
-          {error?.errClass && <small className="text-danger ml-3">{error?.errClass}</small>}
           <button
             style={{ marginLeft: 20 }}
             className="btn btn-primary"
@@ -224,15 +217,15 @@ export default function AddAssignmentShort() {
 
         </div>
       </div>
-      <div className='select-class-deadline' style={{width:"60%" , display:"flex",marginTop:"20px"}}>
-        <form style={{width:"100%" ,display:"flex",gap:"20px"}}>
-          <div className='form-group' style={{width:"20%"}}>
+      <div className='select-class-deadline' style={{ width: "60%", display: "flex", marginTop: "20px" }}>
+        <form style={{ width: "100%", display: "flex", gap: "20px" }}>
+          <div className='form-group' style={{ width: "25%" }}>
             <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
-                        Lớp
+              Lớp
             </label>
             <select
-              className="custom-select"
-              style={{ height: 50,}}
+              className={`custom-select ${error.errClass ? 'is-invalid' : ''}`}
+              style={{ height: 50, }}
               id="validationTooltip04"
               required
               value={values.of_class}
@@ -248,82 +241,88 @@ export default function AddAssignmentShort() {
                 </option>
               ))}
             </select>
-          
-            {error?.errClass && <small className="text-danger ">{error?.errClass}</small>}
+            {error?.errClass && <div className="invalid-feedback">{error?.errClass}</div>}
           </div>
-          <div className="form-group row" style={{width:"80%"}}>
-                    <div className="col-sm-6 mb-3 mb-sm-0">
-                        <label htmlFor="from" className="text-capitalize font-weight-bold pl-2">
-                            Từ
-                        </label>
-                        <input
-                            type="datetime-local"
-                            style={{ height: 50,}}
-                            className="form-control form-control-user"
-                            id="from"
-                            name="start_date"
-                            value={values.start_date}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="col-sm-6">
-                        <label htmlFor="to" className="text-capitalize font-weight-bold pl-3">
-                            Đến
-                        </label>
-                        <input
-                            type="datetime-local"
-                            style={{ height: 50,}}
-                            className="form-control form-control-user"
-                            id="to"
-                            name="deadline"
-                            value={values.deadline}
-                            onChange={(e) => {
-                                setError((prev) => ({
-                                    ...prev,
-                                    errFinish: null,
-                                }));
-                                handleChange(e);
-                            }} //
-                        />
-                    </div>
-                    {error?.errFinish !== null && <small className="text-danger ml-3">{error?.errFinish}</small>}
-                </div>
+          <div className="form-group row" style={{ width: "auto" }}>
+            <div className="col-sm-6 mb-3 mb-sm-0">
+              <label htmlFor="from" className="text-capitalize font-weight-bold pl-2">
+                Từ
+              </label>
+              <input
+                type="datetime-local"
+                style={{ height: 50, }}
+                className={`form-control form-control-user ${error.errStart ? 'is-invalid' : ''}`}
+                id="from"
+                name="start_date"
+                value={values.start_date}
+                onChange={(e) => {
+                  setError((prev) => ({
+                    ...prev,
+                    errStart: null,
+                  }));
+                  handleChange(e);
+                }}
+              />
+              {error?.errStart !== null && <div className="invalid-feedback">{error?.errStart}</div>}
+            </div>
+            <div className="col-sm-6">
+              <label htmlFor="to" className="text-capitalize font-weight-bold pl-3">
+                Đến
+              </label>
+              <input
+                type="datetime-local"
+                style={{ height: 50, }}
+                className={`form-control form-control-user ${error.errFinish ? 'is-invalid' : ''}`}
+                id="to"
+                name="deadline"
+                value={values.deadline}
+                onChange={(e) => {
+                  setError((prev) => ({
+                    ...prev,
+                    errFinish: null,
+                  }));
+                  handleChange(e);
+                }}
+              />
+              {error?.errFinish !== null && <div className="invalid-feedback">{error?.errFinish}</div>}
+            </div>
+          </div>
         </form>
-        
-
       </div>
-        
       <div className="title-container shadow-sm">
         <div className="line"></div>
         <textarea
           type="text"
           value={inputValueTitle}
-          onChange={handleTitleChange}
-          className="mt-2 ml-2 title-text"
+          onChange={handleTitleInputChange}
+          className={`ml-2 title-text ${error?.errTitle ? 'is-invalid' : ''}`}
+          placeholder='Tên bài tập'
         />
-        <br />
+        {error?.errTitle && <div className="invalid-feedback ml-2">{error?.errTitle}</div>}
+
         <input
           type="text"
           value={inputValueDescription}
           onChange={handleDescriptionChange}
-          className="description-text"
+          className="mt-2 description-text"
+          placeholder='Nhập mô tả'
         />
+        {error?.errDescription && <div className="invalid-feedback ml-2">{error?.errDescription}</div>}
       </div>
-
       {items.map((item) => (
         <div
-          className={`content-add-item shadow-sm ${newItems.some((newItem) => newItem.id === item.id) ? 'add-item-animation' : ''
-            }`}
+          className={`content-add-item shadow-sm ${newItems.some((newItem) => newItem.id === item.id) ? 'add-item-animation' : ''}`}
           key={item.id}
         >
           <div className="line"></div>
           <textarea
             type="text"
             value={item.title}
-            onChange={(e) => handleTitleQuestionChange(e, item.id)}
-            className="title-question ml-2"
+            onChange={(e) => handleQuestionInputChange(e, item.id)}
+            className={`title-question ml-2 ${error?.errQuestion[item.id] ? 'is-invalid' : ''}`}
+            placeholder='Nhập câu hỏi'
           />
+          {error?.errQuestion[item.id] && <div className="invalid-feedback ml-2">{error?.errQuestion[item.id]}</div>}
           <hr />
           <div className="footer-question">
             <span>
