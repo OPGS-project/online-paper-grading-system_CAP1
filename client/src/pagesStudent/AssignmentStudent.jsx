@@ -12,16 +12,20 @@ function AssignmentStudent() {
     const [values, setValues] = useState([]);
     const [user, setUser] = useState([]);
     const [classId, setClassId] = useState(null);
+    console.log(values)
+   
 
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetAssignmentOfStudent(token);
             if (response?.data.err === 0) {
                 const classId = response.data.response.class_id;
-                const userId = response.data.response.id;
+                const userName = response.data.response.student_name;
                 setClassId(classId);
-                setUser(userId);
+                setUser(userName);
                 setValues(response.data.response.Classes);
+                console.log(response)
+                console.log(values.assignmentData)
             } else {
                 setValues([]);
                 setUser([]);
@@ -37,12 +41,13 @@ function AssignmentStudent() {
                     <h3 className="p-3 d-flex align-items-center" style={{ color: '#F3B664' }}>
                         <FaAngellist />
                         <span className="ml-3">
-                            Chào bạn {user.student_name} <FaAngellist />
+                            Chào bạn {user} <FaAngellist />
                         </span>
                     </h3>
                     {values.length > 0 && (
-                        <h4 className="p-3 d-flex align-items-center">Bạn đang có {values.length} bài tập</h4>
+                        <h4 className="p-3 d-flex align-items-center">Bạn đang có {values.map(item => item.assignmentData.length).reduce((total, length) => total + length, 0)} bài tập</h4>
                     )}
+
                 </div>
                 <div className="card-body">
                     <table className="table table-hover" id="dataTable" width={100}>
