@@ -400,7 +400,7 @@ export default function AddAssignmentShort() {
             type="text"
             value={item.answer}
             onChange={(e) => handleAnswerInputChange(e, item.id)}
-            className={`title-question ml-2 ${error?.errAnswer[item.id] ? 'is-invalid' : ''}`}
+            className={`answer-question ml-2 ${error?.errAnswer[item.id] ? 'is-invalid' : ''}`}
             placeholder='Đáp án (nếu có)'
           />
           {error?.errAnswer[item.id] && <div className="invalid-feedback ml-2">{error?.errAnswer[item.id]}</div>}

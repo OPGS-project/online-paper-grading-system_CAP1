@@ -9,14 +9,15 @@ textarea {
 
 .is-invalid {
   border: 1px solid red;
-  background-color: rgb(255, 197, 197);
+  background-color: rgb(255, 197, 197) !important;
 }
 
 .title-text.is-invalid,
 .description-text.is-invalid,
-.title-question.is-invalid {
+.title-question.is-invalid,
+.answer-question.is-invalid{
   border-radius: 10px;
-  border: 1px solid red; // Đặt màu viền đỏ cho các textarea khi có lỗi
+  border: 1px solid red !important;  // Đặt màu viền đỏ cho các textarea khi có lỗi
 }
 
 .header-short-assignment {
@@ -77,7 +78,8 @@ margin: 2px;
 
 .title-text,
 .description-text,
-.title-question {
+.title-question,
+.answer-question {
   border: solid transparent;
   outline: none;
   font-size: 20px;
@@ -88,7 +90,13 @@ margin: 2px;
   border-radius: 10px;
 }
 
-.title-question:focus {
+.answer-question {
+  background-color: rgb(195, 219, 252);
+  border-radius: 10px;
+}
+
+.title-question:focus,
+.answer-question:focus {
   background-color: #ccc;
   border-radius: 10px;
 }
