@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate,useParams } from 'react-router-dom';
 import { IoDuplicateOutline } from 'react-icons/io5';
 import '~~/pages/assignment/AddAssignmentShort.scss';
 import { validateFields } from '~/validation/validateShortAssignment.js';
@@ -14,6 +14,7 @@ export default function AddAssignmentShort() {
   const [inputValueTitle, setInputValueTitle] = useState('Tên bài tập');
   const [inputValueDescription, setInputValueDescription] = useState(null);
   const [inputValueTitleQuestion, setInputValueTitleQuestion] = useState('Nhập câu hỏi');
+  const [inputValueAnswerQuestion, setInputValueAnswerQuestion] = useState(null);
   const [classList, setClassList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export default function AddAssignmentShort() {
     {
       id: 0,
       title: 'Nhập câu hỏi',
+      answer: null,
       grade: 0,
     },
   ]);
@@ -40,6 +42,7 @@ export default function AddAssignmentShort() {
     errTitle: null,
     errDescription: null,
     errQuestion: {}, // Thay đổi từ null sang object để lưu thông tin lỗi theo id câu hỏi
+    errAnswer: {},
     errGrade: null,
   }); // State để lưu thông tin về lỗi
 
@@ -51,13 +54,14 @@ export default function AddAssignmentShort() {
     const newItem = {
       id: Date.now(),
       title: inputValueTitleQuestion,
+      answer: inputValueAnswerQuestion,
       grade: 0,
     };
     setNewItems((prevItems) => [...prevItems, newItem]);
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
-  
+
 
   const handleSaveQuestion = async (e) => {
     e.preventDefault();
@@ -72,6 +76,7 @@ export default function AddAssignmentShort() {
     const jsonQuestions = {
       questions: items.map((item) => ({
         title: item.title,
+        answer: item.answer,
         grade: item.grade,
       })),
     };
@@ -177,6 +182,22 @@ export default function AddAssignmentShort() {
     setItems(newItems);
   };
 
+  const handleAnswerInputChange = (e, id) => {
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        // Cập nhật giá trị của câu hỏi
+        const newValue = e.target.value;
+        // Ẩn thông báo lỗi tương ứng nếu có
+        const newError = { ...error };
+        delete newError.errAnswer[id];
+        setError(newError);
+        return { ...item, answer: newValue };
+      }
+      return item;
+    });
+    setItems(newItems);
+  };
+
   useEffect(() => {
     axios
       .get('http://localhost:8081/api/class/', {
@@ -188,6 +209,53 @@ export default function AddAssignmentShort() {
       .catch((err) => console.error(err));
   }, []);
 
+  // Import CSV file
+  const [isImporting, setIsImporting] = useState(false);
+  const params = useParams();
+
+  const [update, setUpdate] = useState(false);
+  const render = useCallback(() => {
+    setUpdate(!update);
+  }, [update]);
+
+  const handleImport = async (e) => {
+    if (isImporting) {
+      return;
+    }
+    setIsImporting(true);
+  
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('csvFile', file);
+      try {
+        const response = await axios.post(`http://localhost:8081/api/student/upload-short-csv`, formData);
+        alert('CSV file uploaded successfully!');
+        // console.log(response.data.results);
+        // Trích xuất thông tin từ tệp CSV từ phía server
+        const results = response.data.results;
+        // Tạo mới các mục câu hỏi và đáp án từ thông tin trích xuất được
+        const newItemsFromCSV = results.map((item) => ({
+          title: item.question,
+          answer: item.answer,
+          grade: 0,
+        }));
+        // console.log('aaaa',newItemsFromCSV)
+        // Cập nhật state với các mục mới từ CSV
+        setItems((prevItems) => [...prevItems, ...newItemsFromCSV]);
+        setIsImporting(false);
+      } catch (error) {
+        console.error(error);
+        // alert('Error uploading CSV file. Please try again.');
+      } finally {
+        setIsImporting(false);
+      }
+    } else {
+      alert('Please select a CSV file to upload.');
+      setIsImporting(false);
+    }
+  };
+
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
       <div className="right-sidebar">
@@ -198,8 +266,8 @@ export default function AddAssignmentShort() {
       <div className="header-short-assignment">
         <h1 className="h3 mb-2 text-gray-800 font-weight">Thêm bài tập ngắn</h1>
         <div>
-          <label style={{ marginRight: 20 }} htmlFor="import" className="btn btn-warning ml-5 mt-2">
-            <i className="fa-solid fa-file-import"></i> Answer
+          <label style={{ marginRight: 20 }} htmlFor="import" className="btn btn-warning mt-2">
+            <i className="fa-solid fa-file-import"></i> Answer pdf
           </label>
           <input
             type="file"
@@ -207,6 +275,10 @@ export default function AddAssignmentShort() {
             onChange={(e) => setSelectedFile(e.target.files[0])}
             hidden
           />
+          <label htmlFor="importCsv" className="btn btn-success mt-2">
+            <i className="fa-solid fa-file-import"></i> Import csv
+          </label>
+          <input type="file" id="importCsv" onChange={handleImport} hidden />
           <button
             style={{ marginLeft: 20 }}
             className="btn btn-primary"
@@ -324,6 +396,14 @@ export default function AddAssignmentShort() {
             placeholder='Nhập câu hỏi'
           />
           {error?.errQuestion[item.id] && <div className="invalid-feedback ml-2">{error?.errQuestion[item.id]}</div>}
+          <textarea
+            type="text"
+            value={item.answer}
+            onChange={(e) => handleAnswerInputChange(e, item.id)}
+            className={`title-question ml-2 ${error?.errAnswer[item.id] ? 'is-invalid' : ''}`}
+            placeholder='Đáp án (nếu có)'
+          />
+          {error?.errAnswer[item.id] && <div className="invalid-feedback ml-2">{error?.errAnswer[item.id]}</div>}
           <hr />
           <div className="footer-question">
             <span>

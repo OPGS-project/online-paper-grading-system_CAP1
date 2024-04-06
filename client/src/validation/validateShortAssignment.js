@@ -8,6 +8,7 @@ export const validateFields = (values, inputValueTitle, inputValueDescription, i
         errTitle: null,
         errDescription: null,
         errQuestion: {},
+        errAnswer: {},
         errGrade: null,
     };
 
@@ -44,6 +45,14 @@ export const validateFields = (values, inputValueTitle, inputValueDescription, i
         if (item.title.trim() === '' || item.title === 'Nhập câu hỏi') {
             isValid = false;
             errors.errQuestion[item.id] = 'Vui lòng nhập câu hỏi';
+        }
+    });
+
+    // Kiểm tra đáp án
+    items.forEach(item => {
+        if (item.title.trim() === '' || item.title === 'Nhập câu hỏi') {
+            isValid = false;
+            errors.errAnswer[item.id] = 'Vui lòng nhập đáp án';
         }
     });
 

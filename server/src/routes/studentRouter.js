@@ -12,6 +12,8 @@ router.put("/update-student/:classId/:studentId", controllers.updateStudent);
 router.delete("/delete-student/:studentId", controllers.deleteStudent);
 
 router.post("/upload-csv/:classId", upload.single("csvFile"), controllers.uploadCSV);
+router.post("/upload-short-csv", upload.single("csvFile"), controllers.importShortExamCsv);
+
 router.use(verifyToken);
 // router.get("/get-student", controllers.getStudentCurrent);
 router.put(

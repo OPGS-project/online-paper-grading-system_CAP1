@@ -5,7 +5,6 @@ import db from "../models";
 export const getAssignmentOfStudent = (id) =>
   new Promise(async (resolve, reject) => {
     try {
-      console.log(id);
       let response = await db.Student.findOne({
         where: { id },
         raw: false,
