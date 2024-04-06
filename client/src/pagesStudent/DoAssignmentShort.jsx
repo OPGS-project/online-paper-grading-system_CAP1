@@ -3,8 +3,14 @@ import { Modal, Button } from 'react-bootstrap';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import '~~/pages/assignment/DoAssignmentShort.scss';
-
+import {apiGetAssignmentOfStudent} from '~/apis/userService';
+import { useSelector } from 'react-redux';
 export default function DoAssignmentShort() {
+
+  const { token } = useSelector((state) => state.auth);
+  console.log(token);
+  const [test ,setTest] = useState([])
+  console.log(test)
   const [content, setContent] = useState({
     title: 'Tên bài tập',
     description: 'Câu hỏi 1',
@@ -15,27 +21,44 @@ export default function DoAssignmentShort() {
       }
     ]
   });
+  console.log(content)
   const [showModal, setShowModal] = useState(false);
   const [submissionError, setSubmissionError] = useState('');
+  
 
-  // Fetch data from database (example)
+  // // Fetch data from database (example)
+  // useEffect(() => {
+  //   // Example fetch
+  //   // Replace with your actual fetch logic to get content from database
+  //   fetchDataFromDatabase().then(data => {
+  //     setContent(data);
+  //   }).catch(error => {
+  //     console.error('Error fetching data:', error);
+  //   });
+  // }, []);
+
+  // // Function to fetch data from database (example)
+  // const fetchDataFromDatabase = async () => {
+  //   // Example API call, replace with your actual API call
+  //   const response = await fetch('http://localhost:8081/api/main-student/get-assignment-of-student');
+  //   console.log(response)
+  //   return response;
+  // };
   useEffect(() => {
-    // Example fetch
-    // Replace with your actual fetch logic to get content from database
-    fetchDataFromDatabase().then(data => {
-      setContent(data);
-    }).catch(error => {
-      console.error('Error fetching data:', error);
-    });
-  }, []);
-
-  // Function to fetch data from database (example)
-  const fetchDataFromDatabase = async () => {
-    // Example API call, replace with your actual API call
-    const response = await fetch('your-api-url');
-    const data = await response.json();
-    return data;
-  };
+    const fetchUser = async () => {
+        const response = await apiGetAssignmentOfStudent(token);
+      
+        console.log(response);
+        setTest(response.data.response.classes)
+        // console.log(response.data.response.Classes);
+        if (response?.data.err === 0) {
+           
+        } else {
+            
+        }
+    };
+    token && fetchUser();
+}, [token]);
 
   const handleAnswerChange = (data, id) => {
     const newItems = content.items.map(item => {
@@ -78,18 +101,18 @@ export default function DoAssignmentShort() {
       </div>
       <div className="title-container shadow-sm">
         <p>{content.description}</p> {/* Display description */}
-        {content.items.map(item => (
-          <div className="content-add-item shadow-sm" key={item.id}>
+        {/* {content.items.map(item => ( */}
+          <div className="content-add-item shadow-sm"> {/* key={item.id} */}
             <CKEditor
               editor={ClassicEditor}
-              data={item.answer || ''}
+              // data={item.answer || ''}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                handleAnswerChange(data, item.id);
+                // handleAnswerChange(data, item.id);
               }}
             />
           </div>
-        ))}
+        {/* ))} */}
       </div>
       <div className="text-danger mb-3">{submissionError}</div>
       <button className="btn btn-primary" onClick={handleSubmit}>Nộp bài</button>
