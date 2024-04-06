@@ -6,6 +6,7 @@ import { validateFields } from '~/validation/validateShortAssignment.js';
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function AddAssignmentShort() {
   const { token } = useSelector((state) => state.auth);
@@ -28,7 +29,7 @@ export default function AddAssignmentShort() {
   const [newItems, setNewItems] = useState([]);
   const [items, setItems] = useState([
     {
-      id: 0,
+      id: uuidv4(),
       title: 'Nhập câu hỏi',
       answer: null,
       grade: 0,
@@ -52,7 +53,7 @@ export default function AddAssignmentShort() {
 
   const handleAddItem = () => {
     const newItem = {
-      id: Date.now(),
+      id: uuidv4(),
       title: inputValueTitleQuestion,
       answer: inputValueAnswerQuestion,
       grade: 0,
@@ -119,7 +120,7 @@ export default function AddAssignmentShort() {
   const handleDuplicateItem = (id) => {
     const selectedItem = items.find((item) => item.id === id);
     if (selectedItem) {
-      const newItem = { ...selectedItem, id: Date.now() };
+      const newItem = { ...selectedItem, id: uuidv4() };
       setNewItems((prevItems) => [...prevItems, newItem]);
       setItems((prevItems) => [...prevItems, newItem]);
     }
@@ -127,8 +128,8 @@ export default function AddAssignmentShort() {
 
   const handleGradeChange = (e) => {
     const inputGrade = parseFloat(e.target.value);
-    const id = parseInt(e.target.dataset.id, 10);
-
+    const id = e.target.dataset.id;
+    console.log(id);
     // Tính tổng lại tất cả các điểm
     const totalGrade = items.reduce((total, currentItem) => {
       if (currentItem.id === id) {
@@ -236,6 +237,7 @@ export default function AddAssignmentShort() {
         const results = response.data.results;
         // Tạo mới các mục câu hỏi và đáp án từ thông tin trích xuất được
         const newItemsFromCSV = results.map((item) => ({
+          id: uuidv4(),
           title: item.question,
           answer: item.answer,
           grade: 0,
