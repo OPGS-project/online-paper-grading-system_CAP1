@@ -32,6 +32,9 @@ import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
+import DoAssignmentShort from '~/pagesStudent/DoAssignmentShort';
+import AssignmentShort from '~/pagesStudent/AssignmentShort';
+
 
 //Public routes
 const publicRoutes = [
@@ -82,6 +85,8 @@ const privateRoutes = [
     { path: '/login-student', component: LoginStudent, layout: null },
     { path: '/student/assignment-of-student', component: AssignmentStudent },
     { path: '/student/return-assignment', component: ReturnAssignment },
+    { path: '/student/do-assignment-short/:assignmentId/:classId', component: DoAssignmentShort } ,///:assignmentId:/classId
+    { path: '/student/assignment-short-student', component: AssignmentShort },
 
     { path: '/student/upload-assignment/:aid/:classId', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },

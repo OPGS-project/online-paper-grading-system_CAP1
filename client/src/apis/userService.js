@@ -99,6 +99,34 @@ export const apiGetAssignmentOfStudent = (token, data) =>
             reject(error);
         }
     });
+export const apiGetShortAssignment = (token, data) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await aixos({
+                method: 'get',
+                url:'http://localhost:8081/api/main-student/get-short-assignment',
+                headers: {
+                    authorization: token,
+                },
+                data,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+// api detail short ass
+export const apiGetShortAssignmentDetail = (assignmentId, classId) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await aixos.get(`http://localhost:8081/api/main-student/get-detail-shortass/${assignmentId}/${classId}`);
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
 export const apiChangePassStudent = (token, data) =>
     new Promise(async (resolve, reject) => {
         try {
