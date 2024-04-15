@@ -23,6 +23,20 @@ export const getAssignmentShort =async (req , res) =>{
   }
 }
 
+
+
+export const getStudentCurrent = async (req, res) => {
+  try {
+    const { id } = req.user;
+    console.log(id)
+    const response = await authServices.getStudentCurrent(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res);
+  }
+};
+
 // get assignment chi tiết
 export const getAssignmentShortDetail = async(req, res) =>{
   try {
@@ -34,14 +48,15 @@ export const getAssignmentShortDetail = async(req, res) =>{
   }
 }
 
-export const getStudentCurrent = async (req, res) => {
+// submit assignment short
+export const submitAssignmentShort = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log(id)
-    const response = await authServices.getStudentCurrent(id);
+    console.log("data từ body",req.body)
+    const response = await authServices.submitAssignmentShortService(req.body,id);
     return res.status(200).json(response);
   } catch (error) {
-    console.log(error);
-    // return internalServerError(res);
+    console.error(error);
+    return res.status(500).json({ errorCode: 500, message: "Internal Server Error" });
   }
 };

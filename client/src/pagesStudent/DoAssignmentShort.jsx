@@ -4,51 +4,35 @@ import { Modal, Button } from 'react-bootstrap';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import '~~/pages/assignment/DoAssignmentShort.scss';
-import {apiGetShortAssignmentDetail} from '~/apis/userService';
+import { apiGetShortAssignmentDetail } from '~/apis/userService';
 import { useSelector } from 'react-redux';
-
+import parse from 'html-react-parser';
+import axios from 'axios';
 
 export default function DoAssignmentShort() {
 
   const { token } = useSelector((state) => state.auth);
   const { assignmentId, classId } = useParams();
   console.log(token);
-//   const [test ,setTest] = useState([])
-//   console.log(test)
-  const [content, setContent] = useState({
-    title: 'Tên bài tập',
-    description: 'Câu hỏi 1',
-    items: [
-      {
-        id: 0,
-        question: "Câu hỏi không có tiêu đề"
-      }
-    ]
-  });
-  console.log(content)
+
+  const [questionAnswers, setQuestionAnswers] = useState([]); // State mới lưu trữ câu trả lời
+
   const [showModal, setShowModal] = useState(false);
   const [submissionError, setSubmissionError] = useState('');
-  const [assignment ,setAssignment] = useState({})
-  const [question ,setQuestion] = useState({})
-  console.log(question.questions)
-  console.log(typeof assignment.question_name)
-  
-
- 
+  const [assignment ,setAssignment] = useState({});
+  const [question ,setQuestion] = useState({});
+  console.log(question)
   useEffect(() => {
     const fetchAssignmentDetail = async () => {
         try {
             const response = await apiGetShortAssignmentDetail(assignmentId, classId);
             console.log(response.data.assignment.question_name);
             setAssignment(response.data.assignment);
-
             
             if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
-                
                 const questionData = JSON.parse(response.data.assignment.question_name);
                 setQuestion(questionData);
                 console.log(questionData)
-               
             } else {
                 console.error('Invalid question_name format');
             }
@@ -56,34 +40,63 @@ export default function DoAssignmentShort() {
             console.error(error);
         }
     };
-
     fetchAssignmentDetail();
-}, [assignmentId, classId]);
+  }, [assignmentId, classId]);
 
-
-  const handleAnswerChange = (data, id) => {
-    const newItems = content.items.map(item => {
-      if (item.id === id) {
-        return { ...item, answer: data };
-      }
-      return item;
+  const handleAnswerChange = (data, index) => {
+    setQuestionAnswers(prevAnswers => {
+      const updatedAnswers = [...prevAnswers];
+      updatedAnswers[index] = data;
+      return updatedAnswers;
     });
-    setContent({ ...content, items: newItems });
   };
+  
+  
+  const handleSubmit = async () => {
+    console.log(assignmentId);
+    console.log(classId);
+    console.log(questionAnswers);
+    // 
+    const submissionData = question.questions.map((question, index) => ({
+      question:question.title,
+      teacherAnswer: question.answer,
+      grade: question.grade,
+      studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""), // bỏ thẻ html từ ckeditor
+    }));
+    // const questionsArray = Object.values(submissionData);
+    const classIdInt = parseInt(classId, 10); 
+    const assignmentIdInt = parseInt(assignmentId, 10); 
+    const answerJson = JSON.stringify(submissionData);  
 
-  const handleSubmit = () => {
-    
-    const unansweredQuestions = content.items.filter(item => !item.answer);
-    if (unansweredQuestions.length > 0) {
-      setSubmissionError('Please answer all questions before submitting.');
-    } else {
-      
-      setShowModal(true);
+    console.log(submissionData);
+    console.log(typeof assignmentId)
+    console.log(typeof classId)
+
+    console.log(typeof answerJson);
+    console.log(typeof assignmentIdInt)
+    console.log(typeof classIdInt)
+    const data = {
+      assignment_id: assignmentIdInt,
+      class_id:  classIdInt,
+      submission_time: new Date(),
+      answer_short:answerJson
     }
+    console.log(data)
+    const response = await axios.post(
+      'http://localhost:8081/api/main-student/submit-short',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+      }
+    );
+
+    console.log(response);
   };
 
   const handleModalSubmit = () => {
-   
     closeModal();
   };
 
@@ -93,28 +106,27 @@ export default function DoAssignmentShort() {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid exam-short-assignment">
       <div className="header-short-assignment">
         <h1 className="h3 mb-2 text-gray-800">{assignment.assignment_name}</h1> 
       </div>
 
       {Array.isArray(question.questions) && question.questions.map((item,index) => (
-            <div className="title-container shadow-sm" key={index}>
-                <span>Câu hỏi {index + 1}: </span><span>{item.title}</span> 
-                
-                <div className="content-add-item shadow-sm">
-                    <CKEditor
-                    editor={ClassicEditor}
-                    // data={item.answer || ''}
-                    onChange={(event, editor) => {
-                        const data = editor.getData();
-                        // handleAnswerChange(data, item.id);
-                    }}
-                    />
-                </div>
-                {/* ))} */}
-            </div>
-            ))}
+        <div className="title-container shadow-sm" key={index}>
+          <span className='question'><b style={{color:"#000"}}>Câu hỏi {index + 1}: </b></span>
+          <span className='question' style={{color:"#000"}}>{item.title}</span> 
+          
+          <div className="content-add-item shadow-sm">
+            <CKEditor
+              editor={ClassicEditor}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                handleAnswerChange(data, index);
+              }}
+            />
+          </div>
+        </div>
+      ))}
 
       <div className="text-danger mb-3">{submissionError}</div>
       <button className="btn btn-primary" onClick={handleSubmit}>Nộp bài</button>
@@ -127,7 +139,7 @@ export default function DoAssignmentShort() {
           <Button variant="secondary" onClick={closeModal}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleModalSubmit}>
+          <Button variant="primary" onClick={handleSubmit}>
             Submit
           </Button>
         </Modal.Footer>
