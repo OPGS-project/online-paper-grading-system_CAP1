@@ -14,6 +14,8 @@
   "author": "BaoHan",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/vertexai": "^1.0.0",
+    "@google/generative-ai": "^0.6.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "cors": "^2.8.5",

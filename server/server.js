@@ -5,6 +5,8 @@ import initRoutes from "./src/routes";
 require("./src/config/connection_db");
 require("./passport");
 
+require("./grading");
+
 const app = express();
 app.use(
   cors({

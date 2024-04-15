@@ -129,7 +129,7 @@ export default function AddAssignmentShort() {
   const handleGradeChange = (e) => {
     const inputGrade = parseFloat(e.target.value);
     const id = e.target.dataset.id;
-    console.log(id);
+    // console.log(id);
     // Tính tổng lại tất cả các điểm
     const totalGrade = items.reduce((total, currentItem) => {
       if (currentItem.id === id) {
