@@ -9,13 +9,10 @@ import { FaUndo, FaRedo, FaDownload } from 'react-icons/fa';
 import '~~/pages/Grading.scss';
 import { Link, useParams } from 'react-router-dom';
 import { Collapse } from 'bootstrap';
-// import { param } from 'jquery';
 
 function Grading() {
     const navigate = useNavigate();
     const { assignment_id, student_id } = useParams();
-    console.log('Student id: ' + student_id);
-    console.log('Assignment id: ' + assignment_id);
 
     const { editor, onReady } = useFabricJSEditor();
     const [downloadLink, setDownloadLink] = useState('');
@@ -516,12 +513,20 @@ function Grading() {
                     if (isNaN(inputValue) || inputValue > 10 || inputValue < 0) {
                         score.text = '0';
                         editor.canvas.renderAll();
+                        
+
+
                     } else {
                         // Tính tổng mới bằng cộng giá trị mới với totalScore hiện tại
                         const newTotalScore = totalScore + inputValue;
-
+                        setTotalScore(newTotalScore);
+                        // setTotalScore(newTotalScore);
+                        console.log("newtotal",newTotalScore)
+                        console.log("total",totalScore)
+                        console.log("input",inputValue)
                         if (newTotalScore <= 10) {
                             // Cập nhật totalScore nếu tổng mới không vượt quá 10
+                            
                             setTotalScore(newTotalScore);
                         } else {
                             // Nếu tổng mới vượt quá 10, thông báo lỗi và đặt totalScore về 0
@@ -626,7 +631,6 @@ function Grading() {
             }),
         );
         setDownloadName('assignment_graded.png');
-        //test convert image to json
         const testJson = editor.canvas.toJSON();
         console.log(testJson);
 

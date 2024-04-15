@@ -57,11 +57,10 @@ function AssignmentShort() {
                     <table className="table table-hover" id="dataTable" width={100}>
                         <thead className="text-center">
                             <tr>
-                              
                                 <th>Tên Bài Tập</th>
                                 <th>Lớp</th>
                                 <th>Hạn Nộp</th>
-                                
+                                <th>Trạng thái</th>
                                 <th>Nộp bài</th>
                             </tr>
                         </thead>
@@ -72,7 +71,6 @@ function AssignmentShort() {
                                         {data.assignmentData.length > 0 ? (
                                             data.assignmentData.map((assignment, index) => (
                                                 <tr key={index}>
-                                                    {/* <td>{index + 1 }</td> */}
                                                     <td style={{ fontWeight: 500 }}>
                                                         {assignment.assignment_name}
                                                     </td>
@@ -80,15 +78,9 @@ function AssignmentShort() {
                                                     <td style={{ fontWeight: 500 }}>
                                                         {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}
                                                     </td>
-                                                   
-                                                    {/* <td>
-                                                        <Link
-                                                            to={`/student/upload-assignment/${assignment.id}/${classId}`}
-                                                            className="nav-link text-center"
-                                                        >
-                                                            Nộp bài
-                                                        </Link>
-                                                    </td> */}
+                                                    <td>
+                                                        TEST
+                                                    </td>
                                                     <td>
                                                     <Link
                                                         to={`/student/do-assignment-short/${assignment.id}/${data.id}`}
