@@ -9,7 +9,7 @@ const Submitted = () => {
     const params = useParams();
     const [values, setValues] = useState([]);
     const [csvData, setCsvData] = useState([]);
-
+    console.log(csvData)
     useEffect(() => {
         axios
             .get(`http://localhost:8081/api/studentSubmitted/${params.assignmentId}`)
