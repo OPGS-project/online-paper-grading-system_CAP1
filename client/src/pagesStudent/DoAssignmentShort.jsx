@@ -6,7 +6,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import '~~/pages/assignment/DoAssignmentShort.scss';
 import { apiGetShortAssignmentDetail } from '~/apis/userService';
 import { useSelector } from 'react-redux';
-import parse from 'html-react-parser';
 import axios from 'axios';
 
 export default function DoAssignmentShort() {
@@ -51,30 +50,18 @@ export default function DoAssignmentShort() {
     });
   };
   
-  
   const handleSubmit = async () => {
-    console.log(assignmentId);
-    console.log(classId);
-    console.log(questionAnswers);
-    // 
     const submissionData = question.questions.map((question, index) => ({
       question:question.title,
       teacherAnswer: question.answer,
       grade: question.grade,
       studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""), // bỏ thẻ html từ ckeditor
     }));
-    // const questionsArray = Object.values(submissionData);
+    
     const classIdInt = parseInt(classId, 10); 
     const assignmentIdInt = parseInt(assignmentId, 10); 
     const answerJson = JSON.stringify(submissionData);  
 
-    console.log(submissionData);
-    console.log(typeof assignmentId)
-    console.log(typeof classId)
-
-    console.log(typeof answerJson);
-    console.log(typeof assignmentIdInt)
-    console.log(typeof classIdInt)
     const data = {
       assignment_id: assignmentIdInt,
       class_id:  classIdInt,

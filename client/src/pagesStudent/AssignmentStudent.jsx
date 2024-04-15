@@ -53,10 +53,10 @@ function AssignmentStudent() {
                     <table className="table table-hover" id="dataTable" width={100}>
                         <thead className="text-center">
                             <tr>
-                                <th></th>
                                 <th>Tên Bài Tập</th>
                                 <th>Lớp</th>
                                 <th>Hạn Nộp</th>
+                                <th>Trạng thái</th>
                                 <th>Chi tiết</th>
                                 <th>Nộp bài</th>
                             </tr>
@@ -68,14 +68,15 @@ function AssignmentStudent() {
                                         {data.assignmentData.length > 0 ? (
                                             data.assignmentData.map((assignment, index) => (
                                                 <tr key={index}>
-                                                    <td>{i + 1}</td>
+                                                  
                                                     <td style={{ fontWeight: 500 }}>
                                                         {assignment.assignment_name}
                                                     </td>
                                                     <td style={{ fontWeight: 500 }}>{data.class_name}</td>
                                                     <td style={{ fontWeight: 500 }}>
-                                                        {moment(data.deadline).format('DD-MM-YYYY HH:mm a')}
+                                                        {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}
                                                     </td>
+                                                    <td>Test</td>
                                                     <td>
                                                         <Link
                                                             to={assignment.file_path}
