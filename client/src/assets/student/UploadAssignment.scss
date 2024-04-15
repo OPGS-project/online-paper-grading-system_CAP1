@@ -1,0 +1,16 @@
+@import '../GlobalStyles.scss';
+
+.box {
+    margin: 0 auto;
+    margin-top: 7%;
+    width: 500px;
+    text-align: center;
+    background-color: $body-bg;
+    padding: 20px 53px;
+    border-radius: 20px;
+    box-shadow: $box-shadow;
+    .header {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+}

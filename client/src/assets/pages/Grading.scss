@@ -2,6 +2,7 @@
     display: flex;
     width: 100%;
     padding-bottom: 40px;
+
     // justify-content: space-between;
     .assignment-info-box {
         display: flex;
@@ -14,6 +15,7 @@
             border-radius: 2px;
             justify-content: space-around;
         }
+
         .assignment-info p:first-child {
             padding-left: 40px;
         }
@@ -24,10 +26,14 @@
             font-weight: 500;
         }
     }
+
     .assigment-images {
+        justify-content: center;
         text-align: center;
         padding: 8px 0;
         font-weight: 500;
+        display: flex;
+        align-items: center;
         background-color: rgb(252, 252, 252);
         cursor: pointer;
 
@@ -39,11 +45,15 @@
             padding: 0 5px;
         }
     }
+
     .image-container {
         cursor: pointer;
         z-index: 999;
+        border: 1px solid rgb(232, 233, 235);
+        border-radius: 2px;
     }
 }
+
 
 // tools
 
@@ -54,6 +64,7 @@
     border: 1px solid #ccc;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     text-align: center;
+
     .grading-tools-box {
         display: flex;
         flex-direction: column;
@@ -63,11 +74,14 @@
         // border: 1px solid rgb(210, 210, 210);
         height: 450px;
         border-radius: 2px;
-        scrollbar-width: thin; /* Chỉ áp dụng cho Firefox */
+        scrollbar-width: thin;
+        /* Chỉ áp dụng cho Firefox */
         scrollbar-color: #888 transparent;
-        overflow-y: scroll; /* Cho phép cuộn theo trục Y */
+        overflow-y: scroll;
+        /* Cho phép cuộn theo trục Y */
         // border: 1px solid #ccc; /* Viền để tạo độ rõ ràng */
-        scrollbar-width: 6px; /* Điều chỉnh chiều dài của thanh cuộn */
+        scrollbar-width: 6px;
+        /* Điều chỉnh chiều dài của thanh cuộn */
     }
 }
 
@@ -98,11 +112,13 @@
     border: 1px solid #ccc;
     padding: 5px;
     border-radius: 5px;
+
     .textarea {
         width: 100%;
         border: none;
         outline: none;
-        resize: none; /* Ngăn chặn người dùng thay đổi kích thước */
+        resize: none;
+        /* Ngăn chặn người dùng thay đổi kích thước */
         padding: 0;
         margin: 0;
         font-size: 14px;
@@ -113,7 +129,8 @@
     .textarea::placeholder {
         position: absolute;
         top: 0;
-        left: 5px; /* Đặt ký tự đầu sát mép trái */
+        left: 5px;
+        /* Đặt ký tự đầu sát mép trái */
         color: #aaa;
         font-size: 14px;
     }

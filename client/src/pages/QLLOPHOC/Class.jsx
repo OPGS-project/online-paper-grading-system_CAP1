@@ -1,33 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import moment from 'moment/moment';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { GoMortarBoard } from 'react-icons/go';
 
 export default function Class() {
     const [state, setState] = useState({
         Class: [],
         offset: 0,
-        perPage: 5,
+        perPage: 7,
         pageCount: 0,
         searchTerm: '',
         originalClass: [],
+        showConfirmationModal: false,
+        classToDelete: null,
     });
 
+    const { token } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+
     useEffect(() => {
-        axios
-            .get('http://localhost:8081/api/class/')
-            .then((res) => {
-                const classData = res.data.classData;
-                setState((prevState) => ({
-                    ...prevState,
-                    Class: classData.rows,
-                    originalClass: classData.rows,
-                    pageCount: Math.ceil(classData.count / prevState.perPage),
-                }));
-            })
-            .catch((err) => console.error(err));
+        // Fetch classes when the component mounts
+        fetchClasses();
     }, []);
+
+    const fetchClasses = async () => {
+        try {
+            const response = await axios.get('http://localhost:8081/api/class/', {
+                headers: {
+                    authorization: token,
+                },
+            });
+
+            const classData = response.data.classData.rows;
+
+            setState((prevState) => ({
+                ...prevState,
+                Class: classData,
+                originalClass: classData,
+                pageCount: Math.ceil(classData.length / prevState.perPage),
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;
@@ -37,35 +54,24 @@ export default function Class() {
         }));
     };
 
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete('http://localhost:8081/api/class/delete-class/' + id);
-            // Remove the deleted item from the state
-            setState((prevState) => ({
-                ...prevState,
-                Class: prevState.Class.filter((item) => item.id !== id),
-                originalClass: prevState.originalClass.filter((item) => item.id !== id),
-            }));
-        } catch (err) {
-            console.log(err);
-        }
+    const handleDelete = (id) => {
+        setState((prevState) => ({
+            ...prevState,
+            showConfirmationModal: true,
+            classToDelete: id,
+        }));
     };
 
     const handleSearch = () => {
         const { originalClass, searchTerm, perPage } = state;
+
         if (searchTerm === '') {
-            // Nếu không có từ khóa tìm kiếm, hiển thị toàn bộ lớp học từ danh sách gốc
-            setState((prevState) => ({
-                ...prevState,
-                Class: originalClass,
-                pageCount: Math.ceil(originalClass.length / perPage),
-                offset: 0,
-            }));
+            restoreOriginalClasses();
         } else {
-            // Nếu có từ khóa tìm kiếm, tạo mảng lớp học mới dựa trên kết quả tìm kiếm
             const filteredClass = originalClass.filter((data) =>
-                data.class_name.toLowerCase().includes(searchTerm.toLowerCase())
+                data.class_name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
+
             setState((prevState) => ({
                 ...prevState,
                 Class: filteredClass,
@@ -75,21 +81,29 @@ export default function Class() {
         }
     };
 
+    const restoreOriginalClasses = () => {
+        setState((prevState) => ({
+            ...prevState,
+            Class: prevState.originalClass,
+            pageCount: Math.ceil(prevState.originalClass.length / prevState.perPage),
+            offset: 0,
+        }));
+    };
+
     const generateRows = () => {
-        return state.Class
-            .slice(state.offset, state.offset + state.perPage)
-            .map((data, i) => (
-                <tr key={i} className="text-center">
+        return state.Class.length > 0 ? (
+            state.Class.slice(state.offset, state.offset + state.perPage).map((data, i) => (
+                <tr
+                    key={i}
+                    onClick={() => navigate(`/home/class/get-student/${data.id}`)}
+                    style={{ cursor: 'pointer' }}
+                    className="text-center"
+                >
+                    <td style={{ fontWeight: 500 }}>{i + 1}</td>
+
                     <td>{data.class_name}</td>
-                    <td>{data.total_students}</td>
-                    <td>{moment(data.createdAt).format('DD-MM-YYYY')}</td>
                     <td>{data.content}</td>
-                    <td>
-                        <Link to={`/home/class/get-student/${data.id}`} className="btn btn-primary">
-                            Xem học sinh
-                        </Link>
-                    </td>
-                    <td>
+                    <td onClick={(e) => e.stopPropagation()}>
                         <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
                         <i
                             className="bi bi-trash-fill text-danger"
@@ -98,7 +112,14 @@ export default function Class() {
                         ></i>
                     </td>
                 </tr>
-            ));
+            ))
+        ) : (
+            <tr>
+                <td colSpan={10} className="text-center">
+                    Hiện tại chưa có lớp học nào <GoMortarBoard />
+                </td>
+            </tr>
+        );
     };
 
     const handlePrevious = () => {
@@ -124,7 +145,31 @@ export default function Class() {
             ...prevState,
             searchTerm: '',
         }));
-        handleSearch(); // Gọi lại tìm kiếm để hiển thị toàn bộ lớp học
+        restoreOriginalClasses();
+    };
+
+    const handleConfirmationModalClose = () => {
+        setState((prevState) => ({
+            ...prevState,
+            showConfirmationModal: false,
+            classToDelete: null,
+        }));
+    };
+
+    const handleDeleteConfirmed = async () => {
+        try {
+            await axios.delete(`http://localhost:8081/api/class/delete-class/${state.classToDelete}`);
+
+            setState((prevState) => ({
+                ...prevState,
+                Class: prevState.Class.filter((item) => item.id !== state.classToDelete),
+                originalClass: prevState.originalClass.filter((item) => item.id !== state.classToDelete),
+            }));
+        } catch (err) {
+            console.log(err);
+        } finally {
+            handleConfirmationModalClose();
+        }
     };
 
     return (
@@ -140,7 +185,7 @@ export default function Class() {
                 </div>
                 <div className="card-body">
                     <div id="dataTable_filter" className="filteredData mb-2">
-                        <label className='mr-3'>
+                        <label className="mr-3">
                             Tìm Kiếm:
                             <input
                                 type="search"
@@ -148,12 +193,7 @@ export default function Class() {
                                 placeholder=""
                                 aria-controls="dataTable"
                                 value={state.searchTerm}
-                                onChange={(e) =>
-                                    setState({
-                                        ...state,
-                                        searchTerm: e.target.value,
-                                    })
-                                }
+                                onChange={(e) => setState({ ...state, searchTerm: e.target.value })}
                                 onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
                                         handleSearch();
@@ -172,27 +212,41 @@ export default function Class() {
                         <table className="table table-hover" id="dataTable" width="100%" cellSpacing="0">
                             <thead>
                                 <tr className="text-center">
+                                    <th style={{ width: 100 }}></th>
                                     <th>Tên lớp</th>
-                                    <th>Sĩ số</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Ghi chú</th>
-                                    <th>Danh sách</th>
+                                    <th>Khóa</th>
                                     <th>Tùy chỉnh</th>
                                 </tr>
                             </thead>
                             <tbody>{generateRows()}</tbody>
                         </table>
                     </div>
-                    <div className="pagination">
+                    <div className="pagination d-flex m-3 justify-content-center">
                         <button className="btn btn-primary mr-3" onClick={handlePrevious}>
-                            <i className="fa fa-angle-left"></i> PRE
+                            <i className="fa fa-angle-left"></i>
                         </button>
                         <button className="btn btn-primary" onClick={handleNext}>
-                            NEXT <i className="fa fa-angle-right"></i>
+                            <i className="fa fa-angle-right"></i>
                         </button>
                     </div>
                 </div>
             </div>
+
+            {/* Confirmation Modal */}
+            <Modal show={state.showConfirmationModal} onHide={handleConfirmationModalClose} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Xác nhận</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Bạn chắc chắn muốn xóa ?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleConfirmationModalClose}>
+                        Hủy
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteConfirmed}>
+                        Xóa
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

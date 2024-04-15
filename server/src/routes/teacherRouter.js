@@ -9,7 +9,7 @@ router.get("/", controllers.getTeacher);
 
 router.put(
   "/update-teacher",
-  isTeacher,
+
   uploadUser.single("avatar"),
   controllers.updateTeacher
 );

@@ -1,0 +1,93 @@
+@import '../GlobalStyles.scss';
+
+.drop-file-input {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    border: 2px dashed $border-color;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $body-bg;
+    .drop-file-input__label {
+        text-align: center;
+        color: $txt-second-color;
+        font-weight: 600;
+        padding: 10px;
+    }
+
+    .drop-file-input__label img {
+        width: 100px;
+    }
+
+    .input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    .drop-file-input:hover,
+    .drop-file-input .dragover {
+        opacity: 0.6;
+    }
+}
+
+.drop-file-preview {
+    margin-top: 30px;
+    .drop-file-preview p {
+        font-weight: 500;
+    }
+    .drop-file-preview__title {
+        margin-bottom: 20px;
+    }
+    .drop-file-preview__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color: $input-bg;
+        padding: 15px;
+        border-radius: 20px;
+    }
+
+    .drop-file-preview__item__del {
+        background-color: $box-bg;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        box-shadow: $box-shadow;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+}
+
+.drop-file-preview__item:hover .drop-file-preview__item__del {
+    opacity: 1;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
