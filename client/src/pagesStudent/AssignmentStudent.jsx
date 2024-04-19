@@ -66,36 +66,65 @@ function AssignmentStudent() {
                                 values.map((data, i) => (
                                     <React.Fragment key={i}>
                                         {data.assignmentData.length > 0 ? (
-                                            data.assignmentData.map((assignment, index) => (
-                                                <tr key={index}>
-                                                  
-                                                    <td style={{ fontWeight: 500 }}>
-                                                        {assignment.assignment_name}
-                                                    </td>
-                                                    <td style={{ fontWeight: 500 }}>{data.class_name}</td>
-                                                    <td style={{ fontWeight: 500 }}>
-                                                        {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}
-                                                    </td>
-                                                    <td>Test</td>
-                                                    <td>
-                                                        <Link
-                                                            to={assignment.file_path}
-                                                            target="_blank"
-                                                            className="nav-link text-center"
-                                                        >
-                                                            Xem bài tập
-                                                        </Link>
-                                                    </td>
-                                                    <td>
-                                                        <Link
-                                                            to={`/student/upload-assignment/${assignment.id}/${classId}`}
-                                                            className="nav-link text-center"
-                                                        >
-                                                            Nộp bài
-                                                        </Link>
-                                                    </td>
-                                                </tr>
-                                            ))
+                                             // So sánh ngày hiện tại với deadline của assignment
+                                             data.assignmentData.map((assignment, index) => {
+                                                 const isClosed = moment().isAfter(assignment.deadline);
+                                                return (
+                                                    <tr key={index}>
+                                                      
+                                                        <td style={{ fontWeight: 500 }}>
+                                                            {assignment.assignment_name}
+                                                        </td>
+                                                        <td style={{ fontWeight: 500 }}>{data.class_name}</td>
+                                                        <td style={{ fontWeight: 500 }}>
+                                                            {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}
+                                                        </td>
+                                                        {isClosed ? (
+                                                              <td>
+                                                                <span
+                                                                    className="p-2"
+                                                                    style={{ backgroundColor: '#FF6464', borderRadius: '15px', color: 'white' }}
+                                                                >
+                                                                    Đã Đóng
+                                                                </span>
+                                                              </td>
+                                                            ) : (
+                                                                <td>
+                                                                    <span
+                                                                        className="p-2"
+                                                                        style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
+                                                                >
+                                                                     Đang Mở
+                                                                </span>
+                                                                </td>
+                                                            )}
+                                                        <td>
+                                                            <Link
+                                                                to={assignment.file_path}
+                                                                target="_blank"
+                                                                className="nav-link text-center"
+                                                            >
+                                                                Xem bài tập
+                                                            </Link>
+                                                        </td>
+                                                        <td>
+                                                            {isClosed ? (
+                                                                <div>
+                                                                    Hết hạn
+                                                                </div>
+                                                            ):(
+
+                                                                <Link
+                                                                    to={`/student/upload-assignment/${assignment.id}/${classId}`}
+                                                                    className="nav-link text-center"
+                                                                >
+                                                                    Nộp bài
+                                                                </Link>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
                                         ) : null}
                                     </React.Fragment>
                                 ))

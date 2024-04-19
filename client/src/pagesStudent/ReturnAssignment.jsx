@@ -11,6 +11,7 @@ function ReturnAssignment() {
 
     const [values, setValues] = useState([]);
     const [data, setData] = useState([]);
+    console.log(values)
     useEffect(() => {
         const fetchUser = async () => {
             const user = await apiGetStudent(token);

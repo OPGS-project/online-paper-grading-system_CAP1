@@ -58,7 +58,7 @@ function Grading() {
                 console.log(response);
                 if (response.data.err === 0) {
                     const responseData = response.data.response[0];
-
+                    console.log(responseData)
                     const submission_id = responseData.id;
                     // console.log('Submission id: ' + submission_id);
 

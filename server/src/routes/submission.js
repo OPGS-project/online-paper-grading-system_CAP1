@@ -7,7 +7,7 @@ const router = express.Router();
 // router.use(verifyToken)
 
 router.get("/:assignment_id/:studentId/", controllers.get_submission_ById);
-
+router.get("/short-get/:assignment_id/:studentId/",controllers.getSubmitGradingShort)
 // router.get("/:studentId/", controllers.checkSubmission);
 
 

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Submit_short.hasOne(models.Grade, {
+      Submit_short.hasOne(models.Grade_short, {
         foreignKey: "submission_id",
         as: "gradeData",
       });
@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       class_id: DataTypes.INTEGER,
       student_id: DataTypes.INTEGER,
-      student_name: DataTypes.STRING,
       assignment_id: DataTypes.INTEGER,
       submission_time: DataTypes.DATE,
       submission_status: DataTypes.STRING,

@@ -22,6 +22,7 @@ export default function Assignment() {
         searchTerm: '',
         originalAssignment: [],
     });
+    console.log(state.assignment)
 
     useEffect(() => {
         axios
@@ -134,61 +135,75 @@ export default function Assignment() {
 
     const generateRows = () => {
         return state.assignment.length > 0 ? (
-            state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-                <tr
-                    key={i}
-                    className="text-center"
-                    style={{ cursor: 'pointer' }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        return navigate(`/home/assignment/submitted/${data.id}`);
-                    }}
-                >
-                    <td>
-                        <FcFolder size={20} />
-                    </td>
-                    <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
-                    <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm ')}</td>
-                    <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
-                    <td>{data.classData?.class_name}</td>
-                    {moment(new Date()) > moment(data.deadline) ? (
-                        <td className="text-danger">
-                            <span
-                                className="p-2"
-                                style={{ backgroundColor: '#FF6464', borderRadius: '15px', color: 'white' }}
-                            >
-                                Đã Đóng
-                            </span>
-                        </td>
-                    ) : (
+            state.assignment.slice(state.offset, state.offset + state.perPage).map((data, i) => {
+                return (
+                    <tr
+                        key={i}
+                        className="text-center"
+                        style={{ cursor: 'pointer' }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            // return navigate(`/home/assignment/submitted/${data.id}`);
+                            if(data.type_assignment === '0'){
+                                return navigate(`/home/assignment/submitted/${data.id}`);
+                            }else if(data.type_assignment === '1') {
+                                return navigate(`/home/assignment/submitted-short/${data.id}`);
+                            }
+                        }}
+                    >
                         <td>
-                            <span
-                                className="p-2"
-                                style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
-                            >
-                                Đang Mở
-                            </span>
+                            <FcFolder size={20} />
                         </td>
-                    )}
-
-                    {/* <td>
-                        <Link className="btn " to={}>
-                            <FcViewDetails />
-                        </Link>
-                    </td> */}
-                    <td onClick={(e) => e.stopPropagation()}>
-                        <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
-                            <i className="fa-solid fa-pen-to-square icon-edit"></i>
-                        </Link>
-                        <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
-                            <i className="fa-solid fa-trash icon-delete"></i>
-                        </button>
-                    </td>
-                    {/* <td onClick={(e) => e.stopPropagation()}>
-                        
-                    </td> */}
-                </tr>
-            ))
+                        <td className="text-left pl-3 text-capitalize">{data.assignment_name}</td>
+                        <td>{moment(data.start_date).format('DD-MM-YYYY HH:mm ')}</td>
+                        <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
+                        <td>{data.classData?.class_name}</td>
+                        <td>
+                                {data.type_assignment === '0' ? (
+                                    <span>Tự luận</span>
+                                ) : data.type_assignment === '1' ? (
+                                    <span>Câu trả lời ngắn</span>
+                                ) : null}
+                        </td>
+                        {moment(new Date()) > moment(data.deadline) ? (
+                            <td className="text-danger">
+                                <span
+                                    className="p-2"
+                                    style={{ backgroundColor: '#FF6464', borderRadius: '15px', color: 'white' }}
+                                >
+                                    Đã Đóng
+                                </span>
+                            </td>
+                        ) : (
+                            <td>
+                                <span
+                                    className="p-2"
+                                    style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
+                                >
+                                    Đang Mở
+                                </span>
+                            </td>
+                        )}
+    
+                        {/* <td>
+                            <Link className="btn " to={}>
+                                <FcViewDetails />
+                            </Link>
+                        </td> */}
+                        <td onClick={(e) => e.stopPropagation()}>
+                            <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
+                                <i className="fa-solid fa-pen-to-square icon-edit"></i>
+                            </Link>
+                            <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
+                                <i className="fa-solid fa-trash icon-delete"></i>
+                            </button>
+                        </td>
+                        {/* <td onClick={(e) => e.stopPropagation()}>
+                            
+                        </td> */}
+                    </tr>
+                )
+            })
         ) : (
             <tr>
                 <td colSpan={9} className="text-center">
@@ -279,6 +294,7 @@ export default function Assignment() {
                                     <th>Từ Ngày</th>
                                     <th>Đến Ngày</th>
                                     <th>Giao Cho</th>
+                                    <th>Bài tập</th>
                                     <th>Trạng Thái</th>
                                     <th>Tùy Chỉnh</th>
                                 </tr>

@@ -23,7 +23,8 @@ import ChooseRole from '~/pages/ChooseRole';
 import Statis from '~/pages/THONGKE/Statis';
 import Submitted from '~/pages/QLBTAP/Submitted';
 import StudentScores from '~/pages/QLHOCSINH/StudentScores';
-
+import ShortSubmitted from '~/pages/QLBTAP/ShortSubmitted';
+import GradingShort from '~/pages/GradingShort';
 //học sinh page
 import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
 import LoginStudent from '~/pagesStudent/LoginStudent';
@@ -55,6 +56,11 @@ const publicRoutes = [
 
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
 
+
+    //submitted short
+    { path: '/home/assignment/submitted-short/:assignmentId', component: ShortSubmitted },
+
+
     //QLHSINH
     { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
@@ -77,6 +83,9 @@ const publicRoutes = [
     //Sửa bài đã chấm
     { path: '/home/EditGradedAssignment/:id/:student_name', component: EditGradedAssignment },
 
+
+    //CHẤM BÀI SHORT
+    { path: '/home/grading-short/:assignment_id/:student_id', component: GradingShort },
 ];
 
 const privateRoutes = [

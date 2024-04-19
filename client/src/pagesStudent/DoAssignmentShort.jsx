@@ -58,6 +58,7 @@ export default function DoAssignmentShort() {
       studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""), // bỏ thẻ html từ ckeditor
     }));
     
+    
     const classIdInt = parseInt(classId, 10); 
     const assignmentIdInt = parseInt(assignmentId, 10); 
     const answerJson = JSON.stringify(submissionData);  
@@ -103,7 +104,7 @@ export default function DoAssignmentShort() {
           <span className='question'><b style={{color:"#000"}}>Câu hỏi {index + 1}: </b></span>
           <span className='question' style={{color:"#000"}}>{item.title}</span> 
           
-          <div className="content-add-item shadow-sm">
+          <div className="content-add-item shadow-sm ckeditor-short">
             <CKEditor
               editor={ClassicEditor}
               onChange={(event, editor) => {

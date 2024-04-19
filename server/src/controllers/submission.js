@@ -29,17 +29,28 @@ export const getStudentSubmittedById= async (req, res) =>{
     }
 }
 
-// export const checkSubmission= async (req, res) =>{
-//     try{ 
-//         const { studentId } = req.params;
-//         const response = await services.checkSubmission(studentId);
-//         return res.status(200).json(response)
+// get submit short 
+export const getSubmitShort =async (req,res) =>{
+    try {
+      const {assignment_id} = req.params
+        const response = await services.getSubmitShortService(assignment_id)
+        return res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
+  }
 
-//     }catch (error){
-//         console.log(error);
-//         // return internalServerError(res)
-//     }
-// }
+export const getSubmitGradingShort =async(req,res) =>{
+    try {
+        const {assignment_id } = req.params
+        const {studentId} = req.params
+        const response = await services.getSubmitGradingShortService(assignment_id,studentId)
+        return res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 

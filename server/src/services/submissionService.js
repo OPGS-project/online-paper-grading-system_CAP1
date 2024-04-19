@@ -1,7 +1,7 @@
 import { generateRandomString } from "../helpers/idRandom";
 import { student_name } from "../helpers/joi_schema";
 import db from "../models";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 const cloudinary = require("cloudinary").v2;
 
 export const getSubmission = ({

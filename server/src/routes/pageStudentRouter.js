@@ -13,6 +13,5 @@ router.get("/get-detail-shortass/:assignmentId/:classId",controllers.getAssignme
 
 router.get("/get-student", verifyToken, controllers.getStudentCurrent);
 //submit assignemnt short
-
 router.post("/submit-short" ,verifyToken ,controllers.submitAssignmentShort)
 module.exports = router;
