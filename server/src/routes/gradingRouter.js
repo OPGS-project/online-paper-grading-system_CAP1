@@ -8,6 +8,7 @@ const router = express.Router();
 // router.use(verifyToken)
 
 router.post("/", uploadGradedAssignments.single("image"),controllers.saveGradedAssignments);
+router.post("/graded-short",controllers.saveGradedAssignmentShort)
 router.get("/:submissionId/:student_name", controllers.getGrade);
 router.get("/:idStudent", controllers.getGradeById);
 router.delete("/:gradingId", controllers.deleteAssignmentGraded);

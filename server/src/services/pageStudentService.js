@@ -139,61 +139,46 @@ export const getStudentCurrent = (id) =>
     });
   };
   //submit short assign
-  // export const submitAssignmentShortService = async (classId,id,studentName,assignmentId,answer ) => {
-  //   try {
-  //     const answerJson = JSON.stringify(answer)
-  //     console.log("classId",classId)
-  //     console.log("id",id)
-  //     console.log("assignmentId",assignmentId)
-  //     console.log("answer",answer)
-  //       const submission= await db.Submit_short.create({
-  //         class_id:classId,
-  //         student_id:id,
-  //         student_name:studentName,
-  //         assignment_id:assignmentId,
-  //         submission_time: new Date(),
-  //         submission_status: 'Đã nộp',
-  //         answer_short:answerJson
-      
-  //       });
-  //       console.log(submission);
-  //        // In ra đối tượng submission
+  
+  export const submitAssignmentShortService = (body, studentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Kiểm tra trạng thái nộp bài của học sinh 
+            console.log(body.assignment_id)
+            const existingSubmission = await db.Submit_short.findOne({
+                where: {
+                    student_id: studentId,
+                    assignment_id: body.assignment_id
+                }
+                
+            });
+            // Nếu học sinh đã nộp bài cho bài tập này trước đó, từ chối yêu cầu nộp bài mới và trả về thông báo lỗi
+            if (existingSubmission) {
+               resolve({
+                    errorCode: 1,
+                    message: "Bạn đã nộp bài 1 lần rồi !"
+                });
+            }else{
+              // Nếu học sinh chưa nộp bài cho bài tập này trước đó, tạo một bản ghi mới trong cơ sở dữ liệu
+              const submission = await db.Submit_short.create({
+                  ...body,
+                  student_id: studentId,
+                  assignment_id:  body.assignment_id,
+                  submission_time: new Date(),
+                  submission_status: 'Đã nộp',
+              });
+              console.log("submission", submission);
+              resolve({
+                  errorCode: 0,
+                  message: "Nộp bài thành công",
+                  submission
+              });
+            }
 
-  //       return {
-  //           errorCode: 0,
-  //           message: "Submission successful",
-  //           submission
-  //            // Trả về thông tin của bài tập đã nộp
-            
-  //       };
-        
-  //   } catch (error) {
-  //       console.error(error);
-  //       throw new Error("Error submitting assignment");
-  //   }
-  // };
 
-  export const submitAssignmentShortService = (body,id ) => {
-    return new Promise(async(resolve,reject) =>{
-      try {
-        const submission= await db.Submit_short.create({
-         ...body,
-          student_id:id,
-          submission_time: new Date(),
-          submission_status: 'Đã nộp',
-        });
-        console.log("submission",submission);
-        
-        resolve({
 
-          errorCode: 0,
-          message: "Submission successful",
-          submission
-        })
-
-    } catch (error) {
-       reject(error);
-        
-    }
-    })
-  };
+        } catch (error) {
+            reject(error);
+        }
+    });
+};

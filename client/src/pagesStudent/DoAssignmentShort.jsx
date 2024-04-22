@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -12,6 +12,7 @@ export default function DoAssignmentShort() {
 
   const { token } = useSelector((state) => state.auth);
   const { assignmentId, classId } = useParams();
+  const navigate = useNavigate()
   console.log(token);
 
   const [questionAnswers, setQuestionAnswers] = useState([]); // State mới lưu trữ câu trả lời
@@ -80,8 +81,17 @@ export default function DoAssignmentShort() {
         },
       }
     );
-
+    
     console.log(response);
+    //testtt
+    if(response.data.errorCode === 1) {
+      alert(response.data.message)
+     setTimeout(() =>{
+      navigate("/student/assignment-short-student")
+     },1000)
+    }else{
+      alert("thành công")
+    }
   };
 
   const handleModalSubmit = () => {

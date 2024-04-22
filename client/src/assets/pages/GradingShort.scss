@@ -40,26 +40,89 @@
         border-radius: 10px;
 
 
-        .question-textarea,
-        .answer-textarea {
-          border: solid transparent;
-          outline: none;
-          font-size: 20px;
-          width: calc(100% - 20px);
-        }
-        .question-textarea {
-            border-radius: 10px;
+          .question-teacherAnswer{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            width: 100%;
+            gap: 50px;
+            // border: 1px solid red;
+
+
+            .question-content{
+              width: 80%;
+            }
+            .button-teacher-answer{
+              width: 20%;
+              .button-hidden{
+                  // margin-right: 10px;
+                  border: none;
+                  color: rgb(62, 140, 250);
+                  background-color: transparent;
+                  font-size: 14px;
+                  font-weight: 600;
+
+                  &:hover{
+                    background-color: rgb(236, 243, 253);
+                    border-radius: 5px;
+                  }
+                  
+              }
+              
+            }
+          }
+
+
+          .teacher-answer{
+            padding: 0px 40px;
+          }
+
+          .grading-answer-student{
+
+            .answer-student {
+              margin-top: 20px;
+              background-color: rgb(195, 219, 252);
+              border-radius: 10px;
+              padding: 20px;
+              // border: 1px solid red;
+            }
+
+            ._grading{
+              margin-top: 20px ;
+              margin-right: 20px;
+              margin-bottom: 10px;
+              float: right;
+              display: flex;
+
+              .button-grading{
+                
+                .correct-answer,.incorrect-answer{
+                  margin-right: 10px;
+                  width: 50px;
+                  height: 50px;
+                  border: 1px solid rgb(206, 205, 205);
+                  border-radius: 10px;
+                  background-color: transparent;
+  
+                  &:hover{
+                    background-color: rgb(236, 236, 236);
+                  }
+                }
+              }
+              .point-grading{
+                  .input-point{
+                    width: 50px;
+                    text-align: center;
+                    margin-top: 10px;
+                    border: none;
+                    border-bottom: 1px solid;
+                  }
+              }
+              
+                
+            }
           }
           
-          .answer-textarea {
-            background-color: rgb(195, 219, 252);
-            border-radius: 10px;
-          }
-          
-          .question-textarea:focus,
-          .answer-textarea:focus {
-            background-color: #ccc;
-            border-radius: 10px;
-          }
+        
     }
 }

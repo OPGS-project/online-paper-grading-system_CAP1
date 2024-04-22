@@ -15,6 +15,19 @@ export const saveGradedAssignments = async (req, res) => {
     }
 }
 
+//save short graded
+export const saveGradedAssignmentShort = async (req, res) => {
+  try {
+    console.log("controller",req.body)
+      const response = await services.saveGradedAssignmentShortService(req.body)
+      return res.status(200).json(response)
+
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+
 //GET
 export const getGradeById = async (req, res) => {
     try {

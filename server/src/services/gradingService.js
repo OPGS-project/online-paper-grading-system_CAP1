@@ -32,6 +32,31 @@ export const saveGradedAssignments = (body, fileData) =>
     }
   });
 
+  // short
+  export const saveGradedAssignmentShortService = (body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Grade_short.create({
+        student_id: body.student_id,
+        submission_id: body.submission_id,
+        score_value: body.score_value,
+        comments:body.comments,
+        answer_short_json:body.answer_short_json
+      });
+      console.log(response)
+      resolve({
+        err: response ? 0 : 1,
+        mes: response
+          ? "Lưu bài tập đã chấm thành công"
+          : "Lưu bài tập đã chấm thất bại",
+          response:response
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+
 export const getGradeById = (idStudent) =>
   new Promise(async (resolve, reject) => {
     try {

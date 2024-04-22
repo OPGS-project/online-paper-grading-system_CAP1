@@ -65,6 +65,7 @@ function ReturnAssignment() {
                             {values.length > 0 ? (
                                 values.map((item, index) => (
                                     <tr key={index}>
+                                    {/* {console.log(item.submissionData)} */}
                                         <td style={{ fontWeight: 500 }}>
                                             {item.submissionData.assignmentData.assignment_name}
                                         </td>
