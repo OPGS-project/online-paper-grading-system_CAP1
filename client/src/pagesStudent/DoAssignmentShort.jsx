@@ -91,6 +91,7 @@ export default function DoAssignmentShort() {
      },1000)
     }else{
       alert("thành công")
+      navigate("/student/assignment-short-student")
     }
   };
 

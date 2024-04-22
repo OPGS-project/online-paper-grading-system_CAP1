@@ -14,7 +14,7 @@ function GradingShort() {
     const [showAnswer, setShowAnswer] = useState({});
     const [total , setTotal] = useState('')
     // const [iconDirection, setIconDirection] = useState("down");
-
+    console.log(total)
     const [idSubmit,setIdSubmit] = useState('')
     console.log(points)
     console.log(JSON.stringify(answerStudent))
@@ -43,7 +43,6 @@ function GradingShort() {
                 console.error(error);
             }
         };
-
         fetchDataStudent();
     }, [params.assignment_id, params.student_id]);
 
@@ -51,6 +50,10 @@ function GradingShort() {
     //     setShowAnswer(!showAnswer);
     //     setIconDirection(iconDirection === "down" ? "up" : "down");
     // };
+
+    // const handleInputGrade = ()=>{
+
+    // }
     const toggleAnswer = (index) => {
         setShowAnswer((prevStates) => ({
             ...prevStates,
@@ -59,21 +62,29 @@ function GradingShort() {
     };
 
     const handleGrade = (index, grade) => {
-        const finalGrade = grade === answerStudent[index].grade ? grade : 0;
+        // const finalGrade = grade === answerStudent[index].grade ? grade : 0;
         setPoints((prevPoints) => ({
             ...prevPoints,
-            [index]: finalGrade,
+            [index]: grade,
         }));
-
-        console.log("grade :", finalGrade)
+        console.log("grade :", grade);
     };
-    const hanleTotal = () =>{
-        let sum =0;
-        for(let key in points){
-           sum +=points[key]
-           setTotal(sum)
-        }
-    }
+    // const hanleTotal = () =>{
+    //     let sum =0;
+    //     for(let key in points){
+    //        sum +=points[key]
+    //        setTotal(sum)
+    //     }
+    // }
+
+    //tính tổng điểm
+    useEffect(() =>{
+          let sum = 0;
+          for (let key in points) {
+            sum += points[key] || 0;
+          }
+          setTotal(sum);
+    },[points])
 
     const handleSaveGraded = async() =>{
         try {
@@ -85,9 +96,6 @@ function GradingShort() {
                 comments:"aaaa",
                 answer_short_json:JSON.stringify(answerStudent)
             }
-          
-            
-
             const response =await axios.post(`http://localhost:8081/api/grading/graded-short`,data)
             console.log(response)
                 if(response.data.err === 0){
@@ -101,12 +109,10 @@ function GradingShort() {
                         progress: undefined,
                         theme: 'light',
                     });
-
                     setTimeout(() => {
                         navigate(`/home/assignment/submitted-short/${params.assignment_id}`);
                     }, 2000);
                 }
-            
         } catch (error) {
             console.log(error)
         }
@@ -122,8 +128,9 @@ function GradingShort() {
                             <p className='header-infor'>Thời gian nộp bài: {moment(item.submission_time).format('DD-MM-YYYY HH:mm a')}</p>
                         </div>
                     </div>
-                {/* {console.log(item.answer_short)} */}
+                    {/* {console.log(item.answer_short)} */}
                     {answerStudent.map((answer, index) => (
+                        
                         <div className="container-short" key={index}>
                             <div className="question-container shadow-sm">
                                 <div className='question-teacherAnswer'>
@@ -151,11 +158,12 @@ function GradingShort() {
 
                                     <div className='_grading'>
                                         <div className='button-grading'>
-                                            <button style={{ color: "red" }} className='incorrect-answer' onClick={() => handleGrade(index, 0)}><i className="fas fa-thin fa-xmark"></i></button>
-                                            <button style={{ color: "rgb(12, 245, 12)" }} className='correct-answer' onClick={() => handleGrade(index, answer.grade)}><i className="fas fa-thin fa-check"></i></button>
+                                            <button style={{ color: "red" }} className='incorrect-answer' onClick={() => handleGrade(index, 0)} ><i className="fas fa-thin fa-xmark"></i></button>
+                                            <button style={{ color: "rgb(12, 245, 12)" }} className='correct-answer' onClick={() => handleGrade(index, answer.grade)} ><i className="fas fa-thin fa-check"></i></button>
                                         </div>
                                         <div className='point-grading'>
-                                            <input className='input-point' type="number" min={0} max={10} value={points[index] } onChange={(e) => handleGrade(index, parseInt(e.target.value))} />
+                                            
+                                            <input className='input-point' type="number" step="0.1" name='grade' min={0} max={answer.grade} value={points[index] } onChange={(e) => handleGrade(index, parseFloat(e.target.value))} />
                                             <span>/</span>
                                             <span style={{ marginLeft: "5px" }}>{answer.grade}</span>
                                         </div>
@@ -166,13 +174,13 @@ function GradingShort() {
                     ))}
                 </div>
             ))}
-            <div style={{ width: "30%", margin: "0 auto" }}>
+            <div className='give-save-grade' style={{ width: "30%", margin: "0 auto" }}>
                 <h4 className='text-center'>Cho điểm và lưu</h4>
-                <button onClick={hanleTotal}>total </button>
+                {/* <button onClick={hanleTotal}>total </button> */}
 
-                <span>total score :{total}</span>
-                <div>
-                    <button onClick={handleSaveGraded}>lưu</button>
+                <span >total score : <span style={{color:"red"}}> {total}</span></span>
+                <div className='save-grade'>
+                    <button  onClick={handleSaveGraded}>Lưu</button>
                 </div>
             </div>
             <ToastContainer />
