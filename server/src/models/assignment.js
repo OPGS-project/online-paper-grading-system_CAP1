@@ -9,14 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Assignment.hasMany(models.Events, {
-        foreignKey: "of_assignment",
-        as: "criteriaData",
-      });
       Assignment.belongsTo(models.Class, {
         foreignKey: "of_class",
-        targetKey: "class_name",
+        targetKey: "id",
         as: "classData",
+      });
+
+      Assignment.hasMany(models.Submission, {
+        foreignKey: "assignment_id",
+        as: "submissionData",
       });
     }
   }
@@ -25,11 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       assignment_name: DataTypes.STRING,
       start_date: DataTypes.DATE,
       deadline: DataTypes.DATE,
-      of_class: DataTypes.STRING,
-      content_type: DataTypes.ENUM("text", "file"),
+      of_class: DataTypes.INTEGER,
       content_text: DataTypes.TEXT,
       file_path: DataTypes.STRING,
-      grading_criteria_file: DataTypes.STRING,
+      filename: DataTypes.STRING,
+      id_teacher: DataTypes.STRING,
     },
     {
       sequelize,

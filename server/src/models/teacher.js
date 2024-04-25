@@ -9,17 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Teacher.belongsTo(models.Role, {
-        foreignKey: "role",
-        targetKey: "code",
-        as: "roleData",
-      });
 
-      // Teacher.belongsTo(models.Class, {
-      //   foreignKey: "name", // khóa ngoại từ bảng này
-      //   targetKey: "class_name", //lấy từ bảng kia
-      //   as: "teacherData",
-      // });
+      Teacher.hasMany(models.Class, {
+        foreignKey: "id_teacher",
+        as: "classData",
+      });
+      Teacher.hasMany(models.Assignment, {
+        foreignKey: "id_teacher",
+        as: "assignmentData",
+      });
     }
   }
   Teacher.init(
@@ -32,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       avatar: DataTypes.STRING,
       address: DataTypes.STRING,
       refresh_token: DataTypes.STRING,
+      filename: DataTypes.STRING,
     },
     {
       sequelize,

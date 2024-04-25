@@ -1,0 +1,35 @@
+// AddAssignmentShort.scss
+
+.header-short-assignment {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    width: 100%;
+}
+.title-container {
+    margin-top: 30px;
+    border-radius: 10px;
+    min-height: 100px;
+    height: auto;
+    width: 80%;
+    background-color: white;
+}
+
+.line {
+    height: 10px; 
+    background-color: #4e73df;
+    border-radius: 10px 10px 0px 0px;
+    margin-bottom: 10px;
+}
+
+.title-text, .description-text {
+    border: none;
+    outline: none;
+    font-size: 20px;
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+    margin-top: 10px; /* Add margin top to create space between inputs */
+}
+
+.title-text {
+    font-size: 30px; /* Adjust font size for title input */
+}

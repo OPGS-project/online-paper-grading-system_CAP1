@@ -11,11 +11,30 @@ cloudinary.config({
 
 const userStorage = new CloudinaryStorage({
   cloudinary,
+  allowedFormats: ["jpg", "png", "pdf"],
+  params: {
+    folder: "uploads",
+  },
+});
+
+const assignmentStorage = new CloudinaryStorage({
+  cloudinary,
+  allowedFormats: ["pdf"],
+  params: {
+    folder: "assignments",
+  },
+});
+
+const gradeStorage = new CloudinaryStorage({
+  cloudinary,
   allowedFormats: ["jpg", "png"],
   params: {
-    folder: "users",
+    folder: "gradedAssignments",
   },
 });
 
 const uploadUser = multer({ storage: userStorage });
-module.exports = { uploadUser };
+const uploadAssignment = multer({ storage: assignmentStorage });
+const uploadGradedAssignments = multer({ storage: gradeStorage });
+
+module.exports = { uploadUser, uploadAssignment, uploadGradedAssignments };
