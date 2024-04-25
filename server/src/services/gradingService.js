@@ -32,6 +32,33 @@ export const saveGradedAssignments = (body, fileData) =>
     }
   });
 
+  // short
+  export const saveGradedAssignmentShortService = (body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+     
+      const response = await db.Grade_short.create({
+        student_id: body.student_id,
+        submission_id: body.submission_id,
+        score_value: body.score_value,
+        comments:body.comments,
+        answer_short_json:body.answer_short_json,
+        // points:JSON.stringify(body.points)
+      });
+      console.log("point:",body.points)
+      resolve({
+        err: response ? 0 : 1,
+        mes: response
+          ? "Lưu bài tập đã chấm thành công"
+          : "Lưu bài tập đã chấm thất bại",
+          response:response
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+
 export const getGradeById = (idStudent) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -72,6 +99,49 @@ export const getGradeById = (idStudent) =>
       reject(e);
     }
   });
+
+
+  // export const getGradedForStudentService = (idStudent) =>
+  // new Promise(async (resolve, reject) => {
+  //   try {
+  //     console.log(db.Grade_short)
+  //     const response = await db.Grade_short.findAll({
+  //       where: { student_id: idStudent },
+  //       attributes: ["student_id","score_value", "comments", "answer_short_json", "points" ],
+  //       include: [
+  //         {
+  //           model: db.Submit_short,
+  //           as: "submissionData",
+  //           attributes: ["answer_short"],
+  //           include: [
+  //             {
+  //               model: db.Assignment,
+  //               as: "assignmentData",
+  //               attributes: ["assignment_name"],
+                
+  //             },
+  //             {
+  //               model: db.Student,
+  //               as: "studentData",
+  //               attributes: ["student_name", "id"],
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     });
+  //     console.log("res", response);
+  //     resolve({
+  //       err: response ? 0 : 1,
+  //       message: response ? "Success!" : "No data found!!!",
+  //       response: response,
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //     reject(e);
+  //   }
+  // });
+
+
 
 export const getGrade = (submissionId, student_name) =>
   new Promise(async (resolve, reject) => {

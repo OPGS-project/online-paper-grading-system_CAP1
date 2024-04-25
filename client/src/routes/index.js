@@ -23,7 +23,8 @@ import ChooseRole from '~/pages/ChooseRole';
 import Statis from '~/pages/THONGKE/Statis';
 import Submitted from '~/pages/QLBTAP/Submitted';
 import StudentScores from '~/pages/QLHOCSINH/StudentScores';
-
+import ShortSubmitted from '~/pages/QLBTAP/ShortSubmitted';
+import GradingShort from '~/pages/GradingShort';
 //học sinh page
 import ChooseRoleLogin from '~/pagesStudent/ChooseRoleLogin';
 import LoginStudent from '~/pagesStudent/LoginStudent';
@@ -32,6 +33,9 @@ import ReturnAssignment from '~/pagesStudent/ReturnAssignment';
 import ProfileStudent from '~/pagesStudent/ProfileStudent';
 import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
+import DoAssignmentShort from '~/pagesStudent/DoAssignmentShort';
+import AssignmentShort from '~/pagesStudent/AssignmentShort';
+import ReturnAssignmentShort from '~/pagesStudent/ReturnAssignmentShort';
 
 //Public routes
 const publicRoutes = [
@@ -51,6 +55,11 @@ const publicRoutes = [
     { path: '/home/assignment/add-assignment-short', component: AddAssignmentShort },
 
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
+
+
+    //submitted short
+    { path: '/home/assignment/submitted-short/:assignmentId', component: ShortSubmitted },
+
 
     //QLHSINH
     { path: '/home/class/get-student/:classID', component: Student },
@@ -74,6 +83,9 @@ const publicRoutes = [
     //Sửa bài đã chấm
     { path: '/home/EditGradedAssignment/:id/:student_name', component: EditGradedAssignment },
 
+
+    //CHẤM BÀI SHORT
+    { path: '/home/grading-short/:assignment_id/:student_id', component: GradingShort },
 ];
 
 const privateRoutes = [
@@ -82,6 +94,9 @@ const privateRoutes = [
     { path: '/login-student', component: LoginStudent, layout: null },
     { path: '/student/assignment-of-student', component: AssignmentStudent },
     { path: '/student/return-assignment', component: ReturnAssignment },
+    { path: '/student/do-assignment-short/:assignmentId/:classId', component: DoAssignmentShort } ,///:assignmentId:/classId
+    { path: '/student/assignment-short-student', component: AssignmentShort },
+    { path: '/student/return-assignment-short', component: ReturnAssignmentShort },
 
     { path: '/student/upload-assignment/:aid/:classId', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },

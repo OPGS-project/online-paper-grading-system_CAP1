@@ -33,6 +33,23 @@ module.exports = {
       id_teacher: {
         type: Sequelize.STRING,
       },
+      question_name: {
+        type: Sequelize.JSON,
+      },
+      answer_file: {
+        type: Sequelize.STRING,
+      },
+      ckeditor_settings: {
+        type: Sequelize.JSON,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      type_assignment: {
+        type: Sequelize.ENUM,
+        values: ['0' , '1']
+        
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

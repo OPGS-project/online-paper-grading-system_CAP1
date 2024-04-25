@@ -1,6 +1,7 @@
 import * as services from "../services";
 import { internalServerError, badRequest } from "../middlewares/handle_errors";
 import joi from 'joi'
+import { response } from "express";
 const cloudinary = require('cloudinary').v2;
 
 //CREATE
@@ -14,6 +15,19 @@ export const saveGradedAssignments = async (req, res) => {
         // return internalServerError(res)
     }
 }
+
+//save short graded
+export const saveGradedAssignmentShort = async (req, res) => {
+  try {
+    console.log("controller",req.body)
+      const response = await services.saveGradedAssignmentShortService(req.body)
+      return res.status(200).json(response)
+
+  } catch (error) {
+      console.log(error)
+  }
+}
+
 
 //GET
 export const getGradeById = async (req, res) => {
@@ -30,6 +44,19 @@ export const getGradeById = async (req, res) => {
         // return internalServerError(res)
     }
 }
+// export const getGradedForStudent = async(req, res) =>{
+//   try {
+//     const { idStudent } = req.params;
+//     console.log("for student",idStudent);
+//     const response =await services.getGradedForStudentService(idStudent)
+//     return res.status(200).json(response);
+    
+//   } catch (error) {
+//     console.log(error)
+//     // return res.status(500).json(response)
+    
+//   }
+// }
 
 export const getGrade = async (req, res) => {
     try {

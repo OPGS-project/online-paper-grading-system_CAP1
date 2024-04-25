@@ -9,7 +9,6 @@ import { FaUndo, FaRedo, FaDownload } from 'react-icons/fa';
 import '~~/pages/Grading.scss';
 import { Link, useParams } from 'react-router-dom';
 import { Collapse } from 'bootstrap';
-// import { param } from 'jquery';
 
 function Grading() {
     const navigate = useNavigate();

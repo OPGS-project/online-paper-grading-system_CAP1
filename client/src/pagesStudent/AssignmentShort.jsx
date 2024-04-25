@@ -5,28 +5,27 @@ import { FaAngellist } from 'react-icons/fa';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { apiGetAssignmentOfStudent } from '~/apis/userService';
+import { apiGetShortAssignment } from '~/apis/userService';
 
-function AssignmentStudent() {
+function AssignmentShort() {
     const { token } = useSelector((state) => state.auth);
     const [values, setValues] = useState([]);
     const [user, setUser] = useState([]);
     const [classId, setClassId] = useState(null);
     console.log(values)
    
-   
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await apiGetAssignmentOfStudent(token);
+            const response = await apiGetShortAssignment(token);
+           
             if (response?.data.err === 0) {
                 const classId = response.data.response.class_id;
                 const userName = response.data.response.student_name;
                 setClassId(classId);
                 setUser(userName);
                 setValues(response.data.response.Classes);
-                console.log(response)
-                console.log(values.assignmentData)
+               console.log(response)
             } else {
                 setValues([]);
                 setUser([]);
@@ -34,7 +33,11 @@ function AssignmentStudent() {
         };
         token && fetchUser();
     }, [token]);
+    const classIds = values.map(item => item.id);
+    // setClassId(classIds)
+    console.log(classId)
 
+    console.log(classIds); // Mảng chứa các class_id
     return (
         <div className="container-fluid">
             <div className="card shadow">
@@ -58,29 +61,29 @@ function AssignmentStudent() {
                                 <th>Lớp</th>
                                 <th>Hạn Nộp</th>
                                 <th>Trạng thái</th>
-                                <th>Chi tiết</th>
                                 <th>Nộp bài</th>
                             </tr>
                         </thead>
                         <tbody className="text-center">
-                            {values.length > 0 ? (
+                        {values.length > 0 ? (
                                 values.map((data, i) => (
                                     <React.Fragment key={i}>
                                         {data.assignmentData.length > 0 ? (
-                                             // So sánh ngày hiện tại với deadline của assignment
-                                             data.assignmentData.map((assignment, index) => {
-                                                 const isClosed = moment().isAfter(assignment.deadline);
+                                            data.assignmentData.map((assignment, index) => {
+                                                // So sánh ngày hiện tại với deadline của assignment
+                                                const isClosed = moment().isAfter(assignment.deadline);
+                                                
                                                 return (
                                                     <tr key={index}>
-                                                      
                                                         <td style={{ fontWeight: 500 }}>
                                                             {assignment.assignment_name}
                                                         </td>
                                                         <td style={{ fontWeight: 500 }}>{data.class_name}</td>
-                                                        <td style={{ fontWeight: 500 }}>
+                                                        <td style={{ fontWeight: 500  }}>
                                                             {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}
                                                         </td>
-                                                        {isClosed ? (
+                                                       
+                                                            {isClosed ? (
                                                               <td>
                                                                 <span
                                                                     className="p-2"
@@ -99,32 +102,23 @@ function AssignmentStudent() {
                                                                 </span>
                                                                 </td>
                                                             )}
+                                                        
                                                         <td>
-                                                            <Link
-                                                                to={assignment.file_path}
-                                                                target="_blank"
-                                                                className="nav-link text-center"
-                                                            >
-                                                                Xem bài tập
-                                                            </Link>
-                                                        </td>
-                                                        <td>
+                                                            
                                                             {isClosed ? (
-                                                                <div>
-                                                                    Hết hạn
-                                                                </div>
+                                                                <span>Hết hạn</span>
                                                             ):(
-
                                                                 <Link
-                                                                    to={`/student/upload-assignment/${assignment.id}/${classId}`}
+                                                                    to={`/student/do-assignment-short/${assignment.id}/${data.id}`}
                                                                     className="nav-link text-center"
                                                                 >
-                                                                    Nộp bài
+                                                                Làm bài
                                                                 </Link>
+
                                                             )}
                                                         </td>
                                                     </tr>
-                                                )
+                                                );
                                             })
                                         ) : null}
                                     </React.Fragment>
@@ -144,4 +138,4 @@ function AssignmentStudent() {
     );
 }
 
-export default AssignmentStudent;
+export default AssignmentShort;

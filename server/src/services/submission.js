@@ -114,7 +114,7 @@ export const getStudentSubmittedById = (assignmentId) =>
 
       // Chuyển đối tượng thành mảng
       const mergedResponse = Object.values(studentMap);
-
+     
       resolve({
         err: mergedResponse ? 0 : 1,
         message: mergedResponse ? "Got" : "Can not found!!!",
@@ -125,6 +125,9 @@ export const getStudentSubmittedById = (assignmentId) =>
       reject(e);
     }
   });
+
+
+  
 
 //Cũ
 // export const get_submission_ById = (assignment_id, studentId) =>
@@ -232,44 +235,147 @@ export const get_submission_ById = (assignment_id, studentId) =>
     }
   });
 
-// export const checkSubmission = (studentId) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       const response = await db.Submission.findAll({
-//         attributes: ["id", "student_id", "assignment_id", "submission_status"],
-//         where: { student_id: studentId },
-//           include: [
-//             {
-//               model: db.Student,
-//               as: "studentData",
-//               attributes: ["student_name"],
-//             },
-//             {
-//               model: db.Assignment,
-//               as: "assignmentData",
-//               attributes: ["deadline", "file_path", "assignment_name"],
-//             },
-//           ],
-//       });
 
-//       //Lặp qua từng phần tử (submission) của response(tìm kiếm trong db Submission)
-//       for (const submission of response) {
-//         // Kiểm tra xem có mục nào tương ứng trong bảng Grade không
-//         const submissionEntry = await db.Assignment.findOne({
-//           where: { id: submission.assignment_id },
-//         });
 
-//         // Cập nhật submit_status dựa trên kết quả
-//         submission.submission_status = submissionEntry ? "Đã nộp" : "Nộp bài";
-//       }
+// get submit short
+export const getSubmitShortService =(assignment_id) =>{
+  return new Promise(async(resolve,reject) =>{
+    try {
+      const response = await db.Submit_short.findAll({
+        where: { assignment_id: assignment_id },
+        attributes: [
+          "id",
+          "student_id",
+          "assignment_id",
+          "submission_status",
+          "answer_short",
+          "createdAt",
+          "class_id",
+        ],
+        include: [
+          {
+            model: db.Student,
+            as: "studentData",
+            attributes: ["student_name"],
+          },
+          {
+            model: db.Grade_short,
+            as: "gradeData",
+          },
+        ],
+      });
 
-//       resolve({
-//         err: response ? 0 : 1,
-//         message: response ? "Got" : "Can not found!!!",
-//         response,
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e);
-//     }
-//   });
+      // Tạo một đối tượng để theo dõi học sinh đã xuất hiện
+      const studentMap = {};
+
+      for (const submit of response) {
+        const studentId = submit.student_id;
+     
+
+        // Nếu học sinh đã xuất hiện trong đối tượng, gộp thông tin
+        if (studentMap[studentId]) {
+          studentMap[studentId].answer_short.push(submit.answer_short);
+        } else {
+          // Nếu học sinh chưa xuất hiện, thêm mới vào đối tượng
+          studentMap[studentId] = {
+            id: submit.id,
+            student_id: studentId,
+            assignment_id: submit.assignment_id,
+            student_name: submit.studentData.student_name,
+            submission_status: submit.submission_status,
+            createdAt: submit.createdAt,
+            class_id: submit.class_id,
+            answer_short: [submit.answer_short],
+            gradeData: submit.gradeData,
+          };
+        }
+
+        // Kiểm tra xem có mục nào tương ứng trong bảng Grade không
+        const gradeEntry = await db.Grade_short.findOne({
+          where: { submission_id: submit.id },
+        });
+
+        // Cập nhật submit_status dựa trên kết quả
+        studentMap[studentId].submission_status = gradeEntry
+          ? "Đã chấm"
+          : "Chấm bài";
+      }
+
+      // Chuyển đối tượng thành mảng
+      const mergedResponse = Object.values(studentMap);
+      console.log(response)
+      resolve({
+        err: mergedResponse ? 0 : 1,
+        message: mergedResponse ? "Ok" : "Can not found!!!",
+        response: mergedResponse,
+      });
+        
+    } catch (error) {
+        reject(error)
+    }
+  })
+}
+export const getSubmitGradingShortService = (assignment_id,studentId) =>{
+  return new Promise(async(resolve,reject) =>{
+    try {
+      const response = await db.Submit_short.findAll({
+        attributes: ["id", "student_id", "assignment_id", "answer_short", "submission_time"],
+       
+        where: { student_id: studentId, assignment_id: assignment_id },
+        include: [
+          {
+            model: db.Student,
+            attributes: ["student_name"],
+            as: "studentData", 
+          },
+          {
+            model: db.Class,
+            attributes: ["class_name"],
+            as: "classData", 
+          },
+          {
+            model: db.Assignment,
+            attributes: ["assignment_name"],
+            as: "assignmentData", 
+          },
+        ],
+      });
+
+       // Tạo một đối tượng để theo dõi học sinh đã xuất hiện cho từng cặp assignment_id và student_id
+       const submissionMap = {};
+
+       for (const submission of response) {
+         const key = `${submission.assignment_id}_${submission.student_id}`;
+ 
+         // Nếu đã xuất hiện, gộp thông tin
+         if (submissionMap[key]) {
+           submissionMap[key].answer_short.push(submission.answer_short);
+         } else {
+           // Nếu chưa xuất hiện, thêm mới vào đối tượng
+           submissionMap[key] = {
+            id: submission.id,
+            student_id: submission.student_id,
+            assignment_id: submission.assignment_id,
+            submission_time: submission.submission_time,
+            student_name: submission.studentData.student_name,
+            class_name: submission.classData.class_name,
+            assignment_name: submission.assignmentData.assignment_name,
+            answer_short: [JSON.parse(submission.answer_short)], 
+           };
+         }
+       }
+      // console.log(response.answer_short)
+      //Chuyển đối tượng thành mảng
+      const mergedResponse = Object.values(submissionMap);
+      console.log("merge",mergedResponse)
+      console.log(response)
+      resolve({
+        errCode:mergedResponse ? 0 : 1,
+        message: mergedResponse ? "Okeeeeee!" : "Can not found!!!",
+        response: mergedResponse,
+      })
+    } catch (error) {
+        reject(error)
+    }
+  })
+}

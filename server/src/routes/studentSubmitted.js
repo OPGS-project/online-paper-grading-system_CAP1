@@ -8,5 +8,5 @@ const router = express.Router();
 
 router.get("/:assignmentId", controllers.getStudentSubmittedById);
 
-
+router.get("/short/:assignment_id",controllers.getSubmitShort)
 module.exports = router;

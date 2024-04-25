@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       file_path: DataTypes.STRING,
       filename: DataTypes.STRING,
       id_teacher: DataTypes.STRING,
+      question_name:DataTypes.JSON,
+      answer_file:DataTypes.STRING,
+      ckeditor_settings:DataTypes.JSON,
+      description:DataTypes.STRING,
+      type_assignment:DataTypes.ENUM('0','1')
     },
     {
       sequelize,

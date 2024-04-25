@@ -4,47 +4,22 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import moment from 'moment/moment';
 
-const Submitted = () => {
+const ShortSubmitted = () => {
     const navigate = useNavigate();
-    const params = useParams();
-    const [values, setValues] = useState([]);
-    const [csvData, setCsvData] = useState([]);
-    console.log(csvData)
-    useEffect(() => {
+    const [dataSubmit ,setDataSubmit] = useState([])
+    const params = useParams()
+    console.log(dataSubmit)
+
+
+    useEffect(() =>{
         axios
-            .get(`http://localhost:8081/api/studentSubmitted/${params.assignmentId}`)
-            .then((res) => {
-                setValues(res.data.response);
-                setCsvData(prepareCsvData(res.data.response));
+            .get(`http://localhost:8081/api/studentSubmitted/short/${params.assignmentId}`)
+            .then((res) =>{
+                setDataSubmit(res.data.response)
+                console.log(res)
+
             })
-            .catch((err) => console.error(err));
-    }, [params.assignmentId]);
-
-    const prepareCsvData = (data) => {
-        const totalScores = data.reduce((sum, submission) => {
-            return sum + (submission.gradeData ? submission.gradeData.score_value || 0 : 0);
-        }, 0);
-
-        const averageScore = data.length > 0 ? totalScores / data.length : 0;
-
-        // Prepare data for CSV export
-        const csvData = data.map((submission, index) => ({
-            'Tên học sinh': submission.student_name,
-            'Trạng thái': 'Đã nộp',
-            'Ngày nộp': moment(submission.createdAt).format('DD-MM-YYYY HH:mm'),
-            'Ngày chấm':
-                submission.gradeData && submission.gradeData.createdAt
-                    ? moment(submission.gradeData.createdAt).format('DD-MM-YYYY HH:mm')
-                    : 'Chưa chấm',
-            Điểm:
-                submission.gradeData && submission.gradeData.score_value
-                    ? submission.gradeData.score_value
-                    : 'Chưa chấm',
-            'Điểm trung bình của bài tập: ': index === 0 ? averageScore.toFixed(2) : '',
-        }));
-        return csvData;
-    };
-
+    },[])
     return (
         <div className="container-fluid">
             <button
@@ -59,9 +34,9 @@ const Submitted = () => {
                 <div className="card-header py-3 d-flex justify-content-between">
                     <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Nộp</h6>
                     <div>
-                        <CSVLink data={csvData} filename={'Score_Student_data.csv'} className="btn btn-primary ml-2">
+                        {/* <CSVLink data={true} filename={'Score_Student_data.csv'} className="btn btn-primary ml-2">
                             <i className="fa-solid fa-file-arrow-down"></i> Export csv
-                        </CSVLink>
+                        </CSVLink> */}
                     </div>
                 </div>
                 <div className="card-body">
@@ -69,18 +44,18 @@ const Submitted = () => {
                     <table className="table table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead className="text-center">
                             <th>Tên học sinh</th>
-                            <th>Trạng Thái</th>
+                          
                             <th>Thời gian nộp</th>
                             <th>Thời gian chấm</th>
                             <th>Điểm</th>
                             <th></th>
                         </thead>
                         <tbody className="text-center">
-                            {values.length > 0 ? (
-                                values?.map((data, i) => (
+                            {dataSubmit.length > 0 ? (
+                                dataSubmit?.map((data, i) => (
                                     <tr key={i}>
                                         <td>{data.student_name}</td>
-                                        <td>Đã nộp</td>
+                                        
                                         <td>{moment(data.createdAt).format('DD-MM-YYYY HH:mm ')}</td>
                                         <td>
                                             {data.gradeData && data.gradeData.createdAt
@@ -113,7 +88,7 @@ const Submitted = () => {
                                                 </Link>
                                             ) : (
                                                 <Link
-                                                    to={`/home/grading/${data.assignment_id}/${data.student_id}`}
+                                                    to={`/home/grading-short/${data.assignment_id}/${data.student_id}`}
                                                     className="btn btn-outline-success"
                                                 >
                                                     {data.submission_status}
@@ -132,7 +107,7 @@ const Submitted = () => {
                 </div>
             </div>
         </div>
-    );
+    )
 };
 
-export default Submitted;
+export default ShortSubmitted;

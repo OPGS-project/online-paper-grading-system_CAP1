@@ -67,9 +67,9 @@ export const deleteStudent = async (req, res) => {
 
 export const uploadCSV = async (req, res) => {
   const csvFilePath = `${__dirname}/../uploads/${req.file.filename}`;
-  console.log("CSV File Path:", csvFilePath);
+  // console.log("CSV File Path:", csvFilePath);
   const { classId } = req.params;
-  console.log(classId);
+  // console.log(classId);
   const results = [];
 
   const processCSV = () => {
@@ -80,7 +80,7 @@ export const uploadCSV = async (req, res) => {
         .on("data", async (data) => {
           try {
             const object = {};
-            console.log(data);
+            // console.log(data);
             for (const [key, value] of Object.entries(data)) {
               if (key === "Giới tính") {
                 object.gender = value;
@@ -99,7 +99,7 @@ export const uploadCSV = async (req, res) => {
               }
             }
             object.class_id = classId;
-            // console.log(object);
+            console.log(object);
 
             // Parse the date string into a JavaScript Date object
             const parsedBirthday = new Date(object.birthday);

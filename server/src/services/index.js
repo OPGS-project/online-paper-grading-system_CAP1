@@ -8,3 +8,6 @@ export * from "./submissionService";
 export * from "./gradingService";
 export * from "./submission";
 export * from "./pageStudentService";
+
+// // add short assignment
+export * from "./shortAssignService"

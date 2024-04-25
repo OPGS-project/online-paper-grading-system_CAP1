@@ -12,6 +12,8 @@ router.use(verifyToken);
 router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
 
+
+
 //PRIVATE ROUTER
 router.post(
   "/",
@@ -27,4 +29,11 @@ router.put(
 
 router.delete("/:assignmentId", controllers.deleteAssignment);
 
+
+// add short 
+router.post(
+  "/add-short-assignment",
+  uploadAssignment.single("file_path"),
+  controllers.addShortAssignment
+  );
 module.exports = router;

@@ -270,7 +270,7 @@ export default function Student() {
                     navigate(-1);
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
             <h1 className="h3 mb-2 text-center">Danh sách học sinh lớp {dataClass.class_name}</h1>
 
@@ -280,7 +280,7 @@ export default function Student() {
                         + Thêm học sinh
                     </Link>
                     <label htmlFor="import" className="btn btn-warning ml-5 mt-2">
-                        <i class="fa-solid fa-file-import"></i> Import
+                        <i className="fa-solid fa-file-import"></i> Import
                     </label>
                     <input type="file" id="import" onChange={handleImport} hidden />
                     <CSVLink data={csvData} filename={'student_data.csv'} className="btn btn-primary ml-2">
