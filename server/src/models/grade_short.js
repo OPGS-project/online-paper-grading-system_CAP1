@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       submission_id: DataTypes.INTEGER,
       score_value: DataTypes.FLOAT,
       comments: DataTypes.TEXT,
-      answer_short_json:DataTypes.JSON
+      answer_short_json:DataTypes.JSON,
     },
     {
       sequelize,

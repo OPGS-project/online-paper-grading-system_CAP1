@@ -61,3 +61,19 @@ export const submitAssignmentShort = async (req, res) => {
     return res.status(500).json({ errorCode: 500, message: "Internal Server Error" });
   }
 };
+
+
+// get graded for student page return assignment short 
+export const getGradedForStudent = async(req, res) =>{
+  try {
+    const { idStudent } = req.params;
+    console.log("for student",idStudent);
+    const response =await authServices.getGradedForStudentService(idStudent)
+    return res.status(200).json(response);
+    
+  } catch (error) {
+    console.log(error)
+    // return res.status(500).json(response)
+    
+  }
+}

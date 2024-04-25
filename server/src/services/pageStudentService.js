@@ -182,3 +182,52 @@ export const getStudentCurrent = (id) =>
         }
     });
 };
+
+// get graded for student page return assignment short 
+export const getGradedForStudentService = async (idStudent) => {
+  try {
+    const response = await db.Grade_short.findAll({
+      where: { student_id: idStudent },
+      include: [
+        {
+          model: db.Submit_short,
+          as: "submissionData",
+          attributes: ["answer_short"],
+          include: [
+            {
+              model: db.Assignment,
+              as: "assignmentData",
+              attributes: ["assignment_name"],
+            },
+            {
+              model: db.Student,
+              as: "studentData",
+              attributes: ["student_name"],
+            },
+          ],
+        },
+      ],
+    });
+
+    // Phân tích dữ liệu JSON và tạo một mảng mới
+    const parsedResponse = response.map(item => ({
+      student_id: item.student_id,
+      score_value: item.score_value,
+      comments: item.comments,
+      assignment_name: item.submissionData.assignmentData.assignment_name,
+      student_name: item.submissionData.studentData.student_name,
+      answer_short_json: JSON.parse(item.answer_short_json),
+      // // Phân tích points từ chuỗi JSON
+      // points: JSON.parse(item.points)
+    }));
+
+    return {
+      err: parsedResponse ? 0 : 1,
+      message: parsedResponse ? "Success!" : "No data found!!!",
+      response: parsedResponse,
+    };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

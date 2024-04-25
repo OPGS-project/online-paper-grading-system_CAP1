@@ -75,7 +75,7 @@ function SidebarStudent() {
 
             <li className="nav-item mb-5">
                 <Link
-                    to="/student/return-assignment"
+                    to="/student/return-assignment-short"
                     className="custom-link no-underline"
                     style={{ textDecoration: 'none' }}
                 >

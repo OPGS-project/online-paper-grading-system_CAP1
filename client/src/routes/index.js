@@ -35,7 +35,7 @@ import UpdatePassStudent from '~/pagesStudent/UpdatePassStudent';
 import UploadAssignment from '~/pagesStudent/UploadAssignment';
 import DoAssignmentShort from '~/pagesStudent/DoAssignmentShort';
 import AssignmentShort from '~/pagesStudent/AssignmentShort';
-
+import ReturnAssignmentShort from '~/pagesStudent/ReturnAssignmentShort';
 
 //Public routes
 const publicRoutes = [
@@ -96,6 +96,7 @@ const privateRoutes = [
     { path: '/student/return-assignment', component: ReturnAssignment },
     { path: '/student/do-assignment-short/:assignmentId/:classId', component: DoAssignmentShort } ,///:assignmentId:/classId
     { path: '/student/assignment-short-student', component: AssignmentShort },
+    { path: '/student/return-assignment-short', component: ReturnAssignmentShort },
 
     { path: '/student/upload-assignment/:aid/:classId', component: UploadAssignment },
     { path: '/student/student-profile', component: ProfileStudent },

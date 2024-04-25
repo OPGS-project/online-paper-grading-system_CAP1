@@ -5,6 +5,7 @@ import { useParams ,useNavigate} from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
 import '~~/pages/GradingShort.scss';
 
+
 function GradingShort() {
     const params = useParams();
     const navigate = useNavigate()
@@ -16,9 +17,12 @@ function GradingShort() {
     // const [iconDirection, setIconDirection] = useState("down");
     console.log(total)
     const [idSubmit,setIdSubmit] = useState('')
-    console.log(points)
+    console.log( points)
     console.log(JSON.stringify(answerStudent))
     console.log(idSubmit)
+    console.log(answerStudent)
+
+    // const [isInputComment,setinputComment] = useState(false)
 
     useEffect(() => {
         const fetchDataStudent = async () => {
@@ -54,6 +58,9 @@ function GradingShort() {
     // const handleInputGrade = ()=>{
 
     // }
+    // const handleComment = () =>{
+    //     setinputComment(true)
+    // }
     const toggleAnswer = (index) => {
         setShowAnswer((prevStates) => ({
             ...prevStates,
@@ -88,13 +95,19 @@ function GradingShort() {
 
     const handleSaveGraded = async() =>{
         try {
-            
+             // Update answerStudent with points
+             const updatedAnswerStudent = answerStudent.map((item, index) => ({
+                ...item,
+                point: points[index], // Assume point field is added to answerStudent object
+            }));
             const data = {
                 student_id:parseInt( params.student_id, 10),
                 submission_id:idSubmit,
                 score_value:total,
                 comments:"aaaa",
-                answer_short_json:JSON.stringify(answerStudent)
+                answer_short_json:JSON.stringify(updatedAnswerStudent),
+                // points:JSON.stringify(points)
+
             }
             const response =await axios.post(`http://localhost:8081/api/grading/graded-short`,data)
             console.log(response)
@@ -128,9 +141,7 @@ function GradingShort() {
                             <p className='header-infor'>Thời gian nộp bài: {moment(item.submission_time).format('DD-MM-YYYY HH:mm a')}</p>
                         </div>
                     </div>
-                    {/* {console.log(item.answer_short)} */}
                     {answerStudent.map((answer, index) => (
-                        
                         <div className="container-short" key={index}>
                             <div className="question-container shadow-sm">
                                 <div className='question-teacherAnswer'>
@@ -157,15 +168,20 @@ function GradingShort() {
                                     </div>
 
                                     <div className='_grading'>
-                                        <div className='button-grading'>
-                                            <button style={{ color: "red" }} className='incorrect-answer' onClick={() => handleGrade(index, 0)} ><i className="fas fa-thin fa-xmark"></i></button>
-                                            <button style={{ color: "rgb(12, 245, 12)" }} className='correct-answer' onClick={() => handleGrade(index, answer.grade)} ><i className="fas fa-thin fa-check"></i></button>
+                                        <div className='comment'>
+                                            <button >them phan hoi</button>
                                         </div>
-                                        <div className='point-grading'>
-                                            
-                                            <input className='input-point' type="number" step="0.1" name='grade' min={0} max={answer.grade} value={points[index] } onChange={(e) => handleGrade(index, parseFloat(e.target.value))} />
-                                            <span>/</span>
-                                            <span style={{ marginLeft: "5px" }}>{answer.grade}</span>
+                                        <div className='aaaaaa'>
+                                            <div className='button-grading'>
+                                                <button style={{ color: "red" }} className='incorrect-answer' onClick={() => handleGrade(index, 0)} ><i className="fas fa-thin fa-xmark"></i></button>
+                                                <button style={{ color: "rgb(12, 245, 12)" }} className='correct-answer' onClick={() => handleGrade(index, answer.grade)} ><i className="fas fa-thin fa-check"></i></button>
+                                            </div>
+                                            <div className='point-grading'>
+                                                
+                                                <input className='input-point' type="number" step="0.1" name='grade' min={0} max={answer.grade} value={points[index] } onChange={(e) => handleGrade(index, parseFloat(e.target.value))} />
+                                                <span>/</span>
+                                                <span style={{ marginLeft: "5px" }}>{answer.grade}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
