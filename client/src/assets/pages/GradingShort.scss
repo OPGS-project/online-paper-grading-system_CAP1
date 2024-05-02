@@ -92,7 +92,98 @@
                 justify-content: space-between;
 
               .comment{
-                margin: 20px 20px 10px 0px;
+                margin: 25px 20px 10px 0px;
+
+                .button-appear-comment{
+                  border: none;
+                  padding: 10px;
+                  margin-left: 10px;
+                  color: rgb(62, 140, 250);
+                  background-color: transparent;
+                  &:hover{
+                    background-color: rgb(244, 247, 252);
+                  }
+                }
+                .show-input{
+                  // width: 500px;
+                  // height: 100px;
+                  
+                  position: fixed;
+                  left: 0;
+                  top: 0;
+                  bottom: 0;
+                  right: 0;
+                  opacity: 1;
+                  background-color: rgba(0, 0, 0, .5);
+                  z-index:5000;
+                  .sub-show-input{
+                    margin-top: 100px;
+                    display: flex;
+                    bottom: 0;
+                    left: 0;
+                    padding: 0 5%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+
+                    .sub-sub-show-input{
+                      margin: 0 auto;
+                      height: 300px;
+                      display: flex;
+                      flex-direction: column;
+                      box-shadow: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+                      background-color: #fff;
+                      border-radius: 8px;
+                      max-width: 24em;
+                      outline: 1px solid transparent;
+                      overflow: hidden;
+                      position: relative;
+                      max-width: 100%;
+                      width: 600px;
+
+                      .header-comment{
+                        padding: 25px;
+                      }
+                      .content-comment{
+                        width: 100%;
+                        padding: 10px 30px;
+                      
+                        .input-comment{
+                          width: 100%;
+                          
+                          padding: 10px;
+                          border: none;
+                          background-color: rgb(247, 246, 246);
+                          // border-radius: 10px;
+                          border-bottom: 2px solid;
+                          &:hover{
+                            background-color: rgb(224, 224, 224);
+                          }
+                        }
+                      }
+                      .cancel-save{
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        margin: 0px 30px 50px 10px;
+                        display: flex;
+                        gap: 10px;
+                        button{
+                          padding: 5px;
+                          width: 60px;
+                          float: right;
+                          border: none;
+                          border-radius: 5px;
+                          
+                         
+                        }
+                        
+                      }
+                     
+                    }
+                  }
+
+                }
               }
               .aaaaaa{
                 margin: 20px 20px 10px 0px;
