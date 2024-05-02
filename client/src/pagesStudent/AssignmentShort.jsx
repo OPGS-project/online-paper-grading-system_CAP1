@@ -18,7 +18,6 @@ function AssignmentShort() {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetShortAssignment(token);
-           
             if (response?.data.err === 0) {
                 const classId = response.data.response.class_id;
                 const userName = response.data.response.student_name;
@@ -33,11 +32,7 @@ function AssignmentShort() {
         };
         token && fetchUser();
     }, [token]);
-    const classIds = values.map(item => item.id);
-    // setClassId(classIds)
-    console.log(classId)
-
-    console.log(classIds); // Mảng chứa các class_id
+   
     return (
         <div className="container-fluid">
             <div className="card shadow">
@@ -104,7 +99,6 @@ function AssignmentShort() {
                                                             )}
                                                         
                                                         <td>
-                                                            
                                                             {isClosed ? (
                                                                 <span>Hết hạn</span>
                                                             ):(

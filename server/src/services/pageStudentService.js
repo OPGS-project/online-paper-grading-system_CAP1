@@ -217,8 +217,6 @@ export const getGradedForStudentService = async (idStudent) => {
       assignment_name: item.submissionData.assignmentData.assignment_name,
       student_name: item.submissionData.studentData.student_name,
       answer_short_json: JSON.parse(item.answer_short_json),
-      // // Phân tích points từ chuỗi JSON
-      // points: JSON.parse(item.points)
     }));
 
     return {

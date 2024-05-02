@@ -21,9 +21,11 @@ function GradingShort() {
     console.log(JSON.stringify(answerStudent))
     console.log(idSubmit)
     console.log(answerStudent)
+    
 
-    // const [isInputComment,setinputComment] = useState(false)
-
+    const [showInputComment,setShowCommentInput] = useState({})
+    const [comments, setComments] = useState({})
+    console.log(comments)
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
@@ -67,6 +69,19 @@ function GradingShort() {
             [index]: !prevStates[index],
         }));
     };
+    const toggleCommentInput = (index) => {
+        setShowCommentInput((prevShowCommentInput) => ({
+            ...prevShowCommentInput,
+            [index]: !prevShowCommentInput[index],
+        }));
+    };
+    const handleCommentChange = (index, event) => {
+        const { value } = event.target;
+        setComments((prevComments) => ({
+            ...prevComments,
+            [index]: value,
+        }));
+    }
 
     const handleGrade = (index, grade) => {
         // const finalGrade = grade === answerStudent[index].grade ? grade : 0;
@@ -98,8 +113,10 @@ function GradingShort() {
              // Update answerStudent with points
              const updatedAnswerStudent = answerStudent.map((item, index) => ({
                 ...item,
-                point: points[index], // Assume point field is added to answerStudent object
+                point: points[index],
+                comment:comments[index],
             }));
+            console.log(updatedAnswerStudent)
             const data = {
                 student_id:parseInt( params.student_id, 10),
                 submission_id:idSubmit,
@@ -129,6 +146,27 @@ function GradingShort() {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleSaveComment = (index) => {
+        const comment = comments[index];
+
+        setComments((prevComments) => ({
+            ...prevComments,
+            [index]: comment, 
+        }));
+        //Ẩn button thêm phản hồi sau khi lưu
+        setShowCommentInput((prevShowCommentInput) => ({
+            ...prevShowCommentInput,
+            [index]: false,
+        }));
+
+    }
+    const handleHiddenComment = (index) => {
+
+
+        toggleCommentInput(index)
+
     }
     return (
         <div className="container-fluid" style={{ display: "flex", width: "100%" }}>
@@ -169,7 +207,41 @@ function GradingShort() {
 
                                     <div className='_grading'>
                                         <div className='comment'>
-                                            <button >them phan hoi</button>
+                                            {comments[index] ? (
+                                                <div style={{display:"flex",gap:"10px"}} className='aaaa'>
+                                                    <span>{comments[index]}</span>
+                                                    <div>
+                                                        <button style={{border:"none",backgroundColor:"transparent"}}><i class="fa-solid fa-pen-to-square"></i></button>
+                                                        <button style={{border:"none",backgroundColor:"transparent"}}><i class="fa-solid fa-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            ):(
+                                                              
+                                                <button className='button-appear-comment' onClick={() => toggleCommentInput(index)}> <i class="fa-solid fa-plus"></i>Thêm phản hồi</button>
+                                                             
+                                            )}
+                                            
+                                            {showInputComment[index] && (
+                                                <div className='show-input'>
+                                                   <div className='sub-show-input'>
+                                                        <div className='sub-sub-show-input'>
+
+                                                            
+                                                            <div className='header-comment'>
+                                                                <span>Thêm phản hồi</span>
+                                                            </div>
+                                                            <div className='content-comment'>
+                                                                <input className='input-comment' type="text" value={comments[index]} onChange={(e) => handleCommentChange(index, e)} placeholder='Nhập phản hồi'/>
+                                                            </div>
+                                                           
+                                                            <div className='cancel-save'>
+                                                                <button style={{backgroundColor:""}}  onClick={() => handleHiddenComment(index)}>Huỷ</button>
+                                                                <button style={{backgroundColor:"rgb(111, 159, 247)"}}  onClick={() => handleSaveComment(index)}>Lưu</button>
+                                                            </div>
+                                                        </div>
+                                                   </div>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className='aaaaaa'>
                                             <div className='button-grading'>

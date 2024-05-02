@@ -7,38 +7,33 @@ import '~~/pages/assignment/DoAssignmentShort.scss';
 import { apiGetShortAssignmentDetail } from '~/apis/userService';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { ToastContainer,toast } from 'react-toastify';
 
 export default function DoAssignmentShort() {
-
   const { token } = useSelector((state) => state.auth);
   const { assignmentId, classId } = useParams();
-  const navigate = useNavigate()
-  console.log(token);
+  const navigate = useNavigate();
 
-  const [questionAnswers, setQuestionAnswers] = useState([]); // State mới lưu trữ câu trả lời
-
+  const [questionAnswers, setQuestionAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [submissionError, setSubmissionError] = useState('');
   const [assignment ,setAssignment] = useState({});
   const [question ,setQuestion] = useState({});
-  console.log(question)
+
   useEffect(() => {
     const fetchAssignmentDetail = async () => {
-        try {
-            const response = await apiGetShortAssignmentDetail(assignmentId, classId);
-            console.log(response.data.assignment.question_name);
-            setAssignment(response.data.assignment);
-            
-            if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
-                const questionData = JSON.parse(response.data.assignment.question_name);
-                setQuestion(questionData);
-                console.log(questionData)
-            } else {
-                console.error('Invalid question_name format');
-            }
-        } catch (error) {
-            console.error(error);
+      try {
+        const response = await apiGetShortAssignmentDetail(assignmentId, classId);
+        setAssignment(response.data.assignment);
+        if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
+          const questionData = JSON.parse(response.data.assignment.question_name);
+          setQuestion(questionData);
+        } else {
+          console.error('Invalid question_name format');
         }
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchAssignmentDetail();
   }, [assignmentId, classId]);
@@ -51,14 +46,36 @@ export default function DoAssignmentShort() {
     });
   };
   
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
+    setShowModal(true);
+  };
+
+  const handleModalSubmit = async () => {
+    setShowModal(false);
+    const response = await submitAssignment();
+    if(response.data.errorCode === 1) {
+      alert(response.data.message);
+      setTimeout(() => {
+        navigate("/student/assignment-short-student");
+      }, 1000);
+    } else {
+    
+      navigate("/student/assignment-short-student");
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSubmissionError(''); 
+  };
+
+  const submitAssignment = async () => {
     const submissionData = question.questions.map((question, index) => ({
-      question:question.title,
+      question: question.title,
       teacherAnswer: question.answer,
       grade: question.grade,
-      studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""), // bỏ thẻ html từ ckeditor
+      studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""),
     }));
-    
     
     const classIdInt = parseInt(classId, 10); 
     const assignmentIdInt = parseInt(assignmentId, 10); 
@@ -68,10 +85,10 @@ export default function DoAssignmentShort() {
       assignment_id: assignmentIdInt,
       class_id:  classIdInt,
       submission_time: new Date(),
-      answer_short:answerJson
-    }
-    console.log(data)
-    const response = await axios.post(
+      answer_short: answerJson
+    };
+
+    return await axios.post(
       'http://localhost:8081/api/main-student/submit-short',
       data,
       {
@@ -81,27 +98,6 @@ export default function DoAssignmentShort() {
         },
       }
     );
-    
-    console.log(response);
-    //testtt
-    if(response.data.errorCode === 1) {
-      alert(response.data.message)
-     setTimeout(() =>{
-      navigate("/student/assignment-short-student")
-     },1000)
-    }else{
-      alert("thành công")
-      navigate("/student/assignment-short-student")
-    }
-  };
-
-  const handleModalSubmit = () => {
-    closeModal();
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSubmissionError(''); 
   };
 
   return (
@@ -112,7 +108,7 @@ export default function DoAssignmentShort() {
 
       {Array.isArray(question.questions) && question.questions.map((item,index) => (
         <div className="title-container shadow-sm" key={index}>
-          <span className='question'><b style={{color:"#000"}}>Câu hỏi {index + 1}: </b></span>
+          <span className='question'><b style={{color:"#000"}}>Câu {index + 1}: </b></span>
           <span className='question' style={{color:"#000"}}>{item.title}</span> 
           
           <div className="content-add-item shadow-sm ckeditor-short">
@@ -133,12 +129,12 @@ export default function DoAssignmentShort() {
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to submit the assignment?</Modal.Body>
+        <Modal.Body>Bạn có chắc muốn nộp bài?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" onClick={handleModalSubmit}>
             Submit
           </Button>
         </Modal.Footer>

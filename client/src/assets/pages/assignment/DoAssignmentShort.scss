@@ -46,6 +46,8 @@
   /* Style for the modal */
   .modal-dialog {
     max-width: 500px;
+    // border: 1px solid red;
+    
   }
   
   /* Style for modal header */
@@ -58,6 +60,7 @@
   /* Style for modal body */
   .modal-body {
     padding: 20px;
+    margin: 0 auto;
   }
   
   /* Style for modal footer */
