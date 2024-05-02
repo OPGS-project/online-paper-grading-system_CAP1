@@ -167,7 +167,6 @@ export const getStudentCurrent = (id) =>
                   submission_time: new Date(),
                   submission_status: 'Đã nộp',
               });
-              console.log("submission", submission);
               resolve({
                   errorCode: 0,
                   message: "Nộp bài thành công",

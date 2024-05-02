@@ -303,7 +303,6 @@ export const getSubmitShortService =(assignment_id) =>{
 
       // Chuyển đối tượng thành mảng
       const mergedResponse = Object.values(studentMap);
-      console.log(response)
       resolve({
         err: mergedResponse ? 0 : 1,
         message: mergedResponse ? "Ok" : "Can not found!!!",
@@ -367,8 +366,6 @@ export const getSubmitGradingShortService = (assignment_id,studentId) =>{
       // console.log(response.answer_short)
       //Chuyển đối tượng thành mảng
       const mergedResponse = Object.values(submissionMap);
-      console.log("merge",mergedResponse)
-      console.log(response)
       resolve({
         errCode:mergedResponse ? 0 : 1,
         message: mergedResponse ? "Okeeeeee!" : "Can not found!!!",
