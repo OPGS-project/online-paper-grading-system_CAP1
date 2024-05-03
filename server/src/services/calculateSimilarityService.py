@@ -18,11 +18,11 @@ def preprocess_text(text):
 
 def calculate_similarity(text1, text2):
     # Tiền xử lý văn bản
-    processed_text1 = preprocess_text(text1)
-    processed_text2 = preprocess_text(text2)
+    processed_text1 = preprocess_text(text1) # đáp án giáo viên
+    processed_text2 = preprocess_text(text2) # đáp án học sinh
 
-    # Nếu cả hai chuỗi đều có độ dài nhỏ hơn 3 và chỉ chứa một từ, trả về 100%
-    if len(processed_text1.split()) < 3 and len(processed_text2.split()) < 3:
+    # Nếu đáp án học sinh có độ dài nhỏ hơn 3 trả về 100% hoặc 0%
+    if len(processed_text1.split()) < 0 and len(processed_text2.split()) < 3:
         return 100.0 if processed_text1 == processed_text2 else 0.0
 
     # Nếu không, thực hiện so sánh cosine similarity bình thường
