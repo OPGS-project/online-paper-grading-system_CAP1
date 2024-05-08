@@ -122,10 +122,6 @@ export const getStudentCurrent = (id) =>
             msg: "Không có bài tập nào trong lớp",
           });
         } else {
-          if (assignment.question_name) {
-            assignment.question_name = JSON.parse(assignment.question_name);
-          }
-  
           resolve({
             err: 0,
             msg: "OK",
@@ -167,7 +163,6 @@ export const getStudentCurrent = (id) =>
                   submission_time: new Date(),
                   submission_status: 'Đã nộp',
               });
-              console.log("submission", submission);
               resolve({
                   errorCode: 0,
                   message: "Nộp bài thành công",
@@ -217,8 +212,6 @@ export const getGradedForStudentService = async (idStudent) => {
       assignment_name: item.submissionData.assignmentData.assignment_name,
       student_name: item.submissionData.studentData.student_name,
       answer_short_json: JSON.parse(item.answer_short_json),
-      // // Phân tích points từ chuỗi JSON
-      // points: JSON.parse(item.points)
     }));
 
     return {
