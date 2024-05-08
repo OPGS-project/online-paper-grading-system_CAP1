@@ -77,7 +77,7 @@ function ReturnAssignmentShort() {
                                             </button>
                                         </td>
                                         <td>{item.comments}</td>
-                                        <td>{item.score_value}</td>
+                                        <td style={{color:"red"}}>{item.score_value}</td>
                                     </tr>
                                 ))
                             ) : (
@@ -92,32 +92,33 @@ function ReturnAssignmentShort() {
                         
                         {selectedSubmission && (
                             <div className='return-assign'>
-                                
-
-                               
                                 <div className='title-return-assign'>
                                     <div className='line'> </div>
-                                     {selectedSubmission.assignment_name}
-                                   
+                                     <h3>{selectedSubmission.assignment_name}</h3>
                                 </div>
                                 <div className='container-return-assign'>
                                     {question.map((item,index) => (
                                         <div className='content-return-assign'  key={index}>
                                             <div className='question-return'>
-
                                                 <div className='question' >
-                                                    <span >Câu {index +1} : {item.question} </span>
+                                                    <span>Câu {index +1} : {item.question} </span>
                                                 </div>
-                                                <div  style={{width:"20%",float:"right"}}> 
+                                                <div style={{width:"20%",float:"right"}}> 
                                                     <span style={{float:"right"}} > {item.point}/{item.grade} </span>
                                                 </div>
                                             </div>
-
-                                            <div style={{border:"1px solid blue" ,marginTop:"20px",marginBottom:"20px"}}>
-                                            <span > {item.studentAnswer} </span>
-                                            </div>
+                                            {item.point === 0 ? (
+                                                <div  style = {{backgroundColor:"rgb(252, 232, 230)"}} className='answer-return' >
+                                                    <span style={{padding:"10px"}}> {item.studentAnswer} </span>
+                                                    <i style={{color:"red"}} class="fa-solid fa-xmark"></i>
+                                                </div>
+                                            ):(
+                                                <div style = {{backgroundColor:"rgb(185, 252, 185)"}}  className='answer-return' >
+                                                    <span className='answer' >{item.studentAnswer} </span>
+                                                    <i style={{color:"rgb(17, 240, 17)"}} class="fa-solid fa-check"></i>
+                                                </div>
+                                            )}
                                         </div>
-                                       
                                     ))}
                                 </div>
                             </div>

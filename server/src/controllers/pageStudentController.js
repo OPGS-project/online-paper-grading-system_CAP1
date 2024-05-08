@@ -52,8 +52,6 @@ export const getAssignmentShortDetail = async(req, res) =>{
 export const submitAssignmentShort = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log("data từ body",req.body)
-    console.log(req.body.assignment_id)
     const response = await authServices.submitAssignmentShortService(req.body,id);
     return res.status(200).json(response);
   } catch (error) {
@@ -67,7 +65,6 @@ export const submitAssignmentShort = async (req, res) => {
 export const getGradedForStudent = async(req, res) =>{
   try {
     const { idStudent } = req.params;
-    console.log("for student",idStudent);
     const response =await authServices.getGradedForStudentService(idStudent)
     return res.status(200).json(response);
     

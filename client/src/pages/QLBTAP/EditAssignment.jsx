@@ -5,7 +5,6 @@ import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
-import Class from '../QLLOPHOC/Class';
 
 export default function EditAssignment() {
     const navigate = useNavigate();

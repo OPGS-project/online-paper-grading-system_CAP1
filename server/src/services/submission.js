@@ -5,51 +5,6 @@ import { Op } from "sequelize";
 import grade from "../models/grade";
 const cloudinary = require("cloudinary").v2;
 
-//Cũ
-// export const getStudentSubmittedById = (assignmentId) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       const response = await db.Submission.findAll({
-//         attributes: ["id", "student_id", "assignment_id", "submission_status", "image"],
-//         where: { assignment_id: assignmentId },
-//           include: [
-//             {
-//               model: db.Student,
-//               as: "studentData",
-//               attributes: ["student_name"],
-//             },
-//           ],
-//       });
-
-//       //test
-//       // for (const checkStudentSubmitted of response){
-//       //     const arrayImages = [checkStudentSubmitted.image];
-//       //   checkStudentSubmitted.image = checkStudentSubmitted.student_id > 0 ? arrayImages : checkStudentSubmitted.image;
-//       // }
-//       //test
-
-//       //Lặp qua từng phần tử (submission) của response(tìm kiếm trong db Submission)
-//       for (const submission of response) {
-//         // Kiểm tra xem có mục nào tương ứng trong bảng Grade không
-//         const gradeEntry = await db.Grade.findOne({
-//           where: { submission_id: submission.id },
-//         });
-
-//         // Cập nhật submit_status dựa trên kết quả
-//         submission.submission_status = gradeEntry ? "Đã chấm" : "Chấm bài";
-//       }
-
-//       resolve({
-//         err: response ? 0 : 1,
-//         message: response ? "Got" : "Can not found!!!",
-//         response,
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e);
-//     }
-//   });
-
 export const getStudentSubmittedById = (assignmentId) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -125,45 +80,6 @@ export const getStudentSubmittedById = (assignmentId) =>
       reject(e);
     }
   });
-
-
-  
-
-//Cũ
-// export const get_submission_ById = (assignment_id, studentId) =>
-//     new Promise(async (resolve, reject) => {
-//       try {
-//         const response = await db.Submission.findAll({
-//             attributes: ["id","student_id", "assignment_id", "image", "createdAt"],
-//             where: {student_id: studentId, assignment_id:  assignment_id},
-//             include: [
-//             {
-//                 model: db.Student,
-//                 attributes: ["student_name"],
-//                 as: "studentData", // Bí danh cho mối quan hệ
-//             },
-//             {
-//                 model: db.Class,
-//                 attributes: ["class_name"],
-//                 as: "classData", // Bí danh cho mối quan hệ
-//             },
-//             {
-//                 model: db.Assignment,
-//                 attributes: ["file_path"],
-//                 as: "assignmentData", // Bí danh cho mối quan hệ
-//             },
-//         ],
-//         });
-//         resolve({
-//           err: response ? 0 : 1,
-//           message: response ? "Oke" : "Can not found!!!",
-//           response,
-//         });
-//       } catch (e) {
-//         console.log(e);
-//         reject(e);
-//       }
-//     });
 
 export const get_submission_ById = (assignment_id, studentId) =>
   new Promise(async (resolve, reject) => {
@@ -303,7 +219,6 @@ export const getSubmitShortService =(assignment_id) =>{
 
       // Chuyển đối tượng thành mảng
       const mergedResponse = Object.values(studentMap);
-      console.log(response)
       resolve({
         err: mergedResponse ? 0 : 1,
         message: mergedResponse ? "Ok" : "Can not found!!!",
@@ -360,15 +275,13 @@ export const getSubmitGradingShortService = (assignment_id,studentId) =>{
             student_name: submission.studentData.student_name,
             class_name: submission.classData.class_name,
             assignment_name: submission.assignmentData.assignment_name,
-            answer_short: [JSON.parse(submission.answer_short)], 
+            answer_short: submission.answer_short, 
            };
          }
        }
       // console.log(response.answer_short)
       //Chuyển đối tượng thành mảng
       const mergedResponse = Object.values(submissionMap);
-      console.log("merge",mergedResponse)
-      console.log(response)
       resolve({
         errCode:mergedResponse ? 0 : 1,
         message: mergedResponse ? "Okeeeeee!" : "Can not found!!!",

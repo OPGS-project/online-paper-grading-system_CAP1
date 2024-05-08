@@ -7,17 +7,21 @@ import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { ToastContainer, toast } from 'react-toastify';
 
-export default function AddAssignmentShort() {
+export default function EditAssignmentShort() {
   const { token } = useSelector((state) => state.auth);
-
+  const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [inputValueTitle, setInputValueTitle] = useState('Tên bài tập');
-  const [inputValueDescription, setInputValueDescription] = useState(null);
-  const [inputValueTitleQuestion, setInputValueTitleQuestion] = useState('Nhập câu hỏi');
-  const [inputValueAnswerQuestion, setInputValueAnswerQuestion] = useState(null);
+  const [inputValueTitle, setInputValueTitle] = useState('');
+  const [inputValueDescription, setInputValueDescription] = useState('');
+  const [currentClass, setCurrentClass] = useState('');
   const [classList, setClassList] = useState([]);
+  const [question, setQuestion] = useState({});
+  const [answer, setAnswer] = useState({});
+  const [score, setScore] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
+  const [assignment, setAssignment] = useState(null);
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
@@ -26,13 +30,12 @@ export default function AddAssignmentShort() {
     deadline: moment().add(2, 'days').format('YYYY-MM-DDTHH:mm'),
   });
 
-  const [newItems, setNewItems] = useState([]);
   const [items, setItems] = useState([
     {
       id: uuidv4(),
-      title: 'Nhập câu hỏi',
-      answer: null,
-      grade: 0,
+      title: '',
+      answer: '',
+      grade: '',
     },
   ]);
 
@@ -42,10 +45,49 @@ export default function AddAssignmentShort() {
     errFinish: null,
     errTitle: null,
     errDescription: null,
-    errQuestion: {}, // Thay đổi từ null sang object để lưu thông tin lỗi theo id câu hỏi
+    errQuestion: {},
     errAnswer: {},
     errGrade: null,
-  }); // State để lưu thông tin về lỗi
+  });
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8081/api/assignment/${params.assignmentId}`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((res) => {
+        const assignmentData = res.data.response[0];
+        console.log(assignmentData);
+        setAssignment(assignmentData);
+
+        if (assignmentData.question_name && typeof assignmentData.question_name === 'string') {
+          const questionData = JSON.parse(assignmentData.question_name);
+          setQuestion(questionData);
+          setAnswer(questionData);
+          setScore(questionData);
+        } else {
+          console.error('Invalid question_name format');
+        }
+
+        setValues({
+          of_class: assignmentData.of_class,
+          start_date: moment(assignmentData.start_date).format('YYYY-MM-DDTHH:mm'),
+          deadline: moment(assignmentData.deadline).format('YYYY-MM-DDTHH:mm'),
+        });
+        setInputValueTitle(assignmentData.assignment_name);
+        setCurrentClass(assignmentData.classData.class_name);
+        setInputValueDescription(assignmentData.description);
+        // setItems(assignmentData.questions.map((question) => ({
+        //   id: uuidv4(),
+        //   title: question.title,
+        //   answer: question.answer,
+        //   grade: question.grade,
+        // })));
+      })
+      .catch((err) => console.error(err));
+  }, [params.assignmentId, token]);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -54,25 +96,30 @@ export default function AddAssignmentShort() {
   const handleAddItem = () => {
     const newItem = {
       id: uuidv4(),
-      title: inputValueTitleQuestion,
-      answer: inputValueAnswerQuestion,
-      grade: 0,
+      title: '',
+      answer: '',
+      grade: '',
     };
-    setNewItems((prevItems) => [...prevItems, newItem]);
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
+  const notifySuccess = (errorMessage) => {
+    toast.success(errorMessage, {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
 
-
-  const handleSaveQuestion = async (e) => {
+  const handleEditQuestion = async (e) => {
     e.preventDefault();
 
-    // Kiểm tra tính hợp lệ của các trường trước khi gửi dữ liệu
-    if (!validateFields(values, inputValueTitle, inputValueDescription, items, setError)) {
-      return;
-    }
-
-    setIsLoading(true); // Bắt đầu hiển thị loading khi bắt đầu xử lý dữ liệu
+    setIsLoading(true);
 
     const jsonQuestions = {
       questions: items.map((item) => ({
@@ -92,24 +139,27 @@ export default function AddAssignmentShort() {
     formData.append('deadline', values.deadline);
     formData.append('type_assignment', 1);
 
-    try {
-      const response = await axios.post(
-        'http://localhost:8081/api/short-assignment/add-short-assignment',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: token,
-          },
-        }
-      );
-      navigate('/home/assignment');
-      console.log('Response from server:', response.data);
-      setIsLoading(false); // Tắt hiển thị loading khi xử lý hoàn thành
-    } catch (error) {
-      console.error('Error occurred while sending data to server:', error);
-      setIsLoading(false); // Tắt hiển thị loading khi có lỗi
-    }
+    axios({
+      method: 'put',
+      url: `http://localhost:8081/api/short-assignment/edit-short-assignment/${params.assignmentId}`,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        authorization: token,
+      },
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res);
+        notifySuccess('Sửa bài tập thành công!');
+        setTimeout(() => {
+          navigate('/home/assignment');
+        }, 2000);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   };
 
   const handleDeleteItem = (id) => {
@@ -121,7 +171,6 @@ export default function AddAssignmentShort() {
     const selectedItem = items.find((item) => item.id === id);
     if (selectedItem) {
       const newItem = { ...selectedItem, id: uuidv4() };
-      setNewItems((prevItems) => [...prevItems, newItem]);
       setItems((prevItems) => [...prevItems, newItem]);
     }
   };
@@ -129,37 +178,29 @@ export default function AddAssignmentShort() {
   const handleGradeChange = (e) => {
     const inputGrade = parseFloat(e.target.value);
     const id = e.target.dataset.id;
-    // console.log(id);
-    // Tính tổng lại tất cả các điểm
-    const totalGrade = items.reduce((total, currentItem) => {
-      if (currentItem.id === id) {
-        return total + inputGrade;
-      } else {
-        return total + currentItem.grade;
-      }
-    }, 0);
 
-    // Kiểm tra nếu tổng điểm vượt quá 10
-    if (totalGrade > 10) {
-      alert('Tổng điểm của tất cả các câu hỏi không được vượt quá 10');
-      e.target.value = '';
-      return;
-    }
-
-    // Cập nhật điểm cho câu hỏi
     const newItems = items.map((item) => {
       if (item.id === id) {
         return { ...item, grade: inputGrade };
       }
       return item;
     });
+
+    const totalGrade = newItems.reduce((total, currentItem) => {
+      return total + parseFloat(currentItem.grade || 0);
+    }, 0);
+
+    if (totalGrade > 10) {
+      alert('Tổng điểm của tất cả các câu hỏi không được vượt quá 10');
+      e.target.value = '';
+      return;
+    }
+
     setItems(newItems);
   };
 
   const handleTitleInputChange = (e) => {
-    // Cập nhật giá trị của tiêu đề
     setInputValueTitle(e.target.value);
-    // Ẩn thông báo lỗi nếu có
     setError((prevError) => ({ ...prevError, errTitle: null }));
   };
 
@@ -167,12 +208,11 @@ export default function AddAssignmentShort() {
     setInputValueDescription(e.target.value);
     setError((prevError) => ({ ...prevError, errDescription: null }));
   };
+
   const handleQuestionInputChange = (e, id) => {
     const newItems = items.map((item) => {
       if (item.id === id) {
-        // Cập nhật giá trị của câu hỏi
         const newValue = e.target.value;
-        // Ẩn thông báo lỗi tương ứng nếu có
         const newError = { ...error };
         delete newError.errQuestion[id];
         setError(newError);
@@ -186,9 +226,7 @@ export default function AddAssignmentShort() {
   const handleAnswerInputChange = (e, id) => {
     const newItems = items.map((item) => {
       if (item.id === id) {
-        // Cập nhật giá trị của câu hỏi
         const newValue = e.target.value;
-        // Ẩn thông báo lỗi tương ứng nếu có
         const newError = { ...error };
         delete newError.errAnswer[id];
         setError(newError);
@@ -208,23 +246,9 @@ export default function AddAssignmentShort() {
       })
       .then((res) => setClassList(res.data.classData.rows))
       .catch((err) => console.error(err));
-  }, []);
-
-  // Import CSV file
-  const [isImporting, setIsImporting] = useState(false);
-  const params = useParams();
-
-  const [update, setUpdate] = useState(false);
-  const render = useCallback(() => {
-    setUpdate(!update);
-  }, [update]);
+  }, [token]);
 
   const handleImport = async (e) => {
-    if (isImporting) {
-      return;
-    }
-    setIsImporting(true);
-
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
@@ -232,29 +256,19 @@ export default function AddAssignmentShort() {
       try {
         const response = await axios.post(`http://localhost:8081/api/student/upload-short-csv`, formData);
         alert('CSV file uploaded successfully!');
-        // console.log(response.data.results);
-        // Trích xuất thông tin từ tệp CSV từ phía server
         const results = response.data.results;
-        // Tạo mới các mục câu hỏi và đáp án từ thông tin trích xuất được
         const newItemsFromCSV = results.map((item) => ({
           id: uuidv4(),
           title: item.question,
           answer: item.answer,
           grade: 0,
         }));
-        // console.log('aaaa',newItemsFromCSV)
-        // Cập nhật state với các mục mới từ CSV
         setItems((prevItems) => [...prevItems, ...newItemsFromCSV]);
-        setIsImporting(false);
       } catch (error) {
         console.error(error);
-        // alert('Error uploading CSV file. Please try again.');
-      } finally {
-        setIsImporting(false);
       }
     } else {
       alert('Please select a CSV file to upload.');
-      setIsImporting(false);
     }
   };
 
@@ -266,7 +280,15 @@ export default function AddAssignmentShort() {
         </button>
       </div>
       <div className="header-short-assignment">
-        <h1 className="h3 mb-2 text-gray-800 font-weight">Thêm bài tập ngắn</h1>
+        <button
+          className="btn btn-back ml"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
+        <h1 className="h3 mb-2 text-gray-800 font-weight">Chỉnh sửa bài tập ngắn</h1>
         <div>
           <label style={{ marginRight: 20 }} htmlFor="import" className="btn btn-warning mt-2">
             <i className="fa-solid fa-file-import"></i> Answer pdf
@@ -284,12 +306,11 @@ export default function AddAssignmentShort() {
           <button
             style={{ marginLeft: 20 }}
             className="btn btn-primary"
-            onClick={handleSaveQuestion}
+            onClick={handleEditQuestion}
             disabled={isLoading}
           >
-            {isLoading ? "Đang lưu..." : "Lưu"}
+            {isLoading ? "Đang chỉnh sửa..." : "Chỉnh sửa"}
           </button>
-
         </div>
       </div>
       <div className='select-class-deadline' style={{ width: "60%", display: "flex", marginTop: "20px" }}>
@@ -309,7 +330,7 @@ export default function AddAssignmentShort() {
                 setValues((prev) => ({ ...prev, of_class: e.target.value }));
               }}
             >
-              <option value="">Chọn lớp</option>
+              <option>{currentClass}</option>
               {classList.map((classItem, index) => (
                 <option key={index} value={classItem.class_name}>
                   {classItem.class_name}
@@ -379,33 +400,42 @@ export default function AddAssignmentShort() {
           type="text"
           value={inputValueDescription}
           onChange={handleDescriptionChange}
-          className="mt-2 description-text"
+          className="mt-2 ml-2 description-text"
           placeholder='Nhập mô tả'
         />
         {error?.errDescription && <div className="invalid-feedback ml-2">{error?.errDescription}</div>}
       </div>
       {items.map((item) => (
         <div
-          className={`content-add-item shadow-sm ${newItems.some((newItem) => newItem.id === item.id) ? 'add-item-animation' : ''}`}
+          className={`content-add-item shadow-sm ${items.some((newItem) => newItem.id === item.id) ? 'add-item-animation' : ''}`}
+
           key={item.id}
         >
           <div className="line"></div>
-          <textarea
-            type="text"
-            value={item.title}
-            onChange={(e) => handleQuestionInputChange(e, item.id)}
-            className={`title-question ml-2 ${error?.errQuestion[item.id] ? 'is-invalid' : ''}`}
-            placeholder='Nhập câu hỏi'
-          />
-          {error?.errQuestion[item.id] && <div className="invalid-feedback ml-2">{error?.errQuestion[item.id]}</div>}
-          <textarea
-            type="text"
-            value={item.answer}
-            onChange={(e) => handleAnswerInputChange(e, item.id)}
-            className={`answer-question ml-2 ${error?.errAnswer[item.id] ? 'is-invalid' : ''}`}
-            placeholder='Đáp án (nếu có)'
-          />
-          {error?.errAnswer[item.id] && <div className="invalid-feedback ml-2">{error?.errAnswer[item.id]}</div>}
+          {
+            Array.isArray(question.questions) && question.questions.map((q, index) => (
+              <textarea
+                key={index}
+                type="text"
+                defaultValue={q.title}
+                onChange={(e) => handleQuestionInputChange(e, item.id)}
+                className={'title-question ml-2'}
+                placeholder='Nhập câu hỏi'
+              />
+            ))
+          }
+          {
+            Array.isArray(answer.questions) && answer.questions.map((a, index) => (
+              <textarea
+                key={index}
+                type="text"
+                defaultValue={a.answer}
+                onChange={(e) => handleAnswerInputChange(e, item.id)}
+                className={'answer-question ml-2'}
+                placeholder='Đáp án (nếu có)'
+              />
+            ))
+          }
           <hr />
           <div className="footer-question">
             <span>
@@ -414,15 +444,21 @@ export default function AddAssignmentShort() {
               </i>
             </span>
             <span>
-              <input
-                type="number"
-                min="0"
-                max="10"
-                className="grade-input"
-                placeholder="Điểm"
-                onChange={handleGradeChange}
-                data-id={item.id}
-              />
+              {
+                Array.isArray(score.questions) && score.questions.map((s, index) => (
+                  <input
+                    key={index}
+                    type="number"
+                    min="0"
+                    max="10"
+                    className="grade-input"
+                    placeholder="Điểm"
+                    onChange={handleGradeChange}
+                    data-id={item.id}
+                    defaultValue={s.grade}
+                  />
+                ))
+              }
             </span>
             <span>
               <i
