@@ -359,11 +359,12 @@ export const getSubmitGradingShortService = (assignment_id,studentId) =>{
             student_name: submission.studentData.student_name,
             class_name: submission.classData.class_name,
             assignment_name: submission.assignmentData.assignment_name,
-            answer_short: [JSON.parse(submission.answer_short)], 
+            // answer_short: [submission.answer_short], 
+            answer_short: [JSON.parse(submission.answer_short)],// bên phú tân lỗi
            };
          }
        }
-      // console.log(response.answer_short)
+      // console.log(mergedResponse.answer_short)
       //Chuyển đối tượng thành mảng
       const mergedResponse = Object.values(submissionMap);
       resolve({

@@ -25,9 +25,12 @@ export default function DoAssignmentShort() {
       try {
         const response = await apiGetShortAssignmentDetail(assignmentId, classId);
         setAssignment(response.data.assignment);
+        console.log(response.data.assignment.question_name)
         if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
           const questionData = JSON.parse(response.data.assignment.question_name);
           setQuestion(questionData);
+          console.log(questionData)
+          console.log(response.data.assignment.question_name)
         } else {
           console.error('Invalid question_name format');
         }
