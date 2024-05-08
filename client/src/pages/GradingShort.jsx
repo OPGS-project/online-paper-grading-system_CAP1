@@ -5,7 +5,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import '~~/pages/GradingShort.scss';
 
-
 function GradingShort() {
     const params = useParams();
     const navigate = useNavigate()
@@ -18,7 +17,7 @@ function GradingShort() {
     const [idSubmit, setIdSubmit] = useState('')
     const [loading, setLoading] = useState(false);
 
-    const [showInputComment,setShowCommentInput] = useState({})
+    const [showInputComment, setShowCommentInput] = useState({})
     const [comments, setComments] = useState({})
     console.log(comments)
     useEffect(() => {
@@ -29,6 +28,7 @@ function GradingShort() {
                 const responseData = response.data.response[0];
                 const parseQuestion = JSON.parse(responseData.answer_short);
                 setAnswerStudent(parseQuestion);
+                console.log(parseQuestion);
 
                 const idSubmit = responseData.id
                 setIdSubmit(idSubmit)
@@ -106,7 +106,7 @@ function GradingShort() {
             const updatedAnswerStudent = answerStudent.map((item, index) => ({
                 ...item,
                 point: points[index],
-                comment:comments[index],
+                comment: comments[index],
             }));
             console.log(updatedAnswerStudent)
             const data = {
@@ -169,7 +169,7 @@ function GradingShort() {
 
         setComments((prevComments) => ({
             ...prevComments,
-            [index]: comment, 
+            [index]: comment,
         }));
         //Ẩn button thêm phản hồi sau khi lưu
         setShowCommentInput((prevShowCommentInput) => ({
@@ -178,12 +178,11 @@ function GradingShort() {
         }));
 
     }
+
     const handleHiddenComment = (index) => {
-
-
         toggleCommentInput(index)
-
     }
+
     return (
         <div className="container-fluid" style={{ display: "flex", width: "100%" }}>
             {dataSubmit.map((item, index) => (
@@ -230,38 +229,38 @@ function GradingShort() {
                                     <div className='_grading'>
                                         <div className='comment'>
                                             {comments[index] ? (
-                                                <div style={{display:"flex",gap:"10px"}} className='aaaa'>
+                                                <div style={{ display: "flex", gap: "10px" }} className='aaaa'>
                                                     <span>{comments[index]}</span>
                                                     <div>
-                                                        <button style={{border:"none",backgroundColor:"transparent"}}><i class="fa-solid fa-pen-to-square"></i></button>
-                                                        <button style={{border:"none",backgroundColor:"transparent"}}><i class="fa-solid fa-trash"></i></button>
+                                                        <button style={{ border: "none", backgroundColor: "transparent" }}><i class="fa-solid fa-pen-to-square"></i></button>
+                                                        <button style={{ border: "none", backgroundColor: "transparent" }}><i class="fa-solid fa-trash"></i></button>
                                                     </div>
                                                 </div>
-                                            ):(
-                                                              
+                                            ) : (
+
                                                 <button className='button-appear-comment' onClick={() => toggleCommentInput(index)}> <i class="fa-solid fa-plus"></i>Thêm phản hồi</button>
-                                                             
+
                                             )}
-                                            
+
                                             {showInputComment[index] && (
                                                 <div className='show-input'>
-                                                   <div className='sub-show-input'>
+                                                    <div className='sub-show-input'>
                                                         <div className='sub-sub-show-input'>
 
-                                                            
+
                                                             <div className='header-comment'>
                                                                 <span>Thêm phản hồi</span>
                                                             </div>
                                                             <div className='content-comment'>
-                                                                <input className='input-comment' type="text" value={comments[index]} onChange={(e) => handleCommentChange(index, e)} placeholder='Nhập phản hồi'/>
+                                                                <input className='input-comment' type="text" value={comments[index]} onChange={(e) => handleCommentChange(index, e)} placeholder='Nhập phản hồi' />
                                                             </div>
-                                                           
+
                                                             <div className='cancel-save'>
-                                                                <button style={{backgroundColor:""}}  onClick={() => handleHiddenComment(index)}>Huỷ</button>
-                                                                <button style={{backgroundColor:"rgb(111, 159, 247)"}}  onClick={() => handleSaveComment(index)}>Lưu</button>
+                                                                <button style={{ backgroundColor: "" }} onClick={() => handleHiddenComment(index)}>Huỷ</button>
+                                                                <button style={{ backgroundColor: "rgb(111, 159, 247)" }} onClick={() => handleSaveComment(index)}>Lưu</button>
                                                             </div>
                                                         </div>
-                                                   </div>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>

@@ -143,10 +143,9 @@ export default function Assignment() {
                         style={{ cursor: 'pointer' }}
                         onClick={(e) => {
                             e.stopPropagation();
-                            // return navigate(`/home/assignment/submitted/${data.id}`);
-                            if(data.type_assignment === '0'){
+                            if (data.type_assignment === '0') {
                                 return navigate(`/home/assignment/submitted/${data.id}`);
-                            }else if(data.type_assignment === '1') {
+                            } else {
                                 return navigate(`/home/assignment/submitted-short/${data.id}`);
                             }
                         }}
@@ -159,11 +158,11 @@ export default function Assignment() {
                         <td>{moment(data.deadline).format('DD-MM-YYYY HH:mm ')}</td>
                         <td>{data.classData?.class_name}</td>
                         <td>
-                                {data.type_assignment === '0' ? (
-                                    <span>Tự luận</span>
-                                ) : data.type_assignment === '1' ? (
-                                    <span>Câu trả lời ngắn</span>
-                                ) : null}
+                            {data.type_assignment === '0' ? (
+                                <span>Tự luận</span>
+                            ) : (
+                                <span>Câu trả lời ngắn</span>
+                            )}
                         </td>
                         {moment(new Date()) > moment(data.deadline) ? (
                             <td className="text-danger">
@@ -184,23 +183,21 @@ export default function Assignment() {
                                 </span>
                             </td>
                         )}
-    
-                        {/* <td>
-                            <Link className="btn " to={}>
-                                <FcViewDetails />
-                            </Link>
-                        </td> */}
+
                         <td onClick={(e) => e.stopPropagation()}>
-                            <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
-                                <i className="fa-solid fa-pen-to-square icon-edit"></i>
-                            </Link>
+                            {
+                                data.type_assignment === '0' ? (
+                                    <Link className="btn" to={`/home/assignment/edit-assignment/${data.id}`}>
+                                        <i className="fa-solid fa-pen-to-square icon-edit"></i>
+                                    </Link>
+                                ) : <Link className="btn" to={`/home/assignment/edit-assignment-short/${data.id}`}>
+                                    <i className="fa-solid fa-pen-to-square icon-edit"></i>
+                                </Link>
+                            }
                             <button className="btn" onClick={() => handleDelete(data.id, data.assignment_name)}>
                                 <i className="fa-solid fa-trash icon-delete"></i>
                             </button>
                         </td>
-                        {/* <td onClick={(e) => e.stopPropagation()}>
-                            
-                        </td> */}
                     </tr>
                 )
             })
@@ -255,7 +252,7 @@ export default function Assignment() {
                         + Bài tập ngắn
                     </Link>
                 </div>
-                
+
                 <div className="card-body">
                     <label className="mr-3">
                         Tìm Kiếm:

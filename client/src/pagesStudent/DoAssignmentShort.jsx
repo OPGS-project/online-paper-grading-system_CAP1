@@ -7,7 +7,6 @@ import '~~/pages/assignment/DoAssignmentShort.scss';
 import { apiGetShortAssignmentDetail } from '~/apis/userService';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { ToastContainer,toast } from 'react-toastify';
 
 export default function DoAssignmentShort() {
   const { token } = useSelector((state) => state.auth);
@@ -24,6 +23,7 @@ export default function DoAssignmentShort() {
     const fetchAssignmentDetail = async () => {
       try {
         const response = await apiGetShortAssignmentDetail(assignmentId, classId);
+        console.log(response.data.assignment.question_name);
         setAssignment(response.data.assignment);
         if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
           const questionData = JSON.parse(response.data.assignment.question_name);
@@ -76,10 +76,13 @@ export default function DoAssignmentShort() {
       grade: question.grade,
       studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""),
     }));
+
+    console.log("Data: ")
     
     const classIdInt = parseInt(classId, 10); 
     const assignmentIdInt = parseInt(assignmentId, 10); 
     const answerJson = JSON.stringify(submissionData);  
+    console.log(answerJson)
 
     const data = {
       assignment_id: assignmentIdInt,

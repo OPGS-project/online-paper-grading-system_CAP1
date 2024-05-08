@@ -34,3 +34,30 @@ export const addShortAssignmentService = async (body, fileData, tid) => {
         throw error;
     }
 };
+
+export const editShortAssignmentService = async (assignmentId, body) => {
+    try {
+        const dataClass = await db.Class.findOne({
+            where: { class_name: body.of_class },
+        });
+
+        const response = await db.Assignment.update(
+            {
+                ...body, 
+                of_class: dataClass.dataValues.id
+            },
+            {
+                where: { id: assignmentId } // Provide the Assignment ID here
+            }
+        );
+        
+        if (response) {
+            return { err: 0, mes: "Sửa bài tập ngắn thành công" };
+        } else {
+            return { err: 1, mes: "Không thể sửa bài tập ngắn!!!" };
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+

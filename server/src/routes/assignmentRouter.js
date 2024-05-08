@@ -12,8 +12,6 @@ router.use(verifyToken);
 router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
 
-
-
 //PRIVATE ROUTER
 router.post(
   "/",
@@ -29,6 +27,11 @@ router.put(
 
 router.delete("/:assignmentId", controllers.deleteAssignment);
 
+// edit short 
+router.put(
+  "/edit-short-assignment/:assignmentId",
+  controllers.editShortAssignment
+  );
 
 // add short 
 router.post(
