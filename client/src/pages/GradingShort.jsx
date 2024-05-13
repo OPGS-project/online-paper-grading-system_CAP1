@@ -21,6 +21,7 @@ function GradingShort() {
     const [showInputComment,setShowCommentInput] = useState({})
     const [comments, setComments] = useState({})
     console.log(comments)
+    console.log(answerStudent)
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
@@ -29,7 +30,8 @@ function GradingShort() {
                 const responseData = response.data.response[0];
                 const parseQuestion = JSON.parse(responseData.answer_short);
                 setAnswerStudent(parseQuestion);
-
+                console.log(responseData.answer_short)
+                console.log(parseQuestion)
                 const idSubmit = responseData.id
                 setIdSubmit(idSubmit)
                 //  tạo trạng thái showAnswer cho mỗi câu
@@ -83,13 +85,6 @@ function GradingShort() {
             [index]: grade,
         }));
     };
-    // const hanleTotal = () =>{
-    //     let sum =0;
-    //     for(let key in points){
-    //        sum +=points[key]
-    //        setTotal(sum)
-    //     }
-    // }
 
     //tính tổng điểm
     useEffect(() => {
@@ -115,7 +110,6 @@ function GradingShort() {
                 score_value: total,
                 comments: "aaaa",
                 answer_short_json: JSON.stringify(updatedAnswerStudent),
-                // points:JSON.stringify(points)
 
             }
             const response = await axios.post(`http://localhost:8081/api/grading/graded-short`, data)

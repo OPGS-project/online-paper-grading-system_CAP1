@@ -146,7 +146,7 @@ export default function Assignment() {
                             // return navigate(`/home/assignment/submitted/${data.id}`);
                             if(data.type_assignment === '0'){
                                 return navigate(`/home/assignment/submitted/${data.id}`);
-                            }else if(data.type_assignment === '1') {
+                            }else{
                                 return navigate(`/home/assignment/submitted-short/${data.id}`);
                             }
                         }}
@@ -161,9 +161,9 @@ export default function Assignment() {
                         <td>
                                 {data.type_assignment === '0' ? (
                                     <span>Tự luận</span>
-                                ) : data.type_assignment === '1' ? (
+                                ) : (
                                     <span>Câu trả lời ngắn</span>
-                                ) : null}
+                                )}
                         </td>
                         {moment(new Date()) > moment(data.deadline) ? (
                             <td className="text-danger">
