@@ -62,6 +62,19 @@ export const getAssignmentById = (assignmentId) =>
           },
         ],
       });
+      // Check if response is not empty
+      if (response && response.length > 0) {
+        response.forEach(item => {
+          if (item.question_name) {
+            try {
+              item.question_name = JSON.parse(item.question_name);
+            } catch (e) {
+              console.error("Error parsing question_name JSON:", e);
+              item.question_name = null;
+            }
+          }
+        });
+      }
 
       resolve({
         err: response ? 0 : 1,

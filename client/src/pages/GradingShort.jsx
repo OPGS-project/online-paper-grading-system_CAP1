@@ -271,7 +271,7 @@ function GradingShort() {
                                             </div>
                                             <div className='point-grading'>
 
-                                                <input className='input-point' type="number" step="0.1" name='grade' min={0} max={answer.grade} value={points[index]} onChange={(e) => handleGrade(index, parseFloat(e.target.value))} />
+                                                <input className='input-point' type="number" step="0.25" name='grade' min={0} max={answer.grade} value={points[index]} onChange={(e) => handleGrade(index, parseFloat(e.target.value))} />
                                                 <span>/</span>
                                                 <span style={{ marginLeft: "5px" }}>{answer.grade}</span>
                                             </div>

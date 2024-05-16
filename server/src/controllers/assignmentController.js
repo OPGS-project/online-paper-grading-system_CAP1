@@ -179,24 +179,16 @@ export const importShortExamCsv = async (req, res) => {
 // Edit short assignment
 export const editShortAssignment = async (req, res) => {
   try {
-    const assignmentId = req.params;
+    const assignmentId = req.params.assignmentId;
+    const body = req.body
 
-    // Kiểm tra xem assignment_name và short_answers đã được cung cấp hay chưa
-    if (!req.body.assignment_name || !req.body.question_name) {
-      return res.status(400).json({ success: false, error: 'Vui lòng cung cấp đầy đủ thông tin.' });
-    }
-
-    // Gọi hàm addShortAssignment từ service để thêm bài tập ngắn
-    const message = await authServices.editShortAssignmentService(
-      req.body,
-      assignmentId
-    );
-
-    // Kiểm tra kết quả trả về từ service và phản hồi cho client tương ứng
-    if (!message && message.err !== 0) {
-      return res.status(500).json({ success: false, error: 'Thêm bài tập ngắn thất bại.' });
-    }
-    return res.status(200).json({ success: true, message: message.mes });
+    console.log("controller",req.body)
+    const message = await authServices.editShortAssignmentService(body,assignmentId);
+    // // Kiểm tra kết quả trả về từ service và phản hồi cho client tương ứng
+    // if (!message && message.errCode !== 0) {
+    //   return res.status(500).json({ success: false, error: 'Thêm bài tập ngắn thất bại.' });
+    // }
+    return res.status(200).json({ success: true, message: message.message });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, error: 'Lỗi máy chủ .' });

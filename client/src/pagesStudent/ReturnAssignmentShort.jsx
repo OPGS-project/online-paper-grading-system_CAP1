@@ -118,6 +118,20 @@ function ReturnAssignmentShort() {
                                                     <i style={{color:"rgb(17, 240, 17)"}} class="fa-solid fa-check"></i>
                                                 </div>
                                             )}
+
+                                            {item.comment ? (
+
+                                                <div style={{ backgroundColor:"rgb(242 242 242)"}} className='comment-teacher'>
+                                                    <div style={{padding:"10px 20px",fontWeight:"700",color:"#000"}}>
+                                                        <span>Phản hồi của giáo viên</span>
+                                                    </div>
+                                                    <div style={{padding:"10px 40px"}}>
+                                                        <span style={{fontStyle:"italic"}} >{item.comment}</span>
+                                                    </div>
+                                                </div>
+                                            ):(
+                                                null
+                                            ) }
                                         </div>
                                     ))}
                                 </div>

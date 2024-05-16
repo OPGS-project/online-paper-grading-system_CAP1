@@ -127,7 +127,7 @@ export async function calculateSimilarity(req, res) {
   const calculateQuestionSimilarity = async (teacherAnswer, studentAnswer) => {
     return new Promise((resolve, reject) => {
       const pythonProcess = spawn('python', [
-        'E:\\captone-2\\online-paper-grading-system_CAP1\\server\\src\\services\\calculateSimilarityService.py',
+        'C:\\Users\\Admin\\Documents\\cap2\\online-paper-grading-system_CAP1\\server\\src\\services\\calculateSimilarityService.py',
         `"${teacherAnswer}"`,
         `"${studentAnswer}"`
       ]);

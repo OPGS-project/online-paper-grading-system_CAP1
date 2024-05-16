@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IoDuplicateOutline } from 'react-icons/io5';
 import '~~/pages/assignment/AddAssignmentShort.scss';
-import { validateFields } from '~/validation/validateShortAssignment.js';
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -14,30 +13,21 @@ export default function EditAssignmentShort() {
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [inputValueTitle, setInputValueTitle] = useState('');
+  
   const [inputValueDescription, setInputValueDescription] = useState('');
   const [currentClass, setCurrentClass] = useState('');
   const [classList, setClassList] = useState([]);
-  const [question, setQuestion] = useState({});
-  const [answer, setAnswer] = useState({});
-  const [score, setScore] = useState({});
+  const [questions, setQuestions] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [assignment, setAssignment] = useState(null);
   const navigate = useNavigate();
+  console.log(questions)
 
   const [values, setValues] = useState({
     of_class: '',
     start_date: moment().format('YYYY-MM-DDTHH:mm'),
     deadline: moment().add(2, 'days').format('YYYY-MM-DDTHH:mm'),
   });
-
-  const [items, setItems] = useState([
-    {
-      id: uuidv4(),
-      title: '',
-      answer: '',
-      grade: '',
-    },
-  ]);
 
   const [error, setError] = useState({
     errClass: null,
@@ -59,14 +49,9 @@ export default function EditAssignmentShort() {
       })
       .then((res) => {
         const assignmentData = res.data.response[0];
-        console.log(assignmentData);
-        setAssignment(assignmentData);
-
         if (assignmentData.question_name && typeof assignmentData.question_name === 'string') {
           const questionData = JSON.parse(assignmentData.question_name);
-          setQuestion(questionData);
-          setAnswer(questionData);
-          setScore(questionData);
+          setQuestions(questionData.questions);
         } else {
           console.error('Invalid question_name format');
         }
@@ -79,12 +64,6 @@ export default function EditAssignmentShort() {
         setInputValueTitle(assignmentData.assignment_name);
         setCurrentClass(assignmentData.classData.class_name);
         setInputValueDescription(assignmentData.description);
-        // setItems(assignmentData.questions.map((question) => ({
-        //   id: uuidv4(),
-        //   title: question.title,
-        //   answer: question.answer,
-        //   grade: question.grade,
-        // })));
       })
       .catch((err) => console.error(err));
   }, [params.assignmentId, token]);
@@ -93,18 +72,8 @@ export default function EditAssignmentShort() {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleAddItem = () => {
-    const newItem = {
-      id: uuidv4(),
-      title: '',
-      answer: '',
-      grade: '',
-    };
-    setItems((prevItems) => [...prevItems, newItem]);
-  };
-
-  const notifySuccess = (errorMessage) => {
-    toast.success(errorMessage, {
+  const notifySuccess = (message) => {
+    toast.success(message, {
       position: 'top-right',
       autoClose: 1000,
       hideProgressBar: false,
@@ -118,38 +87,48 @@ export default function EditAssignmentShort() {
 
   const handleEditQuestion = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
 
     const jsonQuestions = {
-      questions: items.map((item) => ({
-        title: item.title,
-        answer: item.answer,
-        grade: item.grade,
+      questions: questions.map((question) => ({
+        title: question.title,
+        answer: question.answer,
+        grade: question.grade,
       })),
     };
 
-    const formData = new FormData();
-    formData.append('assignment_name', inputValueTitle);
-    formData.append('description', inputValueDescription);
-    formData.append('question_name', JSON.stringify(jsonQuestions));
-    formData.append('of_class', values.of_class);
-    formData.append('file_path', selectedFile);
-    formData.append('start_date', values.start_date);
-    formData.append('deadline', values.deadline);
-    formData.append('type_assignment', 1);
-
+    // const formData = new FormData();
+    // formData.append('assignment_name', inputValueTitle);
+    // formData.append('description', inputValueDescription);
+    // formData.append('question_name', JSON.stringify(jsonQuestions));
+    // formData.append('of_class', values.of_class);
+    // formData.append('file_path', selectedFile);
+    // formData.append('start_date', values.start_date);
+    // formData.append('deadline', values.deadline);
+    // formData.append('type_assignment', 1);
+    const data = {
+      assignment_name:inputValueTitle,
+      description:inputValueDescription,
+      question_name:JSON.stringify(jsonQuestions),
+      of_class:values.of_class,
+      start_date: values.start_date,
+      deadline:values.deadline,
+      // type_assignment: 1
+    }
+    console.log(typeof data.type_assignment)
+    console.log(data)
     axios({
       method: 'put',
-      url: `http://localhost:8081/api/short-assignment/edit-short-assignment/${params.assignmentId}`,
+      url: `http://localhost:8081/api/short-assignment/edit-short-assignment/${params.assignmentId}`, 
+      data:data,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
         authorization: token,
       },
-      data: formData,
+     
     })
       .then((res) => {
-        console.log(res);
+        console.log(res)
         notifySuccess('Sửa bài tập thành công!');
         setTimeout(() => {
           navigate('/home/assignment');
@@ -162,31 +141,25 @@ export default function EditAssignmentShort() {
       });
   };
 
-  const handleDeleteItem = (id) => {
-    const updatedItems = items.filter((item) => item.id !== id);
-    setItems(updatedItems);
+  const handleDeleteItem = (index) => {
+    const updatedQuestions = questions.filter((_, i) => i !== index);
+    setQuestions(updatedQuestions);
   };
 
-  const handleDuplicateItem = (id) => {
-    const selectedItem = items.find((item) => item.id === id);
+  const handleDuplicateItem = (index) => {
+    const selectedItem = questions[index];
     if (selectedItem) {
       const newItem = { ...selectedItem, id: uuidv4() };
-      setItems((prevItems) => [...prevItems, newItem]);
+      setQuestions((prevQuestions) => [...prevQuestions, newItem]);
     }
   };
 
-  const handleGradeChange = (e) => {
+  const handleGradeChange = (e, index) => {
+    const newQuestions = [...questions];
     const inputGrade = parseFloat(e.target.value);
-    const id = e.target.dataset.id;
+    newQuestions[index].grade = inputGrade;
 
-    const newItems = items.map((item) => {
-      if (item.id === id) {
-        return { ...item, grade: inputGrade };
-      }
-      return item;
-    });
-
-    const totalGrade = newItems.reduce((total, currentItem) => {
+    const totalGrade = newQuestions.reduce((total, currentItem) => {
       return total + parseFloat(currentItem.grade || 0);
     }, 0);
 
@@ -196,7 +169,7 @@ export default function EditAssignmentShort() {
       return;
     }
 
-    setItems(newItems);
+    setQuestions(newQuestions);
   };
 
   const handleTitleInputChange = (e) => {
@@ -209,32 +182,16 @@ export default function EditAssignmentShort() {
     setError((prevError) => ({ ...prevError, errDescription: null }));
   };
 
-  const handleQuestionInputChange = (e, id) => {
-    const newItems = items.map((item) => {
-      if (item.id === id) {
-        const newValue = e.target.value;
-        const newError = { ...error };
-        delete newError.errQuestion[id];
-        setError(newError);
-        return { ...item, title: newValue };
-      }
-      return item;
-    });
-    setItems(newItems);
+  const handleQuestionInputChange = (e, index) => {
+    const newQuestions = [...questions];
+    newQuestions[index].title = e.target.value;
+    setQuestions(newQuestions);
   };
 
-  const handleAnswerInputChange = (e, id) => {
-    const newItems = items.map((item) => {
-      if (item.id === id) {
-        const newValue = e.target.value;
-        const newError = { ...error };
-        delete newError.errAnswer[id];
-        setError(newError);
-        return { ...item, answer: newValue };
-      }
-      return item;
-    });
-    setItems(newItems);
+  const handleAnswerInputChange = (e, index) => {
+    const newQuestions = [...questions];
+    newQuestions[index].answer = e.target.value;
+    setQuestions(newQuestions);
   };
 
   useEffect(() => {
@@ -257,13 +214,13 @@ export default function EditAssignmentShort() {
         const response = await axios.post(`http://localhost:8081/api/student/upload-short-csv`, formData);
         alert('CSV file uploaded successfully!');
         const results = response.data.results;
-        const newItemsFromCSV = results.map((item) => ({
+        const newQuestionsFromCSV = results.map((item) => ({
           id: uuidv4(),
           title: item.question,
           answer: item.answer,
           grade: 0,
         }));
-        setItems((prevItems) => [...prevItems, ...newItemsFromCSV]);
+        setQuestions((prevQuestions) => [...prevQuestions, ...newQuestionsFromCSV]);
       } catch (error) {
         console.error(error);
       }
@@ -275,17 +232,12 @@ export default function EditAssignmentShort() {
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
       <div className="right-sidebar">
-        <button className="add-new-button" onClick={handleAddItem}>
+        <button className="add-new-button" onClick={() => setQuestions([...questions, { id: uuidv4(), title: '', answer: '', grade: '' }])}>
           <i className="bi bi-plus-circle-fill"></i>
         </button>
       </div>
       <div className="header-short-assignment">
-        <button
-          className="btn btn-back ml"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
+        <button className="btn btn-back ml" onClick={() => navigate(-1)}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         <h1 className="h3 mb-2 text-gray-800 font-weight">Chỉnh sửa bài tập ngắn</h1>
@@ -293,182 +245,70 @@ export default function EditAssignmentShort() {
           <label style={{ marginRight: 20 }} htmlFor="import" className="btn btn-warning mt-2">
             <i className="fa-solid fa-file-import"></i> Answer pdf
           </label>
-          <input
-            type="file"
-            id="import"
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-            hidden
-          />
+          <input type="file" id="import" onChange={(e) => setSelectedFile(e.target.files[0])} hidden />
           <label htmlFor="importCsv" className="btn btn-success mt-2">
             <i className="fa-solid fa-file-import"></i> Import csv
           </label>
           <input type="file" id="importCsv" onChange={handleImport} hidden />
-          <button
-            style={{ marginLeft: 20 }}
-            className="btn btn-primary"
-            onClick={handleEditQuestion}
-            disabled={isLoading}
-          >
-            {isLoading ? "Đang chỉnh sửa..." : "Chỉnh sửa"}
+          <button style={{ marginLeft: 20 }} className="btn btn-primary" onClick={handleEditQuestion} disabled={isLoading}>
+            {isLoading ? 'Đang chỉnh sửa...' : 'Chỉnh sửa'}
           </button>
         </div>
       </div>
-      <div className='select-class-deadline' style={{ width: "60%", display: "flex", marginTop: "20px" }}>
-        <form style={{ width: "100%", display: "flex", gap: "20px" }}>
-          <div className='form-group' style={{ width: "25%" }}>
-            <label htmlFor="name-bt" className="text-capitalize font-weight-bold pl-2">
-              Lớp
-            </label>
-            <select
-              className={`custom-select ${error.errClass ? 'is-invalid' : ''}`}
-              style={{ height: 50, }}
-              id="validationTooltip04"
-              required
-              value={values.of_class}
-              onChange={(e) => {
-                setError((prev) => ({ ...prev, errClass: null }));
-                setValues((prev) => ({ ...prev, of_class: e.target.value }));
-              }}
-            >
-              <option>{currentClass}</option>
-              {classList.map((classItem, index) => (
-                <option key={index} value={classItem.class_name}>
-                  {classItem.class_name}
-                </option>
-              ))}
-            </select>
-            {error?.errClass && <div className="invalid-feedback">{error?.errClass}</div>}
-          </div>
-          <div className="form-group row" style={{ width: "auto" }}>
-            <div className="col-sm-6 mb-3 mb-sm-0">
-              <label htmlFor="from" className="text-capitalize font-weight-bold pl-2">
-                Từ
-              </label>
-              <input
-                type="datetime-local"
-                style={{ height: 50, }}
-                className={`form-control form-control-user ${error.errStart ? 'is-invalid' : ''}`}
-                id="from"
-                name="start_date"
-                value={values.start_date}
-                onChange={(e) => {
-                  setError((prev) => ({
-                    ...prev,
-                    errStart: null,
-                  }));
-                  handleChange(e);
-                }}
-              />
-              {error?.errStart !== null && <div className="invalid-feedback">{error?.errStart}</div>}
-            </div>
-            <div className="col-sm-6">
-              <label htmlFor="to" className="text-capitalize font-weight-bold pl-3">
-                Đến
-              </label>
-              <input
-                type="datetime-local"
-                style={{ height: 50, }}
-                className={`form-control form-control-user ${error.errFinish ? 'is-invalid' : ''}`}
-                id="to"
-                name="deadline"
-                value={values.deadline}
-                onChange={(e) => {
-                  setError((prev) => ({
-                    ...prev,
-                    errFinish: null,
-                  }));
-                  handleChange(e);
-                }}
-              />
-              {error?.errFinish !== null && <div className="invalid-feedback">{error?.errFinish}</div>}
+      <div className='select-class-deadline' style={{ width: "60%", marginTop: 20 }}>
+        <div className="form-group">
+          <label htmlFor="of_class">Lớp học:</label>
+          <select id="of_class" name="of_class" className={`form-control ${error?.errClass ? 'is-invalid' : ''}`} value={values.of_class} onChange={handleChange} disabled>
+            <option value="">{currentClass}</option>
+          </select>
+          {error?.errClass && <div className="invalid-feedback">{error?.errClass}</div>}
+        </div>
+        <div className='row'>
+          <div className='col'>
+            <div className="form-group">
+              <label htmlFor="start_date">Thời gian mở:</label>
+              <input type="datetime-local" id="start_date" name="start_date" className={`form-control ${error?.errStart ? 'is-invalid' : ''}`} value={values.start_date} onChange={handleChange} />
+              {error?.errStart && <div className="invalid-feedback">{error?.errStart}</div>}
             </div>
           </div>
-        </form>
+          <div className='col'>
+            <div className="form-group">
+              <label htmlFor="deadline">Hạn nộp:</label>
+              <input type="datetime-local" id="deadline" name="deadline" className={`form-control ${error?.errFinish ? 'is-invalid' : ''}`} value={values.deadline} onChange={handleChange} />
+              {error?.errFinish && <div className="invalid-feedback">{error?.errFinish}</div>}
+            </div>
+          </div>
+        </div>
       </div>
       <div className="title-container shadow-sm">
         <div className="line"></div>
-        <textarea
-          type="text"
-          value={inputValueTitle}
-          onChange={handleTitleInputChange}
-          className={`ml-2 title-text ${error?.errTitle ? 'is-invalid' : ''}`}
-          placeholder='Tên bài tập'
-        />
+        <textarea type="text" value={inputValueTitle} onChange={handleTitleInputChange} className={`ml-2 title-text ${error?.errTitle ? 'is-invalid' : ''}`} placeholder='Tên bài tập' />
         {error?.errTitle && <div className="invalid-feedback ml-2">{error?.errTitle}</div>}
-
-        <input
-          type="text"
-          value={inputValueDescription}
-          onChange={handleDescriptionChange}
-          className="mt-2 ml-2 description-text"
-          placeholder='Nhập mô tả'
-        />
+        <input type="text" value={inputValueDescription} onChange={handleDescriptionChange} className="mt-2 ml-2 description-text" placeholder='Nhập mô tả' />
         {error?.errDescription && <div className="invalid-feedback ml-2">{error?.errDescription}</div>}
       </div>
-      {items.map((item) => (
-        <div
-          className={`content-add-item shadow-sm ${items.some((newItem) => newItem.id === item.id) ? 'add-item-animation' : ''}`}
-
-          key={item.id}
-        >
+      {questions.map((question, index) => (
+        <div className="content-add-item shadow-sm" key={index}>
           <div className="line"></div>
-          {
-            Array.isArray(question.questions) && question.questions.map((q, index) => (
-              <textarea
-                key={index}
-                type="text"
-                defaultValue={q.title}
-                onChange={(e) => handleQuestionInputChange(e, item.id)}
-                className={'title-question ml-2'}
-                placeholder='Nhập câu hỏi'
-              />
-            ))
-          }
-          {
-            Array.isArray(answer.questions) && answer.questions.map((a, index) => (
-              <textarea
-                key={index}
-                type="text"
-                defaultValue={a.answer}
-                onChange={(e) => handleAnswerInputChange(e, item.id)}
-                className={'answer-question ml-2'}
-                placeholder='Đáp án (nếu có)'
-              />
-            ))
-          }
+          <textarea type="text" value={question.title} onChange={(e) => handleQuestionInputChange(e, index)} className={'title-question ml-2'} placeholder='Nhập câu hỏi' />
+          <textarea type="text" value={question.answer} onChange={(e) => handleAnswerInputChange(e, index)} className={'answer-question ml-2'} placeholder='Đáp án (nếu có)' />
           <hr />
           <div className="footer-question">
             <span>
-              <i className="duplicate-question-icon mr-2" onClick={() => handleDuplicateItem(item.id)}>
+              <i className="duplicate-question-icon mr-2" onClick={() => handleDuplicateItem(index)}>
                 <IoDuplicateOutline />
               </i>
             </span>
             <span>
-              {
-                Array.isArray(score.questions) && score.questions.map((s, index) => (
-                  <input
-                    key={index}
-                    type="number"
-                    min="0"
-                    max="10"
-                    className="grade-input"
-                    placeholder="Điểm"
-                    onChange={handleGradeChange}
-                    data-id={item.id}
-                    defaultValue={s.grade}
-                  />
-                ))
-              }
+              <input type="number" min="0" max="10" className="grade-input" placeholder="Điểm" onChange={(e) => handleGradeChange(e, index)} value={question.grade} />
             </span>
             <span>
-              <i
-                className="bi bi-trash-fill delete-question-icon"
-                onClick={() => handleDeleteItem(item.id)}
-              ></i>
+              <i className="bi bi-trash-fill delete-question-icon" onClick={() => handleDeleteItem(index)}></i>
             </span>
           </div>
         </div>
       ))}
+      <ToastContainer />
     </div>
   );
 }
