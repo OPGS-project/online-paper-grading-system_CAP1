@@ -29,7 +29,6 @@ export const saveGradedAssignmentShort = async (req, res) => {
   }
 }
 
-
 //GET
 export const getGradeById = async (req, res) => {
   try {
@@ -45,19 +44,6 @@ export const getGradeById = async (req, res) => {
     // return internalServerError(res)
   }
 }
-// export const getGradedForStudent = async(req, res) =>{
-//   try {
-//     const { idStudent } = req.params;
-//     console.log("for student",idStudent);
-//     const response =await services.getGradedForStudentService(idStudent)
-//     return res.status(200).json(response);
-
-//   } catch (error) {
-//     console.log(error)
-//     // return res.status(500).json(response)
-
-//   }
-// }
 
 export const getGrade = async (req, res) => {
   try {
@@ -70,6 +56,16 @@ export const getGrade = async (req, res) => {
   } catch (error) {
     console.log(error);
     // return internalServerError(res)
+  }
+}
+
+export const getScore = async (req, res) => {
+  try {
+    const response = await services.getScore();
+    return res.status(200).json(response)
+
+  } catch (error) {
+    console.log(error);
   }
 }
 

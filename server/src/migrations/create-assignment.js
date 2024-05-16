@@ -48,7 +48,6 @@ module.exports = {
       type_assignment: {
         type: Sequelize.ENUM,
         values: ['0' , '1']
-        
       },
       createdAt: {
         allowNull: false,

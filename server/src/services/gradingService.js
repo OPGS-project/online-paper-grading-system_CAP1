@@ -32,38 +32,81 @@ export const saveGradedAssignments = (body, fileData) =>
     }
   });
 
-  // short
-  export const saveGradedAssignmentShortService = (body) =>
+// short
+export const saveGradedAssignmentShortService = (body) =>
   new Promise(async (resolve, reject) => {
     try {
-     
+
       const response = await db.Grade_short.create({
         student_id: body.student_id,
         submission_id: body.submission_id,
         score_value: body.score_value,
-        comments:body.comments,
-        answer_short_json:body.answer_short_json,
+        comments: body.comments,
+        answer_short_json: body.answer_short_json,
         // points:JSON.stringify(body.points)
       });
-      console.log("point:",body.points)
+      console.log("point:", body.points)
       resolve({
         err: response ? 0 : 1,
         mes: response
           ? "Lưu bài tập đã chấm thành công"
           : "Lưu bài tập đã chấm thất bại",
-          response:response
+        response: response
       });
     } catch (error) {
       reject(error);
     }
   });
 
+  export const getScore = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Grade.findAll({
+        attributes: ["score_value"],
+        // include: [
+        //   {
+        //     model: db.Submission,
+        //     as: "submissionData",
+        //     attributes: ["image", "createdAt"],
+        //     include: [
+        //       {
+        //         model: db.Assignment,
+        //         as: "assignmentData",
+        //         attributes: ["id", "assignment_name", "type_assignment"],
+        //         include: [
+        //           {
+        //             model: db.Class,
+        //             as: "classData",
+        //             attributes: ["class_name"],
+        //           }
+        //         ]
+        //       },
+        //       {
+        //         model: db.Student,
+        //         as: "studentData",
+        //         attributes: ["student_name", "id"],
+        //       },
+        //     ],
+        //   },
+        // ],
+      });
+
+      resolve({
+        err: response ? 0 : 1,
+        message: response ? "Got" : "Can not found!!!",
+        response,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
 
 export const getGradeById = (idStudent) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Grade.findAll({
-        attributes: ["score_value", "comments", "image"],
+        attributes: ["score_value", "comments", "image", "createdAt"],
         where: { student_id: idStudent },
         include: [
           {
@@ -72,12 +115,19 @@ export const getGradeById = (idStudent) =>
 
             model: db.Submission,
             as: "submissionData",
-            attributes: ["image"],
+            attributes: ["image", "createdAt"],
             include: [
               {
                 model: db.Assignment,
                 as: "assignmentData",
-                attributes: ["assignment_name"],
+                attributes: ["id", "assignment_name", "type_assignment"],
+                include: [
+                  {
+                    model: db.Class,
+                    as: "classData",
+                    attributes: ["class_name"],
+                  }
+                ]
               },
               {
                 model: db.Student,
@@ -100,54 +150,11 @@ export const getGradeById = (idStudent) =>
     }
   });
 
-
-  // export const getGradedForStudentService = (idStudent) =>
-  // new Promise(async (resolve, reject) => {
-  //   try {
-  //     console.log(db.Grade_short)
-  //     const response = await db.Grade_short.findAll({
-  //       where: { student_id: idStudent },
-  //       attributes: ["student_id","score_value", "comments", "answer_short_json", "points" ],
-  //       include: [
-  //         {
-  //           model: db.Submit_short,
-  //           as: "submissionData",
-  //           attributes: ["answer_short"],
-  //           include: [
-  //             {
-  //               model: db.Assignment,
-  //               as: "assignmentData",
-  //               attributes: ["assignment_name"],
-                
-  //             },
-  //             {
-  //               model: db.Student,
-  //               as: "studentData",
-  //               attributes: ["student_name", "id"],
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     });
-  //     console.log("res", response);
-  //     resolve({
-  //       err: response ? 0 : 1,
-  //       message: response ? "Success!" : "No data found!!!",
-  //       response: response,
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //     reject(e);
-  //   }
-  // });
-
-
-
 export const getGrade = (submissionId, student_name) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Grade.findAll({
-        attributes: ["id","student_id", "createdAt", "score_value", "comments", "image", "canvas_json"],
+        attributes: ["id", "student_id", "createdAt", "score_value", "comments", "image", "canvas_json"],
         where: { submission_id: submissionId },
         include: [
           {

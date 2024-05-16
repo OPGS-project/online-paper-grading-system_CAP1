@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BarChart from './BarChar';
 import '~~/pages/Statis.scss';
 import { UserData } from './Data';
 import { MediumScore } from './Data';
 import DoughnutChart from './DoughnutChart';
+import axios from 'axios';
 
 function Statis() {
     const [userData, setUserData] = useState({
@@ -19,7 +20,27 @@ function Statis() {
         ],
     });
 
-    const [mediumScore, SetMediumScore] = useState({
+    // useEffect(() => {
+    //     axios
+    //         .get(`http://localhost:8081/api/grading/${params.sid}`)
+    //         .then((res) => {
+    //             console.log(res);
+    //             const studentName = res.data.response[0].submissionData.studentData.student_name;
+    //             setStudentName(studentName);
+    //             const assignmentData = res.data.response.map((data) => ({
+    //                 ...data,
+    //             }));
+
+    //             setValues((prevState) => ({
+    //                 ...prevState,
+    //                 assignmentOfStudent: assignmentData,
+    //             }));
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, [params]);
+
+
+    const [mediumScore, setMediumScore] = useState({
         datasets: [
             {
                 label: 'Số lượng',
