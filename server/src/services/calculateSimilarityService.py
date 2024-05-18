@@ -22,7 +22,7 @@ def calculate_similarity(text1, text2):
     processed_text2 = preprocess_text(text2) # đáp án học sinh
 
     # Nếu đáp án học sinh có độ dài nhỏ hơn 3 trả về 100% hoặc 0%
-    if len(processed_text1.split()) < 2 and len(processed_text2.split()) < 3:
+    if len(processed_text1.split()) <= 2 and len(processed_text2.split()) <= 3:
         return 100.0 if processed_text1 == processed_text2 else 0.0
 
     # Nếu không, thực hiện so sánh cosine similarity bình thường

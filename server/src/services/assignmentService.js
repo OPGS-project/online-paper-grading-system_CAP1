@@ -122,8 +122,9 @@ export const updateAssignment = (assignmentId, body, fileData) =>
         body.filename = fileData?.filename;
       }
       const dataClass = await db.Class.findOne({
-        where: { class_name: body.of_class },
+        where: { id: body.of_class },
       });
+      // console.log('aaaaaaaa',dataClass);
       const response = await db.Assignment.update(
         { ...body, of_class: dataClass.dataValues.id },
         {
