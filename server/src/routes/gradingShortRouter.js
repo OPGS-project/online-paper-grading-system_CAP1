@@ -8,5 +8,5 @@ const router = express.Router();
 // router.use(verifyToken);
 
 router.get("/:submissionId/:student_name", controllers.getGradeShort);//teacher page
-
+router.put("/:gradeId", controllers.updateGradedShortAssignment);
 module.exports = router;

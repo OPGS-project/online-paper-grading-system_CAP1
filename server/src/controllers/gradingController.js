@@ -87,7 +87,7 @@ export const getGradeShort = async (req, res) => {
   }
 }
 
-//update
+//update grading essay assignment
 export const updateGradedAssignment = async (req, res) => {
   try {
     // console.log(req.body);
@@ -106,6 +106,21 @@ export const updateGradedAssignment = async (req, res) => {
   } catch (error) {
     console.log(error);
     // return internalServerError(res);
+  }
+};
+
+//update grading short assignment
+export const updateGradedShortAssignment = async (req, res) => {
+  try {
+    const gradeId = req.params;
+    
+    const response = await services.updateGradedShortAssignment(
+      gradeId,
+      req.body
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
   }
 };
 

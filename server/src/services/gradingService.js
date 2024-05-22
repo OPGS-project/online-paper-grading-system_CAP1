@@ -359,4 +359,25 @@ export const getGradeShort = (submissionId, student_name) =>
       reject(e);
     }
   });
-  
+
+  //UPDATE Grade short assignment
+export const updateGradedShortAssignment = (gradeId, body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Grade_short.update(body, {
+        where: { id: gradeId.gradeId },
+      });
+
+      resolve({
+        err: response[0] > 0 ? 0 : 1,
+        message:
+          response[0] > 0
+            ? `${response} grade short assignment updated`
+            : "Can not update graded assignment!!!",
+      });
+      
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
