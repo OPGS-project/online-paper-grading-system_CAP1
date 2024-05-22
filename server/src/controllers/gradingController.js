@@ -57,13 +57,28 @@ export const getGradeById = async (req, res) => {
 
 //   }
 // }
-
+// Get grade essay from info's student
 export const getGrade = async (req, res) => {
   try {
     const { submissionId } = req.params;
     const { student_name } = req.params;
 
     const response = await services.getGrade(submissionId, student_name);
+    return res.status(200).json(response)
+
+  } catch (error) {
+    console.log(error);
+    // return internalServerError(res)
+  }
+}
+
+// Get grade short from info's student
+export const getGradeShort = async (req, res) => {
+  try {
+    const { submissionId } = req.params;
+    const { student_name } = req.params;
+
+    const response = await services.getGradeShort(submissionId, student_name);
     return res.status(200).json(response)
 
   } catch (error) {

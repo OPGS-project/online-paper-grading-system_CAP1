@@ -6,6 +6,7 @@ import classes from "./classRouter";
 import student from "./studentRouter";
 import submission from "./submissionRouter";
 import grading from "./gradingRouter";
+import gradingShort from "./gradingShortRouter";
 import submiss from "./submission";
 import studentSubmitted from "./studentSubmitted";
 import mainStudent from "./pageStudentRouter";
@@ -22,6 +23,7 @@ const initRoutes = (app) => {
   app.use("/api/class", classes);
   app.use("/api/student", student);
   app.use("/api/grading", grading);
+  app.use("/api/gradingShort", gradingShort);
   app.use("/api/submiss", submiss);
   app.use("/api/studentSubmitted", studentSubmitted);
   app.use("/api/main-student", mainStudent);
