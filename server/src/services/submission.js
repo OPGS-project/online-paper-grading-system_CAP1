@@ -201,7 +201,7 @@ export const getSubmitShortService =(assignment_id) =>{
             submission_status: submit.submission_status,
             createdAt: submit.createdAt,
             class_id: submit.class_id,
-            answer_short: [JSON.parse(submit.answer_short)],
+            answer_short: JSON.parse(submit.answer_short),
             gradeData: submit.gradeData,
           };
         }

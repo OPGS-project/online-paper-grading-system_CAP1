@@ -121,6 +121,7 @@ export const getStudentCurrent = (id) =>
             err: 1,
             msg: "Không có bài tập nào trong lớp",
           });
+        
         } else {
           if (assignment.question_name) {
             assignment.question_name = JSON.parse(assignment.question_name);// bên phú tân lỗi chỗ ni
