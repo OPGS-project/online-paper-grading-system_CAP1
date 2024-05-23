@@ -35,6 +35,8 @@ export default function Class() {
 
             const classData = response.data.classData.rows;
 
+            console.log(classData)
+
             setState((prevState) => ({
                 ...prevState,
                 Class: classData,
@@ -104,12 +106,25 @@ export default function Class() {
                     <td>{data.class_name}</td>
                     <td>{data.content}</td>
                     <td onClick={(e) => e.stopPropagation()}>
-                        <Link to={`/home/class/update-class/${data.id}`} className="bi bi-pencil-square mr-3"></Link>
+                        <Link
+                            to={`/home/class/update-class/${data.id}`}
+                            className="bi bi-pencil-square mr-3"
+                            title='Chỉnh sửa'
+                        >
+                        </Link>
                         <i
                             className="bi bi-trash-fill text-danger"
                             onClick={() => handleDelete(data.id)}
                             style={{ cursor: 'pointer' }}
+                            title='Xóa'
                         ></i>
+                        <Link
+                            class="bi bi-bar-chart-fill ml-3"
+                            style={{ color: 'brown' }}
+                            to={`/home/statis/${data.id}/${data.class_name}`}
+                            title='Thống kê'
+                        >
+                        </Link>
                     </td>
                 </tr>
             ))

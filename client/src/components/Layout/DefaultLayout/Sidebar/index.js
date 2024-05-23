@@ -55,15 +55,6 @@ function Sidebar() {
                 </Link>
             </li>
 
-            <li className="nav-item">
-                <Link to="/home/statis" className="custom-link no-underline" style={{ textDecoration: 'none' }}>
-                    <div className="nav-link" href="/thongke">
-                        <i className="fas fa-solid fa-chart-pie"></i>
-                        <span>Thống kê</span>
-                    </div>
-                </Link>
-            </li>
-
             <hr className="sidebar-divider" />
 
             <li className="nav-item">

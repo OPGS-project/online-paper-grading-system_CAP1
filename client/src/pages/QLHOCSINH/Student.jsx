@@ -265,7 +265,7 @@ export default function Student() {
             >
                 <i className="fa-solid fa-arrow-left"></i>
             </button>
-            <h1 className="h3 mb-2 text-center">Danh sách học sinh lớp {dataClass.class_name}</h1>
+            <h1 className="h3 mb-2 text-center">Danh sách học sinh {dataClass.class_name}</h1>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">

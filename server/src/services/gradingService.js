@@ -58,49 +58,87 @@ export const saveGradedAssignmentShortService = (body) =>
     }
   });
 
-  export const getScore = () =>
+export const getScore = (classId) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Grade.findAll({
+      const responseShort = await db.Grade_short.findAll({
         attributes: ["score_value"],
-        // include: [
-        //   {
-        //     model: db.Submission,
-        //     as: "submissionData",
-        //     attributes: ["image", "createdAt"],
-        //     include: [
-        //       {
-        //         model: db.Assignment,
-        //         as: "assignmentData",
-        //         attributes: ["id", "assignment_name", "type_assignment"],
-        //         include: [
-        //           {
-        //             model: db.Class,
-        //             as: "classData",
-        //             attributes: ["class_name"],
-        //           }
-        //         ]
-        //       },
-        //       {
-        //         model: db.Student,
-        //         as: "studentData",
-        //         attributes: ["student_name", "id"],
-        //       },
-        //     ],
-        //   },
-        // ],
+        include: [
+          {
+            model: db.Submit_short,
+            as: "submissionData",
+            attributes: ["id"],
+            include: [
+              {
+                model: db.Assignment,
+                as: "assignmentData",
+                attributes: ["id", "assignment_name", "type_assignment"],
+                include: [
+                  {
+                    model: db.Class,
+                    as: "classData",
+                    attributes: ["class_name"],
+                    where: { id: classId },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: db.Student,
+            as: "studentData",
+            attributes: ["student_name", "id"],
+          },
+        ],
       });
 
+      const response = await db.Grade.findAll({
+        attributes: ["score_value"],
+        include: [
+          {
+            model: db.Submission,
+            as: "submissionData",
+            attributes: ["id"],
+            include: [
+              {
+                model: db.Assignment,
+                as: "assignmentData",
+                attributes: ["id", "assignment_name", "type_assignment"],
+                include: [
+                  {
+                    model: db.Class,
+                    as: "classData",
+                    attributes: ["class_name"],
+                    where: { id: classId },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: db.Student,
+            as: "studentData",
+            attributes: ["student_name", "id"],
+          },
+        ],
+      });
+
+      const combinedResponse = {
+        grade: response,
+        gradeShort: responseShort,
+      };
+
       resolve({
-        err: response ? 0 : 1,
-        message: response ? "Got" : "Can not found!!!",
-        response,
+        err: combinedResponse ? 0 : 1,
+        message: combinedResponse ? "Got" : "Cannot be found!",
+        response: combinedResponse,
       });
     } catch (e) {
       console.log(e);
       reject(e);
     }
   });
+
 
 export const getGradeById = (idStudent) =>
   new Promise(async (resolve, reject) => {

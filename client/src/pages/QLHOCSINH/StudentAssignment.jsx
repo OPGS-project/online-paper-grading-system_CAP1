@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment/moment';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { useReactToPrint } from 'react-to-print';
 
 function StudentAssignment() {
     const navigate = useNavigate();
@@ -33,19 +32,11 @@ function StudentAssignment() {
             .catch((err) => console.error(err));
     }, [params]);
 
-    const exportToPDF = () => {
-        const input = document.getElementById('pdf-content');
+    const printRef = useRef();
 
-        html2canvas(input, { scale: 4 }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            const width = pdf.internal.pageSize.getWidth();
-            const height = pdf.internal.pageSize.getHeight();
-            pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
-            pdf.setFont('Montserrat');
-            pdf.save(`Assignments_Result_${student_name}.pdf`);
-        });
-    };
+    const exportToPDF = useReactToPrint({
+        content: () => printRef.current,
+    });
 
     return (
         <div className="container-fluid">
@@ -57,7 +48,7 @@ function StudentAssignment() {
             >
                 <i className="fa-solid fa-arrow-left"></i>
             </button>
-            <div className="card shadow mb-4" id="pdf-content">
+            <div className="card shadow mb-4" ref={printRef}>
                 <h1 className="h4 my-4 text-center">Kết quả bài tập của {student_name} </h1>
                 <div className="card-body">
                     <div className="table-responsive">

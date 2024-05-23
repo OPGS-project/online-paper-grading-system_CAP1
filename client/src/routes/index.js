@@ -47,7 +47,7 @@ const publicRoutes = [
     { path: '/register-teacher', component: Register, layout: null },
     { path: '/forgot-password', component: ForgotPassword, layout: null },
     { path: '/home', component: Home },
-    { path: '/home/statis', component: Statis },
+    { path: '/home/statis/:classId/:class_name', component: Statis },
     // QLBAITAP
     { path: '/home/assignment', component: Assignment },
     { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
@@ -65,7 +65,7 @@ const publicRoutes = [
     { path: '/home/class/get-student/:classID', component: Student },
     { path: '/home/student/createStudent/:classID', component: CreateStudent },
     { path: '/home/student/updateStudent/:classID/:studentID', component: UpdateStudent },
-    { path: '/home/student/student-scores/:sid', component: StudentAssignment },
+    { path: '/home/student/student-scores/:sid/', component: StudentAssignment },
 
     //QLLOPHOC
     { path: '/home/class', component: Class },

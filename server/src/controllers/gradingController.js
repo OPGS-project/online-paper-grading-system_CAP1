@@ -61,7 +61,9 @@ export const getGrade = async (req, res) => {
 
 export const getScore = async (req, res) => {
   try {
-    const response = await services.getScore();
+    const { classId } = req.params;
+
+    const response = await services.getScore(classId);
     return res.status(200).json(response)
 
   } catch (error) {
