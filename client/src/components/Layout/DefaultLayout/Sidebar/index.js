@@ -41,7 +41,7 @@ function Sidebar() {
                 <div className="sidebar-brand-icon rotate-n-15">
                     <FaBookReader style={{ height: '50px', width: '50px' }} />
                 </div>
-                <div className="sidebar-brand-text mx-3">OPGS</div>
+                <div className="sidebar-brand-text mx-3">SGS</div>
             </Link>
 
             <hr className="sidebar-divider my-0" />

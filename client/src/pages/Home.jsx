@@ -9,7 +9,7 @@ function Home() {
                 <div className="greeting_homePage">
                     <div className="center-content">
                         <h1 className="text-color">
-                            Chào mừng bạn đến với OPGS ! <br />
+                            Chào mừng bạn đến với SGS ! <br />
                             Bạn có thể tạo bài tập, đề thi bên dưới
                         </h1>
                         <Link to="/home/assignment/add-assignment-essay" className="nav-link collapsed border-add">
