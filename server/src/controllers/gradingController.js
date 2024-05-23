@@ -28,7 +28,6 @@ export const saveGradedAssignmentShort = async (req, res) => {
   }
 }
 
-
 //GET
 export const getGradeById = async (req, res) => {
   try {
@@ -84,6 +83,18 @@ export const getGradeShort = async (req, res) => {
   } catch (error) {
     console.log(error);
     // return internalServerError(res)
+  }
+}
+
+export const getScore = async (req, res) => {
+  try {
+    const { classId } = req.params;
+
+    const response = await services.getScore(classId);
+    return res.status(200).json(response)
+
+  } catch (error) {
+    console.log(error);
   }
 }
 

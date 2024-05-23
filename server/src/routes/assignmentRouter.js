@@ -12,8 +12,6 @@ router.use(verifyToken);
 router.get("/", controllers.getAssignment);
 router.get("/:assignmentId", controllers.getAssignmentById);
 
-
-
 //PRIVATE ROUTER
 router.post(
   "/",

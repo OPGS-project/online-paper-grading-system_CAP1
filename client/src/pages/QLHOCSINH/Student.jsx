@@ -52,7 +52,6 @@ export default function Student() {
             })
             .catch((err) => console.error(err));
     }, [params, update]);
-    // console.log(dataClass.class_name);
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;
@@ -91,13 +90,16 @@ export default function Student() {
             }));
         }
     };
-    // console.log(state.student);
-    //
+
+    const handleCLickStudent = () => {
+        console.log("clicked");
+    }
+
     const navigate = useNavigate();
     const generateRows = () => {
         return state.student.length > 0 ? (
             state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-                <tr key={i} style={{ cursor: 'pointer' }} className="text-center ">
+                <tr key={i} style={{ cursor: 'pointer' }} className="text-center" onClick={handleCLickStudent}>
                     <td className="text-left pl-5">{data.student_name}</td>
                     <td>{data.gender}</td>
                     <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
@@ -112,13 +114,20 @@ export default function Student() {
                             <i className="bi bi-pencil-square mr-3"></i>
                         </Link>
                         <i
-                            className="bi bi-trash-fill text-danger"
+                            className="bi bi-trash-fill text-danger mr-3"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 return handleDelete(data.id);
                             }}
                             style={{ cursor: 'pointer' }}
                         ></i>
+                        <Link
+                            onClick={(e) => e.stopPropagation()}
+                            to={`/home/student/student-scores/${data.id}`}
+                            state={{ studentData: data }}
+                        >
+                            <i class="bi bi-journal-check" title='Kết quả bài tập'></i>
+                        </Link>
                     </td>
                 </tr>
             ))
@@ -126,22 +135,6 @@ export default function Student() {
             <tr>
                 <td colSpan={9} className="text-center">
                     Hiện tại chưa có học sinh nào <FaRegCircleUser />
-                    {/* return state.student.slice(state.offset, state.offset + state.perPage).map((data, i) => (
-            <tr key={i} className="text-center">
-                <td>{data.student_name}</td>
-                <td>{data.gender}</td>
-                <td>{moment(data.birthday).format('DD-MM-YYYY')}</td>
-
-                <td>{data.address}</td>
-                <td>
-                    <Link to={`/home/student/updateStudent/${params.classID}/${data.id}`} state={{ studentData: data }}>
-                        <i className="bi bi-pencil-square mr-3"></i>
-                    </Link>
-                    <i
-                        className="bi bi-trash-fill text-danger"
-                        onClick={() => handleDelete(data.id)}
-                        style={{ cursor: 'pointer' }}
-                    ></i> */}
                 </td>
             </tr>
         );
@@ -272,7 +265,7 @@ export default function Student() {
             >
                 <i className="fa-solid fa-arrow-left"></i>
             </button>
-            <h1 className="h3 mb-2 text-center">Danh sách học sinh lớp {dataClass.class_name}</h1>
+            <h1 className="h3 mb-2 text-center">Danh sách học sinh {dataClass.class_name}</h1>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">

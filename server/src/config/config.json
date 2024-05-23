@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": null,
     "database": "cap1_opgs",
     "host": "127.0.0.1",
     "dialect": "mysql",
@@ -10,15 +10,15 @@
   },
   "test": {
     "username": "root",
-    "password": "",
-    "database": "database_test",
+    "password": null,
+    "database": "cap1_opgs",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "",
-    "database": "database_production",
+    "password": null,
+    "database": "cap1_opgs",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
