@@ -13,7 +13,7 @@ export default function EditAssignmentShort() {
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [inputValueTitle, setInputValueTitle] = useState('');
-  
+
   const [inputValueDescription, setInputValueDescription] = useState('');
   const [currentClass, setCurrentClass] = useState('');
   const [classList, setClassList] = useState([]);
@@ -69,8 +69,24 @@ export default function EditAssignmentShort() {
   }, [params.assignmentId, token]);
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Kiểm tra điều kiện validate cho trường "Thời gian mở" và "Hạn nộp"
+    if (name === 'start_date' && moment(value).isBefore(moment())) {
+      setError((prevError) => ({ ...prevError, errStart: 'Thời gian mở không được trước thời điểm hiện tại' }));
+    } else {
+      setError((prevError) => ({ ...prevError, errStart: null }));
+    }
+
+    if (name === 'deadline' && moment(value).isBefore(moment(values.start_date))) {
+      setError((prevError) => ({ ...prevError, errFinish: 'Hạn nộp không được trước thời gian mở' }));
+    } else {
+      setError((prevError) => ({ ...prevError, errFinish: null }));
+    }
+
+    setValues({ ...values, [name]: value });
   };
+
 
   const notifySuccess = (message) => {
     toast.success(message, {
@@ -85,8 +101,34 @@ export default function EditAssignmentShort() {
     });
   };
 
+  const validateQuestions = () => {
+    const errors = {};
+    let isValid = true;
+
+    questions.forEach((question, index) => {
+      if (question.title.trim() === '') {
+        errors[index] = 'Vui lòng nhập câu hỏi';
+        isValid = false;
+        setError((prevError) => ({ ...prevError, errQuestion: errors }));
+      }
+
+      if (question.answer.trim() === '') {
+        errors[index] = 'Vui lòng nhập đáp án';
+        isValid = false;
+        setError((prevError) => ({ ...prevError, errAnswer: errors }));
+      }
+
+    });
+
+    return isValid;
+  };
+
   const handleEditQuestion = async (e) => {
     e.preventDefault();
+    // Kiểm tra tính hợp lệ của các câu hỏi
+    if (!validateQuestions()) {
+      return;
+    }
     setIsLoading(true);
 
     const jsonQuestions = {
@@ -97,35 +139,26 @@ export default function EditAssignmentShort() {
       })),
     };
 
-    // const formData = new FormData();
-    // formData.append('assignment_name', inputValueTitle);
-    // formData.append('description', inputValueDescription);
-    // formData.append('question_name', JSON.stringify(jsonQuestions));
-    // formData.append('of_class', values.of_class);
-    // formData.append('file_path', selectedFile);
-    // formData.append('start_date', values.start_date);
-    // formData.append('deadline', values.deadline);
-    // formData.append('type_assignment', 1);
     const data = {
-      assignment_name:inputValueTitle,
-      description:inputValueDescription,
-      question_name:JSON.stringify(jsonQuestions),
-      of_class:values.of_class,
+      assignment_name: inputValueTitle,
+      description: inputValueDescription,
+      question_name: JSON.stringify(jsonQuestions),
+      of_class: values.of_class,
       start_date: values.start_date,
-      deadline:values.deadline,
+      deadline: values.deadline,
       // type_assignment: 1
     }
-    console.log(typeof data.type_assignment)
-    console.log(data)
+    // console.log(typeof data.type_assignment)
+    // console.log(data)
     axios({
       method: 'put',
-      url: `http://localhost:8081/api/short-assignment/edit-short-assignment/${params.assignmentId}`, 
-      data:data,
+      url: `http://localhost:8081/api/short-assignment/edit-short-assignment/${params.assignmentId}`,
+      data: data,
       headers: {
         'Content-Type': 'application/json',
         authorization: token,
       },
-     
+
     })
       .then((res) => {
         console.log(res)
@@ -173,8 +206,15 @@ export default function EditAssignmentShort() {
   };
 
   const handleTitleInputChange = (e) => {
-    setInputValueTitle(e.target.value);
-    setError((prevError) => ({ ...prevError, errTitle: null }));
+    const inputValue = e.target.value;
+    // Kiểm tra điều kiện validate cho trường "Tên bài tập"
+    if (inputValue.trim() === '') {
+      setError((prevError) => ({ ...prevError, errTitle: 'Vui lòng nhập tên bài tập' }));
+    } else {
+      setError((prevError) => ({ ...prevError, errTitle: null }));
+    }
+
+    setInputValueTitle(inputValue);
   };
 
   const handleDescriptionChange = (e) => {
@@ -186,12 +226,18 @@ export default function EditAssignmentShort() {
     const newQuestions = [...questions];
     newQuestions[index].title = e.target.value;
     setQuestions(newQuestions);
+
+    // Xóa lỗi khi người dùng nhập vào
+    setError((prevError) => ({ ...prevError, errQuestion: { ...prevError.errQuestion, [index]: null } }));
   };
 
   const handleAnswerInputChange = (e, index) => {
     const newQuestions = [...questions];
     newQuestions[index].answer = e.target.value;
     setQuestions(newQuestions);
+
+    // Xóa lỗi khi người dùng nhập vào
+    setError((prevError) => ({ ...prevError, errAnswer: { ...prevError.errAnswer, [index]: null } }));
   };
 
   useEffect(() => {
@@ -290,8 +336,22 @@ export default function EditAssignmentShort() {
       {questions.map((question, index) => (
         <div className="content-add-item shadow-sm" key={index}>
           <div className="line"></div>
-          <textarea type="text" value={question.title} onChange={(e) => handleQuestionInputChange(e, index)} className={'title-question ml-2'} placeholder='Nhập câu hỏi' />
-          <textarea type="text" value={question.answer} onChange={(e) => handleAnswerInputChange(e, index)} className={'answer-question ml-2'} placeholder='Đáp án (nếu có)' />
+          <textarea
+            type="text"
+            value={question.title}
+            onChange={(e) => handleQuestionInputChange(e, index)}
+            className={`title-question ml-2 ${error?.errQuestion[index] ? 'is-invalid' : ''}`}
+            placeholder='Nhập câu hỏi'
+          />
+          {error?.errQuestion[index] && <div className="invalid-feedback ml-2">{error?.errQuestion[index]}</div>}
+          <textarea
+            type="text"
+            value={question.answer}
+            onChange={(e) => handleAnswerInputChange(e, index)}
+            className={`answer-question ml-2 ${error?.errAnswer[index] ? 'is-invalid' : ''}`}
+            placeholder='Đáp án (nếu có)'
+          />
+          {error?.errAnswer[index] && <div className="invalid-feedback ml-2">{error?.errAnswer[index]}</div>}
           <hr />
           <div className="footer-question">
             <span>
@@ -300,7 +360,15 @@ export default function EditAssignmentShort() {
               </i>
             </span>
             <span>
-              <input type="number" min="0" max="10" className="grade-input" placeholder="Điểm" onChange={(e) => handleGradeChange(e, index)} value={question.grade} />
+              <input
+                type="number"
+                min="0"
+                max="10"
+                className="grade-input"
+                placeholder="Điểm"
+                onChange={(e) => handleGradeChange(e, index)}
+                value={question.grade}
+              />
             </span>
             <span>
               <i className="bi bi-trash-fill delete-question-icon" onClick={() => handleDeleteItem(index)}></i>
