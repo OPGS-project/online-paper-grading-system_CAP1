@@ -13,7 +13,6 @@ export default function EditAssignmentShort() {
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [inputValueTitle, setInputValueTitle] = useState('');
-
   const [inputValueDescription, setInputValueDescription] = useState('');
   const [currentClass, setCurrentClass] = useState('');
   const [classList, setClassList] = useState([]);
@@ -21,7 +20,6 @@ export default function EditAssignmentShort() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [assignment, setAssignment] = useState(null);
   const navigate = useNavigate();
-  console.log(questions)
 
   const [values, setValues] = useState({
     of_class: '',
@@ -71,7 +69,6 @@ export default function EditAssignmentShort() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Kiểm tra điều kiện validate cho trường "Thời gian mở" và "Hạn nộp"
     if (name === 'start_date' && moment(value).isBefore(moment())) {
       setError((prevError) => ({ ...prevError, errStart: 'Thời gian mở không được trước thời điểm hiện tại' }));
     } else {
@@ -86,7 +83,6 @@ export default function EditAssignmentShort() {
 
     setValues({ ...values, [name]: value });
   };
-
 
   const notifySuccess = (message) => {
     toast.success(message, {
@@ -117,16 +113,24 @@ export default function EditAssignmentShort() {
         isValid = false;
         setError((prevError) => ({ ...prevError, errAnswer: errors }));
       }
-
     });
 
     return isValid;
   };
 
+  const validateTitle = () => {
+    if (inputValueTitle.trim() === '') {
+      setError((prevError) => ({ ...prevError, errTitle: 'Vui lòng nhập tên bài tập' }));
+      return false;
+    }
+    setError((prevError) => ({ ...prevError, errTitle: null }));
+    return true;
+  };
+
   const handleEditQuestion = async (e) => {
     e.preventDefault();
-    // Kiểm tra tính hợp lệ của các câu hỏi
-    if (!validateQuestions()) {
+
+    if (!validateTitle() || !validateQuestions()) {
       return;
     }
     setIsLoading(true);
@@ -146,10 +150,8 @@ export default function EditAssignmentShort() {
       of_class: values.of_class,
       start_date: values.start_date,
       deadline: values.deadline,
-      // type_assignment: 1
-    }
-    // console.log(typeof data.type_assignment)
-    // console.log(data)
+    };
+
     axios({
       method: 'put',
       url: `http://localhost:8081/api/short-assignment/edit-short-assignment/${params.assignmentId}`,
@@ -158,10 +160,8 @@ export default function EditAssignmentShort() {
         'Content-Type': 'application/json',
         authorization: token,
       },
-
     })
       .then((res) => {
-        console.log(res)
         notifySuccess('Sửa bài tập thành công!');
         setTimeout(() => {
           navigate('/home/assignment');
@@ -207,14 +207,10 @@ export default function EditAssignmentShort() {
 
   const handleTitleInputChange = (e) => {
     const inputValue = e.target.value;
-    // Kiểm tra điều kiện validate cho trường "Tên bài tập"
-    if (inputValue.trim() === '') {
-      setError((prevError) => ({ ...prevError, errTitle: 'Vui lòng nhập tên bài tập' }));
-    } else {
+    setInputValueTitle(inputValue);
+    if (inputValue.trim() !== '') {
       setError((prevError) => ({ ...prevError, errTitle: null }));
     }
-
-    setInputValueTitle(inputValue);
   };
 
   const handleDescriptionChange = (e) => {
@@ -227,7 +223,6 @@ export default function EditAssignmentShort() {
     newQuestions[index].title = e.target.value;
     setQuestions(newQuestions);
 
-    // Xóa lỗi khi người dùng nhập vào
     setError((prevError) => ({ ...prevError, errQuestion: { ...prevError.errQuestion, [index]: null } }));
   };
 
@@ -236,7 +231,6 @@ export default function EditAssignmentShort() {
     newQuestions[index].answer = e.target.value;
     setQuestions(newQuestions);
 
-    // Xóa lỗi khi người dùng nhập vào
     setError((prevError) => ({ ...prevError, errAnswer: { ...prevError.errAnswer, [index]: null } }));
   };
 
