@@ -6,6 +6,7 @@ import Register from '../layout/Register';
 import ForgotPassword from '~/layout/ForgotPassword';
 import AddAssignmentEssay from '~/pages/QLBTAP/AddAssignmentEssay';
 import AddAssignmentShort from '~/pages/QLBTAP/AddAssignmentShort';
+import EditAssignmentShort from '~/pages/QLBTAP/EditAssignmentShort';
 import Assignment from '~/pages/QLBTAP/Assignment';
 import EditAssignment from '~/pages/QLBTAP/EditAssignment';
 import Profile from '~/pages/USER/Profile';
@@ -53,9 +54,9 @@ const publicRoutes = [
     { path: '/home/assignment/submitted/:assignmentId', component: Submitted },
     { path: '/home/assignment/add-assignment-essay', component: AddAssignmentEssay },
     { path: '/home/assignment/add-assignment-short', component: AddAssignmentShort },
+    { path: '/home/assignment/edit-assignment-short/:assignmentId', component: EditAssignmentShort },
 
     { path: '/home/assignment/edit-assignment/:assignmentId', component: EditAssignment },
-
 
     //submitted short
     { path: '/home/assignment/submitted-short/:assignmentId', component: ShortSubmitted },

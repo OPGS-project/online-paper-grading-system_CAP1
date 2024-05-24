@@ -13,8 +13,8 @@ import { Collapse } from 'bootstrap';
 function EditGradedAssignment() {
     const navigate = useNavigate();
     const params = useParams();
-    console.log('Submission id: ' + params.id);
-    console.log('Student name: ' + params.student_name);
+    // console.log('Submission id: ' + params.id);
+    // console.log('Student name: ' + params.student_name);
 
     const { editor, onReady } = useFabricJSEditor();
     const [downloadLink, setDownloadLink] = useState('');

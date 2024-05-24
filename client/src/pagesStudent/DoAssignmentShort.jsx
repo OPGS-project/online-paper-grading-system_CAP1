@@ -7,7 +7,7 @@ import '~~/pages/assignment/DoAssignmentShort.scss';
 import { apiGetShortAssignmentDetail } from '~/apis/userService';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { ToastContainer,toast } from 'react-toastify';
+import moment from 'moment';
 
 export default function DoAssignmentShort() {
   const { token } = useSelector((state) => state.auth);
@@ -24,13 +24,14 @@ export default function DoAssignmentShort() {
     const fetchAssignmentDetail = async () => {
       try {
         const response = await apiGetShortAssignmentDetail(assignmentId, classId);
+        console.log(response.data.assignment.question_name);
+        console.log(response)
         setAssignment(response.data.assignment);
         console.log(response.data.assignment.question_name)
         if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
           const questionData = JSON.parse(response.data.assignment.question_name);
           setQuestion(questionData);
           console.log(questionData)
-          console.log(response.data.assignment.question_name)
         } else {
           console.error('Invalid question_name format');
         }
@@ -79,10 +80,13 @@ export default function DoAssignmentShort() {
       grade: question.grade,
       studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""),
     }));
+
+    console.log("Data: ")
     
     const classIdInt = parseInt(classId, 10); 
     const assignmentIdInt = parseInt(assignmentId, 10); 
     const answerJson = JSON.stringify(submissionData);  
+    console.log(answerJson)
 
     const data = {
       assignment_id: assignmentIdInt,
@@ -106,7 +110,8 @@ export default function DoAssignmentShort() {
   return (
     <div className="container-fluid exam-short-assignment">
       <div className="header-short-assignment">
-        <h1 className="h3 mb-2 text-gray-800">{assignment.assignment_name}</h1> 
+        <h3 className="h3 mb-2 text-gray-800">Tên bài tập: {assignment.assignment_name}</h3> 
+        <h3 className='h3 mb-2 text-gray-800'>{moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}</h3>
       </div>
 
       {Array.isArray(question.questions) && question.questions.map((item,index) => (

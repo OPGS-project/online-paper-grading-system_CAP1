@@ -67,7 +67,7 @@ export default function Login() {
 
         if (error.emailErr === null && error.passwordErr === null) {
             axios.post('http://localhost:8081/api/auth/login', values).then((res) => {
-                console.log(res);
+                // console.log(res);
 
                 if (res.data.err === 0) {
                     notifySuccess('Đăng nhập thành công !');

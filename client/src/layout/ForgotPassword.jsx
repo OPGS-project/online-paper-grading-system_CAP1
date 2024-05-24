@@ -29,7 +29,7 @@ function ForgotPassword() {
         axios
             .post('http://localhost:8081/api/auth/reset-password', values)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 notifySuccess('Kiểm tra email của bạn!');
                 setTimeout(() => {
                     navigate('/login-teacher');
@@ -39,7 +39,7 @@ function ForgotPassword() {
                 console.log(err);
             });
     };
-    console.log(values);
+    // console.log(values);
     return (
         <div className="bg-gradient-primary">
             <div className="container-fluid ">

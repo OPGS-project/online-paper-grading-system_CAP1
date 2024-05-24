@@ -27,6 +27,11 @@ router.put(
 
 router.delete("/:assignmentId", controllers.deleteAssignment);
 
+// edit short 
+router.put(
+  "/edit-short-assignment/:assignmentId",
+  controllers.editShortAssignment
+  );
 
 // add short 
 router.post(

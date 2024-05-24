@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IoDuplicateOutline } from 'react-icons/io5';
 import '~~/pages/assignment/AddAssignmentShort.scss';
 import { validateFields } from '~/validation/validateShortAssignment.js';
@@ -224,7 +224,7 @@ export default function AddAssignmentShort() {
       return;
     }
     setIsImporting(true);
-  
+
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
