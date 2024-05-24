@@ -360,7 +360,7 @@ export const getSubmitGradingShortService = (assignment_id,studentId) =>{
             class_name: submission.classData.class_name,
             assignment_name: submission.assignmentData.assignment_name,
             // answer_short: [submission.answer_short], 
-            answer_short: submission.answer_short,// bên phú tân lỗi
+            answer_short: JSON.parse(submission.answer_short),// bên phú tân lỗi
            };
          }
        }

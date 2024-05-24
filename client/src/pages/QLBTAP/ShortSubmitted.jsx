@@ -63,7 +63,7 @@ const ShortSubmitted = () => {
                                                 : 'Chưa chấm'}
                                         </td>
                                         <td>
-                                            {data.gradeData && data.gradeData.score_value ? (
+                                            {data.gradeData ? (
                                                 <Link
                                                     to={`/home/GradedAssignment/${data.id}/${data.student_name}`}
                                                     className=""

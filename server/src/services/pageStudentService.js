@@ -118,7 +118,7 @@ export const getAssignmentShortDetail = (assignmentId, classId) => {
         });
       } else {
         if (assignment.question_name) {
-          assignment.question_name = assignment.question_name;// bên phú tân lỗi chỗ ni
+          assignment.question_name = JSON.parse(assignment.question_name);// bên phú tân lỗi chỗ ni
         }
       }
       resolve({
