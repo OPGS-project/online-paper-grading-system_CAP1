@@ -52,6 +52,17 @@ export const getSubmitGradingShort =async(req,res) =>{
     }
 }
 
+export const getCheckDoAssignShort =async(req,res) =>{
+    try {
+        const {assignment_id } = req.params
+        const {studentId} = req.params
+        const response = await services.checkAssignmentSubmissionStatus(assignment_id, studentId)
+        return res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 

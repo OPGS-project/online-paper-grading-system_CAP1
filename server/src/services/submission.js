@@ -312,6 +312,47 @@ export const getSubmitShortService =(assignment_id) =>{
   })
 }
 
+export const checkAssignmentSubmissionStatus = (assignment_id, student_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Check if the assignment_id exists in the Assignment table
+      const assignment = await db.Assignment.findByPk(assignment_id);
+
+      if (!assignment) {
+        resolve({
+          err: 1,
+          message: "Assignment không tồn tại",
+        });
+        return;
+      }
+
+      const submissionCount = await db.Submit_short.count({
+        where: {
+          assignment_id: assignment_id,
+          student_id: student_id,
+        },
+      });
+
+      if (submissionCount > 0) {
+        resolve({
+          err: 0,
+          message: "Đã nộp",
+        });
+      } else {
+        resolve({
+          err: 0,
+          message: "Làm bài",
+        });
+      }
+    } catch (error) {
+      reject({
+        err: 1,
+        message: error.message,
+      });
+    }
+  });
+};
+
 export const getSubmitGradingShortService = (assignment_id,studentId) =>{
   return new Promise(async(resolve,reject) =>{
     try {
