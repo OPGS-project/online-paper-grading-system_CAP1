@@ -10,8 +10,7 @@ const router = express.Router();
 router.post("/", uploadGradedAssignments.single("image"), controllers.saveGradedAssignments);
 router.post("/graded-short", controllers.saveGradedAssignmentShort)
 router.get("/:submissionId/:student_name", controllers.getGrade);//teacher page
-router.get("/:idStudent", controllers.getGradeById);// student page
-router.get("/:classId/", controllers.getScore);// teacher page
+router.get("/:idStudent/", controllers.getGradeById);// student page
 
 // router.get("/get-graded-short/:idStudent",controllers.getGradedForStudent)
 router.delete("/:gradingId", controllers.deleteAssignmentGraded);

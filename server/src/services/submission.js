@@ -126,9 +126,6 @@ export const getStudentSubmittedById = (assignmentId) =>
     }
   });
 
-
-  
-
 //Cũ
 // export const get_submission_ById = (assignment_id, studentId) =>
 //     new Promise(async (resolve, reject) => {
@@ -314,6 +311,7 @@ export const getSubmitShortService =(assignment_id) =>{
     }
   })
 }
+
 export const getSubmitGradingShortService = (assignment_id,studentId) =>{
   return new Promise(async(resolve,reject) =>{
     try {

@@ -44,7 +44,6 @@ const ShortSubmitted = () => {
                     <table className="table table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead className="text-center">
                             <th>Tên học sinh</th>
-                          
                             <th>Thời gian nộp</th>
                             <th>Thời gian chấm</th>
                             <th>Điểm</th>
