@@ -379,7 +379,7 @@ export default function AddAssignmentShort() {
           type="text"
           value={inputValueDescription}
           onChange={handleDescriptionChange}
-          className="mt-2 description-text"
+          className={`ml-2 description-text ${error?.errDescription ? 'is-invalid' : ''}`}
           placeholder='Nhập mô tả'
         />
         {error?.errDescription && <div className="invalid-feedback ml-2">{error?.errDescription}</div>}
