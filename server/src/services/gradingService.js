@@ -51,7 +51,7 @@ export const saveGradedAssignmentShortService = (body) =>
         mes: response
           ? "Lưu bài tập đã chấm thành công"
           : "Lưu bài tập đã chấm thất bại",
-        response:response
+        response: response
       });
     } catch (error) {
       reject(error);
@@ -62,12 +62,13 @@ export const getScore = (classId) =>
   new Promise(async (resolve, reject) => {
     try {
       const responseShort = await db.Grade_short.findAll({
-        attributes: ["score_value"],
+        attributes: ["score_value", "createdAt"],
         include: [
           {
             model: db.Submit_short,
             as: "submissionData",
             attributes: ["id"],
+            where: { class_id: classId },
             include: [
               {
                 model: db.Assignment,
@@ -78,9 +79,8 @@ export const getScore = (classId) =>
                     model: db.Class,
                     as: "classData",
                     attributes: ["class_name"],
-                    where: { id: classId },
-                  },
-                ],
+                  }
+                ]
               },
             ],
           },
@@ -93,12 +93,13 @@ export const getScore = (classId) =>
       });
 
       const response = await db.Grade.findAll({
-        attributes: ["score_value"],
+        attributes: ["score_value", "createdAt"],
         include: [
           {
             model: db.Submission,
             as: "submissionData",
             attributes: ["id"],
+            where: { class_id: classId },
             include: [
               {
                 model: db.Assignment,
@@ -109,9 +110,8 @@ export const getScore = (classId) =>
                     model: db.Class,
                     as: "classData",
                     attributes: ["class_name"],
-                    where: { id: classId },
-                  },
-                ],
+                  }
+                ]
               },
             ],
           },
@@ -181,6 +181,95 @@ export const getGradeById = (idStudent) =>
         err: response ? 0 : 1,
         message: response ? "Got" : "Can not found!!!",
         response,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+
+  export const getResultGrade = (studentId, classId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const responseGrade = await db.Grade.findAll({
+        attributes: ["score_value", "comments", "image", "createdAt"],
+        where: { student_id: studentId },
+        include: [
+          {
+            model: db.student,
+            attributes: ["student_id"],
+
+            model: db.Submission,
+            as: "submissionData",
+            attributes: ["image", "createdAt"],
+            where: {class_id: classId},
+            include: [
+              {
+                model: db.Assignment,
+                as: "assignmentData",
+                attributes: ["id", "assignment_name", "type_assignment"],
+                include: [
+                  {
+                    model: db.Class,
+                    as: "classData",
+                    attributes: ["class_name"],
+                  }
+                ]
+              },
+              {
+                model: db.Student,
+                as: "studentData",
+                attributes: ["student_name", "id"],
+              },
+            ],
+          },
+        ],
+      });
+
+      const responseGradeShort = await db.Grade_short.findAll({
+        attributes: ["score_value", "comments", "createdAt"],
+        where: { student_id: studentId },
+        include: [
+          {
+            model: db.student,
+            attributes: ["student_id"],
+
+            model: db.Submit_short,
+            as: "submissionData",
+            attributes: ["createdAt"],
+            where: {class_id: classId},
+            include: [
+              {
+                model: db.Assignment,
+                as: "assignmentData",
+                attributes: ["id", "assignment_name", "type_assignment"],
+                include: [
+                  {
+                    model: db.Class,
+                    as: "classData",
+                    attributes: ["class_name"],
+                  }
+                ]
+              },
+              {
+                model: db.Student,
+                as: "studentData",
+                attributes: ["student_name", "id"],
+              },
+            ],
+          },
+        ],
+      });
+
+      const combinedResponse = {
+        grade: responseGrade,
+        gradeShort: responseGradeShort,
+      };
+
+      resolve({
+        err: combinedResponse ? 0 : 1,
+        message: combinedResponse ? "Got" : "Can not found!!!",
+        combinedResponse,
       });
     } catch (e) {
       console.log(e);
@@ -325,7 +414,7 @@ export const deleteAssignmentGraded = (gradingId) =>
     }
   });
 
-  // Get grade short assignment
+// Get grade short assignment
 export const getGradeShort = (submissionId, student_name) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -405,7 +494,7 @@ export const getGradeShort = (submissionId, student_name) =>
     }
   });
 
-  //UPDATE Grade short assignment
+//UPDATE Grade short assignment
 export const updateGradedShortAssignment = (gradeId, body) =>
   new Promise(async (resolve, reject) => {
     console.log(gradeId)
@@ -421,7 +510,7 @@ export const updateGradedShortAssignment = (gradeId, body) =>
             ? `${response} grade short assignment updated`
             : "Can not update graded assignment!!!",
       });
-      
+
     } catch (e) {
       console.log(e);
       reject(e);

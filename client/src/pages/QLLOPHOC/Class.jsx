@@ -121,7 +121,7 @@ export default function Class() {
                         <Link
                             class="bi bi-bar-chart-fill ml-3"
                             style={{ color: 'brown' }}
-                            to={`/home/statis/${data.id}/${data.class_name}`}
+                            to={`/home/statis/${data.id}`}
                             title='Thống kê'
                         >
                         </Link>

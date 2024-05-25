@@ -3,9 +3,6 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/:classId/", controllers.getScore);// teacher page
+router.get("/:studentId/:classId", controllers.getResultGrade);// student page
 
 module.exports = router;
-
-
-

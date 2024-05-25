@@ -33,29 +33,27 @@ export const getGradeById = async (req, res) => {
   try {
     const { idStudent } = req.params;
 
-    console.log(idStudent);
-    // const { studentId } = req.query;
     const response = await services.getGradeById(idStudent);
     return res.status(200).json(response);
 
   } catch (error) {
     console.log(error);
-    // return internalServerError(res)
   }
 }
-// export const getGradedForStudent = async(req, res) =>{
-//   try {
-//     const { idStudent } = req.params;
-//     console.log("for student",idStudent);
-//     const response =await services.getGradedForStudentService(idStudent)
-//     return res.status(200).json(response);
 
-//   } catch (error) {
-//     console.log(error)
-//     // return res.status(500).json(response)
+export const getResultGrade = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+    const { classId } = req.params;
 
-//   }
-// }
+    const response = await services.getResultGrade(studentId, classId);
+    return res.status(200).json(response);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // Get grade essay from info's student
 export const getGrade = async (req, res) => {
   try {

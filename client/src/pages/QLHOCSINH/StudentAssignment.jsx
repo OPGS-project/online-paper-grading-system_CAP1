@@ -7,26 +7,37 @@ import { useReactToPrint } from 'react-to-print';
 function StudentAssignment() {
     const navigate = useNavigate();
     const params = useParams();
+
     const [values, setValues] = useState({
         assignmentOfStudent: [],
+        gradeShort: []
     });
-    const [student_name, setStudentName] = useState('');
-    console.log(values.assignmentOfStudent);
+
+    const [studentName, setStudentName] = useState('');
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8081/api/grading/${params.sid}`)
+            .get(`http://localhost:8081/api/resultAssignment/${params.sid}/${params.classId}`)
             .then((res) => {
                 console.log(res);
-                const studentName = res.data.response[0].submissionData.studentData.student_name;
-                setStudentName(studentName);
-                const assignmentData = res.data.response.map((data) => ({
+
+                const { grade, gradeShort } = res.data.combinedResponse;
+                const allGrades = [...grade, ...gradeShort];
+
+                const studentName = allGrades.map(item => item.submissionData.studentData.student_name);
+                setStudentName(studentName[0]);
+
+                const assignmentData = res.data.combinedResponse.grade.map((data) => ({
+                    ...data,
+                }));
+                const gradeShortData = res.data.combinedResponse.gradeShort.map((data) => ({
                     ...data,
                 }));
 
                 setValues((prevState) => ({
                     ...prevState,
                     assignmentOfStudent: assignmentData,
+                    gradeShort: gradeShortData
                 }));
             })
             .catch((err) => console.error(err));
@@ -49,7 +60,7 @@ function StudentAssignment() {
                 <i className="fa-solid fa-arrow-left"></i>
             </button>
             <div className="card shadow mb-4" ref={printRef}>
-                <h1 className="h4 my-4 text-center">Kết quả bài tập của {student_name} </h1>
+                <h1 className="h4 my-4 text-center">Kết quả bài tập của {studentName} </h1>
                 <div className="card-body">
                     <div className="table-responsive">
                         <table className="table table-hover table-bordered" id="dataTable" width="100%" cellSpacing="0">
@@ -79,7 +90,7 @@ function StudentAssignment() {
                                             <td>
                                                 {data.submissionData.assignmentData.type_assignment === '0' ? (
                                                     <Link
-                                                        to={`/home/GradedAssignment/${data.submissionData.assignmentData.id}/${student_name}/`}
+                                                        to={`/home/GradedAssignment/${data.submissionData.assignmentData.id}/${studentName}/`}
                                                         style={{ color: "red" }}
                                                         title='Kết quả cụ thể'
                                                     >
@@ -95,6 +106,36 @@ function StudentAssignment() {
                                     <tr className="text-center">
                                         <td colSpan={5}>Hiện tại chưa có kết quả bài tập nào !</td>
                                     </tr>
+                                )}
+                                {/* Hiển thị gradeShort */}
+                                {values.gradeShort.length > 0 && (
+                                    values.gradeShort.map((data, i) => (
+                                        <tr className="text-center" key={i}>
+                                            <td>{data.submissionData.assignmentData.assignment_name}</td>
+                                            <td>
+                                                {data.submissionData.assignmentData.type_assignment === '0' ? (
+                                                    <span>Tự luận</span>
+                                                ) : (
+                                                    <span>Câu trả lời ngắn</span>
+                                                )}
+                                            </td>
+                                            <td>{data.submissionData.assignmentData.classData.class_name}</td>
+                                            <td>{moment(data.createdAt).format('DD-MM-YYYY HH:mm a')}</td>
+                                            <td>
+                                                {data.score_value !== undefined ? (
+                                                    <Link
+                                                        to={`/home/GradedAssignment/${data.submissionData.assignmentData.id}/${studentName}/`}
+                                                        style={{ color: "red" }}
+                                                        title='Kết quả cụ thể'
+                                                    >
+                                                        {data.score_value}
+                                                    </Link>
+                                                ) : (
+                                                    <span>Chưa chấm</span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))
                                 )}
                             </tbody>
                         </table>

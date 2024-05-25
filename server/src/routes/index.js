@@ -11,7 +11,7 @@ import submiss from "./submission";
 import studentSubmitted from "./studentSubmitted";
 import mainStudent from "./pageStudentRouter";
 import statis from "./statisRouter";
-// import shortAssignment from "./shortAssignmentRouter"
+import resultAssignment from "./resultAssignmentRouter";
 
 import { internalServerError } from "../middlewares/handle_errors";
 
@@ -28,8 +28,9 @@ const initRoutes = (app) => {
   app.use("/api/submiss", submiss);
   app.use("/api/studentSubmitted", studentSubmitted);
   app.use("/api/main-student", mainStudent);
-  app.use("/api/short-assignment",assignment)
-  app.use("/api/statis", statis)
+  app.use("/api/short-assignment",assignment);
+  app.use("/api/statis", statis);
+  app.use("/api/resultAssignment", resultAssignment);
 
   // app.use("/", internalServerError);
 };

@@ -123,7 +123,7 @@ export default function Student() {
                         ></i>
                         <Link
                             onClick={(e) => e.stopPropagation()}
-                            to={`/home/student/student-scores/${data.id}`}
+                            to={`/home/student/student-scores/${data.id}/${params.classID}`}
                             state={{ studentData: data }}
                         >
                             <i class="bi bi-journal-check" title='Kết quả bài tập'></i>
