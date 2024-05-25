@@ -12,9 +12,8 @@ function AssignmentStudent() {
     const [values, setValues] = useState([]);
     const [user, setUser] = useState([]);
     const [classId, setClassId] = useState(null);
-    console.log(values)
-   
-   
+    const [studentId, setStudentId] = useState('');
+    const [submissionStatuses, setSubmissionStatuses] = useState({});
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -22,6 +21,8 @@ function AssignmentStudent() {
             if (response?.data.err === 0) {
                 const classId = response.data.response.class_id;
                 const userName = response.data.response.student_name;
+                const fetchStudentId = response.data.response.id;
+                setStudentId(fetchStudentId);
                 setClassId(classId);
                 setUser(userName);
                 setValues(response.data.response.Classes);
@@ -32,8 +33,34 @@ function AssignmentStudent() {
                 setUser([]);
             }
         };
-        token && fetchUser();
-    }, [token]);
+
+        const fetchSubmissionStatus = async (assignmentId, studentId) => {
+            try {
+                const response = await axios.get(`http://localhost:8081/api/checkDoAssign/${assignmentId}/${studentId}`);
+                return response.data.message;
+            } catch (error) {
+                console.error("Lỗi", error);
+                return "Làm bài";
+            }
+        };
+
+        const updateSubmissionStatuses = async (classes) => {
+            const statuses = {};
+            for (const classData of classes) {
+                for (const assignment of classData.assignmentData) {
+                    const status = await fetchSubmissionStatus(assignment.id, studentId);
+                    statuses[assignment.id] = status;
+                }
+            }
+            setSubmissionStatuses(statuses);
+        };
+
+        if (token) {
+            fetchUser().then(() => {
+                updateSubmissionStatuses(values);
+            });
+        }
+    }, [token, values]);
 
     return (
         <div className="container-fluid">
@@ -67,12 +94,14 @@ function AssignmentStudent() {
                                 values.map((data, i) => (
                                     <React.Fragment key={i}>
                                         {data.assignmentData.length > 0 ? (
-                                             // So sánh ngày hiện tại với deadline của assignment
-                                             data.assignmentData.map((assignment, index) => {
-                                                 const isClosed = moment().isAfter(assignment.deadline);
+                                            // So sánh ngày hiện tại với deadline của assignment
+                                            data.assignmentData.map((assignment, index) => {
+                                                const isClosed = moment().isAfter(assignment.deadline);
+                                                const submissionStatus = submissionStatuses[assignment.id] || "Làm bài";
+
                                                 return (
                                                     <tr key={index}>
-                                                      
+
                                                         <td style={{ fontWeight: 500 }}>
                                                             {assignment.assignment_name}
                                                         </td>
@@ -81,24 +110,24 @@ function AssignmentStudent() {
                                                             {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}
                                                         </td>
                                                         {isClosed ? (
-                                                              <td>
+                                                            <td>
                                                                 <span
                                                                     className="p-2"
                                                                     style={{ backgroundColor: '#FF6464', borderRadius: '15px', color: 'white' }}
                                                                 >
                                                                     Đã Đóng
                                                                 </span>
-                                                              </td>
-                                                            ) : (
-                                                                <td>
-                                                                    <span
-                                                                        className="p-2"
-                                                                        style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
+                                                            </td>
+                                                        ) : (
+                                                            <td>
+                                                                <span
+                                                                    className="p-2"
+                                                                    style={{ backgroundColor: '#91C483', borderRadius: '15px', color: 'white' }}
                                                                 >
-                                                                     Đang Mở
+                                                                    Đang Mở
                                                                 </span>
-                                                                </td>
-                                                            )}
+                                                            </td>
+                                                        )}
                                                         <td>
                                                             <Link
                                                                 to={assignment.file_path}
@@ -110,17 +139,18 @@ function AssignmentStudent() {
                                                         </td>
                                                         <td>
                                                             {isClosed ? (
-                                                                <div>
-                                                                    Hết hạn
-                                                                </div>
-                                                            ):(
-
-                                                                <Link
-                                                                    to={`/student/upload-assignment/${assignment.id}/${classId}`}
-                                                                    className="nav-link text-center"
-                                                                >
-                                                                    Nộp bài
-                                                                </Link>
+                                                                <span>Hết hạn</span>
+                                                            ) : (
+                                                                submissionStatus === "Đã nộp" ? (
+                                                                    <span>Đã nộp</span>
+                                                                ) : (
+                                                                    <Link
+                                                                        to={`/student/upload-assignment/${assignment.id}/${classId}`}
+                                                                        className="nav-link text-center"
+                                                                    >
+                                                                        Làm bài
+                                                                    </Link>
+                                                                )
                                                             )}
                                                         </td>
                                                     </tr>

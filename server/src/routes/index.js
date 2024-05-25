@@ -13,6 +13,7 @@ import mainStudent from "./pageStudentRouter";
 import statis from "./statisRouter";
 import resultAssignment from "./resultAssignmentRouter";
 import checkDoAssignShort from "./checkDoAssignShortRouter";
+import checkDoAssign from "./checkDoAssignRouter";
 
 import { internalServerError } from "../middlewares/handle_errors";
 
@@ -33,6 +34,7 @@ const initRoutes = (app) => {
   app.use("/api/statis", statis);
   app.use("/api/resultAssignment", resultAssignment);
   app.use("/api/checkDoAssignShort", checkDoAssignShort);
+  app.use("/api/checkDoAssign", checkDoAssign);
 
   // app.use("/", internalServerError);
 };
