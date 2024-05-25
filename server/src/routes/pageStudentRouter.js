@@ -16,4 +16,6 @@ router.get("/get-student", verifyToken, controllers.getStudentCurrent);
 router.post("/submit-short" ,verifyToken ,controllers.submitAssignmentShort)
 // get graded for student page return assignment short 
 router.get("/get-graded-short/:idStudent",controllers.getGradedForStudent)
+// //check status đã nộp hay chưa
+// router.get("check-status/:assignmentId/:studentId",controllers.checkStatusSubmit)
 module.exports = router;

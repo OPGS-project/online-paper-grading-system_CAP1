@@ -33,11 +33,11 @@ const ShortSubmitted = () => {
             <div className="card shadow mb-4 height-table">
                 <div className="card-header py-3 d-flex justify-content-between">
                     <h6 className="m-0 font-weight-bold text-primary">Bài Tập Đã Nộp</h6>
-                    <div>
-                        {/* <CSVLink data={true} filename={'Score_Student_data.csv'} className="btn btn-primary ml-2">
+                    {/* <div>
+                        <CSVLink data={true} filename={'Score_Student_data.csv'} className="btn btn-primary ml-2">
                             <i className="fa-solid fa-file-arrow-down"></i> Export csv
-                        </CSVLink> */}
-                    </div>
+                        </CSVLink>
+                    </div> */}
                 </div>
                 <div className="card-body">
                     <div className="table-responsive"></div>
@@ -63,7 +63,8 @@ const ShortSubmitted = () => {
                                                 : 'Chưa chấm'}
                                         </td>
                                         <td>
-                                            {data.gradeData ? (
+                                      
+                                            {data.gradeData  ? (
                                                 <Link
                                                     to={`/home/GradedAssignment/${data.id}/${data.student_name}`}
                                                     className=""
@@ -81,7 +82,7 @@ const ShortSubmitted = () => {
                                         <td>
                                             {data.submission_status === 'Đã chấm' ? (
                                                 <Link
-                                                    to={`/home/GradedAssignment/${data.id}/${data.student_name}`}
+                                                    to={`/home/graded-short/${data.id}/${data.student_name}`}
                                                     className="btn btn-outline-success"
                                                 >
                                                     {data.submission_status}
@@ -94,6 +95,7 @@ const ShortSubmitted = () => {
                                                     {data.submission_status}
                                                 </Link>
                                             )}
+                                             
                                         </td>
                                     </tr>
                                 ))

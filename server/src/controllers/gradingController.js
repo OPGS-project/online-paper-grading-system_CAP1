@@ -123,10 +123,13 @@ export const updateGradedAssignment = async (req, res) => {
 //update grading short assignment
 export const updateGradedShortAssignment = async (req, res) => {
   try {
-    const gradeId = req.params;
+    const gradeId = req.params.gradeId;
+
+    console.log(gradeId)
     
     const response = await services.updateGradedShortAssignment(
       gradeId,
+  
       req.body
     );
     return res.status(200).json(response);

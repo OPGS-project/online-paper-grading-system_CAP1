@@ -23,7 +23,7 @@ function ReturnAssignmentShort() {
         setSelectedSubmission(submission);
         setModalIsOpen(true);
         const parseQuestion = JSON.parse(submission.answer_short_json)
-        setQuestion(parseQuestion)
+        setQuestion(parseQuestion);
         
     };
 
