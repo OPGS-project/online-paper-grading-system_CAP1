@@ -497,7 +497,7 @@ export const getGradeShort = (submissionId, student_name) =>
 //UPDATE Grade short assignment
 export const updateGradedShortAssignment = (gradeId, body) =>
   new Promise(async (resolve, reject) => {
-    console.log(gradeId)
+    // console.log(gradeId)
     try {
       const response = await db.Grade_short.update(body, {
         where: { id: gradeId, },

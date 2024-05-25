@@ -138,7 +138,7 @@ export const submitAssignmentShortService = (body, studentId) => {
   return new Promise(async (resolve, reject) => {
     try {
       // Kiểm tra trạng thái nộp bài của học sinh 
-      console.log(body.assignment_id)
+      // console.log(body.assignment_id)
       const existingSubmission = await db.Submit_short.findOne({
         where: {
           student_id: studentId,

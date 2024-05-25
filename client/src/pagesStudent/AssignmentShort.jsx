@@ -18,7 +18,6 @@ function AssignmentShort() {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await apiGetShortAssignment(token);
-            console.log(response.data.response.id)
             if (response?.data.err === 0) {
                 const classId = response.data.response.class_id;
                 const userName = response.data.response.student_name;
