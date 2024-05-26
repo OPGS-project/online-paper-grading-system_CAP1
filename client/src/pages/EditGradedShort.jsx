@@ -20,8 +20,8 @@ function EditGradedShort() {
     const [idGrading ,setIdGrading] = useState('')
     const [idStudent ,setIdStudent] = useState('')
     const [idAssignment,setIdAssignment] = useState('')
-    console.log(idGrading)
-    console.log(idAssignment)
+    // console.log(idGrading)
+    // console.log(idAssignment)
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {

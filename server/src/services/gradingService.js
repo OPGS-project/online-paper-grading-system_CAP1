@@ -201,7 +201,7 @@ export const getGradeById = (idStudent) =>
 
             model: db.Submission,
             as: "submissionData",
-            attributes: ["image", "createdAt"],
+            attributes: ["image", "createdAt", "id"],
             where: {class_id: classId},
             include: [
               {
@@ -236,7 +236,7 @@ export const getGradeById = (idStudent) =>
 
             model: db.Submit_short,
             as: "submissionData",
-            attributes: ["createdAt"],
+            attributes: ["createdAt", "id"],
             where: {class_id: classId},
             include: [
               {

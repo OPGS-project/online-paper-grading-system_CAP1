@@ -8,7 +8,7 @@ const ShortSubmitted = () => {
     const navigate = useNavigate();
     const [dataSubmit ,setDataSubmit] = useState([])
     const params = useParams()
-    console.log(dataSubmit)
+    // console.log(dataSubmit)
 
 
     useEffect(() =>{

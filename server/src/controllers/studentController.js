@@ -99,7 +99,7 @@ export const uploadCSV = async (req, res) => {
               }
             }
             object.class_id = classId;
-            console.log(object);
+            // console.log(object);
 
             // Parse the date string into a JavaScript Date object
             const parsedBirthday = new Date(object.birthday);

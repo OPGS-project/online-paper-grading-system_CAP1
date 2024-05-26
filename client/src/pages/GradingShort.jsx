@@ -19,9 +19,9 @@ function GradingShort() {
 
     const [showInputComment, setShowCommentInput] = useState({})
     const [comments, setComments] = useState({})
-    console.log(comments)
-    console.log(answerStudent)
-    console.log(dataSubmit)
+    // console.log(comments)
+    // console.log(answerStudent)
+    // console.log(dataSubmit)
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
@@ -30,7 +30,7 @@ function GradingShort() {
                 const responseData = response.data.response[0];
                 const parseQuestion = JSON.parse(responseData.answer_short);
                 setAnswerStudent(parseQuestion);
-                console.log(parseQuestion);
+                
 
                 const idSubmit = responseData.id
                 setIdSubmit(idSubmit)
@@ -103,14 +103,13 @@ function GradingShort() {
                 point: points[index],
                 comment: comments[index],
             }));
-            console.log(updatedAnswerStudent)
+            // console.log(updatedAnswerStudent)
             const data = {
                 student_id: parseInt(params.student_id, 10),
                 submission_id: idSubmit,
                 score_value: total,
                 comments: "aaaa",
-                answer_short_json: JSON.stringify(updatedAnswerStudent),
-
+                answer_short_json: JSON.stringify(updatedAnswerStudent).replace(/&nbsp;/g, ""),
             }
             const response = await axios.post(`http://localhost:8081/api/grading/graded-short`, data)
             if (response.data.err === 0) {

@@ -90,14 +90,14 @@ function StudentAssignment() {
                                             <td>
                                                 {data.submissionData.assignmentData.type_assignment === '0' ? (
                                                     <Link
-                                                        to={`/home/GradedAssignment/${data.submissionData.assignmentData.id}/${studentName}/`}
+                                                        to={`/home/GradedAssignment/${data.submissionData.id}/${studentName}/`}
                                                         style={{ color: "red" }}
                                                         title='Kết quả cụ thể'
                                                     >
                                                         {data.score_value}
                                                     </Link>
                                                 ) : (
-                                                    <Link style={{ color: "red" }}>{data.score_value}</Link>
+                                                    <span style={{ color: 'red' }}>{data.score_value}</span>
                                                 )}
                                             </td>
                                         </tr>
@@ -124,14 +124,14 @@ function StudentAssignment() {
                                             <td>
                                                 {data.score_value !== undefined ? (
                                                     <Link
-                                                        to={`/home/GradedAssignment/${data.submissionData.assignmentData.id}/${studentName}/`}
+                                                        to={`/home/graded-short/${data.submissionData.id}/${studentName}/`}
                                                         style={{ color: "red" }}
                                                         title='Kết quả cụ thể'
                                                     >
                                                         {data.score_value}
                                                     </Link>
                                                 ) : (
-                                                    <span>Chưa chấm</span>
+                                                    <span style={{ color: 'red' }}>{data.score_value}</span>
                                                 )}
                                             </td>
                                         </tr>
