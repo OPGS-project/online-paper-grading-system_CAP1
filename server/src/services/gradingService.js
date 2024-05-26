@@ -396,11 +396,28 @@ export const updateGradedAssignment = (gradeId, body, fileData) =>
     }
   });
 
-//DELETE
+//DELETE 
 export const deleteAssignmentGraded = (gradingId) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Grade.destroy({
+        where: { id: gradingId.gradingId },
+      });
+
+      resolve({
+        err: response > 0 ? 0 : 1,
+        message: `${response} grade deleted`,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+  //DELETE short
+export const deleteShortAssignmentGradedService = (gradingId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Grade_short.destroy({
         where: { id: gradingId.gradingId },
       });
 

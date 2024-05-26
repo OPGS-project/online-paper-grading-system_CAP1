@@ -14,7 +14,7 @@ function Introduce() {
                     <div className="col-md-5 ">
                         <div className="d-flex align-items-center my-1">
                             <FaBookReader className="icon-intro" />
-                            <span className="title ml-5"> O P G S</span>
+                            <span className="title ml-5"> S G S</span>
                         </div>
                         <div className="text-intro mt-5">Hệ thống chấm bài và quản lý giáo dục</div>
                     </div>

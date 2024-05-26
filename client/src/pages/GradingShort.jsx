@@ -63,6 +63,10 @@ function GradingShort() {
     };
 
     const handleGrade = (index, grade) => {
+        if (grade > answerStudent[index].grade) {
+            alert(`Điểm không được vượt quá ${answerStudent[index].grade}`);
+            return;
+        }
         setPoints((prevPoints) => ({
             ...prevPoints,
             [index]: grade,

@@ -148,6 +148,17 @@ export const deleteAssignmentGraded = async (req, res) => {
   }
 };
 
+//Delete short
+export const deleteShortAssignmentGraded = async (req, res) => {
+  try {
+    const gradingId = req.params;
+    const response = await services.deleteShortAssignmentGradedService(gradingId);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /**
  * Calculates the similarity between two texts using a Python script.
  * @param {string} text1 The first text.
@@ -168,7 +179,7 @@ export async function calculateSimilarity(req, res) {
   const calculateQuestionSimilarity = async (teacherAnswer, studentAnswer) => {
     return new Promise((resolve, reject) => {
       const pythonProcess = spawn('python', [
-        'C:\\Users\\Admin\\Documents\\cap2\\online-paper-grading-system_CAP1\\server\\src\\services\\calculateSimilarityService.py',
+        'D:\\Cap1\\online-paper-grading-system_CAP1\\server\\src\\services\\calculateSimilarityService.py',
         `"${teacherAnswer}"`,
         `"${studentAnswer}"`
       ]);

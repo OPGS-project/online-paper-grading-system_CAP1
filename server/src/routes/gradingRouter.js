@@ -14,6 +14,7 @@ router.get("/:idStudent/", controllers.getGradeById);// student page
 
 // router.get("/get-graded-short/:idStudent",controllers.getGradedForStudent)
 router.delete("/:gradingId", controllers.deleteAssignmentGraded);
+router.delete("/delete-short/:gradingId", controllers.deleteShortAssignmentGraded);
 router.put(
   "/:gradeId",
   uploadGradedAssignments.single("image"),

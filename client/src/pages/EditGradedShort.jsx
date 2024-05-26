@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '~~/pages/GradingShort.scss';
+ 
 
 function EditGradedShort() {
     const params = useParams();
@@ -20,8 +22,8 @@ function EditGradedShort() {
     const [idGrading ,setIdGrading] = useState('')
     const [idStudent ,setIdStudent] = useState('')
     const [idAssignment,setIdAssignment] = useState('')
-    // console.log(idGrading)
-    // console.log(idAssignment)
+    console.log(idGrading)
+    console.log(idAssignment)
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
@@ -80,6 +82,10 @@ function EditGradedShort() {
     }
 
     const handleGrade = (index, grade) => {
+        if (grade > answerStudent[index].grade) {
+            alert(`Điểm không được vượt quá ${answerStudent[index].grade}`);
+            return;
+        }
         setPoints((prevPoints) => ({
             ...prevPoints,
             [index]: grade,
@@ -124,7 +130,7 @@ function EditGradedShort() {
                     theme: 'light',
                 });
                 setTimeout(() => {
-                    navigate(`/home/assignment/submitted-short/${idAssignment}`);
+                    navigate(`/home/graded-short/${params.id}/${params.student_name}`);
                 }, 2000);
             }
         } catch (error) {
@@ -170,7 +176,7 @@ function EditGradedShort() {
     }
 
     return (
-        <div className="container-fluid" style={{ display: "flex", width: "100%" }}>
+        <div className="container-fluid container-gradingShort" style={{ display: "flex", width: "100%" }}>
             {dataSubmit.map((item, index) => (
                 <div className="content-container-short" style={{ flex: "column", width: "70%", marginRight: "10px" }} key={index}>
                     <div className="assignment-info-box ">
@@ -181,7 +187,7 @@ function EditGradedShort() {
                             <p className='header-infor'>Thời gian chấm cũ: {moment(item.createdAt).format('DD-MM-YYYY HH:mm a')}</p>
                         </div>
                         <div>
-                            <button onClick={handleGradingAuto} type='button' className='btn btn-primary mt-2'>
+                            <button onClick={handleGradingAuto} type='button' className='btn btn-primary mt-4'>
                                 {loading ? <span>Loading...</span> : <span><i className="fa-solid fa-wand-magic-sparkles"></i>Grading auto</span>}
                             </button>
                         </div>
@@ -261,11 +267,11 @@ function EditGradedShort() {
                 </div>
             ))}
 
-            <div className='give-save-grade' style={{ width: "30%", margin: "0 auto" }}>
-                <h4 className='text-center'>Cho điểm và lưu</h4>
-                <span>total score : <span style={{ color: "red" }}>{total}</span></span>
-                <div className='save-grade'>
-                    <button onClick={handleSaveGraded}>Cập nhật</button>
+            <div className='give-save-grade text-center' style={{ width: "30%", margin: "0 auto" }}>
+                <h4 className='text-center mb-4 mt-4'>Cho điểm và lưu</h4>
+                <span>Total score : <span style={{ color: "red" }}>{total}</span></span>
+                <div className='save-grade mt-4'>
+                    <button className='text-white' onClick={handleSaveGraded}>Cập nhật</button>
                 </div>
             </div>
             <ToastContainer />

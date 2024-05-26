@@ -54,7 +54,7 @@ function GradedShort() {
             cancelButtonText: 'Hủy',
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:8081/api/grading/${gid}`)
+                axios.delete(`http://localhost:8081/api/grading/delete-short/${gid}`)
                     .then((res) => {
                         if (+res.data.err === 0) {
                             toast.success('Xóa thành công', {
@@ -68,7 +68,7 @@ function GradedShort() {
                                 theme: 'light',
                             });
                             setTimeout(() => {
-                                navigate(`/home/assignment/submitted/${assignmentId}`);
+                                navigate(`/home/assignment/submitted-short/${assignmentId}`);
                             }, 2000);
                         }
                     });

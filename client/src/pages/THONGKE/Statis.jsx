@@ -20,7 +20,7 @@ function Statis() {
             {
                 label: '',
                 data: [0, 0, 0],
-                backgroundColor: ['#5FBF5D', '#FFCF96', '#F6FDC3'],
+                backgroundColor: ['#f82732', '#fa8d33', '#31e44f'],
                 borderColor: 'transparent',
                 borderWidth: 1,
             },

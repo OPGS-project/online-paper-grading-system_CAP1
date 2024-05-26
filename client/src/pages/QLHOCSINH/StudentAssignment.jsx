@@ -74,7 +74,7 @@ function StudentAssignment() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {values.assignmentOfStudent.length > 0 ? (
+                                {values.assignmentOfStudent ? (
                                     values.assignmentOfStudent.map((data, i) => (
                                         <tr className="text-center" key={i}>
                                             <td>{data.submissionData.assignmentData.assignment_name}</td>
