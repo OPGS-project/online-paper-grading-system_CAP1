@@ -3,7 +3,7 @@ import * as authServices from "../services";
 export const getAssignmentOfStudent = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log(id);
+    // console.log(id);
     const response = await authServices.getAssignmentOfStudent(id);
     return res.status(200).json(response);
   } catch (error) {
@@ -14,7 +14,7 @@ export const getAssignmentOfStudent = async (req, res) => {
 export const getAssignmentShort =async (req , res) =>{
   try {
     const { id } = req.user;
-    console.log(id);
+    // console.log(id);
     const response = await authServices.getAssignmentShortService(id);
     return res.status(200).json(response);
   } catch (error) {

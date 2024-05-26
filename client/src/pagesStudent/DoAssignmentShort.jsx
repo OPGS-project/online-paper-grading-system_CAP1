@@ -24,14 +24,14 @@ export default function DoAssignmentShort() {
     const fetchAssignmentDetail = async () => {
       try {
         const response = await apiGetShortAssignmentDetail(assignmentId, classId);
-        console.log(response.data.assignment.question_name);
-        console.log(response)
+        // console.log(response.data.assignment.question_name);
+        // console.log(response)
         setAssignment(response.data.assignment);
-        console.log(response.data.assignment.question_name)
+        // console.log(response.data.assignment.question_name)
         if (response.data.assignment.question_name && typeof response.data.assignment.question_name === 'string') {
           const questionData = JSON.parse(response.data.assignment.question_name);
           setQuestion(questionData);
-          console.log(questionData)
+          // console.log(questionData)
         } else {
           console.error('Invalid question_name format');
         }
@@ -81,12 +81,12 @@ export default function DoAssignmentShort() {
       studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""),
     }));
 
-    console.log("Data: ")
+    // console.log("Data: ")
     
     const classIdInt = parseInt(classId, 10); 
     const assignmentIdInt = parseInt(assignmentId, 10); 
     const answerJson = JSON.stringify(submissionData);  
-    console.log(answerJson)
+    // console.log(answerJson)
 
     const data = {
       assignment_id: assignmentIdInt,

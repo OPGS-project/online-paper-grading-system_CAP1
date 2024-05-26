@@ -165,7 +165,7 @@ export const refreshToken = (refresh_token) =>
       const response = await db.Teacher.findOne({
         where: { refresh_token: refresh_token },
       });
-      console.log(response);
+      // console.log(response);
       if (response) {
         jwt.verify(
           refresh_token,

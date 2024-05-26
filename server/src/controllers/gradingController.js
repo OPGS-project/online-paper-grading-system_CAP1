@@ -123,7 +123,7 @@ export const updateGradedShortAssignment = async (req, res) => {
   try {
     const gradeId = req.params.gradeId;
 
-    console.log(gradeId)
+    // console.log(gradeId)
     
     const response = await services.updateGradedShortAssignment(
       gradeId,

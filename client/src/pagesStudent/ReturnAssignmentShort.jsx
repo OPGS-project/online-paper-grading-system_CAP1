@@ -13,9 +13,9 @@ function ReturnAssignmentShort() {
     const [question,setQuestion]= useState({})
     const [modalIsOpen, setModalIsOpen] = useState(false);
     
-    console.log(selectedSubmission)
-    console.log(question)
-    console.log(data)
+    // console.log(selectedSubmission)
+    // console.log(question)
+    // console.log(data)
     
     
     const openModal = (submission) => {
@@ -35,9 +35,9 @@ function ReturnAssignmentShort() {
         const fetchUser = async () => {
             const user = await apiGetStudent(token);
             const idStudent = user.data.response.id;
-            console.log(idStudent);
+            // console.log(idStudent);
             const response = await axios.get(`http://localhost:8081/api/main-student/get-graded-short/${idStudent}`);
-            console.log(response);
+            // console.log(response);
 
             if (response?.data.err === 0) {
                 setData(response.data.response);
