@@ -5,112 +5,121 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  }
-  
-  /* Style for the header */
-  .header-short-assignment {
-    margin-bottom: 20px;
-    width: 60%;
-    display: flex;
-    justify-content: space-between;
-    background-color: #e7e7e7;
-    border-radius: 10px;
 
-    .header-infor{
-      margin: 0;
+}
+
+/* Style for the header */
+.header-short-assignment.do-assignment {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e7e7e7;
+  border-radius: 10px;
+  margin-top: 10px;
+
+
+  .header-infor {
+    margin: 0;
     padding: 20px 20px;
     font-weight: 500;
-    }
+  }
 
-  }
-  
-  /* Style for the title */
-  .title-container {
-    background-color: #f8f9fc;
-    padding: 20px;
-    border-radius: 5px;
-    width: 60%;
-    
-  }
-  
-  /* Style for the description */
-  .title-container p {
-    margin-bottom: 10px;
-  }
-  
-  /* Style for each question container */
-  .content-add-item {
-    margin-top: 20px;
-    position: relative;
-  }
-  
-  /* Style for the submit button */
-  // .btn-primary {
-  //   margin-top: 20px;
-  // }
-  
-  /* Style for the error message */
-  .text-danger {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-  }
-  
-  /* Style for the modal */
-  .modal-dialog {
-    max-width: 500px;
-    // border: 1px solid red;
-    
-  }
-  
-  /* Style for modal header */
-  .modal-header {
-    background-color: #007bff;
-    color: #fff;
-    border-bottom: none;
-  }
-  
-  /* Style for modal body */
-  .modal-body {
-    padding: 20px;
-    margin: 0 auto;
-  }
-  
-  /* Style for modal footer */
-  .modal-footer {
-    justify-content: center;
-  }
-  
-  /* Style for modal close button */
-  .close {
-    color: #fff;
-  }
-  
-  /* Style for modal confirm button */
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-  }
-  
-  .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-  }
-  
-  
-  
-  .content-add-item.shadow-sm.ckeditor-short {
-    position: relative;
-    width: auto;
-  }
+}
+
+
+
+/* Style for the title */
+.title-container {
+  background-color: #f8f9fc;
+  padding: 20px;
+  border-radius: 5px;
+  width: 60%;
+
+}
+
+/* Style for the description */
+.title-container p {
+  margin-bottom: 10px;
+}
+
+/* Style for each question container */
+.content-add-item {
+  margin-top: 20px;
+  position: relative;
+}
+
+/* Style for the submit button */
+// .btn-primary {
+//   margin-top: 20px;
+// }
+
+/* Style for the error message */
+.text-danger {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Style for the modal */
+.modal-dialog {
+  max-width: 500px;
+  // border: 1px solid red;
+
+}
+
+/* Style for modal header */
+.modal-header {
+  background-color: #007bff;
+  color: #fff;
+  border-bottom: none;
+}
+
+/* Style for modal body */
+.modal-body {
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* Style for modal footer */
+.modal-footer {
+  justify-content: center;
+}
+
+.modal.Title {
+  padding-left: -10px;
+}
+
+/* Style for modal close button */
+.close {
+  color: #fff;
+}
+
+/* Style for modal confirm button */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.content-add-item.shadow-sm.ckeditor-short {
+  position: relative;
+  width: auto;
+}
+
+.modal-title {
+  margin: 0 auto;
+}

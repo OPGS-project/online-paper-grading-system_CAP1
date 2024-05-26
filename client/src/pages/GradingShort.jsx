@@ -7,21 +7,17 @@ import '~~/pages/GradingShort.scss';
 
 function GradingShort() {
     const params = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [dataSubmit, setDataSubmit] = useState([]);
     const [answerStudent, setAnswerStudent] = useState([]);
     const [points, setPoints] = useState({});
     const [showAnswer, setShowAnswer] = useState({});
-    const [total, setTotal] = useState('')
-    // const [iconDirection, setIconDirection] = useState("down");
-    const [idSubmit, setIdSubmit] = useState('')
+    const [total, setTotal] = useState('');
+    const [idSubmit, setIdSubmit] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showInputComment, setShowCommentInput] = useState({});
+    const [comments, setComments] = useState({});
 
-    const [showInputComment, setShowCommentInput] = useState({})
-    const [comments, setComments] = useState({})
-    // console.log(comments)
-    // console.log(answerStudent)
-    // console.log(dataSubmit)
     useEffect(() => {
         const fetchDataStudent = async () => {
             try {
@@ -30,11 +26,8 @@ function GradingShort() {
                 const responseData = response.data.response[0];
                 const parseQuestion = JSON.parse(responseData.answer_short);
                 setAnswerStudent(parseQuestion);
-                
-
-                const idSubmit = responseData.id
-                setIdSubmit(idSubmit)
-                //  tạo trạng thái showAnswer cho mỗi câu
+                const idSubmit = responseData.id;
+                setIdSubmit(idSubmit);
                 const initialShowAnswerStates = {};
                 parseQuestion.forEach((_, index) => {
                     initialShowAnswerStates[index] = false;
@@ -47,71 +40,60 @@ function GradingShort() {
         fetchDataStudent();
     }, [params.assignment_id, params.student_id]);
 
-    // const toggleAnswer = () => {
-    //     setShowAnswer(!showAnswer);
-    //     setIconDirection(iconDirection === "down" ? "up" : "down");
-    // };
-
-    // const handleInputGrade = ()=>{
-
-    // }
-    // const handleComment = () =>{
-    //     setinputComment(true)
-    // }
     const toggleAnswer = (index) => {
         setShowAnswer((prevStates) => ({
             ...prevStates,
             [index]: !prevStates[index],
         }));
     };
+
     const toggleCommentInput = (index) => {
         setShowCommentInput((prevShowCommentInput) => ({
             ...prevShowCommentInput,
             [index]: !prevShowCommentInput[index],
         }));
     };
+
     const handleCommentChange = (index, event) => {
         const { value } = event.target;
         setComments((prevComments) => ({
             ...prevComments,
             [index]: value,
         }));
-    }
+    };
 
     const handleGrade = (index, grade) => {
-        // const finalGrade = grade === answerStudent[index].grade ? grade : 0;
         setPoints((prevPoints) => ({
             ...prevPoints,
             [index]: grade,
         }));
     };
 
-    //tính tổng điểm
     useEffect(() => {
         let sum = 0;
         for (let key in points) {
             sum += points[key] || 0;
         }
         setTotal(sum);
-    }, [points])
+    }, [points]);
 
     const handleSaveGraded = async () => {
         try {
-            // Update answerStudent with points
             const updatedAnswerStudent = answerStudent.map((item, index) => ({
                 ...item,
                 point: points[index],
                 comment: comments[index],
             }));
-            // console.log(updatedAnswerStudent)
+
             const data = {
                 student_id: parseInt(params.student_id, 10),
                 submission_id: idSubmit,
                 score_value: total,
                 comments: "aaaa",
                 answer_short_json: JSON.stringify(updatedAnswerStudent).replace(/&nbsp;/g, ""),
-            }
-            const response = await axios.post(`http://localhost:8081/api/grading/graded-short`, data)
+            };
+
+            const response = await axios.post(`http://localhost:8081/api/grading/graded-short`, data);
             if (response.data.err === 0) {
                 toast.success(response.data.mes, {
                     position: 'top-right',
@@ -128,14 +110,14 @@ function GradingShort() {
                 }, 2000);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     const handleGradingAuto = async () => {
         setLoading(true);
         const data = {
-            answerStudent
+            answerStudent,
         };
 
         const response = await axios.post(`http://localhost:8081/api/grading/graded-short-auto`, data);
@@ -143,11 +125,10 @@ function GradingShort() {
         const grades = response.data.grades;
 
         const calculatedScores = results.map((result, index) => {
-            const score = grades[index] / 100 * result;
-            return parseFloat(score.toFixed(2)); // Làm tròn đến 2 chữ số thập phân
+            const score = (grades[index] / 100) * result;
+            return parseFloat(score.toFixed(2));
         });
 
-        // Cập nhật điểm của từng câu vào state
         const updatedPoints = {};
         calculatedScores.forEach((score, index) => {
             updatedPoints[index] = score;
@@ -164,34 +145,30 @@ function GradingShort() {
             ...prevComments,
             [index]: comment,
         }));
-        //Ẩn button thêm phản hồi sau khi lưu
         setShowCommentInput((prevShowCommentInput) => ({
             ...prevShowCommentInput,
             [index]: false,
         }));
-
-    }
+    };
 
     const handleHiddenComment = (index) => {
-        toggleCommentInput(index)
-    }
+        toggleCommentInput(index);
+    };
 
     return (
-        <div className="container-fluid" style={{ display: "flex", width: "100%" }}>
+        <div className="container-fluid container-gradingShort" style={{ display: "flex", width: "100%" }}>
             {dataSubmit.map((item, index) => (
-    
                 <div className="content-container-short" style={{ flex: "column", width: "70%", marginRight: "10px" }} key={index}>
-                    <div className="assignment-info-box ">
-                        <div className="assignment-info ">
-                            <p className='header-infor'>Tên: {item.student_name}</p>
+                    <div className="assignment-info-box">
+                        <div className="assignment-info">
+                            <p className='header-infor'>Tên học sinh: {item.student_name}</p>
                             <p className='header-infor'>Bài Tập: {item.assignment_name}</p>
                             <p className='header-infor'>Thời gian nộp bài: {moment(item.submission_time).format('DD-MM-YYYY HH:mm a')}</p>
                         </div>
                         <div>
-                            <button onClick={handleGradingAuto} type='button' className='btn btn-primary mt-2'>
+                            <button onClick={handleGradingAuto} type='button' className='btn btn-primary mt-4'>
                                 {loading ? <span>Loading...</span> : <span><i className="fa-solid fa-wand-magic-sparkles"></i>Grading auto</span>}
                             </button>
-
                         </div>
                     </div>
                     {answerStudent.map((answer, index) => (
@@ -214,43 +191,31 @@ function GradingShort() {
                                         <i className="fas fa-thin fa-check" style={{ color: "rgb(12, 245, 12)" }}></i>
                                     </div>
                                 )}
-
                                 <div className='grading-answer-student'>
-                                    <div className='answer-student'  >
-                                  
-                                        <span >{answer.studentAnswer}</span>
-                                       
-                                    </div>
-
+                                    <div className='answer-student'>{answer.studentAnswer}</div>
                                     <div className='_grading'>
                                         <div className='comment'>
                                             {comments[index] ? (
                                                 <div style={{ display: "flex", gap: "10px" }} className='aaaa'>
                                                     <span>{comments[index]}</span>
                                                     <div style={{display:"flex",gap:"10px"}}>
-                                                        <button style={{border:"none",backgroundColor:"transparent",color:"rgb(62, 140, 250)"}}><i class="fa-solid fa-pen-to-square"></i></button>
-                                                        <button style={{border:"none",backgroundColor:"transparent",color:"rgb(62, 140, 250)"}}><i class="fa-solid fa-trash"></i></button>
+                                                        <button style={{border:"none",backgroundColor:"transparent",color:"rgb(62, 140, 250)"}}><i className="fa-solid fa-pen-to-square"></i></button>
+                                                        <button style={{border:"none",backgroundColor:"transparent",color:"rgb(62, 140, 250)"}}><i className="fa-solid fa-trash"></i></button>
                                                     </div>
                                                 </div>
                                             ) : (
-
-                                                <button className='button-appear-comment' onClick={() => toggleCommentInput(index)}> <i class="fa-solid fa-plus"></i>Thêm phản hồi</button>
-
+                                                <button className='button-appear-comment' onClick={() => toggleCommentInput(index)}> <i className="fa-solid fa-plus"></i>Thêm phản hồi</button>
                                             )}
-
                                             {showInputComment[index] && (
                                                 <div className='show-input'>
                                                     <div className='sub-show-input'>
                                                         <div className='sub-sub-show-input'>
-
-
                                                             <div className='header-comment'>
                                                                 <span>Thêm phản hồi</span>
                                                             </div>
                                                             <div className='content-comment'>
                                                                 <input className='input-comment' type="text" value={comments[index]} onChange={(e) => handleCommentChange(index, e)} placeholder='Nhập phản hồi' />
                                                             </div>
-
                                                             <div className='cancel-save'>
                                                                 <button style={{ backgroundColor: "" }} onClick={() => handleHiddenComment(index)}>Huỷ</button>
                                                                 <button style={{ backgroundColor: "rgb(111, 159, 247)" }} onClick={() => handleSaveComment(index)}>Lưu</button>
@@ -266,7 +231,6 @@ function GradingShort() {
                                                 <button style={{ color: "rgb(12, 245, 12)" }} className='correct-answer' onClick={() => handleGrade(index, answer.grade)} ><i className="fas fa-thin fa-check"></i></button>
                                             </div>
                                             <div className='point-grading'>
-
                                                 <input className='input-point' type="number" step="0.25" name='grade' min={0} max={answer.grade} value={points[index]} onChange={(e) => handleGrade(index, parseFloat(e.target.value))} />
                                                 <span>/</span>
                                                 <span style={{ marginLeft: "5px" }}>{answer.grade}</span>
@@ -279,14 +243,11 @@ function GradingShort() {
                     ))}
                 </div>
             ))}
-
-            <div className='give-save-grade' style={{ width: "30%", margin: "0 auto" }}>
-                <h4 className='text-center'>Cho điểm và lưu</h4>
-                {/* <button onClick={hanleTotal}>total </button> */}
-
-                <span >total score : <span style={{ color: "red" }}> {total}</span></span>
-                <div className='save-grade'>
-                    <button onClick={handleSaveGraded}>Lưu</button>
+            <div className='give-save-grade text-center' style={{ width: "30%", margin: "0 auto" }}>
+                <h4 className='text-center mb-4 mt-4'>Cho điểm và lưu</h4>
+                <span style={{ fontSize: 20 }}>Total score : <span style={{ color: "red" }}> {total}</span></span>
+                <div className='save-grade mt-4'>
+                    <button className='text-white' onClick={handleSaveGraded}>Lưu</button>
                 </div>
             </div>
             <ToastContainer />

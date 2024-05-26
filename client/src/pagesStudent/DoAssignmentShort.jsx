@@ -109,7 +109,7 @@ export default function DoAssignmentShort() {
 
   return (
     <div className="container-fluid exam-short-assignment">
-      <div className="header-short-assignment">
+      <div className="header-short-assignment do-assignment">
         <p className="header-infor">Tên bài tập: {assignment.assignment_name}</p> 
         <p className='header-infor'>Hạn nộp bài: {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}</p>
       </div>
@@ -132,10 +132,10 @@ export default function DoAssignmentShort() {
       ))}
 
       <div className="text-danger mb-3">{submissionError}</div>
-      <button className="btn btn-primary" onClick={handleSubmit}>Nộp bài</button>
+      <button className="btn btn-primary mt-3 mb-5" onClick={handleSubmit}>Nộp bài</button>
       <Modal show={showModal} onHide={closeModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>Thông báo</Modal.Title>
         </Modal.Header>
         <Modal.Body>Bạn có chắc muốn nộp bài?</Modal.Body>
         <Modal.Footer>

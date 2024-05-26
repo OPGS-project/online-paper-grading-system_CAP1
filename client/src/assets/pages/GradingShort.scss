@@ -1,7 +1,6 @@
+.container-gradingShort {
 
-
-
-.content-container-short{
+  .content-container-short {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -10,233 +9,249 @@
     .assignment-info-box {
 
 
-        .assignment-info {
-            display:flex;
-            justify-content:space-between;
-            background-color:#e7e7e7;
-            border-radius: 10px;
-
-
-            .header-infor{
-                margin: 0;
-                padding: 20px 20px;
-                font-weight: 500;
-                
-            }
-            // .header-infor:first-child{
-            //     // margin-left: 20px;
-            // }
-        }
-    }
-    .question-container{
+      .assignment-info {
         display: flex;
-        flex-direction: column;
-        position: relative;
-        margin-top: 30px;
-        height: auto;
-        min-height: 100px;
-        width: 100%;
-        background-color: white;
+        justify-content: space-between;
+        background-color: #e7e7e7;
         border-radius: 10px;
 
 
-          .question-teacherAnswer{
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            width: 100%;
-            gap: 50px;
-            // border: 1px solid red;
+        .header-infor {
+          margin: 0;
+          padding: 20px 20px;
+          font-weight: 500;
 
+        }
 
-            .question-content{
-              width: 80%;
-            }
-            .button-teacher-answer{
-              width: 20%;
-              .button-hidden{
-                  // margin-right: 10px;
-                  border: none;
-                  color: rgb(62, 140, 250);
-                  background-color: transparent;
-                  font-size: 14px;
-                  font-weight: 600;
-
-                  &:hover{
-                    background-color: rgb(236, 243, 253);
-                    border-radius: 5px;
-                  }
-                  
-              }
-              
-            }
-          }
-
-
-          .teacher-answer{
-            padding: 0px 40px;
-          }
-
-          .grading-answer-student{
-
-            .answer-student {
-              margin-top: 20px;
-              background-color: rgb(195, 219, 252);
-              border-radius: 10px;
-              padding: 20px;
-              // border: 1px solid red;
-
-              
-            }
-
-            ._grading{
-                display: flex;
-                justify-content: space-between;
-
-              .comment{
-                margin: 25px 20px 10px 0px;
-
-                .button-appear-comment{
-                  border: none;
-                  padding: 10px;
-                  margin-left: 10px;
-                  color: rgb(62, 140, 250);
-                  background-color: transparent;
-                  &:hover{
-                    background-color: rgb(244, 247, 252);
-                  }
-                }
-                .show-input{
-                  // width: 500px;
-                  // height: 100px;
-                  
-                  position: fixed;
-                  left: 0;
-                  top: 0;
-                  bottom: 0;
-                  right: 0;
-                  opacity: 1;
-                  background-color: rgba(0, 0, 0, .5);
-                  z-index:5000;
-                  .sub-show-input{
-                    margin-top: 100px;
-                    display: flex;
-                    bottom: 0;
-                    left: 0;
-                    padding: 0 5%;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-
-                    .sub-sub-show-input{
-                      margin: 0 auto;
-                      height: 300px;
-                      display: flex;
-                      flex-direction: column;
-                      box-shadow: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
-                      background-color: #fff;
-                      border-radius: 8px;
-                      max-width: 24em;
-                      outline: 1px solid transparent;
-                      overflow: hidden;
-                      position: relative;
-                      max-width: 100%;
-                      width: 600px;
-
-                      .header-comment{
-                        padding: 25px;
-                      }
-                      .content-comment{
-                        width: 100%;
-                        padding: 10px 30px;
-                      
-                        .input-comment{
-                          width: 100%;
-                          
-                          padding: 10px;
-                          border: none;
-                          background-color: rgb(247, 246, 246);
-                          // border-radius: 10px;
-                          border-bottom: 2px solid;
-                          &:hover{
-                            background-color: rgb(224, 224, 224);
-                          }
-                        }
-                      }
-                      .cancel-save{
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-                        margin: 0px 30px 50px 10px;
-                        display: flex;
-                        gap: 10px;
-                        button{
-                          padding: 5px;
-                          width: 60px;
-                          float: right;
-                          border: none;
-                          border-radius: 5px;
-                          
-                         
-                        }
-                        
-                      }
-                     
-                    }
-                  }
-
-                }
-              }
-              .aaaaaa{
-                margin: 20px 20px 10px 0px;
-                // float: right;
-                display: flex;
-
-
-
-                .button-grading{
-                
-                  .correct-answer,.incorrect-answer{
-                    margin-right: 10px;
-                    width: 50px;
-                    height: 50px;
-                    border: 1px solid rgb(206, 205, 205);
-                    border-radius: 10px;
-                    background-color: transparent;
-    
-                    &:hover{
-                      background-color: rgb(236, 236, 236);
-                    }
-                  }
-                }
-                .point-grading{
-                    .input-point{
-                      width: 50px;
-                      text-align: center;
-                      margin-top: 10px;
-                      border: none;
-                      border-bottom: 1px solid;
-                    }
-                }
-              }
-              
-                
-            }
-          }
-          
-        
+        // .header-infor:first-child{
+        //     // margin-left: 20px;
+        // }
+      }
     }
-}
 
-.give-save-grade{
-
-  .save-grade{
-    button{
-      border: none;
-      width: 100px;
-      background-color: #007bff;
+    .question-container {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-top: 30px;
+      height: auto;
+      min-height: 100px;
+      width: 100%;
+      background-color: white;
       border-radius: 10px;
-      padding: 10px;
+
+
+      .question-teacherAnswer {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        width: 100%;
+        gap: 50px;
+        // border: 1px solid red;
+
+
+        .question-content {
+          width: 80%;
+        }
+
+        .button-teacher-answer {
+          width: 20%;
+
+          .button-hidden {
+            // margin-right: 10px;
+            border: none;
+            color: rgb(62, 140, 250);
+            background-color: transparent;
+            font-size: 14px;
+            font-weight: 600;
+
+            &:hover {
+              background-color: rgb(236, 243, 253);
+              border-radius: 5px;
+            }
+
+          }
+
+        }
+      }
+
+
+      .teacher-answer {
+        padding: 0px 40px;
+      }
+
+      .grading-answer-student {
+
+        .answer-student {
+          margin-left: 20px;
+          margin-right: 20px;
+          margin-top: 20px;
+          background-color: rgb(195, 219, 252);
+          border-radius: 10px;
+          padding: 20px;
+          word-break: break-word;
+          white-space: pre-wrap;
+        }
+
+        ._grading {
+          display: flex;
+          justify-content: space-between;
+
+          .comment {
+            margin: 25px 20px 10px 0px;
+
+            .button-appear-comment {
+              border: none;
+              padding: 10px;
+              margin-left: 10px;
+              color: rgb(62, 140, 250);
+              background-color: transparent;
+
+              &:hover {
+                background-color: rgb(244, 247, 252);
+              }
+            }
+
+            .show-input {
+              // width: 500px;
+              // height: 100px;
+
+              position: fixed;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              right: 0;
+              opacity: 1;
+              background-color: rgba(0, 0, 0, .5);
+              z-index: 5000;
+
+              .sub-show-input {
+                margin-top: 100px;
+                display: flex;
+                bottom: 0;
+                left: 0;
+                padding: 0 5%;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                .sub-sub-show-input {
+                  margin: 0 auto;
+                  height: 300px;
+                  display: flex;
+                  flex-direction: column;
+                  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+                  background-color: #fff;
+                  border-radius: 8px;
+                  max-width: 24em;
+                  outline: 1px solid transparent;
+                  overflow: hidden;
+                  position: relative;
+                  max-width: 100%;
+                  width: 600px;
+
+                  .header-comment {
+                    padding: 25px;
+                  }
+
+                  .content-comment {
+                    width: 100%;
+                    padding: 10px 30px;
+
+                    .input-comment {
+                      width: 100%;
+
+                      padding: 10px;
+                      border: none;
+                      background-color: rgb(247, 246, 246);
+                      // border-radius: 10px;
+                      border-bottom: 2px solid;
+
+                      &:hover {
+                        background-color: rgb(224, 224, 224);
+                      }
+                    }
+                  }
+
+                  .cancel-save {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    margin: 0px 30px 50px 10px;
+                    display: flex;
+                    gap: 10px;
+
+                    button {
+                      padding: 5px;
+                      width: 60px;
+                      float: right;
+                      border: none;
+                      border-radius: 5px;
+
+
+                    }
+
+                  }
+
+                }
+              }
+
+            }
+          }
+
+          .aaaaaa {
+            margin: 20px 20px 10px 0px;
+            // float: right;
+            display: flex;
+
+
+
+            .button-grading {
+
+              .correct-answer,
+              .incorrect-answer {
+                margin-right: 10px;
+                width: 50px;
+                height: 50px;
+                border: 1px solid rgb(206, 205, 205);
+                border-radius: 10px;
+                background-color: transparent;
+
+                &:hover {
+                  background-color: rgb(236, 236, 236);
+                }
+              }
+            }
+
+            .point-grading {
+              .input-point {
+                width: 50px;
+                text-align: center;
+                margin-top: 10px;
+                border: none;
+                border-bottom: 1px solid;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .give-save-grade {
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 220px;
+
+    .save-grade {
+      button {
+        border: none;
+        width: 100px;
+        background-color: #007bff;
+        border-radius: 10px;
+        padding: 10px;
+      }
     }
   }
 }
