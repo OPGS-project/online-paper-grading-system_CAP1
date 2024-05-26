@@ -78,7 +78,7 @@ export default function DoAssignmentShort() {
       question: question.title,
       teacherAnswer: question.answer,
       grade: question.grade,
-      studentAnswer: questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, ""),
+      studentAnswer: questionAnswers[index] ? questionAnswers[index].replace(/<\/?[^>]+(>|$)/g, "") : ""
     }));
 
     // console.log("Data: ")
