@@ -189,7 +189,10 @@ function EditGradedShort() {
                         </div>
                         <div>
                             <button onClick={handleGradingAuto} type='button' className='btn btn-primary mt-4'>
-                                {loading ? <span>Loading...</span> : <span><i className="fa-solid fa-wand-magic-sparkles"></i>Grading auto</span>}
+                            {loading ? 
+                                <div className="loading-overlay">
+                                    <div className="spinner"></div>
+                                </div> : <span><i className="fa-solid fa-wand-magic-sparkles"></i>Grading auto</span>}
                             </button>
                         </div>
                     </div>

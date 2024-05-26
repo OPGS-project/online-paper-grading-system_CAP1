@@ -50,7 +50,7 @@ export default function AddAssignmentEssay() {
         errClass: null,
         errFinish: null,
     });
-
+    const [isLoading, setIsLoading] = useState(false);
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
@@ -97,7 +97,7 @@ export default function AddAssignmentEssay() {
                 formData.append(i[0], i[1]);
             }
         }
-
+        setIsLoading(true);
         axios({
             method: 'post',
             url: 'http://localhost:8081/api/assignment/',
@@ -108,7 +108,7 @@ export default function AddAssignmentEssay() {
         })
             .then((res) => {
                 console.log(res);
-
+                setIsLoading(false);
                 if (res.data.err === 0) {
                     notifySuccess('Thêm bài tập thành công!');
                     setTimeout(() => {
@@ -265,6 +265,11 @@ export default function AddAssignmentEssay() {
                 <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>
             </form>
             <ToastContainer />
+            {isLoading && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                </div>
+            )}
         </div>
     );
 }

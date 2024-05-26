@@ -25,7 +25,7 @@ export default function EditAssignment() {
     const [assignment, setAssignment] = useState({});
 
     const [classData, setClassData] = useState([]);
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         axios
             .get('http://localhost:8081/api/class/', {
@@ -67,6 +67,7 @@ export default function EditAssignment() {
 
             formData.append(i[0], i[1]);
         }
+        setIsLoading(true);
 
         axios({
             method: 'put',
@@ -77,6 +78,7 @@ export default function EditAssignment() {
             data: formData,
         })
             .then((res) => {
+                setIsLoading(false);
                 notifySuccess('Sửa bài tập thành công!');
                 setTimeout(() => {
                     navigate('/home/assignment');
@@ -197,6 +199,11 @@ export default function EditAssignment() {
                 </div>
                 <button className="btn btn-success px-5 py-2 float-right">Lưu Bài Tập</button>
             </form>
+            {isLoading && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                </div>
+            )}
         </div>
     );
 }
