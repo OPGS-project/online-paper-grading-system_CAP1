@@ -632,14 +632,25 @@ function EditGradedAssignment() {
 
     const undo = () => {
         if (editor.canvas._objects.length > 0) {
-            history.push(editor.canvas._objects.pop());
+            const lastObject = editor.canvas._objects.pop();
+            if (lastObject.textboxType === 'score') {
+                const scoreValue = parseFloat(lastObject.text);
+                setTotalScore(prevTotal => prevTotal - scoreValue);
+            }
+            history.push(lastObject);
+            editor.canvas.renderAll();
         }
-        editor.canvas.renderAll();
     };
 
     const redo = () => {
         if (history.length > 0) {
-            editor.canvas.add(history.pop());
+            const lastRemovedObject = history.pop();
+            if (lastRemovedObject.textboxType === 'score') {
+                const scoreValue = parseFloat(lastRemovedObject.text);
+                setTotalScore(prevTotal => prevTotal + scoreValue);
+            }
+            editor.canvas.add(lastRemovedObject);
+            editor.canvas.renderAll();
         }
     };
 

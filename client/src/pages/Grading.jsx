@@ -17,6 +17,7 @@ function Grading() {
     console.log('Assignment id: ' + assignment_id);
 
     const { editor, onReady } = useFabricJSEditor();
+    const [history, setHistory] = useState([]);
     const [downloadLink, setDownloadLink] = useState('');
     const [downloadName, setDownloadName] = useState('');
     const [showAssignmentImage, setShowAssignmentImage] = useState(false);
@@ -26,7 +27,6 @@ function Grading() {
 
     const [submission_id, setSubmission_id] = useState('');
 
-    const history = [];
     const [color, setColor] = useState('#35363a');
     const [cropImage, setCropImage] = useState(true);
 
@@ -166,7 +166,7 @@ function Grading() {
     const saveGradedAssignment = async () => {
         try {
             const canvasDataURL = editor.canvas.toDataURL({ format: 'png' });
-            console.log(canvasDataURL);
+            // console.log(canvasDataURL);
 
             const userComment = comment;
 
@@ -590,14 +590,25 @@ function Grading() {
 
     const undo = () => {
         if (editor.canvas._objects.length > 0) {
-            history.push(editor.canvas._objects.pop());
+            const lastObject = editor.canvas._objects.pop();
+            if (lastObject.textboxType === 'score') {
+                const scoreValue = parseFloat(lastObject.text);
+                setTotalScore(prevTotal => prevTotal - scoreValue);
+            }
+            history.push(lastObject);
+            editor.canvas.renderAll();
         }
-        editor.canvas.renderAll();
     };
 
     const redo = () => {
         if (history.length > 0) {
-            editor.canvas.add(history.pop());
+            const lastRemovedObject = history.pop();
+            if (lastRemovedObject.textboxType === 'score') {
+                const scoreValue = parseFloat(lastRemovedObject.text);
+                setTotalScore(prevTotal => prevTotal + scoreValue);
+            }
+            editor.canvas.add(lastRemovedObject);
+            editor.canvas.renderAll();
         }
     };
 
