@@ -80,7 +80,7 @@ export default function UpdateClass() {
                     navigate(-1);
                 }}
             >
-                <i class="fa-solid fa-arrow-left"></i>
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
             <h1 className="h3 mb-4 text-gray-800 text-center">
                 <i className="fa-regular fa-pen-to-square"></i>
@@ -93,7 +93,7 @@ export default function UpdateClass() {
                         type="text"
                         placeholder="Nhập tên lớp"
                         style={{ fontSize: 16 }}
-                        className="form-control form-control-user "
+                        className="form-control form-control-user"
                         onChange={(e) => setClassData({ ...classData, class_name: e.target.value })}
                         value={classData.class_name}
                         id="className"
@@ -116,7 +116,9 @@ export default function UpdateClass() {
                     <p className="err3"></p>
                 </div>
 
-                <button className="btn btn-success px-5 py-2 float-right">Lưu Lớp</button>
+                <div className="d-flex justify-content-center">
+                    <button className="btn btn-success px-5 py-2">Lưu Lớp</button>
+                </div>
             </form>
             <ToastContainer />
         </div>
