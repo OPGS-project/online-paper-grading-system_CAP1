@@ -180,6 +180,7 @@ function GradingShort() {
     return (
         <div className="container-fluid" style={{ display: "flex", width: "100%" }}>
             {dataSubmit.map((item, index) => (
+    
                 <div className="content-container-short" style={{ flex: "column", width: "70%", marginRight: "10px" }} key={index}>
                     <div className="assignment-info-box ">
                         <div className="assignment-info ">
@@ -216,8 +217,10 @@ function GradingShort() {
                                 )}
 
                                 <div className='grading-answer-student'>
-                                    <div className='answer-student' >
-                                        <span>{answer.studentAnswer}</span>
+                                    <div className='answer-student'  >
+                                  
+                                        <span >{answer.studentAnswer}</span>
+                                       
                                     </div>
 
                                     <div className='_grading'>

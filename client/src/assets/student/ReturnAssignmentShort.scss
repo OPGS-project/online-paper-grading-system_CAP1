@@ -62,7 +62,14 @@
 
           .question{
             width: 80%;
+            color: #000;
+           
+            
           }
+        }
+        .teacher-answer-return{
+            font-style: italic;
+            padding: 20px;
         }
         .answer-return{
           display: flex;

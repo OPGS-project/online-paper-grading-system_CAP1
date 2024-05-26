@@ -15,7 +15,7 @@ function Statis() {
     const [noData, setNoData] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
     const [userData, setUserData] = useState({
-        labels: ['1-4 điểm', '5-7 điểm', '8-10 điểm'],
+        labels: ['0-4 điểm', '5-7 điểm', '8-10 điểm'],
         datasets: [
             {
                 label: '',
@@ -45,7 +45,7 @@ function Statis() {
 
         data.forEach((item) => {
             const score = item.score_value;
-            if (score >= 1 && score <= 4) scoreCounts[0]++;
+            if (score >= 0 && score <= 4) scoreCounts[0]++;
             else if (score > 4 && score <= 7) scoreCounts[1]++;
             else if (score > 7 && score <= 10) scoreCounts[2]++;
         });
@@ -128,7 +128,7 @@ function Statis() {
         const barLabel = userData.labels[index];
         const details = detailedData.filter(item => {
             const score = item.score_value;
-            if (barLabel === '1-4 điểm') return score >= 1 && score <= 4;
+            if (barLabel === '0-4 điểm') return score >= 0 && score <= 4;
             if (barLabel === '5-7 điểm') return score > 4 && score <= 7;
             if (barLabel === '8-10 điểm') return score > 7 && score <= 10;
             return false;

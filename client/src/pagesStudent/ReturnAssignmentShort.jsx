@@ -92,28 +92,37 @@ function ReturnAssignmentShort() {
                         
                         {selectedSubmission && (
                             <div className='return-assign'>
-                                <div className='title-return-assign'>
+                                {/* <div className='title-return-assign'>
                                     <div className='line'> </div>
                                      <h3>{selectedSubmission.assignment_name}</h3>
-                                </div>
+                                </div> */}
                                 <div className='container-return-assign'>
                                     {question.map((item,index) => (
                                         <div className='content-return-assign'  key={index}>
                                             <div className='question-return'>
                                                 <div className='question' >
-                                                    <span>Câu {index +1} : {item.question} </span>
+                                                    <span ><b>Câu {index +1}:</b> {item.question}</span> 
+                                                    
                                                 </div>
                                                 <div style={{width:"20%",float:"right"}}> 
                                                     <span style={{float:"right"}} > {item.point}/{item.grade} </span>
                                                 </div>
                                             </div>
+                                            <div className='teacher-answer-return'>
+                                                    <span>Đáp chính xác : {item.teacherAnswer}</span>
+                                            </div>
                                             {item.point === 0 ? (
+                                               <>
+                                               
                                                 <div  style = {{backgroundColor:"rgb(252, 232, 230)"}} className='answer-return' >
                                                     <span style={{padding:"10px"}}> {item.studentAnswer} </span>
                                                     <i style={{color:"red"}} class="fa-solid fa-xmark"></i>
                                                 </div>
+                                               </>
                                             ):(
+                                                
                                                 <div style = {{backgroundColor:"rgb(185, 252, 185)"}}  className='answer-return' >
+                                                    
                                                     <span className='answer' >{item.studentAnswer} </span>
                                                     <i style={{color:"rgb(17, 240, 17)"}} class="fa-solid fa-check"></i>
                                                 </div>

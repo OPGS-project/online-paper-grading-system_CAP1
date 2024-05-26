@@ -110,8 +110,8 @@ export default function DoAssignmentShort() {
   return (
     <div className="container-fluid exam-short-assignment">
       <div className="header-short-assignment">
-        <h3 className="h3 mb-2 text-gray-800">Tên bài tập: {assignment.assignment_name}</h3> 
-        <h3 className='h3 mb-2 text-gray-800'>{moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}</h3>
+        <p className="header-infor">Tên bài tập: {assignment.assignment_name}</p> 
+        <p className='header-infor'>Hạn nộp bài: {moment(assignment.deadline).format('DD-MM-YYYY HH:mm a')}</p>
       </div>
 
       {Array.isArray(question.questions) && question.questions.map((item,index) => (

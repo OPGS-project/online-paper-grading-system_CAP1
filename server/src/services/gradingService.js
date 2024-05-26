@@ -45,7 +45,7 @@ export const saveGradedAssignmentShortService = (body) =>
         answer_short_json: body.answer_short_json,
         // points:JSON.stringify(body.points)
       });
-      console.log("point:", body.points)
+    
       resolve({
         err: response ? 0 : 1,
         mes: response
