@@ -78,7 +78,7 @@ function GradingShort() {
         for (let key in points) {
             sum += points[key] || 0;
         }
-        setTotal(sum);
+        setTotal(sum.toFixed(2));
     }, [points]);
 
     const handleSaveGraded = async () => {
