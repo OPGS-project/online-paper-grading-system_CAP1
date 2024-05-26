@@ -22,6 +22,7 @@ function EditGradedShort() {
     const [idGrading ,setIdGrading] = useState('')
     const [idStudent ,setIdStudent] = useState('')
     const [idAssignment,setIdAssignment] = useState('')
+    const [idSubmission,setIdSubmission] = useState('')
     console.log(idGrading)
     console.log(idAssignment)
     useEffect(() => {
@@ -29,11 +30,11 @@ function EditGradedShort() {
             try {
                 const response = await axios.get(`http://localhost:8081/api/gradingShort/${params.id}/${params.student_name}`);
                 const responseData = response.data.response[0];
-
+                console.log(responseData)
                 setDataSubmit(response.data.response);
                 setIdStudent(responseData.student_id)
                 setIdAssignment(responseData.submissionData.assignmentData.id)
-
+                setIdSubmission(responseData.submissionData.id)
 
                 const parseQuestion = JSON.parse(responseData.answer_short_json);
                 setAnswerStudent(parseQuestion);
@@ -111,7 +112,7 @@ function EditGradedShort() {
 
             const data = {
                 student_id: parseInt(idStudent, 10),
-                submission_id: idSubmit,
+                submission_id: idSubmission,
                 score_value: total,
                 comments: "aaaa",
                 answer_short_json: JSON.stringify(updatedAnswerStudent),

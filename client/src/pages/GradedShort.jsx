@@ -108,7 +108,7 @@ function GradedShort() {
                                     <td>
                                         <button className='btn btn-link' onClick={() => openModal(data)}>xem bài</button>
                                     </td>
-                                    <td></td>
+                                    <td>{moment(data.createdAt).format('DD-MM-YYYY HH:mm a')}</td>
                                     <td style={{ color: 'red', fontWeight: 500 }}>{data.score_value}</td>
                                     <td title="Chấm lại">
                                         <Link 

@@ -442,7 +442,7 @@ export const getGradeShort = (submissionId, student_name) =>
           {
             model: db.Submit_short,
             as: "submissionData",
-            attributes: ["answer_short", "student_id", "submission_time"],
+            attributes: ["answer_short", "student_id", "submission_time","id"],
             include: [
               {
                 model: db.Assignment,
@@ -482,6 +482,7 @@ export const getGradeShort = (submissionId, student_name) =>
             answer_short: grading.submissionData.answer_short,
             student_id: grading.submissionData.student_id,
             submission_time: grading.submissionData.submission_time,
+            submission_id:grading.submissionData.id,
             assignmentData: {
               id: grading.submissionData.assignmentData.id,
               assignment_name: grading.submissionData.assignmentData.assignment_name,
@@ -514,10 +515,10 @@ export const getGradeShort = (submissionId, student_name) =>
 //UPDATE Grade short assignment
 export const updateGradedShortAssignment = (gradeId, body) =>
   new Promise(async (resolve, reject) => {
-    // console.log(gradeId)
+    console.log(body)
     try {
       const response = await db.Grade_short.update(body, {
-        where: { id: gradeId, },
+        where: { id: gradeId},
       });
 
       resolve({
