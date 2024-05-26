@@ -37,7 +37,7 @@ function AssignmentShort() {
                 const response = await axios.get(`http://localhost:8081/api/checkDoAssignShort/${assignmentId}/${studentId}`);
                 return response.data.message;
             } catch (error) {
-                console.error("Không tìm được", error);
+                console.error("Lỗi", error);
                 return "Làm bài"; 
             }
         };
