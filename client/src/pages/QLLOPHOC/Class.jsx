@@ -248,7 +248,7 @@ export default function Class() {
             </div>
 
             {/* Confirmation Modal */}
-            <Modal show={state.showConfirmationModal} onHide={handleConfirmationModalClose} centered>
+            <Modal show={state.showConfirmationModal} onHide={handleConfirmationModalClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Xác nhận</Modal.Title>
                 </Modal.Header>
