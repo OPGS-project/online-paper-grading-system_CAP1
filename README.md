@@ -1,8 +1,8 @@
-# Online Paper Grading System
+# Smart Grading System
 
 ## Description
 
-The goal of the project “Online Paper Grading System” lies in providing a convenient, effective solution to solve problems of managing assignments, classes and students in an educational environment.
+The goal of the project “Smart Grading System” lies in providing a convenient, effective solution to solve problems of managing assignments, classes and students in an educational environment.
 The system is designed for users who are teachers and students. It is built using [ReactJS](https://react.dev)
 
 ## Installation
@@ -15,7 +15,7 @@ The system is designed for users who are teachers and students. It is built usin
 https://github.com/OPGS-project/online-paper-grading-system_CAP1.git
 ```
 
-- Checkout brach `developer_han`
+- Checkout brach `develop_linh`
 - Run `npm install` in the client(website) directory
 
 ```bash
@@ -33,8 +33,16 @@ npm install
 cd server
 npm install
 ```
-
+INSTALLATION PYTHON LIBRARY
+python -m pip install nltk
+python -m pip install scikit-learn
+and edit 128 lines of gradingContrller.js 
+example:('D:\\Cap1\\online-paper-grading-system_CAP1\\server\\src\\services\\calculateSimilarityService.py',) // Update later
 3. Database
+Migrate the database: npx sequelize db:migrate
+cd ..
+edit env and config
+
 
 - Download [xampp](https://www.apachefriends.org/download.html)
 - Open `xampp`, click on `start` of `Apache` and `MySQL`, click on `Admin` of `MySQL`
