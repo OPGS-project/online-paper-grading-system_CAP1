@@ -728,6 +728,8 @@ function EditGradedAssignment() {
                                 <input
                                     className="col-3 mx-2 form-control "
                                     type="number"
+                                    min={0}
+                                    max={10}
                                     value={totalScore}
                                     onChange={(e) => setTotalScore(e.target.value)}
                                 />
